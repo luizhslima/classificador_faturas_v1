@@ -96,6 +96,3 @@ Thumbs.db
 !.vscode/settings.json
 !.vscode/launch.json
 !.vscode/extensions.json
-
-
-git submodule add https://github.com/luizhslima/classificador_faturas_v1.git web
