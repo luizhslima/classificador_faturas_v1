@@ -1,0 +1,98 @@
+﻿# ------------------------------
+# Secrets and environment files
+# ------------------------------
+.env
+.env.*
+*.env
+env
+
+# Keep only explicit examples if needed
+!.env.example
+
+# ------------------------------
+# Python
+# ------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+.venv/
+venv/
+ENV/
+env/
+
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pyre/
+.hypothesis/
+.tox/
+.nox/
+
+.ipynb_checkpoints/
+
+# ------------------------------
+# Data and local artifacts
+# ------------------------------
+data/
+notebooks/output/
+notebooks/mlflow.db
+
+# Common data/output formats
+*.sqlite
+*.sqlite3
+*.db
+*.parquet
+*.feather
+*.h5
+*.hdf5
+*.pkl
+*.joblib
+
+mlruns/
+artifacts/
+models/
+checkpoints/
+
+# ------------------------------
+# Logs and temporary files
+# ------------------------------
+*.log
+logs/
+tmp/
+temp/
+*.tmp
+*.bak
+
+# ------------------------------
+# Node.js / Frontend
+# ------------------------------
+node_modules/
+.pnpm-store/
+.npm/
+.next/
+out/
+dist/
+coverage/
+
+# ------------------------------
+# Java / Gradle
+# ------------------------------
+.gradle/
+**/build/
+**/bin/
+*.class
+
+# ------------------------------
+# IDE and OS files
+# ------------------------------
+.idea/
+.DS_Store
+Thumbs.db
+
+# VS Code: ignore local workspace-only settings, keep shared ones
+.vscode/*
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/extensions.json

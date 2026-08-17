@@ -1,0 +1,33 @@
+--extra-index-url https://download.pytorch.org/whl/cu126
+pandas==2.2.1
+scikit-learn
+fastapi
+uvicorn
+numpy==1.26.4
+Pillow
+kaggle
+requests
+kagglehub
+kagglesdk
+huggingface_hub
+# ==========================================
+# 4. ESTADO DA ARTE (TRANSFORMERS E IA GENERATIVA)
+# ==========================================
+torch           # Motor matemático por trás das redes neurais
+transformers   # Ecossistema Hugging Face (para o ByT5)
+accelerate    # Necessário para rodar/treinar modelos da Hugging Face com eficiência
+sentencepiece  # Tokenizador utilizado por baixo dos panos pelo T5/ByT5
+torchvision
+
+paddlepaddle-gpu @ https://paddle-qa.bj.bcebos.com/paddle-pipeline/Develop-TagBuild-Training-Windows-Gpu-Cuda12.9-Cudnn9.9-Trt10.5-Mkl-Avx-VS2019-SelfBuiltPypiUse/86d658f56ebf3a5a7b2b33ace48f22d10680d311/paddlepaddle_gpu-3.0.0.dev20250717-cp312-cp312-win_amd64.whl ; sys_platform == 'win32'
+padleocr
+
+pytest
+
+pytest-asyncio
+
+pytest-cov
+
+price-parser
+
+#pip install --force-reinstall torch torchvision --index-url https://download.pytorch.org/whl/cu126

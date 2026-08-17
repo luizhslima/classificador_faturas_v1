@@ -1,0 +1,71 @@
+# API e servidor
+fastapi>=0.115,<1
+uvicorn[standard]>=0.34,<1
+pydantic>=2.10,<3
+pydantic-settings>=2.8,<3
+python-dotenv>=1.0,<2
+httpx>=0.27,<1
+python-multipart>=0.0.20,<1
+orjson>=3.10,<4
+
+# RAG, LLM e orquestração
+langchain>=1.1,<2
+langchain-core>=1.3.2,<2
+langchain-community
+langchain-openai>=1.2,<2
+langchain-ollama>=1.1,<2
+langchain-pinecone>=0.2,<1
+langchain-text-splitters>=1.1,<2
+langchain-nomic
+langgraph>=1.0,<2
+openai>=2.26,<3
+ollama>=0.6,<1
+tiktoken>=0.8,<1
+tenacity>=8.1,<10
+
+
+# Supabase, Postgres e vetores
+supabase>=2.13,<3
+pgvector>=0.3,<1
+psycopg[binary,pool]>=3.2,<4
+sqlalchemy>=2.0,<3
+alembic>=1.15,<2
+
+# Redis
+redis>=5.2,<6
+hiredis>=3.1,<4
+
+# Ingestao e parsing de documentos
+beautifulsoup4>=4.12,<5
+lxml>=5.3,<6
+pypdf>=5.3,<6
+markdown-it-py>=3.0,<4
+
+# Utilitarios
+structlog>=25.1,<26
+rapidfuzz>=3.12,<4
+cachetools>=5.5,<6
+anyio>=4.8,<5
+
+tavily-python>=0.1,<1
+deepagents>=0.5,<1
+
+pinecone>=7,<8
+
+
+PyMuPDF>=1.22,<2
+langchain-postgres
+
+langgraph-cli[inmem]
+
+duckduckgo-search
+
+onnxruntime
+
+rapidocr-onnxruntime
+
+onnxruntime-gpu
+
+duckduckgo-search
+
+ddgs

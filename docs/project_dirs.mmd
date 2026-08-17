@@ -1,0 +1,32 @@
+%%{init: {"themeVariables": {"fontFamily": "arial"}}}%%
+flowchart LR
+    %% Definição de estilos para diferenciar pastas de ficheiros
+    classDef folder fill:#f8f9fa,stroke:#adb5bd,stroke-width:2px,color:#212529,font-weight:bold
+    classDef file fill:#ffffff,stroke:#dee2e6,stroke-width:1px,color:#495057
+
+    %% Raiz do Projeto
+    Root["📦 meu_tcc_faturas"]:::folder
+
+    %% Pasta Infra e Ficheiros
+    Root --- Infra["📁 infra"]:::folder
+    Infra --- f1["📄 docker-compose.yml"]:::file
+    Infra --- f2["📄 setup_minio.sh"]:::file
+
+    %% Pasta API
+    Root --- API["📁 api-ingestao"]:::folder
+    API --- f3["☕ Spring WebFlux / Java"]:::file
+
+    %% Pasta OCR
+    Root --- OCR["📁 worker-ocr"]:::folder
+    OCR --- f4["🐍 python_tesseract.py"]:::file
+    OCR --- f5["🐳 Dockerfile"]:::file
+
+    %% Pasta IA
+    Root --- IA["📁 worker-ia"]:::folder
+    IA --- f6["🧠 byt5_classifier.py"]:::file
+    IA --- f7["🐳 Dockerfile"]:::file
+
+    %% Pasta Notebooks
+    Root --- Notes["📁 notebooks"]:::folder
+    Notes --- f8["📓 01_exploracao.ipynb"]:::file
+    Notes --- f9["📓 02_fine_tuning.ipynb"]:::file

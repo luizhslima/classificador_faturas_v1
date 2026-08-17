@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: service-ingestao
+  kafka:
+    bootstrap-servers: 192.168.15.18:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: false
+
+app:
+  kafka:
+    topic: datalake-bronze-ingestao-topic
+
+datalake:
+  minio:
+    endpoint: http://192.168.15.18:9000
+    bucket-name: bronze-raw

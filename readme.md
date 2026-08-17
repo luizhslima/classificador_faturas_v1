@@ -1,0 +1,1 @@
+pip install "pyiceberg[s3fs,sql-postgres]" pyarrow torch transformers
