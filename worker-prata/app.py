@@ -3,10 +3,9 @@ import logging
 from kafka import KafkaConsumer
 from kafka.errors import KafkaError
 from kafka.consumer.subscription_state import ConsumerRebalanceListener
-from minio import Minio
-from modules.minioconfig import conectar_minio
-from modules.parsers import save_csv_nubank
-from modules.bitparser import fatura_nubank_parser
+from modules.minioconfig import MinioConnection
+from modules.parsers import save_csv_nubank, save_c6_bank
+from modules.bitparser import fatura_pdfnativo_parser
 from modules.service import Service
 from modules.service_ocr import ServiceRapidOCR
 from io import BytesIO
@@ -27,12 +26,12 @@ DATABASE_URL="postgresql+psycopg2://n8n:n8n_dev_password@192.168.15.18:5433/agen
 
 class RebalanceListener(ConsumerRebalanceListener):
     def on_partitions_assigned(self, assigned):
-        logging.info("Partições atribuídas ao consumer: %s", assigned)
+        logging.info("Partições atribuídas ao consumer: %s", assigned) 
 
     def on_partitions_revoked(self, revoked):
         logging.info("Partições revogadas do consumer: %s", revoked)
 
-def connect_broker(s3Client:Minio):
+def connect_broker(minio_conn: MinioConnection):
     log.info(f"Conectando ao broker: {BOOTSTRAP_SERVERS}")
     log.info(f"Tópico: {TOPIC} | Group ID: {GROUP_ID}")
     service = Service(DATABASE_URL)
@@ -81,22 +80,25 @@ def connect_broker(s3Client:Minio):
                     logging.info(value['idArquivo'])
 
 
-                    stat = s3Client.stat_object('bronze-raw', value['caminhoMinio'])
+                    stat = minio_conn.stat_object('bronze-raw', value['caminhoMinio'])
 
                     if stat.content_type not in ("text/csv", "application/pdf"):
                         log.warning("Formato não suportado: %s", stat.content_type)
                         continue
-                    response = s3Client.get_object('bronze-raw',value['caminhoMinio'])
-                    try:
-                        if stat.content_type == "text/csv":
-                           save_csv_nubank(BytesIO(response.read()), service, stat)
+                    
+                    with minio_conn.get_object_stream('bronze-raw', value['caminhoMinio']) as response:
+                        file_bytes = BytesIO(response.read())
+                        if stat.content_type == "text/csv" and stat.metadata.get('X-Amz-Meta-Source-Context', 'desconhecido') == 'nubank':
+                            save_csv_nubank(file_bytes, service, stat)
+                                                    
+                        if stat.content_type == "text/csv" and stat.metadata.get('X-Amz-Meta-Source-Context', 'desconhecido') == 'c6':
+                            save_c6_bank(file_bytes, service, stat)
 
                         if stat.content_type == "application/pdf":
                             serviceOCR = ServiceRapidOCR()
-                            fatura_nubank_parser(serviceOCR, BytesIO(response.read()), service, stat)
-                    finally:
-                        response.close()
-                        response.release_conn()
+                            fatura_pdfnativo_parser(serviceOCR, file_bytes, service, stat)
+                        
+                        
     except KeyboardInterrupt:
         log.info("Encerrando consumer...")
     finally:
@@ -104,10 +106,12 @@ def connect_broker(s3Client:Minio):
         log.info("Consumer encerrado.")
 
 def app():
-    s3Client: Minio |  None = conectar_minio()
-    if s3Client is None:
-       raise ValueError("Nao foi posivel conectar no S3/Minio")
-    connect_broker(s3Client)
+    try:
+        minio_conn = MinioConnection()
+        connect_broker(minio_conn)
+    except Exception as e:
+        log.error("Não foi possível conectar ou inicializar o worker: %s", e)
+        raise
 
 
 if __name__ == "__main__":

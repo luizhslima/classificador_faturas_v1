@@ -14,6 +14,7 @@ import java.util.Map;
 
 import com.api.service.ingestao.application.port.in.PublicarArquivoCommand;
 import com.api.service.ingestao.application.port.in.PublicarArquivoUseCase;
+import com.api.service.ingestao.domain.model.types.SourceContext;
 
 import reactor.core.publisher.Mono;
 
@@ -34,7 +35,8 @@ public class ArquivoHandler {
             }
 
             Part sourcePart = multipartData.getFirst("source");
-            String sourceContext = sourcePart instanceof FormFieldPart field ? field.value() : "origem-desconhecida";
+            SourceContext sourceContext = SourceContext.fromCodigo(
+                    sourcePart instanceof FormFieldPart field ? field.value() : "origem-desconhecida");
 
             return DataBufferUtils.join(filepart.content())
                     .flatMap(dataBuffer -> {

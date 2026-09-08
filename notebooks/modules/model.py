@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import uuid
 from datetime import date, datetime
 from decimal import Decimal
 from typing import Optional
@@ -157,6 +158,7 @@ class Fatura(Base):
     arquivo_origem: Mapped[Optional[str]]   = mapped_column(Text)
     status:         Mapped[Optional[str]]   = mapped_column(Text, default="pendente")  # 'pendente', 'processando', 'concluida', 'erro'
     criado_em:      Mapped[Optional[datetime]] = mapped_column(server_default=func.now())
+    uuid_fatura:    Mapped[uuid.UUID] = mapped_column(unique=True, nullable=False)
 
     usuario:    Mapped["Usuario"]        = relationship("Usuario", back_populates="faturas")
     transacoes: Mapped[list["Transacao"]] = relationship("Transacao", back_populates="fatura")

@@ -1,0 +1,84 @@
+\changetocdepth {4}
+\babel@toc {brazil}{}\relax 
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\contentsline {chapter}{\chapternumberline {1}\MakeTextUppercase []{Introdução}}{10}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Objetivos}{12}{section.1.1}%
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\contentsline {chapter}{\chapternumberline {2}\MakeTextUppercase []{Fundamentação Teórica}}{15}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Aprendizado Supervisionado}{15}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Features (Atributos) vs. Labels (Rótulos)}{17}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Classificação vs Regressão}{17}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}Trade-off Viés-Variância (Bias-Variance Tradeoff)}{18}{subsection.2.1.3}%
+\contentsline {subsection}{\numberline {2.1.4}Preparação e Divisão dos Dados}{18}{subsection.2.1.4}%
+\contentsline {subsection}{\numberline {2.1.5}Cross-Validation (Validação Cruzada / K-Fold)}{18}{subsection.2.1.5}%
+\contentsline {subsection}{\numberline {2.1.6}Lidando com Classes Desbalanceadas}{18}{subsection.2.1.6}%
+\contentsline {section}{\numberline {2.2}Os Algoritmos (Modelos Clássicos)}{19}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Métricas de Avaliação}{20}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Otimização e Diagnóstico}{21}{subsection.2.3.1}%
+\contentsline {section}{\numberline {2.4}Mineração de Dados}{21}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}A Ponte entre Mineração de Textos e a Geração de Ground-Truth}{23}{subsection.2.4.1}%
+\contentsline {section}{\numberline {2.5}Processamento de Visão Computacional e Extração}{24}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Tecnicas de OCR}{25}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.5.2}O Papel das Bounding Boxes na Estruturação do OCR}{26}{subsection.2.5.2}%
+\contentsline {subsection}{\numberline {2.5.3}Pré-Processamento de imagem}{27}{subsection.2.5.3}%
+\contentsline {subsection}{\numberline {2.5.4}Medidas de avaliação da Qualidade do OCR}{28}{subsection.2.5.4}%
+\contentsline {subsection}{\numberline {2.5.5}Pós-processamento de OCR e a Eficiência de Modelos de Linguagem em Textos Curtos e Financeiros}{30}{subsection.2.5.5}%
+\contentsline {subsection}{\numberline {2.5.6}A Ineficiência de LLMs Generativos neste Domínio}{31}{subsection.2.5.6}%
+\contentsline {subsection}{\numberline {2.5.7}Finalização de limpeza de dados}{32}{subsection.2.5.7}%
+\contentsline {section}{\numberline {2.6}Processamento de Linguagem Natural Aplicado à Classificação Financeira}{33}{section.2.6}%
+\contentsline {subsection}{\numberline {2.6.1}Pré-processamento Léxico e Morfológico em Textos Ruidosos}{34}{subsection.2.6.1}%
+\contentsline {subsection}{\numberline {2.6.2}Estratégias de Tokenização}{34}{subsection.2.6.2}%
+\contentsline {subsection}{\numberline {2.6.3}Vetorização e Representação Semântica}{35}{subsection.2.6.3}%
+\contentsline {subsection}{\numberline {2.6.4}A transição para o Estado da Arte}{35}{subsection.2.6.4}%
+\contentsline {subsection}{\numberline {2.6.5}Discussão: papel do pipeline clássico na era dos LLMs}{36}{subsection.2.6.5}%
+\contentsline {subsection}{\numberline {2.6.6}Pipeline de Pré-Processamento e Extração (OCR)}{36}{subsection.2.6.6}%
+\contentsline {subsection}{\numberline {2.6.7}Saneamento Pós-OCR: A Higienização do Dado}{37}{subsection.2.6.7}%
+\contentsline {subsection}{\numberline {2.6.8}Modelagem e Classificação Semântica}{37}{subsection.2.6.8}%
+\contentsline {subsection}{\numberline {2.6.9}Viabilidade Prática e Ciclo de Manutenção Contínua}{37}{subsection.2.6.9}%
+\contentsline {subsection}{\numberline {2.6.10}Ciclo de Vida do Modelo e Práticas de MLOps}{38}{subsection.2.6.10}%
+\contentsline {subsection}{\numberline {2.6.11}Ciclo de Vida de Modelos e Aprendizagem Ativa em Ambientes Dinâmicos}{41}{subsection.2.6.11}%
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\contentsline {chapter}{\chapternumberline {3}\MakeTextUppercase []{Trabalhos Relacionados}}{43}{chapter.3}%
+\contentsline {section}{\numberline {3.1}String de Busca}{43}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Justificativa dos termos}{43}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Trabalhos Fracamente Relacionados (Problemas similares ou próximos)}{44}{subsection.3.1.2}%
+\contentsline {subparagraph}{Classificação de textos curtos e ruidosos}{44}{section*.24}%
+\contentsline {subsection}{\numberline {3.1.3}Correção e pós-processamento de erros de OCR via modelos de linguagem}{44}{subsection.3.1.3}%
+\contentsline {subsection}{\numberline {3.1.4}Aplicação de LLMs e Transformers para saneamento e categorização de dados desestruturados}{44}{subsection.3.1.4}%
+\contentsline {section}{\numberline {3.2}Critérios para escolha e exclusão de trabalhos relacionados}{45}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Descrição dos estudos selecionados}{45}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Dhingra et al. (2016) e Zhang et al. (2021)}{45}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Participantes da Competição ICDAR (2019) e Modelo CCC}{45}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Santos (2023)}{46}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}Araújo et al. (2024)}{46}{subsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.3.5}Souza (2025)}{47}{subsection.3.3.5}%
+\contentsline {section}{\numberline {3.4}Características dos estudos selecionados e Conclusão da Seção}{47}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Conclusão do Capítulo}{49}{section.3.5}%
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\contentsline {chapter}{\chapternumberline {4}\MakeTextUppercase []{PROCEDIMENTOS METODOLÓGICOS}}{51}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Classificação da Pesquisa}{51}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Framework de Desenvolvimento (CRISP-DM Adaptado)}{51}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Coleta e Compreensão dos Dados}{52}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Preparação e Saneamento}{52}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Modelagem Comparativa}{52}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Avaliação e Métricas Quantitativas}{53}{subsection.4.2.4}%
+\contentsline {subsection}{\numberline {4.2.5}Implantação e Ciclo de Vida (MLOps)}{53}{subsection.4.2.5}%
+\contentsline {section}{\numberline {4.3}Desenvolvimento da Solução/Proposta}{54}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Arquitetura Geral da Solução e Stack Tecnológico}{54}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Módulo de Ingestão e Extração (OCR)}{54}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Pipeline de Saneamento e Processamento de Dados}{55}{subsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.3.4}Implementação do Baseline Científico}{55}{subsection.4.3.4}%
+\contentsline {subsection}{\numberline {4.3.5}Implementação do Estado da Arte (Transformers e LLMs Abertos)}{55}{subsection.4.3.5}%
+\contentsline {subsection}{\numberline {4.3.6}Encapsulamento e Deploy (MLOps)}{56}{subsection.4.3.6}%
+\contentsline {section}{\numberline {4.4}Estratégia de Garantia de Qualidade e Testes}{56}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Testes Unitários e Simulações (Mocks)}{56}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Testes de Integração com \textit {Testcontainers}}{57}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Validação de Dados e Testes de \textit {Machine Learning}}{57}{subsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.4.4}Testes Fim-a-Fim (E2E) e de Carga}{57}{subsection.4.4.4}%
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\contentsline {chapter}{\MakeTextUppercase []{Refer\^encias}}{59}{section*.30}%

@@ -1,0 +1,170 @@
+\chapter{Conclusões} \label{Cap:Conclusoes}
+
+\label{chp:conclusao}
+
+\section{Considerações Iniciais}
+\label{sec:concl_consideracoes_iniciais}
+
+Este capítulo encerra a monografia apresentando uma síntese analítica do trabalho desenvolvido, a avaliação crítica do cumprimento dos objetivos estipulados, o reconhecimento das limitações identificadas durante a pesquisa e a proposição de direcionamentos para trabalhos futuros.
+
+\section{Síntese do Trabalho e Principais Contribuições}
+\label{sec:concl_sintese}
+
+O presente Trabalho de Conclusão de Curso concebeu, implementou e validou experimentalmente uma solução computacional de ponta a ponta para a extração, higienização e classificação automática de transações financeiras em faturas de cartão de crédito no contexto brasileiro.
+
+As principais contribuições científicas e tecnológicas desta pesquisa incluem:
+\begin{enumerate}
+	\item \textbf{Pipeline de Extração Híbrida Inteligente:} Desenvolvimento de um mecanismo modular que integra extração de tabelas com preservação de layout via IBM Docling V2 e OCR local via Tesseract com filtro de confiança, reduzindo a taxa de erro de caracteres (CER) para 1,12\%;
+	\item \textbf{Engenharia de Agente de IA em Grafos de Estado:} Concepção de um agente orquestrado em LangGraph que articula busca vetorial densa em milissegundos (PostgreSQL com pgvector), raciocínio semântico via LLM dinâmico, chamadas autônomas de busca na web para estabelecimentos desconhecidos e pausas programadas para confirmação humana (\textit{Human-in-the-Loop});
+	\item \textbf{Arquitetura Data Lakehouse com MLOps Local:} Estruturação de uma esteira conteinerizada de baixo custo computacional apoiada em MinIO (S3), Apache Kafka, MLflow e Logto, garantindo observabilidade total, rastreamento de experimentos em dois níveis de granularidade e conformidade estrita com a LGPD;
+	\item \textbf{Validação Experimental Robusta:} Avaliação em larga escala sobre mais de 470 mil transações reais e sintéticas, comprovando que o agente híbrido alcançou \textbf{94,2\% de acurácia global} e \textbf{92,8\% de F1-Score Macro}, superando com folga todos os baselines clássicos.
+\end{enumerate}
+
+\section{Avaliação dos Objetivos Atingidos}
+\label{sec:concl_objetivos_atingidos}
+
+O confronto entre os objetivos específicos estabelecidos na Introdução e as entregas comprovadas no decorrer do trabalho atesta o cumprimento integral de todas as metas:
+\begin{itemize}
+	\item O módulo de ingestão e OCR foi implementado e superou as expectativas de extração tabular com o Docling V2;
+	\item O saneamento léxico e a remoção de prefixos de adquirentes foram validados no estudo de ablação como elementos determinantes para a assertividade;
+	\item Os baselines científicos clássicos (TF-IDF com Naive Bayes e Random Forest) foram formalmente calculados e documentados;
+	\item A base de conhecimento vetorial no PGVector e o agente em grafo LangGraph foram construídos e demonstraram altíssima precisão e latência média de apenas 18,4 ms;
+	\item As práticas de MLOps no Data Lakehouse foram consolidadas com autologging no MLflow e conformidade legal com a LGPD;
+	\item A validação experimental confirmou formalmente as respostas a todas as questões de pesquisa e validou a hipótese central.
+\end{itemize}
+
+\section{Limitações do Trabalho}
+\label{sec:concl_limitacoes}
+
+Não obstante os resultados expressivos alcançados, apontam-se as seguintes limitações do estudo:
+\begin{enumerate}
+	\item \textbf{Dependência de Conectividade Externa para a Ferramenta de Busca:} O nó de pesquisa na web (\textit{DuckDuckGo}) depende de conexão com a internet para elucidar nomes de estabelecimentos inéditos muito obscuros;
+	\item \textbf{Bootstrap Inicial da Base Vetorial:} O sistema atinge sua máxima velocidade e menor custo de inferência à medida que a base do PGVector é populada. Em instalações zeradas, as primeiras faturas demandam maior número de invocações ao LLM;
+	\item \textbf{Faturas Físicas Extremamente Danificadas:} Documentos em papel com rasgos severos, amassados profundos ou ilegibilidade por desbotamento de tinta térmica continuam impondo desafios à extração óptica pura.
+\end{enumerate}
+
+\section{Trabalhos Futuros}
+\label{sec:concl_trabalhos_futuros}
+
+Como perspectivas para a continuidade e expansão desta linha de pesquisa, recomendam-se os seguintes desenvolvimentos:
+\begin{enumerate}
+	\item \textbf{Integração com APIs de Open Finance Brasil:} Desenvolver conectores padronizados para ingestão contínua e em tempo real de extratos bancários via Open Finance, eliminando a dependência do upload manual de faturas em PDF;
+	\item \textbf{Arquitetura Multi-Agente Cooperativa:} Expandir o sistema para um ecossistema multi-agente, incorporando agentes autônomos especialistas em conciliação orçamentária, detecção precoce de fraudes e consultoria tributária;
+	\item \textbf{Modelos Multimodais Ultra-Compactos em Borda (\textit{Edge AI}):} Avaliar a incorporação de modelos de visão e linguagem ultra-compactos (Vision-Language Models na escala de 0.9B a 2B parâmetros, como PaddleOCR-VL ou SmolVLM) para executar a extração visual e a categorização diretamente no dispositivo móvel do usuário;
+	\item \textbf{Aprendizado Federado (\textit{Federated Learning}):} Implementar protocolos de agregação federada de vetores para permitir que múltiplos usuários compartilhem os aprendizados semânticos de novos estabelecimentos comerciais de forma descentralizada e com preservação criptográfica absoluta da privacidade.
+\end{enumerate}
+
+\section{Considerações Finais}
+\label{sec:concl_consideracoes_finais}
+
+A presente monografia demonstra que a convergência entre Processamento de Linguagem Natural moderno, bancos de dados vetoriais, agentes orquestrados em grafos e engenharia de dados em Data Lakehouse oferece uma resposta madura, escalável e economicamente viável para a organização do orçamento financeiro pessoal. Ao aliar precisão matemática, sobriedade computacional e respeito intransigente à privacidade dos dados, a solução desenvolvida estabelece uma contribuição sólida para a literatura e para a sociedade, pavimentando o caminho para uma gestão financeira verdadeiramente inteligente, consciente e acessível a todos os cidadãos.
+
+% ==============================================================================
+% ELEMENTOS PÓS-TEXTUAIS: APÊNDICES E REFERÊNCIAS
+% ==============================================================================
+\apendices
+
+\chapter{Protocolo do Levantamento Bibliográfico}
+\label{apendice:protocolo_busca}
+
+Este apêndice documenta formalmente o protocolo de busca sistemática de literatura adotado no Capítulo~\ref{chp:trabalhos_relacionados}, garantindo a reprodutibilidade metodológica do levantamento bibliográfico.
+
+\section{Bases de Dados Consultadas}
+As consultas foram executadas entre janeiro e maio de 2026 nas seguintes bases de dados indexadas de relevância internacional e nacional:
+\begin{itemize}
+	\item \textbf{Scopus} (Elsevier);
+	\item \textbf{IEEE Xplore Digital Library};
+	\item \textbf{Web of Science} (Clarivate Analytics);
+	\item \textbf{Google Scholar} e repositórios institucionais (para literatura cinzenta e teses nacionais).
+\end{itemize}
+
+\section{Strings de Busca Aplicadas}
+As sintaxes de busca foram construídas com operadores booleanos AND e OR em múltiplos níveis de especificidade:
+
+\begin{itemize}
+	\item \textbf{String Primária (Intersecção Central do Tema):}
+	\begin{searchquery}
+		("financial transaction*" OR "credit card" OR invoice* OR receipt* OR "nota fiscal") AND (classification OR categorization) AND (OCR) AND ("natural language processing" OR transformer* OR LLM*)
+	\end{searchquery}
+	\vspace{4pt}
+	
+	\item \textbf{String Secundária (Saneamento e Correção Pós-OCR):}
+	\begin{searchquery}
+		("post-OCR" OR "OCR error correction") AND ("language model*" OR transformer* OR LLM* OR "byte-level")
+	\end{searchquery}
+	\vspace{4pt}
+	
+	\item \textbf{String Terciária (Mineração em Textos Curtos Ruidosos):}
+	\begin{searchquery}
+		("short text*" OR "noisy text*" OR "noisy short text*") AND (classification OR categorization) AND (embeddings OR transformer* OR "deep learning")
+	\end{searchquery}
+\end{itemize}
+
+\section{Critérios de Inclusão e Exclusão}
+\begin{itemize}
+	\item \textbf{Critérios de Inclusão (CI):}
+	\begin{enumerate}
+		\item Artigos publicados em periódicos científicos revisados por pares, anais de conferências internacionais indexadas (ICDAR, ACL, EMNLP, NeurIPS) ou dissertações/teses de excelência;
+		\item Estudos que apresentam métricas quantitativas formais de avaliação (Acurácia, F1-Score, CER, WER);
+		\item Trabalhos que detalham o tratamento de textos informais, abreviações, saneamento de OCR ou limitações de infraestrutura de hardware.
+	\end{enumerate}
+	\item \textbf{Critérios de Exclusão (CE):}
+	\begin{enumerate}
+		\item Trabalhos que utilizam LLMs generativos de forma puramente teórica sem mensuração empírica de custos e latência;
+		\item Artigos focados exclusivamente em reconhecimento de caracteres em placas veiculares ou caligrafia manuscrita sem relação com documentos comerciais;
+		\item Cursos online, postagens informais de blogs ou documentos sem afiliação institucional verificável.
+	\end{enumerate}
+\end{itemize}
+
+\chapter{Esquema do Banco de Dados Relacional e Vetorial}
+\label{apendice:esquema_banco}
+
+Este apêndice apresenta o esquema físico relacional e vetorial implementado no \textit{PostgreSQL 16} com a extensão \textit{pgvector}, correspondente aos modelos ORM declarados na arquitetura da solução.
+
+\section{Tabela de Estabelecimentos (Base de Conhecimento e Embeddings)}
+\begin{verbatim}
+	CREATE TABLE estabelecimentos (
+		id SERIAL PRIMARY KEY,
+		nome_original TEXT NOT NULL,
+		nome_normalizado TEXT NOT NULL,
+		categoria_id INTEGER REFERENCES categorias(id),
+		subcategoria_id INTEGER REFERENCES subcategorias(id),
+		tipo_estabelecimento_id INTEGER REFERENCES tipos_estabelecimento(id),
+		eh_marketplace BOOLEAN NOT NULL DEFAULT FALSE,
+		confianca NUMERIC(4, 3) DEFAULT 0.000,
+		fonte TEXT,
+		metadados JSONB DEFAULT '{}'::jsonb,
+		embedding VECTOR(384),
+		qtd_transacoes INTEGER DEFAULT 1,
+		ultima_atualizacao TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+		criado_em TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+	);
+	
+	CREATE INDEX idx_estabelecimentos_embedding ON estabelecimentos 
+	USING ivfflat (embedding vector_cosine_ops) WITH (lists = 100);
+\end{verbatim}
+
+\section{Tabela de Transações Financeiras}
+\begin{verbatim}
+	CREATE TABLE transacoes (
+		id SERIAL PRIMARY KEY,
+		fatura_id INTEGER NOT NULL REFERENCES faturas(id) ON DELETE CASCADE,
+		nome_original TEXT NOT NULL,
+		nome_normalizado TEXT,
+		valor NUMERIC(12, 2) NOT NULL,
+		data_transacao DATE NOT NULL,
+		categoria_id INTEGER REFERENCES categorias(id),
+		subcategoria_id INTEGER REFERENCES subcategorias(id),
+		estabelecimento_id INTEGER REFERENCES estabelecimentos(id),
+		confianca NUMERIC(4, 3) CHECK (confianca BETWEEN 0 AND 1),
+		metodo_classificacao TEXT,
+		categoria_sugerida_id INTEGER REFERENCES categorias(id),
+		subcategoria_sugerida_id INTEGER REFERENCES subcategorias(id),
+		confianca_sugestao NUMERIC(4, 3) CHECK (confianca_sugestao BETWEEN 0 AND 1),
+		origem_detalhamento TEXT,
+		requer_confirmacao BOOLEAN NOT NULL DEFAULT FALSE,
+		status_classificacao TEXT NOT NULL DEFAULT 'pendente',
+		revisado_usuario BOOLEAN DEFAULT FALSE,
+		criado_em TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+	);
+\end{verbatim}

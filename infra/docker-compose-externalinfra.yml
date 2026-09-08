@@ -3,6 +3,7 @@
 services:
   postgres-n8n:
     image: pgvector/pgvector:pg16
+    name: postgres-n8n
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-n8n}
       POSTGRES_USER: ${POSTGRES_USER:-n8n}
@@ -16,6 +17,10 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - tcc_network
+
+
   minio:
     image: minio/minio:latest
     container_name: minio_datalake
@@ -36,7 +41,7 @@ services:
     container_name: minio_setup
     depends_on:
       - minio
-    entrypoint: /bin/sh scripts/setup_minio.sh
+    entrypoint: /bin/sh /setup_minio.sh
     volumes:
       - ./scripts/setup_minio.sh:/setup_minio.sh
     networks:
@@ -49,9 +54,11 @@ services:
     environment:
       - MLFLOW_BACKEND_STORE_URI=postgresql://n8n:n8n_dev_password@postgres-n8n:5432/mlops_db
       - MLFLOW_DEFAULT_ARTIFACT_ROOT=s3://mlflow-artifacts/
-      - AWS_ACCESS_KEY_ID=admin
-      - AWS_SECRET_ACCESS_KEY=password
+      - AWS_ACCESS_KEY_ID=admin_tcc
+      - AWS_SECRET_ACCESS_KEY=senha_super_segura
       - MLFLOW_S3_ENDPOINT_URL=http://minio:9000
+      - AWS_DEFAULT_REGION=us-east-1
+      - MLFLOW_SERVER_CORS_ALLOWED_ORIGINS=http://192.168.15.18:5000,http://localhost:5000
     command: >
       mlflow server
       --host 0.0.0.0
@@ -61,6 +68,8 @@ services:
     depends_on:
       - postgres-n8n
       - minio
+    networks:
+      - tcc_network
 
   kafka:
     image: apache/kafka:4.3.0
@@ -71,14 +80,74 @@ services:
     environment:
       KAFKA_NODE_ID: 1
       KAFKA_LISTENERS: INTERNAL://0.0.0.0:29092,EXTERNAL://0.0.0.0:9092,CONTROLLER://0.0.0.0:29093
-      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:29092,EXTERNAL://192.168.15.16:9092
-      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@localhost:29093
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:29092,EXTERNAL://192.168.15.18:9092
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:29093
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT,CONTROLLER:PLAINTEXT
       KAFKA_PROCESS_ROLES: broker,controller
       KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1        # <-- adicionar isso
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1 # <-- e isso
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
     volumes:
     - kafka_data:/opt/kafka/logs
+    networks:
+      - tcc_network
+  
+  n8n:
+    image: n8nio/n8n:latest
+    environment:
+      DB_TYPE: postgresdb
+      DB_POSTGRESDB_HOST: postgres-n8n
+      DB_POSTGRESDB_PORT: 5432
+      DB_POSTGRESDB_DATABASE: ${N8N_DB_NAME:-n8n}
+      DB_POSTGRESDB_USER: ${N8N_DB_USER:-n8n}
+      DB_POSTGRESDB_PASSWORD: ${N8N_DB_PASSWORD:-n8n_dev_password}
+      N8N_HOST: ${N8N_HOST:-localhost}
+      N8N_PORT: ${N8N_PORT:-5678}
+      N8N_PROTOCOL: ${N8N_PROTOCOL:-http}
+      N8N_WEBHOOK_URL: ${N8N_WEBHOOK_URL:-http://192.168.15.18:5678/}
+      GENERIC_TIMEZONE: ${N8N_GENERIC_TIMEZONE:-America/Sao_Paulo}
+      NODE_ENV: development
+      N8N_SECURE_COOKIE: false
+    ports:
+      - "${N8N_PORT:-5678}:5678"
+    volumes:
+      - n8n_data:/home/node/.n8n
+    depends_on:
+      postgres-n8n:
+        condition: service_healthy
+    networks:
+      - tcc_network
+      - default
+    restart: unless-stopped
+  
+
+  logto:
+    image: svhd/logto:latest
+    container_name: logto
+    restart: unless-stopped
+    entrypoint: ["sh", "-c", "node /etc/logto/packages/cli/lib/index.js db seed --db-url $DB_URL || true && npm start"]
+    depends_on:
+      postgres-n8n:
+        condition: service_healthy
+    ports:
+      - "3001:3001"   # Logto App
+      - "3002:3002"   # Admin Console
+    environment:
+      # Banco de dados
+      DB_URL: postgres://n8n:${POSTGRES_PASSWORD:-n8n_dev_password}@postgres-n8n:5432/logto
+      
+      # Endpoints públicos (AJUSTE PARA SEU DOMÍNIO)
+      ENDPOINT: ${ENDPOINT:-http://meulogto.local:3001}
+      ADMIN_ENDPOINT: ${ADMIN_ENDPOINT:-http://meulogto.local:3002}
+      
+      # Portas internas
+      PORT: 3001
+      ADMIN_PORT: 3002
+      
+      # Trust proxy (necessário se usar reverse proxy como Nginx/Traefik)
+      TRUST_PROXY_HEADER: 1
     networks:
       - tcc_network
 
@@ -88,6 +157,8 @@ services:
     depends_on:
       - kafka
     command: ["python", "/scripts/init.py"]
+    networks:
+      - tcc_network
     restart: on-failure
     environment:
       KAFKA_BOOTSTRAP_SERVERS: kafka:29092
@@ -97,6 +168,7 @@ volumes:
   postgres_n8n_data:
   minio_data:
   kafka_data:
+  n8n_data:
 
 networks:
   tcc_network:

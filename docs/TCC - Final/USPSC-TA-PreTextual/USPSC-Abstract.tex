@@ -1,0 +1,38 @@
+%% USPSC-Abstract.tex
+%\autor{Silva, M. J.}
+\begin{resumo}[Abstract]
+ \begin{otherlanguage*}{english}
+	\begin{flushleft} 
+		\setlength{\absparsep}{0pt} % ajusta o espaçamento dos parágrafos do resumo		
+ 		\SingleSpacing  		\imprimirautorabr~~\textbf{\imprimirtitleabstract}.	\imprimirdata.  \pageref{LastPage} p. 
+		%Substitua p. por f. quando utilizar oneside em \documentclass
+		%\pageref{LastPage} f.
+		\imprimirtipotrabalhoabs~-~\imprimirinstituicao, \imprimirlocal, 	\imprimirdata. 
+ 	\end{flushleft}
+	\OnehalfSpacing 
+    Personal financial management faces critical barriers due to the lack of standardization and textual noise present
+   in credit card statement descriptions, such as truncated abbreviations, payment gateway prefixes, and optical
+   character recognition (OCR) errors. This work presents an end-to-end computational solution for the extraction,
+   sanitation, and automatic classification of financial expenses in the Brazilian context, based on Artificial
+   Intelligence, Natural Language Processing (NLP), and data engineering. The proposed methodology combines a hybrid
+   extraction pipeline with structured layout analysis (IBM Docling V2) and local OCR (Tesseract), lexical sanitation
+   routines, and an intelligent agent architecture orchestrated in state graphs (LangGraph). The system integrates
+   dense vector search in milliseconds via PostgreSQL with the pgvector extension (RAG), contextual semantic reasoning
+   with Large Language Models (LLMs), autonomous web search enrichment tools, and a Human-in-the-Loop mechanism for
+   ambiguous transactions, supported by a containerized Data Lakehouse infrastructure and an MLOps pipeline with MLflow,
+   MinIO, and Apache Kafka in strict compliance with the LGPD. Experimental validation was conducted on a corpus of
+   over 470,000 real transactions (Federal Government Payment Card and digital banks) and noisy synthetic data,
+   categorized across 14 canonical classes. Results demonstrated that the structured extractor achieved a character
+   error rate (CER) of 1.12\%, while the hybrid agent reached 94.2\% global accuracy and a 92.8\% Macro F1-Score,
+   significantly outperforming classical baselines (TF-IDF with Naive Bayes and Random Forest) with a weighted average
+   latency of 18.4 ms per transaction. The proposed solution proves the feasibility of modular, reactive, and high-
+   performance AI pipelines under local hardware constraints, enabling accessible intelligent tools for personal budget
+   planning.
+
+   \vspace{\onelineskip}
+ 
+   \noindent 
+   \textbf{Keywords}:Financial Transaction Classification. Natural Language Processing. Intelligent Agents.
+   Retrieval-Augmented Generation. Optical Character Recognition. MLOps. 
+ \end{otherlanguage*}
+\end{resumo}

@@ -18,10 +18,17 @@ mc mb meudatalake/bronze-raw --ignore-existing
 mc mb meudatalake/bronze-txt --ignore-existing
 mc mb meudatalake/silver --ignore-existing
 
+
 echo "=========================================="
 echo "Buckets criados e prontos para uso!"
 echo "=========================================="
 
 mc mb meudatalake/mlops-dvc --ignore-existing
 
-yt-dlp https://www.erome.com/a/apURE5dh & yt-dlp https://www.erome.com/a/3NTv0Y6E & yt-dlp https://www.erome.com/a/jrQroqwm & yt-dlp https://www.erome.com/a/Oc9zS64B & yt-dlp https://www.erome.com/a/QQ8TAif6 & yt-dlp https://www.erome.com/a/I3vEmi1X & yt-dlp https://www.erome.com/a/BMzyfKvD & yt-dlp https://www.erome.com/a/Hg6pD7bD
+docker exec -it postgres-n8n pg_dump -U n8n -d agent -F c -f /tmp/agent.dump
+
+docker cp postgres-n8n:/tmp/agent.dump ./agent.dump
+
+
+scp  luiz@192.168.15.18:/home/luiz/infra-statement-classifier/agent.dump "D:/Luiz Henrique/MBABIGDATA/dbbackups"
+

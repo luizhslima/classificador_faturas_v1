@@ -1,0 +1,123 @@
+\chapter{Fundamentação Teórica} \label{Cap:Fund_Teo}
+
+\label{chp:fundamentacao}
+
+\section{Considerações Iniciais}
+\label{sec:fund_consideracoes_iniciais}
+
+A concepção de uma ferramenta robusta para a interpretação e categorização de faturas financeiras requer o domínio integrado de fundamentos oriundos de múltiplas subáreas da Inteligência Artificial e da Engenharia de Software. Este capítulo estabelece as bases conceituais estritamente instrumentais ao projeto, organizando-se em quatro pilares fundamentais: (i) Mineração de Textos e Processamento de Linguagem Natural; (ii) Visão Computacional, Análise de Layout e Reconhecimento Óptico de Caracteres (OCR); (iii) Arquiteturas Neurais Profundas e Agentes Inteligentes baseados em Grafos; e (iv) Engenharia de Dados, MLOps e Sustentabilidade de Modelos em Produção.
+
+\section{Mineração de Textos e Processamento de Linguagem Natural}
+\label{sec:fund_pln}
+
+O Processamento de Linguagem Natural (PLN) constitui o ramo da Inteligência Artificial dedicado a capacitar sistemas computacionais a compreender, interpretar, manipular e gerar linguagens humanas \cite{BPLN_livro:2024, chowdhury2003natural}. No domínio financeiro, o desafio central da mineração textual reside na natureza não estruturada e altamente degenerada das descrições de compras em cartões de crédito \cite{santos2023classificacao}.
+
+\subsection{Pré-processamento Léxico e Morfológico}
+A primeira barreira técnica na modelagem de textos curtos é a dispersão léxica. A padronização morfológica atua reduzindo a alta dimensionalidade do vocabulário através de operações determinísticas \cite{BPLN_livro:2024}: conversão para caixa baixa (\textit{lowercasing}), normalização de caracteres acentuados via codificação Unicode e aplicação de Expressões Regulares (Regex) para supressão de pontuações, caracteres de controle e símbolos especiais.
+
+Adicionalmente, a literatura enfatiza a remoção de \textit{stopwords} — palavras de alta frequência sem valor semântico discriminativo (artigos, preposições, conjunções) \cite{matos2010pre}. Contudo, listas genéricas universais mostram-se insuficientes no domínio financeiro. É mandatório injetar heurísticas específicas do negócio para remover sufixos de naturezas jurídicas e corporativas (como ``LTDA'', ``S/A'', ``ME'', ``EPP'', ``EIRELI'') e prefixos de liquidação financeira (``COMPRA'', ``PARCELA'', ``DEBITO''), os quais atuam como ruídos que distorcem as distribuições estatísticas \cite{santos2023classificacao}.
+
+\subsection{Estratégias de Tokenização: Da Palavra ao Nível de Byte}
+A tokenização segmenta a cadeia textual contínua em unidades atômicas de processamento denominadas \textit{tokens} \cite{BPLN_livro:2024}. Modelos tradicionais baseados em palavras inteiras (\textit{word-level}) dependem de vocabulários fechados predefinidos. Diante de faturas financeiras, onde erros de digitação, truncamentos e aglutinações são onipresentes, essa abordagem falha sistematicamente devido à explosão de termos fora do vocabulário (\textit{Out-Of-Vocabulary} -- OOV).
+
+Para superar essa fragilidade, o estado da arte avançou para a tokenização em subpalavras (\textit{subwords}, como Byte-Pair Encoding e WordPiece) e, no limite da granularidade, para a tokenização no nível de caractere ou byte \cite{xue2021byt5, zhang2021mineracao}. Modelos que operam diretamente sobre sequências de bytes UTF-8, a exemplo do ByT5 \cite{xue2021byt5}, eliminam completamente o vocabulário fixo. Essa característica confere ao sistema imunidade contra erros ortográficos e capacidade inata de generalizar sobre siglas desconhecidas e nomes comerciais aglutinados (ex.: ``MERCADOPAG*LOJA123'').
+
+\subsection{Vetorização Estatística versus Representações Densas (Embeddings)}
+Para que algoritmos computacionais processem dados textuais, é imperativo convertê-los em representações numéricas vetoriais.
+
+\subsubsection{TF-IDF (Term Frequency-Inverse Document Frequency)}
+A técnica clássica de TF-IDF quantifica a importância de um termo $t$ em um documento $d$ pertencente a um corpus $D$, calculada pelo produto da frequência do termo ($TF$) pelo inverso da frequência no documento ($IDF$) \cite{rajaraman2011mining}:
+\begin{equation}
+	\text{TF-IDF}(t, d, D) = \text{TF}(t, d) \times \log\left(\frac{|D|}{1 + |\{d \in D : t \in d\}|}\right)
+\end{equation}
+Embora gere matrizes esparsas de alta dimensionalidade que desconsideram o contexto e a ordem sintagmática das palavras, o TF-IDF permanece relevante como uma linha de base científica (\textit{baseline}) de referência rápida, interpretável e de baixo custo computacional \cite{santos2023classificacao}.
+
+\subsubsection{Embeddings Densos e Bancos de Dados Vetoriais}
+A superação das limitações esparsas consolidou-se com a semântica distribucional profunda. Modelos como o Sentence-BERT (SBERT) \cite{reimers2019sentence}, implementados através de arquiteturas siamesas de Sentence Transformers (ex.: \texttt{paraphrase-multilingual-MiniLM-L12-v2}), mapeiam sentenças inteiras em vetores densos e contínuos de dimensionalidade fixa (ex.: 384 dimensões).
+
+Nesse espaço vetorial contínuo, a proximidade semântica entre duas transações $u$ e $v$ é mensurada diretamente pela similaridade de cosseno:
+\begin{equation}
+	\text{Simil}(u, v) = \frac{u \cdot v}{\|u\|_2 \|v\|_2} = \frac{\sum_{i=1}^{n} u_i v_i}{\sqrt{\sum_{i=1}^{n} u_i^2} \sqrt{\sum_{i=1}^{n} v_i^2}}
+\end{equation}
+Para viabilizar consultas em milissegundos sobre milhões de registros históricos, utilizam-se extensões vetoriais integradas ao banco de dados relacional, destacando-se a extensão \textit{pgvector} para PostgreSQL. Essa infraestrutura permite implementar mecanismos de Geração Aumentada por Recuperação (\textit{Retrieval-Augmented Generation} -- RAG), onde exemplos canônicos rotulados são recuperados dinamicamente para subsidiar a tomada de decisão do classificador.
+
+\section{Visão Computacional e Inteligência de Documentos}
+\label{sec:fund_visao_ocr}
+
+A Inteligência de Documentos (\textit{Document AI}) integra Visão Computacional e PLN para extrair informações estruturadas de imagens e documentos não nativos \cite{docling2024}.
+
+\subsection{Análise de Layout de Documentos (DLA) e Caixas Delimitadoras}
+A Análise de Layout de Documentos (DLA) é a etapa encarregada de segmentar a imagem da página, identificando blocos lógicos como tabelas, colunas, parágrafos e cabeçalhos. Cada entidade visual é mapeada por coordenadas espaciais denominadas caixas delimitadoras (\textit{bounding boxes}): $[x_{\min}, y_{\min}, x_{\max}, y_{\max}]$.
+
+Em faturas de cartão de crédito, a preservação da topologia e da ordem de leitura é mandatória: a relação espacial de alinhamento horizontal entre o nome do estabelecimento comercial e o seu respectivo valor monetário em reais (R\$) carrega a semântica relacional necessária para isolar a transação e evitar a fusão indevida de dados entre colunas paralelas \cite{drumond2023analise}.
+
+\subsection{Motores de OCR e Ferramentas de Conversão Estruturada}
+\begin{itemize}
+	\item \textbf{Tesseract OCR:} Mecanismo de reconhecimento óptico de código aberto amplamente utilizado \cite{smith2007overview}. Baseia-se em redes neurais LSTM para converter matrizes de pixels em caracteres. O Tesseract opera localmente garantindo total privacidade, mas exige imagens rigorosamente limpas para evitar quedas acentuadas de precisão diante de ruídos visuais;
+	\item \textbf{IBM Docling:} Ferramenta moderna de processamento documental (\textit{Document Parsing}) especializada na extração estruturada de PDFs complexos \cite{docling2024}. Ao combinar modelos de visão para segmentação de tabelas com exportação nativa em Markdown estruturado, o Docling preserva as linhas de transações tabulares sem depender de heurísticas frágeis de coordenadas manuais.
+\end{itemize}
+
+\subsection{Métricas Formais de Avaliação de OCR: CER e WER}
+A qualidade da extração óptica é avaliada formalmente pela distância de edição de Levenshtein entre o texto predito pelo OCR e o texto de referência (\textit{ground truth}). Definem-se três tipos fundamentais de erro: Substituição ($S$), Deleção ($D$) e Inserção ($I$).
+
+A \textbf{Taxa de Erro de Caracteres} (CER -- \textit{Character Error Rate}) é calculada sobre o total de caracteres de referência $N_c$:
+\begin{equation}
+	\text{CER} = \frac{S_c + D_c + I_c}{N_c}
+\end{equation}
+
+A \textbf{Taxa de Erro de Palavras} (WER -- \textit{Word Error Rate}) opera de forma idêntica, porém adotando palavras inteiras como unidade amostral sobre o total de palavras $N_w$:
+\begin{equation}
+	\text{WER} = \frac{S_w + D_w + I_w}{N_w}
+\end{equation}
+Um único caractere lido incorretamente invalida a palavra inteira no cálculo do WER, tornando esta métrica estritamente mais rigorosa que o CER \cite{araujo2024saneamento}.
+
+\section{Arquiteturas Neurais e Agentes Inteligentes}
+\label{sec:fund_arquiteturas_agentes}
+
+\subsection{Mecanismos de Autoatenção e Arquiteturas Transformer}
+A introdução do mecanismo de autoatenção (\textit{self-attention}) na arquitetura Transformer por Vaswani et al. \cite{vaswani2017attention} superou as limitações de paralelização das redes recorrentes tradicionais (LSTM e GRU) \cite{hochreiter1997long, cho2014learning}. A atenção escalada por produto escalar calcula o alinhamento contextual entre matrizes de Consulta ($Q$), Chave ($K$) e Valor ($V$):
+\begin{equation}
+	\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+\end{equation}
+Essa formulação permite que cada token pondere dinamicamente todos os demais elementos da sequência de entrada, capturando dependências semânticas não locais em textos curtos e informais.
+
+\subsection{Grandes Modelos de Linguagem (LLMs) e Raciocínio Estruturado}
+Os Grandes Modelos de Linguagem (\textit{Large Language Models} -- LLMs) pré-treinados em escala massiva demonstraram notável capacidade de inferência semântica e raciocínio contextual. Para mitigar o risco de alucinações e garantir o determinismo necessário a sistemas financeiros, duas técnicas são essenciais:
+\begin{itemize}
+	\item \textbf{Cadeia de Pensamento (\textit{Chain-of-Thought} -- CoT):} Induz o modelo a explicitar seus passos intermediários de raciocínio antes de emitir o veredito final, elevando comprovadamente a precisão lógica;
+	\item \textbf{Chamada de Ferramentas (\textit{Tool Calling}):} Capacidade do modelo de suspender temporariamente a geração de texto para invocar funções externas (como motores de busca na web) a fim de obter evidências factuais em tempo real;
+	\item \textbf{Saída Estruturada com Validação de Tipos:} Utilização de bibliotecas de validação de esquemas (como Pydantic) para forçar o modelo a responder exclusivamente em formatos JSON estritos e tipados.
+\end{itemize}
+
+\subsection{Orquestração Baseada em Grafos de Estado: LangGraph}
+Enquanto cadeias lineares simples (\textit{chains}) são rígidas, aplicações complexas demandam arquiteturas cíclicas e com controle fino de fluxo. O \textit{LangGraph} \cite{langchain2024langgraph} estrutura a aplicação como um Grafo Direcionado de Estados (\textit{StateGraph}), onde cada nó executa uma função atômica (normalização, consulta vetorial, inferência LLM, persistência) e as arestas condicionais determinam o próximo passo baseando-se no estado tipado (\textit{AgentState}). O framework suporta nativamente persistência de memória (\textit{checkpoints}) e o padrão \textit{Human-in-the-Loop}, permitindo interromper o grafo de forma transparente para aguardar a confirmação humana e retomá-lo posteriormente.
+
+\section{Engenharia de Dados, MLOps e Sustentabilidade de Modelos}
+\label{sec:fund_mlops}
+
+A sustentabilidade de uma solução de IA em ambientes de produção exige a incorporação de práticas de Engenharia de Dados e Operações de Aprendizado de Máquina (\textit{Machine Learning Operations} -- MLOps) \cite{kreuzberger2022mlops, treveil2020mlops}.
+
+\subsection{Desvios Estatísticos: Data Drift e Concept Drift}
+Modelos de machine learning operando sobre dados financeiros sofrem inevitável degradação temporal decorrente de dois fenômenos \cite{quinonero2008dataset, Lu2019LearningConceptDriftReview}:
+\begin{itemize}
+	\item \textbf{Data Drift (Desvio de Covariáveis):} Ocorre quando a distribuição das variáveis de entrada $P(X)$ se altera ao longo do tempo (ex.: novos nomes de estabelecimentos no mercado, atualização de gateways ou mudanças de formatação no OCR), embora a relação mapeada $P(Y|X)$ permaneça estável;
+	\item \textbf{Concept Drift (Desvio de Conceito):} Manifesta-se quando a probabilidade condicional real $P(Y|X)$ muda (ex.: uma grande rede de postos de combustível que passa a atuar predominantemente como loja de conveniência/alimentação, alterando a categoria esperada para uma mesma descrição textual).
+\end{itemize}
+
+\subsection{Aprendizado Ativo (Active Learning) e Confident Learning}
+Para contornar o custo proibitivo da rotulação manual exaustiva diante do surgimento contínuo de novas empresas, a literatura preconiza o Aprendizado Ativo (\textit{Active Learning}) \cite{ren2021aprendizagem}. Ao invés de amostrar dados aleatoriamente, o sistema calcula a incerteza estatística de suas inferências. Transações com escore de confiança inferior a um limiar seguro (ex.: confiança $\le 0.70$) são isoladas e encaminhadas para curadoria humana (\textit{Human-in-the-Loop}) \cite{northcutt2021aprendizagem}. Os dados confirmados expandem a base de conhecimento de forma cirúrgica e de alto valor agregado.
+
+\subsection{Arquitetura de Data Lakehouse e Rastreamento com MLflow}
+A infraestrutura de suporte a dados moderna adota o paradigma de Data Lakehouse, combinando a flexibilidade e o baixo custo de armazenamento de objetos compatíveis com S3 (como o MinIO) com as garantias transacionais e a organização em camadas (\textit{Medallion Architecture}) \cite{treveil2020mlops}:
+\begin{itemize}
+	\item \textbf{Camada Bronze:} Armazena os dados brutos e imutáveis exatamente como foram ingeridos (PDFs originais, extratos bancários em CSV, textos ruidosos extraídos);
+	\item \textbf{Camada Silver:} Contém os dados limpos, saneados, normalizados e enriquecidos em esquemas analíticos (Parquet/Iceberg);
+	\item \textbf{Camada Gold:} Tabelas agregadas e visões analíticas prontas para consumo por motores SQL distribuídos (Trino) e dashboards de inteligência de negócios (Metabase).
+\end{itemize}
+
+O ciclo de vida experimental e operacional é unificado pelo \textit{MLflow} \cite{treveil2020mlops}. A plataforma atua como repositório centralizado de parâmetros, métricas e artefatos, suportando execuções aninhadas (\textit{nested runs}) que viabilizam o rastreamento em dois níveis de granularidade: a corrida global correspondente à fatura completa e corridas filhas isoladas para cada transação individualmente classificada.
+
+\section{Considerações Finais do Capítulo}
+\label{sec:fund_consideracoes_finais}
+
+Os conceitos apresentados neste capítulo constituem a fundamentação técnica indispensável para a construção da solução proposta. A integração entre normalização morfológica, embeddings densos no PostgreSQL com pgvector, análise de layout com Docling, orquestração em grafos com LangGraph e práticas contínuas de MLOps no Data Lakehouse estabelece um arcabouço metodológico sólido para solucionar o desafio de classificar faturas de cartão de crédito com alto desempenho e sobriedade computacional.

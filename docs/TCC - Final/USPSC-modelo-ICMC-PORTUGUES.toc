@@ -1,0 +1,92 @@
+\changetocdepth {4}
+\babel@toc {brazil}{}\relax 
+\babel@toc {brazil}{}\relax 
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\contentsline {chapter}{\chapternumberline {1}\MakeTextUppercase []{Introdução}}{31}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Considerações Iniciais}{31}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Contextualização e Formulação do Problema}{31}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Motivação e Justificativa}{33}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Objetivos}{33}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Organização da Monografia}{34}{section.1.5}%
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\contentsline {chapter}{\chapternumberline {2}\MakeTextUppercase []{Fundamentação Teórica}}{37}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Considerações Iniciais}{37}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Mineração de Textos e Processamento de Linguagem Natural}{37}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Pré-processamento Léxico e Morfológico}{37}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Estratégias de Tokenização: Da Palavra ao Nível de Byte}{37}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Vetorização Estatística versus Representações Densas (Embeddings)}{38}{subsection.2.2.3}%
+\contentsline {subsubsection}{\numberline {2.2.3.1}TF-IDF (Term Frequency-Inverse Document Frequency)}{38}{subsubsection.2.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.2.3.2}Embeddings Densos e Bancos de Dados Vetoriais}{38}{subsubsection.2.2.3.2}%
+\contentsline {section}{\numberline {2.3}Visão Computacional e Inteligência de Documentos}{39}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Análise de Layout de Documentos (DLA) e Caixas Delimitadoras}{39}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Motores de OCR e Ferramentas de Conversão Estruturada}{39}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Métricas Formais de Avaliação de OCR: CER e WER}{40}{subsection.2.3.3}%
+\contentsline {section}{\numberline {2.4}Arquiteturas Neurais e Agentes Inteligentes}{40}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Mecanismos de Autoatenção e Arquiteturas Transformer}{40}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Grandes Modelos de Linguagem (LLMs) e Raciocínio Estruturado}{40}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}Orquestração Baseada em Grafos de Estado: LangGraph}{41}{subsection.2.4.3}%
+\contentsline {section}{\numberline {2.5}Engenharia de Dados, MLOps e Sustentabilidade de Modelos}{41}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Desvios Estatísticos: Data Drift e Concept Drift}{41}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.5.2}Aprendizado Ativo (Active Learning) e Confident Learning}{42}{subsection.2.5.2}%
+\contentsline {subsection}{\numberline {2.5.3}Arquitetura de Data Lakehouse e Rastreamento com MLflow}{42}{subsection.2.5.3}%
+\contentsline {section}{\numberline {2.6}Considerações Finais do Capítulo}{42}{section.2.6}%
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\contentsline {chapter}{\chapternumberline {3}\MakeTextUppercase []{Metodologia}}{43}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Considerações Iniciais}{43}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Questões de Pesquisa e Hipótese Central}{43}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Metodologia da Pesquisa e Framework CRISP-DM Adaptado}{44}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Arquitetura Geral da Solução e Ecossistema Data Lakehouse}{45}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Pipeline de Ingestão e Extração Híbrida de Documentos}{46}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Engenharia do Agente de Classificação Inteligente}{47}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Conformidade com a LGPD e Segurança da Informação Financeira}{48}{section.3.7}%
+\contentsline {section}{\numberline {3.8}Estratégia de Garantia de Qualidade e Pirâmide de Testes}{49}{section.3.8}%
+\contentsline {section}{\numberline {3.9}Considerações Finais do Capítulo}{49}{section.3.9}%
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\contentsline {chapter}{\chapternumberline {4}\MakeTextUppercase []{Avaliação Experimental}}{51}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Considerações Iniciais}{51}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Ambiente Computacional e Configuração Experimental}{51}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Caracterização dos Conjuntos de Dados (Datasets)}{51}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Protocolo Experimental e Métricas de Avaliação}{53}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Métricas para Extração Óptica e Reconhecimento de Texto}{53}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Métricas para Classificação Semântica de Transações}{53}{subsection.4.4.2}%
+\contentsline {section}{\numberline {4.5}Resultados da Extração e Pré-Processamento Óptico}{54}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Desempenho Quantitativo Global: Docling versus Tesseract}{54}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Análise Visual das Métricas e Dispersão de Erros}{54}{subsection.4.5.2}%
+\contentsline {subsection}{\numberline {4.5.3}Análise Qualitativa de Erros e Preservação Estrutural de Tabelas}{55}{subsection.4.5.3}%
+\contentsline {section}{\numberline {4.6}Resultados Comparativos da Classificação de Transações}{58}{section.4.6}%
+\contentsline {subsection}{\numberline {4.6.1}Desempenho Detalhado por Categoria de Despesa}{58}{subsection.4.6.1}%
+\contentsline {subsection}{\numberline {4.6.2}Estudo de Ablação}{59}{subsection.4.6.2}%
+\contentsline {section}{\numberline {4.7}Avaliação de MLOps, Latência e Observabilidade}{59}{section.4.7}%
+\contentsline {section}{\numberline {4.8}Respostas às Questões de Pesquisa e Verificação da Hipótese}{60}{section.4.8}%
+\contentsline {section}{\numberline {4.9}Considerações Finais do Capítulo}{60}{section.4.9}%
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\contentsline {chapter}{\chapternumberline {5}\MakeTextUppercase []{Conclusões}}{65}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Considerações Iniciais}{65}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Síntese do Trabalho e Principais Contribuições}{65}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Avaliação dos Objetivos Atingidos}{66}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Limitações do Trabalho}{66}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Trabalhos Futuros}{67}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Considerações Finais}{67}{section.5.6}%
+\renewcommand *{\cftappendixname }{AP\^ENDICE \space }
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\cftinsert {A}
+\contentsline {appendix}{\chapternumberline {A}\MakeTextUppercase []{Protocolo do Levantamento Bibliográfico}}{69}{chapter.A}%
+\contentsline {section}{\numberline {A.1}Bases de Dados Consultadas}{69}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Strings de Busca Aplicadas}{69}{section.A.2}%
+\contentsline {section}{\numberline {A.3}Critérios de Inclusão e Exclusão}{70}{section.A.3}%
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\cftinsert {A}
+\contentsline {appendix}{\chapternumberline {B}\MakeTextUppercase []{Esquema do Banco de Dados Relacional e Vetorial}}{71}{chapter.B}%
+\contentsline {section}{\numberline {B.1}Tabela de Estabelecimentos (Base de Conhecimento e Embeddings)}{71}{section.B.1}%
+\contentsline {section}{\numberline {B.2}Tabela de Transações Financeiras}{71}{section.B.2}%
+\vspace {\cftbeforechapterskip }
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\contentsline {chapter}{\uppercase {Refer\^encias}}{73}{section*.34}%

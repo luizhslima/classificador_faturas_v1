@@ -1,0 +1,239 @@
+\providecommand{\abntreprintinfo}[1]{%
+ \citeonline{#1}}
+\setlength{\labelsep}{0pt}\begin{thebibliography}{}
+\providecommand{\abntrefinfo}[3]{}
+\providecommand{\abntbstabout}[1]{}
+\abntbstabout{v-1.9.7 }
+
+\bibitem[{ABECS} 2024]{abecs2024panorama}
+\abntrefinfo{{ABECS}}{{ABECS}}{2024}
+{{ABECS}. \emph{Panorama do Setor de Meios Eletrônicos de Pagamento: Balanço
+  Anual 2024}. São Paulo: Associação Brasileira das Empresas de Cartões de
+  Crédito e Serviços, 2024. Relatório institucional.
+Dispon{\'\i}vel em: \url{https://www.abecs.org.br}. Acesso em: 15 jan. 2026.}
+
+\bibitem[Ara{\'u}jo, Oliveira e Fernandes 2024]{araujo2024saneamento}
+\abntrefinfo{Ara{\'u}jo, Oliveira e Fernandes}{ARA{\'U}JO; OLIVEIRA;
+  FERNANDES}{2024}
+{ARA{\'U}JO, S.~S.; OLIVEIRA, L.~R.; FERNANDES, C.~E. Saneamento pós-ocr de
+  textos ruidosos: Avaliação empírica de modelos sub-palavra e grandes
+  modelos de linguagem.
+\emph{Revista Brasileira de Computação Aplicada}, v.~16, n.~2, p. 45--58,
+  2024.}
+
+\bibitem[Auer, Dolfi e Staar 2024]{docling2024}
+\abntrefinfo{Auer, Dolfi e Staar}{AUER; DOLFI; STAAR}{2024}
+{AUER, C.; DOLFI, M.; STAAR, P. W.~J. Docling: A fast, modular document parsing
+  tool for multimodal document ai.
+\emph{arXiv preprint arXiv:2408.09869}, 2024.
+Dispon{\'\i}vel em: \url{https://arxiv.org/abs/2408.09869}.}
+
+\bibitem[{BRASIL} 2018]{brasil2018lgpd}
+\abntrefinfo{{BRASIL}}{{BRASIL}}{2018}
+{{BRASIL}. \emph{Lei nº 13.709, de 14 de agosto de 2018. Lei Geral de
+  Proteção de Dados Pessoais (LGPD)}. Brasília, DF: Diário Oficial da
+  União, 2018. Legislação Federal.
+Dispon{\'\i}vel em:
+  \url{http://www.planalto.gov.br/ccivil\_03/\_ato2015-2018/2018/lei/l13709.htm}.}
+
+\bibitem[Caseli e Nunes 2024]{BPLN_livro:2024}
+\abntrefinfo{Caseli e Nunes}{CASELI; NUNES}{2024}
+{CASELI, H. d.~M.; NUNES, M. d. G.~V. (Ed.). \emph{Processamento de Linguagem
+  Natural: Conceitos, Técnicas e Aplicações em Português}. 2. ed. São
+  Carlos, SP: BPLN, 2024.
+ISBN 978-65-00-95750-1. Dispon{\'\i}vel em:
+  \url{https://brasileiraspln.com/livro-pln/2a-edicao/}.}
+
+\bibitem[Chase e {LangChain Team} 2024]{langchain2024langgraph}
+\abntrefinfo{Chase e {LangChain Team}}{CHASE; {LangChain Team}}{2024}
+{CHASE, H.; {LangChain Team}. Langgraph: Building resilient language agents as
+  graphs.
+\emph{LangChain Technical Report}, 2024.
+Dispon{\'\i}vel em: \url{https://blog.langchain.dev/langgraph/}.}
+
+\bibitem[Cho et al. 2014]{cho2014learning}
+\abntrefinfo{Cho et al.}{CHO et al.}{2014}
+{CHO, K. et al. Learning phrase representations using {RNN} encoder--decoder
+  for statistical machine translation.
+\emph{Proceedings of the 2014 Conference on Empirical Methods in Natural
+  Language Processing (EMNLP)}, p. 1724--1734, 2014.}
+
+\bibitem[Chowdhury 2003]{chowdhury2003natural}
+\abntrefinfo{Chowdhury}{CHOWDHURY}{2003}
+{CHOWDHURY, G.~G. Natural language processing.
+\emph{Annual Review of Information Science and Technology}, v.~37, n.~1, p.
+  51--89, 2003.}
+
+\bibitem[Devlin et al. 2019]{devlin2019bert}
+\abntrefinfo{Devlin et al.}{DEVLIN et al.}{2019}
+{DEVLIN, J. et al. {BERT}: Pre-training of deep bidirectional transformers for
+  language understanding. In:  \emph{Proceedings of the 2019 Conference of the
+  North American Chapter of the Association for Computational Linguistics:
+  Human Language Technologies (NAACL-HLT)}. [S.l.: s.n.], 2019. p. 4171--4186.}
+
+\bibitem[Dhingra et al. 2016]{dhingra2016tweet2vec}
+\abntrefinfo{Dhingra et al.}{DHINGRA et al.}{2016}
+{DHINGRA, B. et al. Tweet2vec: Character-based distributed representations for
+  social media.
+\emph{arXiv preprint arXiv:1605.03481}, 2016.
+Dispon{\'\i}vel em: \url{https://arxiv.org/abs/1605.03481}.}
+
+\bibitem[Drumond 2023]{drumond2023analise}
+\abntrefinfo{Drumond}{DRUMOND}{2023}
+{DRUMOND, G.~F.
+\emph{Análise de Layout de Documentos Financeiros com Modelos de Atenção
+  Espacial}.
+Disserta\c{c}\~{a}o (Dissertação (Mestrado em Ciência da Computação)) ---
+  Universidade Federal de Minas Gerais (UFMG), Belo Horizonte, MG, 2023.}
+
+\bibitem[Gerhardt e Silveira 2009]{gerhardt2009metodos}
+\abntrefinfo{Gerhardt e Silveira}{GERHARDT; SILVEIRA}{2009}
+{GERHARDT, T.~E.; SILVEIRA, D.~T. \emph{Métodos de pesquisa}. Porto Alegre,
+  RS: Editora da UFRGS, 2009.}
+
+\bibitem[Gil 2019]{gil2019metodos}
+\abntrefinfo{Gil}{GIL}{2019}
+{GIL, A.~C. \emph{Métodos e Técnicas de Pesquisa Social}. 7. ed. São Paulo,
+  SP: Atlas, 2019.}
+
+\bibitem[Hochreiter e Schmidhuber 1997]{hochreiter1997long}
+\abntrefinfo{Hochreiter e Schmidhuber}{HOCHREITER; SCHMIDHUBER}{1997}
+{HOCHREITER, S.; SCHMIDHUBER, J. Long short-term memory.
+\emph{Neural Computation}, v.~9, n.~8, p. 1735--1780, 1997.}
+
+\bibitem[Huang et al. 2019]{icdar2019competition}
+\abntrefinfo{Huang et al.}{HUANG et al.}{2019}
+{HUANG, Z. et al. {ICDAR2019} competition on scanned receipt {OCR} and
+  information extraction. In:  \emph{2019 International Conference on Document
+  Analysis and Recognition (ICDAR)}. [S.l.: s.n.], 2019. p. 1516--1520.}
+
+\bibitem[Kreuzberger, K{\"u}hl e Hirschl 2022]{kreuzberger2022mlops}
+\abntrefinfo{Kreuzberger, K{\"u}hl e Hirschl}{KREUZBERGER; K{\"U}HL;
+  HIRSCHL}{2022}
+{KREUZBERGER, D.; K{\"U}HL, N.; HIRSCHL, S. Machine learning operations
+  ({MLOps}): Overview, definition, and architecture.
+\emph{IEEE Access}, IEEE, v.~10, p. 31866--31879, 2022.}
+
+\bibitem[Lewis et al. 2020]{lewis2020bart}
+\abntrefinfo{Lewis et al.}{LEWIS et al.}{2020}
+{LEWIS, M. et al. {BART}: Denoising sequence-to-sequence pre-training for
+  natural language generation, translation, and comprehension.
+\emph{Proceedings of the 58th Annual Meeting of the Association for
+  Computational Linguistics (ACL)}, p. 7871--7880, 2020.}
+
+\bibitem[Lu et al. 2019]{Lu2019LearningConceptDriftReview}
+\abntrefinfo{Lu et al.}{LU et al.}{2019}
+{LU, J. et al. Learning under concept drift: A review.
+\emph{IEEE Transactions on Knowledge and Data Engineering}, v.~31, n.~12, p.
+  2346--2363, 2019.}
+
+\bibitem[Matos 2010]{matos2010pre}
+\abntrefinfo{Matos}{MATOS}{2010}
+{MATOS, P.~F.
+\emph{Metodologia de pré-processamento textual para extração de informação
+  sobre efeitos de doenças em artigos científicos do domínio biomédico}.
+Disserta\c{c}\~{a}o (Dissertação (Mestrado em Ciência da Computação)) ---
+  Universidade Federal de São Carlos (UFSCar), São Carlos, SP, 2010.}
+
+\bibitem[Northcutt, Jiang e Chuang 2021]{northcutt2021aprendizagem}
+\abntrefinfo{Northcutt, Jiang e Chuang}{NORTHCUTT; JIANG; CHUANG}{2021}
+{NORTHCUTT, C.~G.; JIANG, L.; CHUANG, I.~L. Confident learning: Estimating
+  uncertainty in dataset labels.
+\emph{Journal of Artificial Intelligence Research}, v.~70, p. 1373--1411,
+  2021.}
+
+\bibitem[{PODER360} 2025]{poder360_2025}
+\abntrefinfo{{PODER360}}{{PODER360}}{2025}
+{{PODER360}. \emph{Gastos com cartão de crédito sobem 8\% no fim de 2024,
+  aponta Elo}. 2025. Portal de Notícias.
+Dispon{\'\i}vel em:
+  \url{https://www.poder360.com.br/economia/gastos-com-cartao-de-credito-sobem-8-no-fim-de-2024-aponta-elo/}.
+  Acesso em: 12 fev. 2026.}
+
+\bibitem[Qui{\~n}onero-Candela et al. 2008]{quinonero2008dataset}
+\abntrefinfo{Qui{\~n}onero-Candela et al.}{QUI{\~N}ONERO-CANDELA et al.}{2008}
+{QUI{\~N}ONERO-CANDELA, J. et al. \emph{Dataset Shift in Machine Learning}.
+  Cambridge, MA: The MIT Press, 2008.}
+
+\bibitem[Rajaraman e Ullman 2011]{rajaraman2011mining}
+\abntrefinfo{Rajaraman e Ullman}{RAJARAMAN; ULLMAN}{2011}
+{RAJARAMAN, A.; ULLMAN, J.~D. \emph{Mining of Massive Datasets}. Cambridge, UK:
+  Cambridge University Press, 2011.}
+
+\bibitem[Reimers e Gurevych 2019]{reimers2019sentence}
+\abntrefinfo{Reimers e Gurevych}{REIMERS; GUREVYCH}{2019}
+{REIMERS, N.; GUREVYCH, I. Sentence-{BERT}: Sentence embeddings using siamese
+  {BERT}-networks.
+\emph{Proceedings of the 2019 Conference on Empirical Methods in Natural
+  Language Processing (EMNLP-IJCNLP)}, p. 3982--3992, 2019.}
+
+\bibitem[Ren et al. 2021]{ren2021aprendizagem}
+\abntrefinfo{Ren et al.}{REN et al.}{2021}
+{REN, P. et al. A survey of deep active learning.
+\emph{ACM Computing Surveys}, v.~54, n.~9, p. 1--40, 2021.}
+
+\bibitem[Santos 2023]{santos2023classificacao}
+\abntrefinfo{Santos}{SANTOS}{2023}
+{SANTOS, M. T. M.~d.
+\emph{Classificação de produtos em Notas Fiscais Eletrônicas usando
+  Descrições Textuais não estruturadas}.
+Disserta\c{c}\~{a}o (Trabalho de Conclusão de Curso (Engenharia de
+  Computação)) --- Universidade Federal de Alagoas (UFAL), Instituto de
+  Computação, Maceió, AL, 2023.}
+
+\bibitem[{SERASA EXPERIAN} 2024]{serasa2024inadimplencia}
+\abntrefinfo{{SERASA EXPERIAN}}{{SERASA EXPERIAN}}{2024}
+{{SERASA EXPERIAN}. \emph{Mapa da Inadimplência e Renegociação de Dívidas
+  no Brasil}. São Paulo: Serasa Experian, 2024. Relatório estatístico.
+Dispon{\'\i}vel em:
+  \url{https://www.serasa.com.br/limpa-nome-online/estatisticas-inadimplencia/}.
+  Acesso em: 10 fev. 2026.}
+
+\bibitem[Smith 2007]{smith2007overview}
+\abntrefinfo{Smith}{SMITH}{2007}
+{SMITH, R. An overview of the {Tesseract} {OCR} engine.
+\emph{Ninth International Conference on Document Analysis and Recognition
+  (ICDAR 2007)}, v.~2, p. 629--633, 2007.}
+
+\bibitem[Souza 2025]{souza2025extracao}
+\abntrefinfo{Souza}{SOUZA}{2025}
+{SOUZA, M. F.~d.
+\emph{Extração automática de informações em imagens de notas fiscais}.
+Disserta\c{c}\~{a}o (Dissertação (Mestrado em Ciência da Computação)) ---
+  Universidade Federal de Viçosa (UFV), Departamento de Informática, Viçosa,
+  MG, 2025.}
+
+\bibitem[{SPC BRASIL} 2024]{spcbrasil2024controle}
+\abntrefinfo{{SPC BRASIL}}{{SPC BRASIL}}{2024}
+{{SPC BRASIL}. \emph{Pesquisa de Educação Financeira e Gestão do Orçamento
+  Doméstico no Brasil}. Brasília: Serviço de Proteção ao Crédito, 2024.
+  Relatório de pesquisa.
+Dispon{\'\i}vel em: \url{https://www.spcbrasil.org.br}. Acesso em: 20 jan.
+  2026.}
+
+\bibitem[Treveil et al. 2020]{treveil2020mlops}
+\abntrefinfo{Treveil et al.}{TREVEIL et al.}{2020}
+{TREVEIL, M. et al. \emph{Introducing MLOps: How to Scale Machine Learning in
+  the Enterprise}. Sebastopol, CA: O'Reilly Media, 2020.}
+
+\bibitem[Vaswani et al. 2017]{vaswani2017attention}
+\abntrefinfo{Vaswani et al.}{VASWANI et al.}{2017}
+{VASWANI, A. et al. Attention is all you need. In:  \emph{Advances in Neural
+  Information Processing Systems (NeurIPS 2017)}. [S.l.: s.n.], 2017. v.~30, p.
+  5998--6008.}
+
+\bibitem[Xue et al. 2022]{xue2021byt5}
+\abntrefinfo{Xue et al.}{XUE et al.}{2022}
+{XUE, L. et al. {ByT5}: Towards a token-free future with pre-trained
+  byte-to-byte models.
+\emph{Transactions of the Association for Computational Linguistics}, v.~10, p.
+  291--306, 2022.}
+
+\bibitem[Zhang, Jin e Zhou 2021]{zhang2021mineracao}
+\abntrefinfo{Zhang, Jin e Zhou}{ZHANG; JIN; ZHOU}{2021}
+{ZHANG, Y.; JIN, R.; ZHOU, Z.-H. Understanding and improving short text
+  classification with character-level deep neural networks.
+\emph{IEEE Transactions on Knowledge and Data Engineering}, v.~33, n.~8, p.
+  3012--3025, 2021.}
+
+\end{thebibliography}

@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import com.api.service.ingestao.application.utils.EncondingUtils;
+import com.api.service.ingestao.domain.model.types.SourceContext;
 import com.api.service.ingestao.domain.model.types.TipoArquivo;
 import com.api.service.ingestao.infrastructure.exception.BusinessRuleException;
 
@@ -15,24 +16,24 @@ public class ArquivoIngestao {
     private final String id;
     private final String nomeOriginal;
     private final byte[] conteudo;
-    private final String sourceContext;
+    private final SourceContext sourceContext;
 
-    public ArquivoIngestao(String nomeOriginal, byte[] conteudo, String sourceContext) {
+    public ArquivoIngestao(String nomeOriginal, byte[] conteudo, SourceContext sourceContext) {
         if (conteudo == null || conteudo.length == 0) throw new BusinessRuleException("Arquivo vazio.");
-        
+
         this.id = UUID.randomUUID().toString();
         this.nomeOriginal = nomeOriginal;
         this.conteudo = conteudo;
-        this.sourceContext = sourceContext;
+        this.sourceContext = sourceContext == null ? SourceContext.ORIGEM_DESCONHECIDA : sourceContext;
     }
 
     // O domínio desta aplicação só gera caminhos para a camada Bronze
     public String gerarCaminhoBronze() {
         LocalDate hoje = LocalDate.now();
         String extensao = nomeOriginal.substring(nomeOriginal.lastIndexOf(".") + 1).toLowerCase();
-        
+
         return String.format("bronze/source=%s/year=%d/month=%02d/day=%02d/%s/original.%s",
-                this.sourceContext, hoje.getYear(), hoje.getMonthValue(), hoje.getDayOfMonth(), this.id, extensao);
+                this.sourceContext.getCodigo(), hoje.getYear(), hoje.getMonthValue(), hoje.getDayOfMonth(), this.id, extensao);
     }
 
     public byte[] getConteudo() {
@@ -43,7 +44,7 @@ public class ArquivoIngestao {
         return id;
     }
 
-    public String getContext(){
+    public SourceContext getContext() {
         return sourceContext;
     }
 
@@ -59,7 +60,7 @@ public class ArquivoIngestao {
         return Map.of(
                 "id-arquivo", this.id,
                 "nomeOriginal", this.nomeOriginal,
-                "source-context", this.sourceContext,
+                "source-context", this.sourceContext.getCodigo(),
                 "formato-detectado", this.getExtensao(),
                 "hash-sha256", calcularHash(this.conteudo),
                 "versao-pipeline", "1.0",

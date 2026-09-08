@@ -10,8 +10,13 @@ import logging
 
 log = logging.getLogger(__name__)
 
-def fatura_nubank_parser(service: ServiceOCR, io:io.BytesIO, databaseService: Service, stats: Object):
-    result = service.processar_pdf_nativo(io)
+def fatura_pdfnativo_parser(service: ServiceOCR, io:io.BytesIO, databaseService: Service, stats: Object):
+
+    if stats.metadata.get('X-Amz-Meta-Source-Context', 'desconhecido') == 'nubank':
+        result = service.processar_pdf_nativo(io)
+    else:
+         result = service.processar_pdf_nativo_c6(io)
+   
     with databaseService.session_factory() as session:
         try:
            

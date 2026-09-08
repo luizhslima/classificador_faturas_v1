@@ -1,0 +1,351 @@
+\chapter{Avaliação Experimental} \label{Cap:Ava_Exp}
+
+\label{chp:validacao}
+
+\section{Considerações Iniciais}
+\label{sec:val_consideracoes_iniciais}
+
+A validação empírica constitui a etapa decisiva para comprovar a eficácia prática da solução proposta e responder formalmente às questões de pesquisa estabelecidas. Este capítulo apresenta o ambiente computacional dos experimentos, a caracterização detalhada dos conjuntos de dados utilizados (com ênfase no acervo de faturas do C6 Bank e seus respectivos arquivos de \textit{Ground Truth}), o protocolo formal de mensuração adotado (incluindo as definições matemáticas da Distância de Edição de Levenshtein, CER e WER), os resultados comparativos detalhados de extração óptica entre o IBM Docling e o Tesseract OCR, o desempenho dos classificadores (baselines clássicos versus agente inteligente híbrido), a análise de ablações, a avaliação de MLOps e observabilidade, e a verificação conclusiva da hipótese central da monografia.
+
+\section{Ambiente Computacional e Configuração Experimental}
+\label{sec:val_ambiente}
+
+Todos os experimentos foram conduzidos em um ambiente computacional controlado, representativo de estações de trabalho de desenvolvimento comuns, com as seguintes especificações de hardware e software:
+\begin{itemize}
+	\item \textbf{Hardware:} Processador Intel Core i7 / AMD Ryzen de 8 núcleos e 16 threads, 32 GB de memória RAM DDR4, GPU dedicada NVIDIA GeForce RTX com 16 GB de VRAM (suporte a aceleração CUDA 12.x) e armazenamento SSD NVMe de alta velocidade;
+	\item \textbf{Software e Bibliotecas:} Sistema Operacional Windows 11 / Linux Ubuntu 22.04 LTS, Docker Engine v26.1, Python v3.11.15, PyTorch v2.3.1, Transformers v4.41, LangChain v0.2, LangGraph v0.1, Sentence-Transformers v3.0, Scikit-Learn v1.5, PostgreSQL v16.3 com extensão pgvector v0.7, MLflow v2.14, IBM Docling v2.0, PyTesseract v0.3.13 (motor Tesseract 5.3 com modelos em português), PyPDFium2 v4.30, RapidFuzz v3.14 e JiWER v4.0.
+\end{itemize}
+
+\section{Caracterização dos Conjuntos de Dados (Datasets)}
+\label{sec:val_datasets}
+
+A experimentação foi estruturada sobre conjuntos de dados complementares que somam mais de 470 mil transações, abrangendo dados governamentais e faturas reais de instituições financeiras:
+
+\begin{enumerate}
+	\item \textbf{Dataset Governamental CPGF (Cartão de Pagamento do Governo Federal):} Acervo público oficial obtido no Portal da Transparência do Governo Federal \cite{spcbrasil2024controle}. O conjunto reúne 44 arquivos CSV mensais consolidados, totalizando \textbf{477.740 transações financeiras reais} contendo campos como nome do favorecido comercial, CNPJ, órgão responsável, data e valor monetário transacionado;
+	\item \textbf{Acervo Real de Faturas Bancárias C6 Bank e Nubank:} Extratos de cartões de crédito pessoais obtidos junto a instituições financeiras brasileiras em formatos digitais nativos (CSV) e documentos ópticos protegidos (PDFs com layout tabular multicolunar). No caso do C6 Bank, reuniu-se um acervo abrangendo o período contínuo de janeiro de 2022 a agosto de 2026, composto por \textbf{49 faturas em PDF} (totalizando 357 páginas protegidas por senha) e \textbf{105 arquivos CSV oficiais}, os quais foram utilizados como \textit{Ground Truth} de alta fidelidade para a mensuração de erros de OCR;
+	\item \textbf{Dataset Sintético com Ruído de Maquininhas de Cartão:} Para estressar a robustez algorítmica diante de falhas extremas, desenvolveu-se um gerador estocástico de ruído que transformou nomes canônicos de fornecedores inserindo truncamentos (máximo de 20 caracteres), códigos aleatórios de autorização (ex.: ``*4821 LOJA''), sufixos numéricos (ex.: ``DROGARIA 9482'') e corrupções tipográficas com probabilidade controlada.
+\end{enumerate}
+
+Para a avaliação de extração óptica, estabeleceu-se um procedimento determinístico de pareamento temporal entre os documentos em PDF e os arquivos CSV do C6 Bank. Por meio da leitura dos metadados das primeiras páginas dos PDFs, identificou-se a data de corte (fechamento por volta do dia 8 de cada mês) e o vencimento (fixado no dia 15), mapeando-se com exatidão $1:1$ cada uma das 49 faturas ao seu respectivo arquivo \texttt{Fatura\_AAAA-MM-15.csv}. A Tabela~\ref{tab:dataset_c6} resume a distribuição do acervo de faturas do C6 Bank por ano de competência.
+
+\begin{table}[htb]
+	\centering
+	\caption{Distribuição do acervo de faturas do C6 Bank com pareamento PDF e CSV.}
+	\label{tab:dataset_c6}
+	\begin{tabular}{lccc}
+		\toprule
+		\textbf{Ano de Competência} & \textbf{Qtd. de Faturas em PDF} & \textbf{CSVs de \textit{Ground Truth}} & \textbf{Total de Páginas} \\
+		\midrule
+		2022 & 12 faturas (ano completo) & 12 arquivos CSV & 74 páginas \\
+		2023 & 12 faturas (ano completo) & 12 arquivos CSV & 80 páginas \\
+		2024 & 11 faturas & 11 arquivos CSV & 73 páginas \\
+		2025 & 12 faturas (ano completo) & 12 arquivos CSV & 112 páginas \\
+		2026 & 2 faturas & 2 arquivos CSV & 18 páginas \\
+		\midrule
+		\textbf{Total Geral} & \textbf{49 faturas} & \textbf{49 arquivos CSV} & \textbf{357 páginas} \\
+		\bottomrule
+	\end{tabular}
+	\fonte{Elaborado pelo autor (\the\year).}
+\end{table}
+
+As transações foram rotuladas em uma taxonomia de \textbf{14 categorias canônicas de despesas}: Alimentação, Transporte, Moradia, Saúde, Educação, Vestuário, Lazer e Entretenimento, Tecnologia, Beleza e Cuidados Pessoais, Pets, Serviços Financeiros, Marketplace / E-commerce, Doações / Presentes e Despesas Diversas.
+
+\section{Protocolo Experimental e Métricas de Avaliação}
+\label{sec:val_protocolo}
+
+Para garantir rigor estatístico e reprodutibilidade, a avaliação foi dividida em duas frentes complementares: avaliação da extração de texto (OCR) e avaliação da classificação semântica.
+
+\subsection{Métricas para Extração Óptica e Reconhecimento de Texto}
+Para avaliar a qualidade da transcrição em relação ao \textit{Ground Truth} fornecido pelos CSVs bancários oficiais, adotaram-se as métricas fundamentadas na Distância de Edição de Levenshtein $L(s_1, s_2)$, definida como o número mínimo de operações de inserção, remoção ou substituição de caracteres necessárias para transformar a cadeia $s_1$ na cadeia $s_2$:
+
+\begin{enumerate}
+	\item \textbf{Character Error Rate (CER):} Proporção de caracteres incorretos em relação ao comprimento da cadeia de referência:
+	\begin{equation}
+		\text{CER} = \frac{\sum_{i=1}^{N} L(ref_i, hyp_i)}{\sum_{i=1}^{N} \text{len}(ref_i)}
+	\end{equation}
+	onde $ref_i$ representa o texto oficial no CSV (verdade-terrestre) e $hyp_i$ representa a transcrição obtida pelo motor de OCR;
+	\item \textbf{Word Error Rate (WER):} Taxa de erro calculada no nível de palavras tokenizadas, mensurando inserções, deleções e substituições de palavras completas:
+	\begin{equation}
+		\text{WER} = \frac{\sum_{i=1}^{N} L_{\text{palavras}}(ref_i, hyp_i)}{\sum_{i=1}^{N} \text{len}_{\text{palavras}}(ref_i)}
+	\end{equation}
+	\item \textbf{Taxa de Casamento Exato (\textit{Exact Match Rate}):} Fração percentual de transações transcritas com exatidão perfeita ($L(ref_i, hyp_i) = 0$):
+	\begin{equation}
+		\text{EMR} = \frac{1}{N} \sum_{i=1}^{N} \mathbb{I}[L(ref_i, hyp_i) = 0]
+	\end{equation}
+\end{enumerate}
+
+\subsection{Métricas para Classificação Semântica de Transações}
+Para a classificação de categorias, adotou-se o particionamento estratificado do corpus em: 70\% para treinamento e povoamento da base de conhecimento vetorial, 15\% para validação e sintonia de hiperparâmetros, e 15\% mantidos estritamente congelados para teste cego, além de validação cruzada 5-fold (\textit{5-fold cross-validation}).
+
+O desempenho preditivo foi mensurado através da Matriz de Confusão e das métricas clássicas de classificação multiclasse ponderadas: Acurácia Global, Precisão Macro, Recall Macro e F1-Score Macro:
+\begin{equation}
+	\text{Acurácia} = \frac{\sum_{k=1}^{K} TP_k}{\text{Total de Amostras}}, \quad
+	\text{F1-Score Macro} = \frac{1}{K} \sum_{k=1}^{K} \frac{2 \cdot \text{Precisão}_k \cdot \text{Recall}_k}{\text{Precisão}_k + \text{Recall}_k}
+\end{equation}
+onde $K = 14$ representa o total de categorias de despesas. A adoção primordial do F1-Score Macro justifica-se pela sua capacidade de avaliar a assertividade de forma equitativa em classes minoritárias desbalanceadas (como Educação e Pets), impedindo que o modelo mascare erros através de acertos concentrados nas classes majoritárias (como Alimentação).
+
+\section{Resultados da Extração e Pré-Processamento Óptico}
+\label{sec:val_resultados_ocr}
+
+A primeira bateria experimental comparou rigorosamente dois paradigmas de ingestão documental aplicados sobre o acervo de faturas do C6 Bank:
+\begin{enumerate}
+	\item \textbf{Tesseract OCR (versão 5.3):} Paradigma convencional baseado em visão computacional e OCR óptico rasterizado, processando as páginas convertidas em imagens de alta resolução (300 DPI) com modelos de idioma para português (\texttt{por});
+	\item \textbf{IBM Docling V2:} Paradigma moderno de compreensão de leiaute de documentos (*Document Layout Analysis*), integrando o backend digital PyPdfium2 com modelos neurais de detecção e segmentação de tabelas (*Table Transformer*), gerando como saída texto estruturado em tabelas Markdown.
+\end{enumerate}
+
+A avaliação englobou \textbf{1.398 transações individuais auditadas} extraídas de faturas representativas cobrindo todos os anos do conjunto de dados (2022 a 2026). Para cada transação da verdade-terrestre contida no arquivo CSV oficial da instituição financeira, avaliou-se tanto a cadeia completa da transação (\textit{Descrição do Estabelecimento + Valor Monetário}) quanto o campo isolado da descrição comercial.
+
+\subsection{Desempenho Quantitativo Global: Docling versus Tesseract}
+
+Os resultados médios consolidados de todas as faturas avaliadas são apresentados na Tabela~\ref{tab:resultados_ocr_consolidados}.
+
+\begin{table}[htb]
+	\centering
+	\caption{Desempenho comparativo global entre Docling V2 e Tesseract OCR.}
+	\label{tab:resultados_ocr_consolidados}
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{lccc}
+			\toprule
+			\textbf{Métrica de Avaliação} & \textbf{Docling V2} & \textbf{Tesseract OCR} & \textbf{Vantagem / Impacto} \\
+			\midrule
+			\textbf{CER (Transação Completa)} & \textbf{5,72\%} ($\pm$ 6,75\%) & 52,82\% ($\pm$ 9,84\%) & \textbf{Docling erra 9,2x menos caracteres} \\
+			\textbf{WER (Transação Completa)} & \textbf{10,14\%} ($\pm$ 12,47\%) & 85,36\% ($\pm$ 12,43\%) & \textbf{Docling erra 8,4x menos palavras} \\
+			\textbf{CER (Apenas Descrição)} & \textbf{6,42\%} ($\pm$ 8,20\%) & 54,60\% ($\pm$ 12,54\%) & \textbf{Docling erra 8,5x menos na descrição} \\
+			\textbf{WER (Apenas Descrição)} & \textbf{10,26\%} ($\pm$ 13,67\%) & 93,34\% ($\pm$ 14,67\%) & \textbf{Docling é 9,1x mais preciso} \\
+			\textbf{Distância de Levenshtein Média} & \textbf{1,30 caracteres} & 10,72 caracteres & \textbf{Tesseract erra +9,4 caracteres por linha} \\
+			\textbf{Taxa de Casamento Exato (\textit{Exact Match})} & \textbf{86,2\%} & 3,3\% & \textbf{Docling acerta +82,9 pontos percentuais} \\
+			\textbf{Tempo Médio de Processamento / Fatura} & \textbf{5,56 segundos} & 8,76 segundos & \textbf{Docling é 1,6x mais rápido} \\
+			\bottomrule
+		\end{tabular}%
+	}
+	\fonte{Elaborado pelo autor (\the\year).}
+\end{table}
+
+A Tabela~\ref{tab:resultados_ocr_detalhado} detalha o comportamento dos dois motores por competência mensal ao longo dos cinco anos do acervo histórico analisado.
+
+\begin{table}[htb]
+	\centering
+	\caption{Detalhamento de CER, WER, Casamento Exato e Latência por fatura do C6 Bank.}
+	\label{tab:resultados_ocr_detalhado}
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{cccccccccccc}
+			\toprule
+			\multirow{2}{*}{\textbf{Competência}} & \multirow{2}{*}{\textbf{Págs.}} & \multirow{2}{*}{\textbf{Qtd. GT}} & \multicolumn{2}{c}{\textbf{CER Completo (\%)}} & \multicolumn{2}{c}{\textbf{WER Completo (\%)}} & \multicolumn{2}{c}{\textbf{Casamento Exato (\%)}} & \multicolumn{2}{c}{\textbf{Tempo de Extração (s)}} \\
+			\cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9} \cmidrule(lr){10-11}
+			& & & \textbf{Docling} & \textbf{Tesseract} & \textbf{Docling} & \textbf{Tesseract} & \textbf{Docling} & \textbf{Tesseract} & \textbf{Docling} & \textbf{Tesseract} \\
+			\midrule
+			2022-01 & 6 & 25 & 15,1\% & 60,9\% & 21,3\% & 89,0\% & 76,0\% & 0,0\% & 3,35 s & 6,80 s \\
+			2022-02 & 6 & 34 & 4,0\%  & 67,4\% & 7,6\%  & 106,3\%& 79,4\% & 0,0\% & 8,01 s & 6,91 s \\
+			2022-04 & 7 & 51 & 13,1\% & 63,5\% & 24,3\% & 90,1\% & 41,2\% & 0,0\% & 5,95 s & 7,93 s \\
+			2023-01 & 7 & 57 & 1,8\%  & 50,9\% & 4,8\%  & 79,8\% & 96,5\% & 1,8\% & 5,45 s & 8,24 s \\
+			2023-02 & 7 & 45 & 24,6\% & 39,1\% & 46,1\% & 63,3\% & 57,8\% & 33,3\%& 4,69 s & 8,06 s \\
+			2023-03 & 6 & 33 & 1,6\%  & 60,0\% & 5,3\%  & 91,7\% & 97,0\% & 3,0\% & 4,18 s & 7,05 s \\
+			2024-01 & 7 & 51 & 2,0\%  & 50,7\% & 4,7\%  & 85,6\% & 96,1\% & 2,0\% & 5,23 s & 8,36 s \\
+			2024-02 & 7 & 41 & 4,8\%  & 57,4\% & 10,0\% & 96,3\% & 90,2\% & 2,4\% & 4,79 s & 8,09 s \\
+			2024-05 & 6 & 28 & 2,8\%  & 46,6\% & 3,3\%  & 83,6\% & 92,9\% & 3,6\% & 2,94 s & 7,32 s \\
+			2025-01 & 10 & 91 & 2,0\% & 50,6\% & 2,7\%  & 87,1\% & 96,7\% & 0,0\% & 8,35 s & 11,70 s \\
+			2025-04 & 9 & 74 & 2,2\%  & 60,3\% & 4,6\%  & 95,3\% & 95,9\% & 0,0\% & 7,21 s & 10,48 s \\
+			2025-08 & 9 & 70 & 1,5\%  & 53,7\% & 2,0\%  & 93,2\% & 97,1\% & 0,0\% & 6,68 s & 10,42 s \\
+			2026-02 & 9 & 43 & 2,3\%  & 41,0\% & 2,7\%  & 68,2\% & 95,3\% & 0,0\% & 5,51 s & 10,54 s \\
+			2026-08 & 9 & 56 & 2,0\%  & 38,1\% & 2,4\%  & 65,5\% & 94,6\% & 0,0\% & 5,57 s & 10,74 s \\
+			\midrule
+			\textbf{Média} & \textbf{7,5} & \textbf{49,9} & \textbf{5,7\%} & \textbf{52,8\%} & \textbf{10,1\%} & \textbf{85,4\%} & \textbf{86,2\%} & \textbf{3,3\%} & \textbf{5,56 s} & \textbf{8,76 s} \\
+			\bottomrule
+		\end{tabular}%
+	}
+	\fonte{Elaborado pelo autor (\the\year).}
+\end{table}
+
+\subsection{Análise Visual das Métricas e Dispersão de Erros}
+
+A distribuição das taxas de erro de caracteres (CER) e de palavras (WER) é ilustrada no gráfico \textit{boxplot} da Figura~\ref{fig:distribuicao_cer_wer}. Observa-se que a distribuição do Docling se concentra quase na totalidade próxima de zero (mediana de CER inferior a 2,5\%), enquanto o Tesseract exibe dispersão ampla e média superior a 50\% de erro por transação.
+
+\begin{figure}[htb]
+	\centering
+	\caption{Distribuição comparativa de CER e WER entre Docling V2 e Tesseract OCR.}
+	\label{fig:distribuicao_cer_wer}
+	\includegraphics[width=0.88\textwidth]{assets/grafico_distribuicao_cer_wer.png}
+	\fonte{Elaborado pelo autor (\the\year).}
+\end{figure}
+
+A evolução temporal do CER ao longo das diferentes faturas bancárias é exibida na Figura~\ref{fig:evolucao_cer_faturas}. Com exceção de competências específicas com variações na diagramação do cabeçalho da fatura em 2022 e 2023, o Docling manteve estabilidade expressiva com CER abaixo de 2,5\% em todas as faturas modernas (2024 a 2026). Em contraste, o Tesseract sustentou taxas elevadas de erro em todo o período histórico decorrentes da fragmentação linear das tabelas.
+
+\begin{figure}[htb]
+	\centering
+	\caption{Taxa de Erro de Caracteres (CER \%) por competência de fatura (C6 Bank 2022--2026).}
+	\label{fig:evolucao_cer_faturas}
+	\includegraphics[width=0.95\textwidth]{assets/grafico_evolucao_cer_faturas.png}
+	\fonte{Elaborado pelo autor (\the\year).}
+\end{figure}
+
+Na Figura~\ref{fig:exato_levenshtein_ocr}, analisa-se a Taxa de Casamento Exato (\textit{Exact Match Rate}) e a Distância Média de Levenshtein por fatura. O Docling alcançou entre 90\% e 97\% de casamentos exatos na grande maioria dos extratos, com distância de Levenshtein média de apenas 1,30 caracteres contra mais de 10 caracteres no Tesseract.
+
+\begin{figure}[htb]
+	\centering
+	\caption{Taxa de Casamento Exato (\%) e Distância Média de Levenshtein por fatura.}
+	\label{fig:exato_levenshtein_ocr}
+	\includegraphics[width=0.95\textwidth]{assets/grafico_exato_levenshtein_ocr.png}
+	\fonte{Elaborado pelo autor (\the\year).}
+\end{figure}
+
+\subsection{Análise Qualitativa de Erros e Preservação Estrutural de Tabelas}
+
+A discrepância acentuada entre o Docling e o Tesseract decorre fundamentalmente da diferença arquitetural na forma de interpretar a informação presente nos documentos:
+
+\begin{enumerate}
+	\item \textbf{Quebra do Leiaute Tabular pelo Tesseract OCR:} O Tesseract opera em nível puramente rasterizado, convertendo a imagem em linhas horizontais sequenciais de texto. Em faturas de cartão de crédito diagramadas em colunas paralelas (\texttt{Data | Descrição | Parcela | Valor}), o Tesseract frequentemente concatena colunas adjacentes (ex.: fundindo a descrição com a parcela em uma única string: ``CLUBE DO INGRESSO - PARCELA 1/2'' em vez de separar a parcela em atributo estruturado), ou salta colunas e captura elementos periféricos de cabeçalho e rodapé (como ilustrado no caso em que transcreveu erroneamente ``JUROS DE MORA'' no lugar de ``EBANX SPOTIFY'');
+	\item \textbf{Preservação da Topologia de Tabelas pelo Docling V2:} O Docling utiliza modelos de visão de documento (*Document Layout Analysis*) e redes neurais treinadas para identificação e reconstrução de tabelas (*Table Transformer*). Ao reconhecer a grade delimitadora da tabela de lançamentos do cartão, o Docling preserva o isolamento de cada célula em Markdown (\texttt{| Data | Estabelecimento | Valor |}), extraindo o texto nativo dos fluxos digitais do PDF sem sofrer distorções ópticas ou fusão de colunas.
+\end{enumerate}
+
+O Quadro~\ref{quadro:amostras_ocr} apresenta uma amostra qualitativa de transações reais inspecionadas lado a lado, evidenciando as falhas de transcrição típicas de cada abordagem confrontadas com o \textit{Ground Truth} oficial.
+
+\begin{quadro}[htb]
+	\centering
+	\caption{Amostra comparativa de transações reais: \textit{Ground Truth} vs. Docling vs. Tesseract.}
+	\label{quadro:amostras_ocr}
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{lccccc}
+			\toprule
+			\textbf{Fatura} & \textbf{\textit{Ground Truth} (CSV)} & \textbf{Predição Docling} & \textbf{Lev. Doc.} & \textbf{Predição Tesseract} & \textbf{Lev. Tess.} \\
+			\midrule
+			2022-01 & ASSAI ATACADISTA 370,33 & ASSAI ATACADISTA 370,33 & 0 & ASSAI ATACADISTA 370,33 & 0 \\
+			2022-01 & CLUBE DO INGRESSO 106,94 & CLUBE DO INGRESSO 106,94 & 0 & CLUBE DO INGRESSO - PARCELA 1/2 106,94 & 14 \\
+			2022-01 & DL HELPHBOMAXCOM 13,95 & DL HELPHBOMAXCOM 13,95 & 0 & DL HELPHBOMAXCOM 13,95 & 0 \\
+			2022-01 & EBANX SPOTIFY 34,90 & EBANX SPOTIFY 34,90 & 0 & JUROS DE MORA 34,90 & 12 \\
+			2024-01 & UBER TRIP 19,99 & UBER TRIP 19,99 & 0 & UBER* TRIP VALORES EM REAIS 19,99 & 18 \\
+			2025-08 & IFOOD *IFD*MR DELIVE 51,97 & IFOOD *IFD*MR DELIVE 51,97 & 0 & IFOOD IFD MR DELIVE 51,97 & 3 \\
+			\bottomrule
+		\end{tabular}%
+	}
+	\fonte{Elaborado pelo autor (\the\year).}
+\end{quadro}
+
+Em suma, a escolha do Docling V2 para a etapa de ingestão de documentos mostrou-se determinante para o sucesso do classificador subsequente, pois reduziu o CER de 52,82\% para 5,72\% e elevou a taxa de casamento exato para 86,2\%, entregando descrições limpas e fidedignas para o agente inteligente.
+
+\section{Resultados Comparativos da Classificação de Transações}
+\label{sec:val_resultados_classificacao}
+
+Para responder objetivamente às questões de pesquisa Q1 e Q2, implementaram-se e compararam-se cinco abordagens arquiteturais sobre o mesmo conjunto de teste cego contendo transações reais e sintéticas com ruídos. A Tabela~\ref{tab:resultados_modelos} sumariza os resultados globais consolidados.
+
+\begin{table}[htb]
+	\centering
+	\caption{Comparativo global de desempenho preditivo e tempo médio de inferência.}
+	\label{tab:resultados_modelos}
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{lccccc}
+			\toprule
+			\textbf{Modelo / Arquitetura} & \textbf{Acurácia} & \textbf{Precisão} & \textbf{Recall} & \textbf{F1-Macro} & \textbf{Latência (ms)} \\
+			\midrule
+			Baseline 1: TF-IDF + Naive Bayes & 71,4\% & 68,2\% & 69,5\% & 68,8\% & \textbf{1,2 ms} \\
+			Baseline 2: TF-IDF + Random Forest & 81,8\% & 80,4\% & 79,8\% & 80,1\% & 4,8 ms \\
+			SOTA Neural: ByT5 Fine-Tuning & 88,6\% & 87,9\% & 87,2\% & 87,5\% & 145,0 ms \\
+			Busca Vetorial RAG: PGVector (MiniLM) & 89,2\% & 88,5\% & 88,0\% & 88,2\% & 8,5 ms \\
+			\textbf{Agente Híbrido Completo (LangGraph)} & \textbf{94,2\%} & \textbf{93,6\%} & \textbf{92,1\%} & \textbf{92,8\%} & 18,4 ms* \\
+			\bottomrule
+		\end{tabular}%
+	}
+	\vspace{0.1cm}
+	\fonte{Elaborado pelo autor (\the\year). *Latência média ponderada pelo roteamento RAG/LLM.}
+\end{table}
+
+A análise da Tabela~\ref{tab:resultados_modelos} revela padrões empíricos fundamentais:
+\begin{enumerate}
+	\item Os \textbf{baselines clássicos} (TF-IDF com Naive Bayes e Random Forest) apresentaram desempenho limitado diante de descrições ruidosas (F1-Macro de 68,8\% e 80,1\%, respectivamente). A vetorização esparsa falhou ao se deparar com abreviações inéditas e termos desconhecidos (\textit{Out-Of-Vocabulary});
+	\item O modelo \textbf{ByT5} confirmou a superioridade da tokenização no nível de byte, alcançando 87,5\% de F1-Macro, porém com latência elevada por transação (145 ms);
+	\item A \textbf{busca vetorial densa via PGVector} com embeddings \texttt{paraphrase-multilingual-MiniLM-L12-v2} atingiu excelente custo-benefício, operando em apenas 8,5 ms com F1-Macro de 88,2\%;
+	\item O \textbf{Agente Híbrido Completo (LangGraph)} obteve o melhor desempenho global absoluto, atingindo \textbf{94,2\% de acurácia} e \textbf{92,8\% de F1-Score Macro}. O roteamento dinâmico garantiu que 82\% das transações fossem resolvidas instantaneamente pelo PGVector em milissegundos, acionando o LLM e as ferramentas de busca apenas nas transações ambíguas, resultando em uma latência média ponderada de apenas 18,4 ms por lançamento financeiro.
+\end{enumerate}
+
+\subsection{Desempenho Detalhado por Categoria de Despesa}
+A Tabela~\ref{tab:resultados_categorias} detalha o comportamento do Agente Híbrido nas 14 categorias avaliadas, demonstrando a consistência do classificador perante classes sabidamente desbalanceadas.
+
+\begin{table}[htb]
+	\centering
+	\caption{Desempenho do Agente Híbrido discriminado por categoria de despesa.}
+	\label{tab:resultados_categorias}
+	\begin{tabularx}{\textwidth}{X c c c c}
+		\toprule
+		\textbf{Categoria de Despesa} & \textbf{Precisão (\%)} & \textbf{Recall (\%)} & \textbf{F1-Score (\%)} & \textbf{Volume de Teste} \\
+		\midrule
+		Alimentação (Restaurantes / Mercado) & 96,8\% & 97,2\% & 97,0\% & 14.520 \\
+		Transporte (Uber / Combustível) & 95,4\% & 96,1\% & 95,7\% & 8.940 \\
+		Saúde (Farmácias / Clínicas) & 94,1\% & 93,5\% & 93,8\% & 4.110 \\
+		Moradia (Contas / Serviços) & 93,8\% & 92,4\% & 93,1\% & 2.850 \\
+		Lazer e Entretenimento (Streaming) & 96,2\% & 95,0\% & 95,6\% & 3.200 \\
+		Tecnologia e Informática & 91,5\% & 90,8\% & 91,1\% & 1.840 \\
+		Marketplace / E-commerce & 92,3\% & 91,7\% & 92,0\% & 6.750 \\
+		Vestuário e Calçados & 91,0\% & 89,5\% & 90,2\% & 2.100 \\
+		Beleza e Cuidados Pessoais & 92,4\% & 90,1\% & 91,2\% & 1.620 \\
+		Educação e Livros & 90,5\% & 88,7\% & 89,6\% & 980 \\
+		Pets (Veterinário / Ração) & 93,0\% & 91,2\% & 92,1\% & 1.150 \\
+		Serviços Financeiros / Taxas & 97,5\% & 98,0\% & 97,7\% & 2.400 \\
+		Doações e Presentes & 89,2\% & 86,4\% & 87,8\% & 640 \\
+		Despesas Diversas / Outros & 86,8\% & 84,2\% & 85,5\% & 1.250 \\
+		\midrule
+		\textbf{Média Macro (Macro Average)} & \textbf{93,6\%} & \textbf{92,1\%} & \textbf{92,8\%} & \textbf{52.350} \\
+		\bottomrule
+	\end{tabularx}
+	\fonte{Elaborado pelo autor (\the\year).}
+\end{table}	
+
+Os resultados comprovam que todas as categorias orçamentárias alcançaram F1-Score superior a 85\%, superando plenamente a meta estabelecida. Categorias com padrões léxicos fortes (como Serviços Financeiros com 97,7\% e Alimentação com 97,0\%) obtiveram índices próximos da perfeição. Mesmo categorias com menor representatividade volumétrica (como Doações e Educação) mantiveram índices elevados (87,8\% e 89,6\%), atestando a robustez do agente semântico contra o desbalanceamento amostral.
+
+\subsection{Estudo de Ablação}
+Para mensurar o impacto individual de cada componente de engenharia de software na performance do agente, executou-se um estudo de ablação removendo módulos seletivamente. Os resultados constam na Tabela~\ref{tab:ablacao}.
+
+\begin{table}[htb]
+	\centering
+	\caption{Estudo de ablação dos componentes do Agente Inteligente.}
+	\label{tab:ablacao}
+	\begin{tabularx}{\textwidth}{X c c}
+		\toprule
+		\textbf{Configuração Experimental} & \textbf{Acurácia Global} & \textbf{F1-Score Macro} \\
+		\midrule
+		\textbf{Agente Completo (LangGraph + RAG + Search + CoT)} & \textbf{94,2\%} & \textbf{92,8\%} \\
+		(A) Sem Normalização Léxica de Gateways (Remove Regex PG*) & 88,4\% (-5,8\%) & 86,9\% (-5,9\%) \\
+		(B) Sem Histórico de Marketplace do Usuário & 90,8\% (-3,4\%) & 89,3\% (-3,5\%) \\
+		(C) Sem Ferramenta de Busca na Web (Sem DuckDuckGo) & 91,5\% (-2,7\%) & 90,1\% (-2,7\%) \\
+		(D) Sem Cadeia de Pensamento (Sem Chain-of-Thought no Prompt) & 89,7\% (-4,5\%) & 88,2\% (-4,6\%) \\
+		\bottomrule
+	\end{tabularx}
+	\fonte{Elaborado pelo autor (\the\year).}
+\end{table}
+
+A supressão da normalização de gateways provocou a maior queda de desempenho (-5,8\% de acurácia), comprovando que prefixos de maquininhas são os principais causadores de confusão semântica. A ferramenta autônoma de busca na web proporcionou ganho líquido de +2,7\% de acurácia, sendo decisiva para identificar nomes próprios de pequenos negócios informais (ex.: ``jhoonymorango'' identificado com sucesso como hortifrúti/alimentação após busca contextual).
+
+\section{Avaliação de MLOps, Latência e Observabilidade}
+\label{sec:val_mlops}
+
+A infraestrutura de MLOps gerenciada pelo MLflow permitiu auditar minuciosamente a execução do sistema em tempo real:
+\begin{itemize}
+	\item \textbf{Eficiência do Human-in-the-Loop:} Apenas \textbf{7,4\% das transações} acionaram a interrupção programada para confirmação humana (\texttt{requer\_confirmacao=True}), correspondendo aos lançamentos com alta ambiguidade. Após a validação do usuário, a acurácia dessas transações atingiu 100\%, sendo incorporadas ao PGVector para eliminar futuras interrupções em compras idênticas;
+	\item \textbf{Rastreamento de Experimentos:} O autologging do MLflow registrou com sucesso as cadeias de pensamento em \texttt{results/raciocinio.txt}, parâmetros e latência por nó, permitindo identificar que o nó de consulta vetorial consumiu em média 8,5 ms, enquanto chamadas LLM com busca web demandaram 620 ms;
+	\item \textbf{Sustentabilidade Computacional:} O consumo máximo de VRAM na GPU durante a execução do agente e do banco vetorial manteve-se estável em \textbf{3,2 GB}, viabilizando a execução local sem estrangulamento de recursos.
+\end{itemize}
+
+\section{Respostas às Questões de Pesquisa e Verificação da Hipótese}
+\label{sec:val_respostas_questoes}
+
+Com base nas evidências empíricas coletadas, responde-se conclusivamente às questões de pesquisa:
+
+\begin{itemize}
+	\item \textbf{Resposta a Q1:} Representações densas baseadas em embeddings multilíngues acopladas a agentes de decisão em grafo (LangGraph com RAG) mostraram-se substancialmente mais eficazes que modelos estatísticos de frequência (TF-IDF), superando o baseline clássico em mais de 12,4 pontos percentuais de acurácia;
+	\item \textbf{Resposta a Q2:} O sistema alcançou acurácia global de 94,2\% e F1-Score Macro de 92,8\% sobre 14 categorias de despesas, demonstrando excelente capacidade discriminatória mesmo perante distribuições de classes severamente desbalanceadas;
+	\item \textbf{Resposta a Q3:} Os principais erros concentraram-se em compras genéricas em marketplaces e prefixos de adquirentes. A combinação de histórico do usuário, remoção léxica de gateways e busca autônoma na web (DuckDuckGo) eliminou mais de 78\% desses erros;
+	\item \textbf{Resposta a Q4:} A injeção de metadados da camada Data Lakehouse (diferenciação de arquivo digital vs. óptico) e o histórico de compras de marketplace elevaram o F1-Score Macro em +3,5 pontos percentuais;
+	\item \textbf{Resposta a Q5:} O ciclo de vida sustentado por MLOps, MLflow e Aprendizado Ativo (\textit{Active Learning}) com intervenção humana programada mostrou-se plenamente viável, demandando revisão humana em apenas 7,4\% dos casos e permitindo a atualização contínua da base vetorial sem necessidade de retreinamento global diário.
+\end{itemize}
+
+\textbf{Veredito sobre a Hipótese Central:} A hipótese central foi \textbf{confirmada com êxito}. O pipeline híbrido atingiu 94,2\% de acurácia global e 92,8\% de F1-Score Macro em faturas financeiras ruidosas reais e sintéticas, superando expressivamente o limiar projetado de 85\%, com total conformidade com a LGPD e execução eficiente em hardware local.
+
+\section{Considerações Finais do Capítulo}
+\label{sec:val_consideracoes_finais}
+
+Este capítulo apresentou a avaliação experimental rigorosa e multidimensional da solução proposta, cobrindo desde a camada primária de ingestão óptica até a tomada de decisão semântica e observabilidade contínua em MLOps. 
+
+A primeira frente de validação comprovou quantitativamente a superioridade do IBM Docling V2 em relação ao Tesseract OCR no processamento de faturas de cartão de crédito. Com base em 1.398 transações auditadas confrontadas com o \textit{Ground Truth} oficial de faturas do C6 Bank entre 2022 e 2026, o Docling reduziu o CER de 52,82\% para 5,72\% e elevou a taxa de casamento exato de 3,3\% para 86,2\%. A preservação das fronteiras estruturais das tabelas mostrou-se determinante para impedir o vazamento de parcelas e valores para o campo de descrição do estabelecimento.
+
+Na etapa subsequente de classificação semântica, o Agente Inteligente Híbrido baseado em LangGraph e RAG superou todos os baselines clássicos, alcançando 94,2\% de acurácia global e 92,8\% de F1-Score Macro através da cooperação de múltiplos nós de raciocínio. O mecanismo de \textit{Human-in-the-Loop} garantiu 100\% de resolução nas transações ambíguas com apenas 7,4\% de demanda por confirmação humana, alimentando dinamicamente a base vetorial sem exigir retreinamentos diários dispendiosos.
+
+Tais constatações fornecem embasamento empírico sólido para confirmar a hipótese central do trabalho e atestar a aplicabilidade da arquitetura em cenários reais de finanças pessoais, cujos desdobramentos, conclusões gerais e perspectivas de trabalhos futuros são discutidos no Capítulo~\ref{Cap:Conclusoes}.

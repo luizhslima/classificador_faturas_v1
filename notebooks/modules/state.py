@@ -1,6 +1,7 @@
 from typing import TypedDict, Optional
 from decimal import Decimal
-
+from langgraph.graph.message import add_messages
+from typing import Annotated
 
 class AlocacaoCategoria(TypedDict, total=False):
     """Representa uma fatia da transação alocada a uma categoria."""
@@ -24,7 +25,7 @@ class SugestaoMarketplace(TypedDict, total=False):
 
 
 class AgentState(TypedDict, total=False):
-
+    messages: Annotated[list, add_messages]
     # ----------------------------------------------------------
     # IDENTIFICAÇÃO
     # ----------------------------------------------------------

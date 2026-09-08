@@ -1,7 +1,28 @@
+from datetime import datetime
 from sqlalchemy import select
-from model import Estabelecimento, SugestaoCategoriaMarketplace, TipoEstabelecimento
-from services import Services
-from state import AgentState
+from model import (
+    Categoria,
+    Estabelecimento,
+    Subcategoria,
+    SugestaoCategoriaMarketplace,
+    TipoEstabelecimento,
+    Transacao,
+)
+try:
+    from modules.async_service import AsyncService
+except ModuleNotFoundError:
+    try:
+        from async_service import AsyncService
+    except ModuleNotFoundError:
+        from notebooks.modules.async_service import AsyncService
+
+try:
+    from modules.state import AgentState
+except ModuleNotFoundError:
+    try:
+        from state import AgentState
+    except ModuleNotFoundError:
+        from notebooks.modules.state import AgentState
 from utils import normalizar_nome, extrair_metadados_datalake, gerar_regra_ocr
 from collections import Counter
 from langgraph.types import interrupt
@@ -10,7 +31,7 @@ from structures import ClassificacaoLLM
 from langchain_core.messages import HumanMessage, SystemMessage
 from decimal import Decimal
 from langgraph.types import StreamWriter
-
+from langchain_community.tools import DuckDuckGoSearchRun, BaseTool
 
 
 MIN_TRANSACOES_HISTORICO = 5
@@ -99,7 +120,7 @@ def detectar_marketplace(nome_original: str) -> str | None:
 
 
 
-def make_nodes(services: Services):
+def make_nodes(services: AsyncService):
 
     async def buscar_estabelecimentos(state: AgentState) -> dict:
         async with services.session_factory() as session:
@@ -120,7 +141,7 @@ def make_nodes(services: Services):
                 }
             return {}
         
-    async def classificar_com_llm(state: AgentState) -> dict:
+    async def classificar_com_llm(state: AgentState):
         dtlk = extrair_metadados_datalake(state.get('source', ''))
         instrucao_ocr = gerar_regra_ocr(dtlk["is_digital_nativo"])
         async with services.session_factory() as session:
@@ -128,46 +149,91 @@ def make_nodes(services: Services):
                 select(TipoEstabelecimento)
             )
             tipos = result.scalars().all()
-            #prompt = f"Classifique o estabelecimento: {state.get('nome_normalizado')} entre essas categorias: {' '.join([tipo.nome for tipo in tipos])}"
-            classificador = services.llm.with_structured_output(
-                ClassificacaoLLM
-            )
-            resposta = await classificador.ainvoke([
-                SystemMessage(
-                    content=f"""
-                            Você é um assistente financeiro especialista em classificar transações de faturas de cartão de crédito no Brasil.
-                            CONTEXTO DA EXTRAÇÃO:
-                            - Banco Origem: {dtlk.get('source')}
-                            - Formato do Dado: {dtlk['extensao']}
-                            REGRAS DE ANÁLISE:
-                            1. PROCESSADORES DE PAGAMENTO: Prefixos como "PG*", "PAG*", "MP*", "ZOOP*", "SUMUP*" indicam apenas a maquininha/gateway. Descodifique siglas comuns (IFD, UBR, AMZN).
-                            2. COMBATE A ALUCINAÇÕES: Não invente marcas ou aplicativos. Se você não reconhecer o estabelecimento com certeza absoluta baseada em fatos reais, não tente forçar um encaixe.
-                            3. REGRA DE ORIGEM DO DADO: {instrucao_ocr}
-                            4. ESTABELECIMENTOS DESCONHECIDOS: Se a transação for ambígua, um nome próprio informal (ex: 'jhoonymorango'), ou apenas um gateway genérico, defina 'requer_confirmacao=true' e use confiança baixa (<=0.70).
-                            5. CADEIA DE PENSAMENTO: Pense passo a passo. Gere o campo "raciocinio" ANTES de gerar a "categoria".
-                            CATEGORIAS PERMITIDAS (Você DEVE escolher apenas uma desta lista ):
-                            {';'.join([f'Nome:{tipo.nome} - descrição: {tipo.descricao}' for tipo in tipos])}"""
-                ),
-                HumanMessage(
-                    content=(
-                        f"Classifique esta transação: {state.get('nome_normalizado')}\n\n"
-                        "Retorne a categoria, subcategoria quando possível, "
-                        "confiança entre 0 e 1, justificativa curta, "
-                        "possíveis categorias alternativas "
-                        "e se exige confirmação humana."
-                    )
-                )
-            ])
+            classificador = services.llm.bind_tools(services.tools)
+            sistem_msg = SystemMessage(
+                content=f"""
+                        Você é um assistente financeiro especialista em classificar transações de faturas de cartão de crédito no Brasil.
+                        CONTEXTO DA EXTRAÇÃO:
+                        - Banco Origem: {dtlk.get('source')}
+                        - Formato do Dado: {dtlk['extensao']}
+                        Você tem acesso a ferramentas. Sempre que usar uma ferramenta, certifique-se de preencher os parâmetros com um JSON estrito, utilizando os tipos corretos (ex: booleanos não devem ter aspas).
+                        REGRAS DE ANÁLISE:
+                        1. PROCESSADORES DE PAGAMENTO: Prefixos como "PG*", "PAG*", "MP*", "ZOOP*", "SUMUP*" indicam apenas a maquininha/gateway. Descodifique siglas comuns (IFD, UBR, AMZN).
+                        2. COMBATE A ALUCINAÇÕES: Não invente marcas ou aplicativos. Se você não reconhecer o estabelecimento com certeza absoluta baseada em fatos reais, não tente forçar um encaixe.
+                        3. REGRA DE ORIGEM DO DADO: {instrucao_ocr}
+                        4. ESTABELECIMENTOS DESCONHECIDOS: Se a transação for ambígua, um nome próprio informal (ex: 'jhoonymorango'), ou apenas um gateway genérico, defina 'requer_confirmacao=true' e use confiança baixa (<=0.70).
+                        5. CADEIA DE PENSAMENTO: Pense passo a passo. Gere o campo "raciocinio" ANTES de gerar a "categoria".
+                        6. Caso necessário faça UMA ÚNICA pesquisa com a 'tool' duckduckgo_search.
+                        7. DIRETRIZES DE PESQUISA (duckduckgo_search):
+                        - NUNCA use aspas (" ") na sua string de busca.
+                        - Pesquise de forma ampla. Adicione palavras de contexto como "estabelecimento", "loja" ou "empresa". 
+                        - Se o nome parecer aglutinado (ex: 'jhoonymorango'), separe as palavras na pesquisa (ex: 'jhoony morango estabelecimento').
+                        - Não inclua as siglas de pagamento (MP, PG) na pesquisa.
 
-            return{
-                "categoria": resposta.categoria,
-                "subcategoria": resposta.subcategoria,
-                "confianca": float(str(resposta.confianca)),
+                        CATEGORIAS PERMITIDAS (Você DEVE escolher apenas uma desta lista ):
+                        {';'.join([f'Nome:{tipo.nome} - descrição: {tipo.descricao}' for tipo in tipos])}
+                        """)
+            msgs = [sistem_msg] + state.get('messages', [])
+            response = await classificador.ainvoke(msgs)
+            return {"messages": [response]}
+
+    async def estruturar_saida_llm(state: AgentState) -> dict:
+        mensagens = state.get("messages", [])
+        if not mensagens:
+            return {
                 "fonte": "llm",
-                "requer_confirmacao": resposta.requer_confirmacao,
-                "justificativa_classificacao": resposta.justificativa,
-                "possiveis_categorias": resposta.possiveis_categorias,
-                "raciocinio": resposta.raciocinio
+                "requer_confirmacao": True,
+                "erro": "Nenhuma mensagem encontrada para estruturar.",
+            }
+
+        ultima_mensagem = mensagens[-1]
+        conteudo_texto = (
+            ultima_mensagem.content
+            if hasattr(ultima_mensagem, "content")
+            else str(ultima_mensagem)
+        )
+
+        model_with_structured = services.llm.with_structured_output(ClassificacaoLLM)
+        prompt_extracao = (
+            f"Baseado nesta análise final, extraia os dados para o formato exigido:\n\n{conteudo_texto}"
+        )
+
+        try:
+            resposta_estruturada = await model_with_structured.ainvoke(prompt_extracao)
+
+            if isinstance(resposta_estruturada, dict):
+                categoria = resposta_estruturada.get("categoria")
+                subcategoria = resposta_estruturada.get("subcategoria")
+                confianca = float(str(resposta_estruturada.get("confianca", 0.0)))
+                requer_confirmacao = bool(resposta_estruturada.get("requer_confirmacao", False))
+                justificativa = resposta_estruturada.get("justificativa", "")
+                possiveis_categorias = resposta_estruturada.get("possiveis_categorias", [])
+                raciocinio = resposta_estruturada.get("raciocinio", "")
+            else:
+                categoria = getattr(resposta_estruturada, "categoria", None)
+                subcategoria = getattr(resposta_estruturada, "subcategoria", None)
+                confianca = float(str(getattr(resposta_estruturada, "confianca", 0.0)))
+                requer_confirmacao = bool(getattr(resposta_estruturada, "requer_confirmacao", False))
+                justificativa = getattr(resposta_estruturada, "justificativa", "")
+                possiveis_categorias = getattr(resposta_estruturada, "possiveis_categorias", [])
+                raciocinio = getattr(resposta_estruturada, "raciocinio", "")
+
+            return {
+                "categoria": categoria,
+                "subcategoria": subcategoria,
+                "confianca": confianca,
+                "fonte": "llm",
+                "requer_confirmacao": requer_confirmacao,
+                "justificativa_classificacao": justificativa,
+                "possiveis_categorias": possiveis_categorias,
+                "raciocinio": raciocinio or conteudo_texto,
+            }
+        except Exception as e:
+            return {
+                "fonte": "llm",
+                "requer_confirmacao": True,
+                "erro": f"Erro ao estruturar saída da LLM: {str(e)}",
+                "raciocinio": conteudo_texto,
             }
 
     @traceable(
@@ -207,25 +273,6 @@ def make_nodes(services: Services):
             "fonte": "vetorial",
             "requer_confirmacao": float(melhor.metadata['confianca']) < 0.95,
         }
-    async def salvar_no_vectorstore(state: AgentState) -> dict:
-        nome = state.get("nome_normalizado")
-        if nome is None:
-            raise ValueError("nome_normalizado é obrigatório para salvar no vectorstore")
-
-        confianca = state.get("confianca")
-
-        metadata = {
-            "categoria": state.get("categoria"),
-            "confianca": str(confianca) if confianca is not None else None,
-            "fonte": state.get("fonte"),
-            "eh_marketplace": state.get("eh_marketplace", False),
-        }
-
-        #await services.vectorstore.aadd_texts(
-        #    texts=[nome],
-        #    metadatas=[metadata],
-        #)
-        return {}
     def detectar_estabelecimento(nome_normalizado: str) -> str:
         """
         Aqui você pode crescer a lista de aliases conforme aprende.
@@ -350,7 +397,7 @@ def make_nodes(services: Services):
             "categoria": categoria_final,
             "confianca": 1.0 if confirmado else state.get('confianca', 0.5),
             'fonte': "humano",
-            "requer_confirmacao": False,
+            "requer_confirmacao": True,
         }
 
     def rota_apos_busca_vetorial(state: AgentState) -> str:
@@ -363,7 +410,7 @@ def make_nodes(services: Services):
         """Se requer confirmação humana, aguarda. Senão, salva direto."""
         if state.get('requer_confirmacao'):
             return "aguardar_confirmacao"
-        return "salvar_resultado"
+        return "estruturar_saida_llm"
 
     def rota_apos_normalizar(state: AgentState) -> str:
         """Se é marketplace, busca histórico do usuário. Senão, busca vetorial."""
@@ -371,33 +418,246 @@ def make_nodes(services: Services):
             return "buscar_historico_marketplace"
         return "buscar_por_similaridade"
 
-    def salvar_resultado(state: AgentState, writer: StreamWriter,) -> dict:
-        writer(
-            {
-                **state,
-                "mensagem":"mensagem de output"
+    async def salvar_resultado(state: AgentState) -> dict:
+        async with services.session_factory() as session:
+            # 1. Resolução de categoria_id
+            categoria_id = None
+            categoria_val = state.get("categoria")
+            if isinstance(categoria_val, int):
+                categoria_id = categoria_val
+            elif isinstance(categoria_val, str) and categoria_val.strip():
+                cat_result = await session.execute(
+                    select(Categoria.id).where(Categoria.nome.ilike(categoria_val.strip()))
+                )
+                categoria_id = cat_result.scalar_one_or_none()
+
+            # 2. Resolução de subcategoria_id
+            subcategoria_id = None
+            subcategoria_val = state.get("subcategoria")
+            if isinstance(subcategoria_val, int):
+                subcategoria_id = subcategoria_val
+            elif isinstance(subcategoria_val, str) and subcategoria_val.strip():
+                subcat_stmt = select(Subcategoria.id).where(Subcategoria.nome.ilike(subcategoria_val.strip()))
+                if categoria_id:
+                    subcat_stmt = subcat_stmt.where(Subcategoria.categoria_id == categoria_id)
+                subcat_result = await session.execute(subcat_stmt)
+                subcategoria_id = subcat_result.scalar_one_or_none()
+
+            # 3. Resolução de sugestão de categoria (marketplaces)
+            categoria_sugerida_id = None
+            cat_sug_val = state.get("categoria_sugerida")
+            if isinstance(cat_sug_val, int):
+                categoria_sugerida_id = cat_sug_val
+            elif isinstance(cat_sug_val, str) and cat_sug_val.strip():
+                cat_sug_res = await session.execute(
+                    select(Categoria.id).where(Categoria.nome.ilike(cat_sug_val.strip()))
+                )
+                categoria_sugerida_id = cat_sug_res.scalar_one_or_none()
+
+            subcategoria_sugerida_id = None
+            subcat_sug_val = state.get("subcategoria_sugerida")
+            if isinstance(subcat_sug_val, int):
+                subcategoria_sugerida_id = subcat_sug_val
+            elif isinstance(subcat_sug_val, str) and subcat_sug_val.strip():
+                subcat_sug_stmt = select(Subcategoria.id).where(Subcategoria.nome.ilike(subcat_sug_val.strip()))
+                if categoria_sugerida_id:
+                    subcat_sug_stmt = subcat_sug_stmt.where(Subcategoria.categoria_id == categoria_sugerida_id)
+                subcat_sug_res = await session.execute(subcat_sug_stmt)
+                subcategoria_sugerida_id = subcat_sug_res.scalar_one_or_none()
+
+            # 4. Resolução de estabelecimento_id
+            estabelecimento_id = None
+            est_id_val = state.get("estabelecimento_id")
+            if est_id_val is not None:
+                try:
+                    estabelecimento_id = int(est_id_val)
+                except (ValueError, TypeError):
+                    estabelecimento_id = None
+            if estabelecimento_id is None:
+                nome_est = state.get("nome_normalizado") or state.get("estabelecimento")
+                if nome_est:
+                    est_res = await session.execute(
+                        select(Estabelecimento.id).where(Estabelecimento.nome_normalizado == nome_est)
+                    )
+                    estabelecimento_id = est_res.scalar_one_or_none()
+
+            # 5. Formatação e normalização de confianças
+            confianca_val = None
+            if state.get("confianca") is not None:
+                try:
+                    c = max(0.0, min(1.0, float(state.get("confianca"))))
+                    confianca_val = Decimal(str(round(c, 3)))
+                except (ValueError, TypeError):
+                    pass
+
+            confianca_sugestao_val = None
+            if state.get("confianca_sugestao") is not None:
+                try:
+                    cs = max(0.0, min(1.0, float(state.get("confianca_sugestao"))))
+                    confianca_sugestao_val = Decimal(str(round(cs, 3)))
+                except (ValueError, TypeError):
+                    pass
+
+            # 6. Método de classificação e validação de status
+            fonte = state.get("fonte")
+            metodo_classificacao = state.get("metodo_classificacao") or fonte
+            requer_confirmacao = bool(state.get("requer_confirmacao", False))
+
+            status_classificacao = state.get("status_classificacao")
+            if not status_classificacao:
+                if fonte == "humano":
+                    status_classificacao = "confirmada_usuario"
+                elif requer_confirmacao:
+                    if state.get("eh_marketplace") or state.get("categoria_sugerida"):
+                        status_classificacao = "sugerida"
+                    else:
+                        status_classificacao = "pendente"
+                elif state.get("categoria"):
+                    status_classificacao = "classificada"
+                else:
+                    status_classificacao = "pendente"
+
+            origem_detalhamento = state.get("origem_detalhamento")
+            origens_validas = {
+                "fatura", "historico_usuario", "nota_fiscal",
+                "email", "api_marketplace", "usuario", "estimativa"
             }
+            if origem_detalhamento not in origens_validas:
+                origem_detalhamento = None
+
+            # 7. Buscar e atualizar Transacao existente ou criar nova
+            transacao_id = state.get("transacao_id") or state.get("id")
+            transacao = None
+            if transacao_id is not None:
+                try:
+                    tid = int(transacao_id)
+                    result = await session.execute(
+                        select(Transacao).where(Transacao.id == tid)
+                    )
+                    transacao = result.scalar_one_or_none()
+                except (ValueError, TypeError):
+                    transacao = None
+
+            if transacao is not None:
+                if categoria_id is not None:
+                    transacao.categoria_id = categoria_id
+                if subcategoria_id is not None:
+                    transacao.subcategoria_id = subcategoria_id
+                if estabelecimento_id is not None:
+                    transacao.estabelecimento_id = estabelecimento_id
+                if confianca_val is not None:
+                    transacao.confianca = confianca_val
+                if metodo_classificacao:
+                    transacao.metodo_classificacao = str(metodo_classificacao)
+                if categoria_sugerida_id is not None:
+                    transacao.categoria_sugerida_id = categoria_sugerida_id
+                if subcategoria_sugerida_id is not None:
+                    transacao.subcategoria_sugerida_id = subcategoria_sugerida_id
+                if confianca_sugestao_val is not None:
+                    transacao.confianca_sugestao = confianca_sugestao_val
+                if origem_detalhamento:
+                    transacao.origem_detalhamento = origem_detalhamento
+                if state.get("nome_normalizado"):
+                    transacao.nome_normalizado = state.get("nome_normalizado")
+                transacao.requer_confirmacao = requer_confirmacao
+                transacao.status_classificacao = status_classificacao
+                if fonte == "humano":
+                    transacao.revisado_usuario = True
+            else:
+                fatura_id = state.get("fatura_id")
+                nome_original = state.get("nome_original")
+                valor = state.get("valor")
+                data_transacao = state.get("data_transacao") or datetime.now().date()
+                if isinstance(data_transacao, datetime):
+                    data_transacao = data_transacao.date()
+                elif isinstance(data_transacao, str):
+                    try:
+                        data_transacao = datetime.fromisoformat(data_transacao).date()
+                    except Exception:
+                        data_transacao = datetime.now().date()
+
+                if fatura_id and nome_original and valor is not None:
+                    transacao = Transacao(
+                        fatura_id=int(fatura_id),
+                        nome_original=str(nome_original),
+                        nome_normalizado=state.get("nome_normalizado"),
+                        valor=Decimal(str(valor)),
+                        data_transacao=data_transacao,
+                        categoria_id=categoria_id,
+                        subcategoria_id=subcategoria_id,
+                        estabelecimento_id=estabelecimento_id,
+                        confianca=confianca_val,
+                        metodo_classificacao=str(metodo_classificacao) if metodo_classificacao else None,
+                        categoria_sugerida_id=categoria_sugerida_id,
+                        subcategoria_sugerida_id=subcategoria_sugerida_id,
+                        confianca_sugestao=confianca_sugestao_val,
+                        origem_detalhamento=origem_detalhamento,
+                        requer_confirmacao=requer_confirmacao,
+                        status_classificacao=status_classificacao,
+                        revisado_usuario=True if fonte == "humano" else False,
+                    )
+                    session.add(transacao)
+
+            await session.commit()
+
+        return {"status_classificacao": status_classificacao}
+
+
+    async def salvar_vectorstore(state: AgentState):
+        nome = state.get("nome_normalizado")
+        if nome is None:
+            raise ValueError("nome_normalizado é obrigatório para salvar no vectorstore")
+
+        confianca = state.get("confianca")
+        try:
+            confianca_val = float(confianca) if confianca is not None else 0.0
+        except (ValueError, TypeError):
+            confianca_val = 0.0
+
+        if confianca_val <= 0.85:
+            return {}
+
+        metadata = {
+            "categoria": state.get("categoria"),
+            "confianca": str(confianca) if confianca is not None else None,
+            "fonte": state.get("fonte"),
+            "eh_marketplace": state.get("eh_marketplace", False),
+            "data_cadastro": datetime.now().isoformat(),
+        }
+
+        await services.vectorstore.aadd_texts(
+            texts=[nome],
+            metadatas=[metadata],
         )
         return {}
 
-
-    def salvar_vectorstore(state: AgentState):
-        pass
+    def roteador_unificado_llm(state: AgentState):
+        messages = state.get("messages", [])
+        if messages:
+            last_message = messages[-1]
+            # Verifica se o LLM decidiu usar uma ferramenta (mesmo comportamento do tools_condition)
+            if hasattr(last_message, 'tool_calls') and last_message.tool_calls:
+                return "tools"
+                
+        # Se não chamou ferramenta, roda a sua função customizada original
+        return rota_apos_llm(state)
     
-    return (buscar_estabelecimentos, 
-            classificar_com_llm,
-            buscar_historico_marketplace, 
-            buscar_por_similaridade, 
-            salvar_no_vectorstore,
-            normalizar,
-            classificar_marketplace_por_historico,
-            aguardar_confirmacao,
-            rota_apos_busca_vetorial,
-            rota_apos_llm,
-            rota_apos_normalizar,
-            salvar_resultado,
-            salvar_vectorstore
-            )
+    return (
+        buscar_estabelecimentos,
+        classificar_com_llm,
+        buscar_historico_marketplace,
+        buscar_por_similaridade,
+        normalizar,
+        classificar_marketplace_por_historico,
+        aguardar_confirmacao,
+        rota_apos_busca_vetorial,
+        rota_apos_llm,
+        rota_apos_normalizar,
+        salvar_resultado,
+        salvar_vectorstore,
+        estruturar_saida_llm,
+        roteador_unificado_llm,
+    )
 
     
 

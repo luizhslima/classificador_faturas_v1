@@ -1,0 +1,160 @@
+\providecommand{\abntreprintinfo}[1]{%
+ \citeonline{#1}}
+\setlength{\labelsep}{0pt}\begin{thebibliography}{}
+\providecommand{\abntrefinfo}[3]{}
+\providecommand{\abntbstabout}[1]{}
+\abntbstabout{v-1.9.7 }
+
+\bibitem[Amaral 2026]{amaral_mlflow}
+\abntrefinfo{Amaral}{AMARAL}{2026}
+{AMARAL, F. \emph{Automatize a criação de modelos: aprenda Operações de ML
+  com Python e MLFlow}. 2026. Curso online. Udemy.
+Dispon{\'\i}vel em:
+  \url{https://brq.udemy.com/course/mlops-mlflow-operacao-de-machine-learning/learn/lecture/24761294\#overview}.
+  Acesso em: 24 maio 2026.}
+
+\bibitem[Anchi{\^e}ta et al. 2021]{anchieta2021pln}
+\abntrefinfo{Anchi{\^e}ta et al.}{ANCHI{\^E}TA et al.}{2021}
+{ANCHI{\^E}TA, R. et al. Processamento de linguagem natural: Fundamentos e
+  aplica{\c{c}}{\~o}es. In:  \emph{Anais do Simp{\'o}sio Brasileiro de
+  Tecnologia da Informa{\c{c}}{\~a}o e da Linguagem Humana (STIL)}. Brasil:
+  SBC, 2021.}
+
+\bibitem[Ara{\'u}jo et al. 2024]{araujo2024saneamento}
+\abntrefinfo{Ara{\'u}jo et al.}{ARA{\'U}JO et al.}{2024}
+{ARA{\'U}JO, S.~S. et al. Saneamento pós-ocr de textos ruidosos avaliando
+  modelos sub-palavra contra llms massivos.
+2024.}
+
+\bibitem[Caseli e Nunes 2024]{caseli2024pln}
+\abntrefinfo{Caseli e Nunes}{CASELI; NUNES}{2024a}
+{CASELI, H.~M.; NUNES, M. d. G.~V. (Ed.). \emph{Processamento de Linguagem
+  Natural: Conceitos, Técnicas e Aplicações em Português}. 2. ed. Brasil:
+  BPLN, 2024.}
+
+\bibitem[Caseli e Nunes 2024]{BPLN_livro:2024}
+\abntrefinfo{Caseli e Nunes}{CASELI; NUNES}{2024b}
+{CASELI, H.~M.; NUNES, M. G.~V. (Ed.). \emph{Processamento de Linguagem
+  Natural: Conceitos, Técnicas e Aplicações em Português}. 2. ed. BPLN,
+  2024.
+ISBN 978-65-00-95750-1. Dispon{\'\i}vel em:
+  \url{https://brasileiraspln.com/livro-pln/2a-edicao/}.}
+
+\bibitem[Chowdhury 2003]{chowdhury2003natural}
+\abntrefinfo{Chowdhury}{CHOWDHURY}{2003}
+{CHOWDHURY, G.~G. Natural language processing.
+\emph{Annual Review of Information Science and Technology}, Wiley Online
+  Library, v.~37, n.~1, p. 51--89, 2003.}
+
+\bibitem[{Dataversity} 2026]{Dataversity2026DataVsConceptDrift}
+\abntrefinfo{{Dataversity}}{{Dataversity}}{2026}
+{{Dataversity}. \emph{Data Drift vs. Concept Drift: What Is the Difference?}
+  2026.
+  \url{https://www.dataversity.net/articles/data-drift-vs-concept-drift-what-is-the-difference/}.
+Accessed: 2026-05-24.}
+
+\bibitem[Dhingra et al. 2016]{dhingra2016tweet2vec}
+\abntrefinfo{Dhingra et al.}{DHINGRA et al.}{2016}
+{DHINGRA, B. et al. Tweet2vec: Character-based distributed representations for
+  social media.
+\emph{arXiv preprint arXiv:1605.03481}, 2016.}
+
+\bibitem[Gerhardt e Silveira 2009]{gerhardt2009metodos}
+\abntrefinfo{Gerhardt e Silveira}{GERHARDT; SILVEIRA}{2009}
+{GERHARDT, T.~E.; SILVEIRA, D.~T. \emph{Métodos de pesquisa}. Porto Alegre,
+  RS: Editora da UFRGS, 2009.}
+
+\bibitem[Gil 2019]{gil2019metodos}
+\abntrefinfo{Gil}{GIL}{2019}
+{GIL, A.~C. \emph{Métodos e Técnicas de Pesquisa Social}. 7. ed. São Paulo:
+  Atlas, 2019.}
+
+\bibitem[Kreuzberger, K{\"u}hl e Hirschl 2022]{kreuzberger2022mlops}
+\abntrefinfo{Kreuzberger, K{\"u}hl e Hirschl}{KREUZBERGER; K{\"U}HL;
+  HIRSCHL}{2022}
+{KREUZBERGER, D.; K{\"U}HL, N.; HIRSCHL, S. Machine learning operations
+  (mlops): Overview, definition, and architecture.
+\emph{IEEE Access}, IEEE, v.~10, p. 31866--31879, 2022.}
+
+\bibitem[Lu et al. 2019]{Lu2019LearningConceptDriftReview}
+\abntrefinfo{Lu et al.}{LU et al.}{2019}
+{LU, J. et al. { Learning under Concept Drift: A Review }.
+\emph{IEEE Transactions on Knowledge \& Data Engineering}, IEEE Computer
+  Society, Los Alamitos, CA, USA, v.~31, n.~12, p. 2346--2363, dez. 2019.
+ISSN 1558-2191.
+Dispon{\'\i}vel em:
+  \url{https://doi.ieeecomputersociety.org/10.1109/TKDE.2018.2876857}.}
+
+\bibitem[Matos 2010]{matos2010pre}
+\abntrefinfo{Matos}{MATOS}{2010}
+{MATOS, P.~F.
+\emph{Metodologia de pr{\'e}-processamento textual para extra{\c{c}}{\~a}o de
+  informa{\c{c}}{\~a}o sobre efeitos de doen{\c{c}}as em artigos
+  cient{\'i}ficos do dom{\'i}nio biom{\'e}dico}.
+Disserta\c{c}\~{a}o (Disserta{\c{c}}{\~a}o (Mestrado em Ci{\^e}ncia da
+  Computa{\c{c}}{\~a}o)) --- Universidade Federal de S{\~a}o Carlos (UFSCar),
+  S{\~a}o Carlos, SP, 2010.}
+
+\bibitem[Northcutt, Jiang e Chuang 2021]{northcutt2021aprendizagem}
+\abntrefinfo{Northcutt, Jiang e Chuang}{NORTHCUTT; JIANG; CHUANG}{2021}
+{NORTHCUTT, C.~G.; JIANG, L.; CHUANG, I.~L. Aprendizagem confiante: Estimando a
+  incerteza em r{\'o}tulos de conjuntos de dados.
+\emph{Journal of Artificial Intelligence Research}, v.~70, p. 1373--1411, abril
+  2021.
+Dispon{\'\i}vel em: \url{https://doi.org/10.48550/arxiv.1911.00068}.}
+
+\bibitem[Qui{\~n}onero-Candela et al. 2008]{quinonero2008dataset}
+\abntrefinfo{Qui{\~n}onero-Candela et al.}{QUI{\~N}ONERO-CANDELA et al.}{2008}
+{QUI{\~N}ONERO-CANDELA, J. et al. \emph{Dataset Shift in Machine Learning}.
+  Cambridge, MA: The MIT Press, 2008.}
+
+\bibitem[Rajaraman e Ullman 2011]{rajaraman2011mining}
+\abntrefinfo{Rajaraman e Ullman}{RAJARAMAN; ULLMAN}{2011}
+{RAJARAMAN, A.; ULLMAN, J.~D. \emph{Mining of Massive Datasets}. [S.l.]:
+  Cambridge University Press, 2011.}
+
+\bibitem[Ren et al. 2021]{ren2021aprendizagem}
+\abntrefinfo{Ren et al.}{REN et al.}{2021}
+{REN, P. et al. Uma pesquisa de aprendizagem ativa profunda (a survey of deep
+  active learning).
+\emph{Inqu{\'e}ritos Computacionais ACM (CSUR)}, v.~54, n.~9, 2021.
+Dispon{\'\i}vel em: \url{https://doi.org/10.1145/3472291}.}
+
+\bibitem[Rocha 2025]{rocha2025avaliacao}
+\abntrefinfo{Rocha}{ROCHA}{2025}
+{ROCHA, T. K.~P.
+\emph{Avaliação de modelos preditivos de aprendizado de máquina como suporte
+  na tomada de decisão gerencial: a predição de risco de mortalidade por
+  COVID-19 no estado de São Paulo}.
+Disserta\c{c}\~{a}o (Dissertação (Mestrado em Ciências)) --- Faculdade de
+  Medicina da Universidade de São Paulo (USP), Programa de Saúde Coletiva,
+  São Paulo, 2025.}
+
+\bibitem[Santos 2023]{santos2023classificacao}
+\abntrefinfo{Santos}{SANTOS}{2023}
+{SANTOS, M. T. M.~d.
+\emph{Classificação de produtos em Notas Fiscais Eletrônicas usando
+  Descrições Textuais não estruturadas}.
+Disserta\c{c}\~{a}o (Trabalho de Conclusão de Curso (Engenharia de
+  Computação)) --- Universidade Federal de Alagoas (UFAL), Instituto de
+  Computação, Maceió, AL, 2023.}
+
+\bibitem[Schumacher et al. 2023]{schumacher2023mlopsdefinition}
+\abntrefinfo{Schumacher et al.}{SCHUMACHER et al.}{2023}
+{SCHUMACHER, J. et al. Machine learning operations (mlops): Overview,
+  definition, and architecture.
+\emph{IEEE Software}, 2023.
+Dispon{\'\i}vel em: \url{https://ieeexplore.ieee.org/document/10081336}.}
+
+\bibitem[Vaswani et al. 2017]{vaswani2017attention}
+\abntrefinfo{Vaswani et al.}{VASWANI et al.}{2017}
+{VASWANI, A. et al. Attention is all you need. In:  \emph{Advances in Neural
+  Information Processing Systems}. [S.l.: s.n.], 2017. v.~30.}
+
+\bibitem[Zhang et al. 2021]{zhang2021mineracao}
+\abntrefinfo{Zhang et al.}{ZHANG et al.}{2021}
+{ZHANG, Y. et al. Mineração de textos curtos e informais provenientes de
+  redes sociais e transações.
+2021.}
+
+\end{thebibliography}

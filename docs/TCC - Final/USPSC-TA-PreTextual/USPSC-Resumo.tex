@@ -1,0 +1,25 @@
+%% USPSC-Resumo.tex
+\setlength{\absparsep}{18pt} % ajusta o espaçamento dos parágrafos do resumo		
+\begin{resumo}
+	\begin{flushleft} 
+			\setlength{\absparsep}{0pt} % ajusta o espaçamento da referência	
+			\SingleSpacing 
+			\imprimirautorabr~~\textbf{\imprimirtituloresumo}.	\imprimirdata. \pageref{LastPage} p. 
+			%Substitua p. por f. quando utilizar oneside em \documentclass
+			%\pageref{LastPage} f.
+			\imprimirtipotrabalho~-~\imprimirinstituicao, \imprimirlocal, \imprimirdata. 
+ 	\end{flushleft}
+\OnehalfSpacing 			
+ O gerenciamento financeiro pessoal enfrenta barreiras críticas decorrentes da despadronização e dos ruídos textuais presentes em descrições de faturas de cartão de crédito, tais como abreviações truncadas, prefixos de intermediadores de pagamento e erros de leitura óptica (OCR). Este
+trabalho apresenta uma solução computacional de ponta a ponta para a extração, higienização e classificação automática de despesas financeiras no contexto brasileiro, fundamentada em ferramentas de Inteligência Artificial, Processamento de Linguagem Natural (PLN) e engenharia de dados. A
+metodologia proposta combina um \textit{pipeline} de extração híbrida com análise de \textit{layout} estruturado (IBM Docling V2) e OCR local (Tesseract), rotinas algorítmicas de saneamento léxico e uma arquitetura de agente inteligente orquestrada em grafos de estado (LangGraph). O sistema
+integra busca vetorial densa em milissegundos via PostgreSQL com extensão pgvector (RAG), raciocínio semântico contextual com modelos de linguagem (LLMs), ferramentas autônomas de enriquecimento via busca na \textit{web} e mecanismo de intervenção humana (\textit{Human-in-the-Loop}) para
+casos de alta incerteza, suportado por uma infraestrutura conteinerizada de \textit{Data Lakehouse} e esteira de MLOps com MLflow, MinIO e Apache Kafka em estrita conformidade com a LGPD. A validação experimental foi conduzida sobre um \textit{corpus} de mais de 470 mil transações reais
+(Cartão de Pagamento do Governo Federal e bancos digitais) e sintéticas ruidosas, categorizadas em 14 classes canônicas. Os resultados demonstraram que o extrator estruturado alcançou redução expressiva na taxa de erro de caracteres (CER de 1,12\%), enquanto o agente híbrido atingiu acurácia
+global de 94,2\% e F1-Score Macro de 92,8\%, superando significativamente os \textit{baselines} clássicos (TF-IDF com Naive Bayes e Random Forest) com latência média ponderada de 18,4 ms por transação. Conclui-se que a solução proposta comprova a viabilidade de \textit{pipelines} modulares,
+reativos e de alta performance operacional sob restrições severas de \textit{hardware} local, viabilizando ferramentas inteligentes e acessíveis para a organização orçamentária dos cidadãos.
+ 
+
+ \textbf{Palavras-chave}: Classificação de Transações Financeiras. Processamento de Linguagem Natural. Agentes
+ Inteligentes. Geração Aumentada por Recuperação. Reconhecimento Óptico de Caracteres. MLOps.
+\end{resumo}

@@ -7,15 +7,22 @@ from docling.backend.pypdfium2_backend import PyPdfiumDocumentBackend
 from pydantic import SecretStr
 from abc import ABC, abstractmethod
 from modules.extrator_nubank import processar_fatura_nativo
-
+from modules.extrator_c6bank import processar_fatura_nativo_c6
+import os
 import io
 
 from typedict.fatura import FaturaDict
+SENHA_PDF = os.getenv('PASSWORD_PDF', '')
 
 class ServiceOCR(ABC):
     @abstractmethod
     def processar_pdf_nativo(self, bytes: io.BytesIO) -> FaturaDict:
         "Metodo responsavel por processar o recurso do OCR"
+        pass
+
+    @abstractmethod
+    def processar_pdf_nativo_c6(self, bytes:io.BytesIO) -> FaturaDict:
+        "Metodo para processar pdf nativo c6 bank"
         pass
 
 
@@ -29,7 +36,7 @@ class ServiceRapidOCR(ServiceOCR):
             enable_remote_fetch=False,
             enable_local_fetch=False,    # Bloqueia busca de arquivos locais
             kind='pdf',                  # Identificador do tipo de backend
-            password=SecretStr("405152"),# Senha protegida na memória
+            password=SecretStr(SENHA_PDF),# Senha protegida na memória
             enforce_same_font=False
         )
 
@@ -54,3 +61,5 @@ class ServiceRapidOCR(ServiceOCR):
         )
     def processar_pdf_nativo(self, bytes: io.BytesIO) -> FaturaDict:
         return processar_fatura_nativo(self.conversor,bytes)
+    def processar_pdf_nativo_c6(self, bytes: io.BytesIO) -> FaturaDict:
+        return processar_fatura_nativo_c6(self.conversor, bytes)

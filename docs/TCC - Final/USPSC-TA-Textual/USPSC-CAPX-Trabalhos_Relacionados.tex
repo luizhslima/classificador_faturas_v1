@@ -1,0 +1,115 @@
+\chapter{Trabalhos Relacionados}
+\label{chp:trabalhos_relacionados}
+
+\section{Considerações Iniciais}
+\label{sec:rel_consideracoes_iniciais}
+
+A identificação das lacunas de pesquisa e o delineamento das escolhas arquiteturais deste trabalho exigem uma análise rigorosa do estado da arte. Este capítulo sintetiza a literatura recente referente à extração, saneamento de erros ópticos e classificação de documentos comerciais e textos informais. O protocolo metodológico completo do levantamento bibliográfico (strings de busca booleanas, bases científicas consultadas e critérios de triagem) encontra-se formalizado no Apêndice~\ref{apendice:protocolo_busca}. Nas seções seguintes, apresentam-se a discussão crítica dos estudos selecionados, o quadro comparativo e o posicionamento distintivo da presente monografia.
+
+\section{Levantamento Bibliográfico e Categorização dos Estudos}
+\label{sec:rel_levantamento}
+
+O levantamento bibliográfico foi conduzido nas principais bases indexadoras internacionais e nacionais (Scopus, IEEE Xplore, Web of Science e Google Scholar), cobrindo publicações entre 2016 e 2025. Os trabalhos recuperados dividem-se em duas categorias conceituais:
+\begin{itemize}
+	\item \textbf{Trabalhos Fortemente Relacionados:} Pesquisas dedicadas especificamente ao processamento de notas fiscais, faturas comerciais e saneamento de textos financeiros curtos oriundos de OCR;
+	\item \textbf{Trabalhos Fracamente Relacionados:} Estudos focados em problemas afins, como mineração de textos informais em redes sociais, arquiteturas teóricas de autoatenção e classificação de layout baseada exclusivamente em visão computacional.
+\end{itemize}
+
+\section{Análise Crítica dos Estudos Selecionados}
+\label{sec:rel_analise_estudos}
+
+A seguir, examinam-se individualmente os trabalhos que compõem o núcleo do estado da arte, padronizados conforme seus objetivos, abordagem metodológica, validação experimental e principais conclusões.
+
+\subsection{Dhingra et al. (2016) e Zhang et al. (2021)}
+\textbf{Objetivo:} Investigar métodos de representação vetorial e classificação profunda em textos curtos, informais e altamente ruidosos provenientes de plataformas digitais e registros transacionais.
+
+\textbf{Abordagem:} Os autores propuseram arquiteturas de Redes Neurais Recorrentes bidirecionais (Bi-GRU e LSTM) operando no nível de caracteres (\textit{character-level}), a exemplo do modelo \textit{tweet2vec} \cite{dhingra2016tweet2vec, zhang2021mineracao}. A abordagem constrói representações semânticas densas a partir de sequências de letras adjacentes sem depender de vocabulários fechados.
+
+\textbf{Validação e Resultados:} A validação foi conduzida em corpora de mensagens curtas com gírias e erros ortográficos. Os resultados comprovaram a superioridade estatística da modelagem por caracteres sobre métodos tradicionais (como Bag-of-Words e TF-IDF), mitigando drasticamente a falha diante de palavras fora do vocabulário (\textit{Out-Of-Vocabulary}). 
+
+\textbf{Relação com esta Pesquisa:} Fundamenta teoricamente a necessidade de decompor termos financeiros em subpalavras e caracteres para reconhecer descrições truncadas (ex.: ``IFD*RESTAUR'') que não constam em dicionários formais.
+
+\subsection{Participantes da Competição ICDAR (2019) e Modelo CCC}
+\textbf{Objetivo:} Promover o avanço de técnicas automatizadas para a extração de entidades e correção de erros de leitura óptica em recibos comerciais digitalizados (\textit{shopping receipts}) \cite{icdar2019competition}.
+
+\textbf{Abordagem:} As equipes vencedoras do torneio internacional (com destaque para a arquitetura CCC) modelaram o saneamento pós-OCR como uma tarefa de tradução ponta a ponta (\textit{Sequence-to-Sequence}), acoplando codificadores baseados em BERT \cite{devlin2019bert} a camadas convolucionais para detecção e correção cirúrgica de caracteres corrompidos.
+
+\textbf{Validação e Resultados:} Avaliados sobre milhares de cupons fiscais reais com distorções físicas e manchas de impressão, os modelos Transformer obtiveram reduções expressivas nas taxas de erro de caracteres (CER), superando abordagens determinísticas baseadas em regras de substituição manual.
+
+\textbf{Relação com esta Pesquisa:} Comprova que a higienização de faturas e recibos deve ser tratada como tradução contextual texto-a-texto, evidenciando, contudo, que modelos massivos demandam infraestrutura de hardware custosa, o que justifica a investigação de modelos compactos nesta monografia.
+
+\subsection{Santos (2023)}
+\textbf{Objetivo:} Avaliar a viabilidade de algoritmos de aprendizado de máquina para classificar produtos em Notas Fiscais Eletrônicas (NFE) a partir de descrições textuais desestruturadas e curtas \cite{santos2023classificacao}.
+
+\textbf{Abordagem:} O autor comparou um classificador clássico baseado em vetorização TF-IDF associada a algoritmos tradicionais contra uma Rede Neural Recorrente (LSTM) no nível de caracteres, treinadas para categorizar itens mercadológicos.
+
+\textbf{Validação e Resultados:} A validação em dados reais de notas fiscais confirmou que a abordagem no nível de caracteres obteve ganhos expressivos de acurácia sobre o baseline clássico. Todavia, o estudo reportou dificuldades computacionais no treinamento sequencial de RNNs em máquinas convencionais e severa degradação preditiva nas classes minoritárias devido ao desbalanceamento extremo da base.
+
+\textbf{Relação com esta Pesquisa:} Reforça a importância do processamento granular e demonstra a necessidade de adotar métricas robustas (como o F1-Score Macro) e arquiteturas baseadas em Transformers paralelizáveis e RAG para contornar o gargalo das classes desbalanceadas.
+
+\subsection{Araújo et al. (2024)}
+\textbf{Objetivo:} Avaliar comparativamente o desempenho e a eficiência computacional de modelos de linguagem compactos baseados em subpalavras contra Grandes Modelos de Linguagem (LLMs massivos) na tarefa de correção ortográfica Pós-OCR em textos curtos com ruído severo \cite{araujo2024saneamento}.
+
+\textbf{Abordagem:} Os pesquisadores conduziram um estudo empírico confrontando modelos especializados e leves (ByT5 e BART) \cite{xue2021byt5, lewis2020bart} com modelos generativos bilionários (LLaMA-1 e LLaMA-2). Avaliou-se o impacto do ajuste fino (\textit{fine-tuning}) completo versus quantização (Q-LoRA).
+
+\textbf{Validação e Resultados:} Os experimentos demonstraram que o modelo ByT5 superou os LLMs generalistas na redução das taxas de erro CER e WER quando operando em janelas curtas de contexto (25 a 50 caracteres). Os LLMs massivos, além de demandarem hardware proibitivo (mais de 16 GB de VRAM), apresentaram tendência a alucinar informações fictícias em textos curtos corrompidos.
+
+\textbf{Relação com esta Pesquisa:} Estabelece a justificativa científica primordial para descartar o uso de LLMs generativos pesados na etapa pura de correção ortográfica local, orientando o foco do trabalho para modelos ágeis, eficientes e integrados a bancos vetoriais.
+
+\subsection{Souza (2025)}
+\textbf{Objetivo:} Desenvolver um sistema automatizado para extração e estruturação de informações em imagens de faturas de energia elétrica e notas de serviços \cite{souza2025extracao}.
+
+\textbf{Abordagem:} O autor utilizou Redes Neurais Convolucionais profundas (família EfficientNet) para classificação visual de layout, seguidas pela invocação da API comercial em nuvem Amazon Textract para extração das tabelas de consumo.
+
+\textbf{Validação e Resultados:} A solução demonstrou alta precisão em modelos de faturas conhecidos. No entanto, o sistema revelou-se incapaz de generalizar diante de novos layouts não catalogados, exigindo a reconstrução de adaptadores manuais a cada mudança estética promovida pelas concessionárias, além de depender de custos recorrentes de APIs externas.
+
+\textbf{Relação com esta Pesquisa:} Evidencia os riscos e limitações da dependência rígida de layouts visuais e APIs proprietárias em nuvem, justificando a opção do presente trabalho por uma arquitetura independente de layout visual estático, processada localmente e focada na semântica textual das transações.
+
+\section{Quadro Comparativo e Posicionamento desta Pesquisa}
+\label{sec:rel_quadro_comparativo}
+
+A Tabela~\ref{tab:trabalhos_correlatos} confronta as características fundamentais dos estudos correlatos com a proposta desenvolvida nesta monografia.
+
+\begin{tabularx}{\textwidth}{
+		>{\raggedright\arraybackslash}p{2.6cm} 
+		>{\raggedright\arraybackslash}X 
+		>{\raggedright\arraybackslash}X 
+		>{\raggedright\arraybackslash}X 
+		>{\raggedright\arraybackslash}X
+	}
+	\caption{Comparativo dos trabalhos relacionados frente à solução proposta.} \label{tab:trabalhos_correlatos} \\
+	\toprule
+	\textbf{Trabalho (Ref)} & \textbf{Objetivo} & \textbf{Abordagem} & \textbf{Limitações Identificadas} & \textbf{Lacuna Abordada nesta Pesquisa} \\
+	\midrule
+	\endfirsthead
+	
+	\multicolumn{5}{c}{{\bfseries \tablename\ \thetable{} -- continuação da página anterior}} \\
+	\toprule
+	\textbf{Trabalho (Ref)} & \textbf{Objetivo} & \textbf{Abordagem} & \textbf{Limitações Identificadas} & \textbf{Lacuna Abordada nesta Pesquisa} \\
+	\midrule
+	\endhead
+	
+	\bottomrule
+	\multicolumn{5}{r}{{Continua na próxima página...}} \\
+	\endfoot
+	
+	\bottomrule
+	\endlastfoot
+	
+	Araújo et al. (2024) & Saneamento Pós-OCR de textos curtos e ruidosos. & ByT5 e BART vs. LLaMA-1/2 com fine-tuning. & Foco estrito em correção ortográfica; não executa categorização semântica nem RAG. & Integração de busca vetorial (PGVector), inferência semântica e orquestração em grafo. \\
+	\addlinespace
+	Santos (2023) & Classificação de produtos em NFE. & TF-IDF vs. LSTM no nível de caracteres. & Treinamento lento de RNNs; alta degradação em classes minoritárias desbalanceadas. & Uso de embeddings densos multilíngues, aprendizado ativo e validação via F1-Score Macro. \\
+	\addlinespace
+	Souza (2025) & Extração em faturas de concessionárias. & CNNs (EfficientNet) + OCR Amazon Textract. & Dependência de layout rígido e custos com APIs pagas em nuvem. & Independência de layout geométrico; extração local híbrida (Docling/Tesseract) sem custo de API. \\
+	\addlinespace
+	Dhingra et al. (2016); Zhang et al. (2021) & Mineração de textos curtos e informais. & Redes Recorrentes Bidirecionais (Bi-GRU/LSTM). & Não trata o ciclo de vida MLOps, Data Drift nem desambiguação de marketplaces. & Resolução de aliases, histórico de marketplaces por usuário e monitoramento via MLflow. \\
+	\addlinespace
+	ICDAR (2019) / Modelo CCC & Correção de OCR em cupons fiscais. & BERT customizado + Sequence-to-Sequence. & Custo de inferência elevado; sem mecanismos de Human-in-the-Loop. & Agente LangGraph com interrupções programadas e ferramentas autônomas de busca web. \\
+	\addlinespace
+	\textbf{Esta Pesquisa (Proposta)} & \textbf{Extração, saneamento e classificação de faturas de cartão de crédito.} & \textbf{Agente Reativo Híbrido: Docling/OCR + PGVector + LLM Dinâmico + LangGraph + MLOps.} & \textbf{Demanda bootstrap inicial de exemplos vetoriais e conectividade opcional para web search.} & \textbf{Solução de ponta a ponta local, aderente à LGPD, com esteira de Data Lakehouse e observabilidade total.} \\
+\end{tabularx}
+
+\section{Conclusão do Capítulo}
+\label{sec:rel_conclusao}
+
+A revisão da literatura demonstra que, embora existam contribuições expressivas em tarefas isoladas (correção pós-OCR com Transformers ou extração visual de notas fiscais), persiste uma lacuna quanto a soluções completas, locais e integradas para o tratamento de faturas de cartão de crédito. Ao combinar a extração tabular estruturada, normalização léxica, banco vetorial PGVector, agente inteligente em grafo (LangGraph) com suporte a Human-in-the-Loop e governança MLOps no Data Lakehouse, este trabalho posiciona-se de forma inovadora para oferecer alta assertividade e sustentabilidade operacional no controle financeiro pessoal.

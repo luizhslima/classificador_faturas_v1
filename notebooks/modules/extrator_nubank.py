@@ -4,6 +4,14 @@ import warnings
 from docling.document_converter import DocumentConverter
 from docling.datamodel.base_models import InputFormat, DocumentStream
 
+
+try:
+    from typedict.fatura import FaturaDict, Transacao
+except ModuleNotFoundError:
+    from modules.typedict.fatura import FaturaDict, Transacao
+from typing import cast
+
+
 warnings.filterwarnings("ignore")
 
 # ─── Constantes e Ajustes para OCR ────────────────────────────────────────────
@@ -94,7 +102,7 @@ def inferir_ano(mes_str: str, vcto_ano: int, vcto_mes: int) -> int:
     return vcto_ano - 1 if mes_num > vcto_mes else vcto_ano
 
 
-def extrair_transacoes(paginas: dict, meta: dict) -> list[dict]:
+def extrair_transacoes(paginas: dict, meta: dict) -> list[Transacao]:
     vcto_ano = meta.get("_vcto_ano", 2026)
     vcto_mes = meta.get("_vcto_mes", 6)
 
@@ -203,7 +211,7 @@ def extrair_transacoes(paginas: dict, meta: dict) -> list[dict]:
     return transacoes
 
 
-def processar_fatura(converter: DocumentConverter, pdf_stream: io.BytesIO, filename: str = "fatura.pdf") -> dict:
+def processar_fatura_nativo(converter: DocumentConverter, pdf_stream: io.BytesIO, filename: str = "fatura.pdf") -> FaturaDict:
     print(f"📄 Lendo PDF via DocumentConverter (Export Markdown): {filename}")
     paginas = extrair_paginas_texto(converter,pdf_stream, filename)
 
@@ -211,15 +219,15 @@ def processar_fatura(converter: DocumentConverter, pdf_stream: io.BytesIO, filen
     meta = extrair_metadados(paginas)
 
     print("💳 Extraindo transações...")
-    transacoes = extrair_transacoes(paginas, meta)
+    transacoes = extrair_transacoes(paginas, meta) 
 
     return {
         "fatura": {
-            "titular":        meta.get("titular"),
-            "vencimento":     meta.get("vencimento"),
-            "total_fatura":   meta.get("total_fatura"),
-            "periodo_inicio": meta.get("periodo_inicio"),
-            "periodo_fim":    meta.get("periodo_fim"),
+            "titular":        cast(str,   meta.get("titular")),
+            "vencimento":     cast(str,   meta.get("vencimento")),
+            "total_fatura":   cast(float, meta.get("total_fatura")),
+            "periodo_inicio": cast(str,   meta.get("periodo_inicio")),
+            "periodo_fim":    cast(str,   meta.get("periodo_fim")),
         },
         "total_transacoes": len(transacoes),
         "soma_compras":     round(sum(t["valor"] for t in transacoes), 2),

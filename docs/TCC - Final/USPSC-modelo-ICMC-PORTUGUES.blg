@@ -1,0 +1,96 @@
+This is BibTeX, Version 0.99e
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: USPSC-modelo-ICMC-PORTUGUES.aux
+Reallocating 'name_of_file' (item size: 1) to 31 items.
+The style file: USPSC-classe/abntex2-alf-USPSC.bst
+Reallocating 'name_of_file' (item size: 1) to 39 items.
+A level-1 auxiliary file: USPSC-TA-PreTextual/USPSC-CapaICMC.aux
+Reallocating 'name_of_file' (item size: 1) to 49 items.
+A level-1 auxiliary file: USPSC-TA-PreTextual/USPSC-fichacatalografica.aux
+Reallocating 'name_of_file' (item size: 1) to 42 items.
+A level-1 auxiliary file: USPSC-TA-PreTextual/USPSC-Dedicatoria.aux
+Reallocating 'name_of_file' (item size: 1) to 45 items.
+A level-1 auxiliary file: USPSC-TA-PreTextual/USPSC-Agradecimentos.aux
+Reallocating 'name_of_file' (item size: 1) to 39 items.
+A level-1 auxiliary file: USPSC-TA-PreTextual/USPSC-Epigrafe.aux
+Reallocating 'name_of_file' (item size: 1) to 37 items.
+A level-1 auxiliary file: USPSC-TA-PreTextual/USPSC-Resumo.aux
+Reallocating 'name_of_file' (item size: 1) to 39 items.
+A level-1 auxiliary file: USPSC-TA-PreTextual/USPSC-Abstract.aux
+Reallocating 'name_of_file' (item size: 1) to 49 items.
+A level-1 auxiliary file: USPSC-TA-PreTextual/USPSC-AbreviaturasSiglas.aux
+Reallocating 'name_of_file' (item size: 1) to 43 items.
+A level-1 auxiliary file: USPSC-TA-Textual/USPSC-Cap1-Introducao.aux
+Reallocating 'name_of_file' (item size: 1) to 54 items.
+A level-1 auxiliary file: USPSC-TA-Textual/USPSC-Cap2-Fundamentacao_Teorica.aux
+Reallocating 'name_of_file' (item size: 1) to 44 items.
+A level-1 auxiliary file: USPSC-TA-Textual/USPSC-Cap3-Metodologia.aux
+Reallocating 'name_of_file' (item size: 1) to 55 items.
+A level-1 auxiliary file: USPSC-TA-Textual/USPSC-Cap4-Avaliacao_Experimental.aux
+Reallocating 'name_of_file' (item size: 1) to 42 items.
+A level-1 auxiliary file: USPSC-TA-Textual/USPSC-Cap5-Conclusao.aux
+Reallocating 'name_of_file' (item size: 1) to 16 items.
+Reallocating 'name_of_file' (item size: 1) to 34 items.
+Reallocating 'name_of_file' (item size: 1) to 48 items.
+A level-1 auxiliary file: USPSC-TA-PosTextual/USPSC-IndicesRemissivos.aux
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'wiz_functions' (item size: 4) to 6000 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'wiz_functions' (item size: 4) to 9000 items.
+Database file #1: abntex2-options.bib
+Database file #2: USPSC-bib/USPSC-modelo-references.bib
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'glb_str_end' (item size: 4) to 20 items.
+Reallocating 'glb_str_ptr' (item size: 4) to 20 items.
+Reallocating 'global_strs' (item size: 1) to 4000000 items.
++---------------------------------------------------------+
+| Estilo bibliográfico abntex2-alf.bst versão v-1.9.7           |
+| Em caso de dúvidas ou problemas com este estilo procure |
+| http://www.abntex.net.br/                               |
++---------------------------------------------------------+
+You've used 41 entries,
+            6710 wiz_defined-function locations,
+            1415 strings with 16667 characters,
+and the built_in function-call counts, 37084 in all, are:
+= -- 3636
+> -- 914
+< -- 541
++ -- 893
+- -- 277
+* -- 2423
+:= -- 4624
+add.period$ -- 114
+call.type$ -- 44
+change.case$ -- 294
+chr.to.int$ -- 78
+cite$ -- 29
+duplicate$ -- 2694
+empty$ -- 2332
+format.name$ -- 1312
+if$ -- 8236
+int.to.chr$ -- 11
+int.to.str$ -- 3
+missing$ -- 653
+newline$ -- 154
+num.names$ -- 145
+pop$ -- 759
+preamble$ -- 1
+purify$ -- 153
+quote$ -- 0
+skip$ -- 3347
+stack$ -- 1
+substring$ -- 1602
+swap$ -- 1070
+text.length$ -- 36
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 10
+warning$ -- 0
+while$ -- 224
+width$ -- 0
+write$ -- 474
