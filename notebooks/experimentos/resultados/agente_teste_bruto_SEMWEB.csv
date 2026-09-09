@@ -1,0 +1,335 @@
+categoria,confianca,fonte,metodo,requer_confirmacao,lat_ms,hitl,y_true,descricao,y_pred
+Transporte,1.0,vetorial,vetorial,False,365.0976000353694,False,Transporte,UBER* TRIP,Transporte
+Transporte,1.0,vetorial,vetorial,False,25.043300003744662,False,Transporte,UBER* TRIP,Transporte
+Marketplace / E-commerce,0.9487742854399022,vetorial,vetorial,False,28.635800001211464,False,Marketplace / E-commerce,AMAZONMKTPLC*RAQUENACO,Marketplace / E-commerce
+Transporte,1.0,vetorial,vetorial,False,23.308199946768582,False,Transporte,UBER* TRIP,Transporte
+Despesas Diversas / Outros,1.0,llm,vetorial,False,16968.697700067423,False,Lazer e Entretenimento,INGRESSE,Despesas Diversas / Outros
+Lazer e Entretenimento,0.9673855711782331,vetorial,vetorial,False,31.017300090752542,False,Lazer e Entretenimento,DM HELPHBOMAXCOM,Lazer e Entretenimento
+Transporte,1.0,vetorial,vetorial,False,26.57689992338419,False,Transporte,Uber* Trip,Transporte
+Marketplace / E-commerce,0.9487742854399022,vetorial,vetorial,False,29.03520001564175,False,Marketplace / E-commerce,AMAZONMKTPLC*RAQUENACO,Marketplace / E-commerce
+Transporte,1.0,vetorial,vetorial,False,25.016400031745434,False,Transporte,UBER* TRIP,Transporte
+Transporte,0.9182115762905811,vetorial,vetorial,False,29.7004000749439,False,Transporte,EMIRATES AIRAWP/NVDZ2S,Transporte
+Transporte,1.0,vetorial,vetorial,False,24.921300006099045,False,Transporte,UBER* TRIP,Transporte
+Transporte,1.0,vetorial,vetorial,False,23.30100000835955,False,Transporte,Uber* Trip,Transporte
+Alimentação,0.8742927764313928,vetorial,vetorial,False,25.27889993507415,False,Alimentação,Supermercado Veran Lj1,Alimentação
+Transporte,1.0,vetorial,vetorial,False,23.608399904333055,False,Transporte,UBER* TRIP,Transporte
+Transporte,0.9182115762905811,vetorial,vetorial,False,23.484500008635223,False,Transporte,EMIRATES AIRAWP/NVDZ2S,Transporte
+Saúde,0.888934423289979,vetorial,vetorial,False,23.869000026024878,False,Saúde,Drogaria Sao Paulo,Saúde
+Despesas Diversas / Outros,0.9,llm,vetorial,False,21151.252800016664,False,Lazer e Entretenimento,PAYPAL  NUUVEMJOGOS,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,12117.890300112776,False,Alimentação,Ifd*Arcos Dourados Com,Despesas Diversas / Outros
+Tecnologia,0.8910708241480854,vetorial,vetorial,False,31.365099945105612,False,Marketplace / E-commerce,EC *MELIMAIS,Tecnologia
+Beleza e Cuidados Pessoais,0.9999999162857108,vetorial,vetorial,False,32.31430007144809,False,Beleza e Cuidados Pessoais,HNA*O BOTICARIO,Beleza e Cuidados Pessoais
+Transporte,0.9791870278568177,vetorial,vetorial,False,32.45699999388307,False,Transporte,UBER    UBER    TRIP,Transporte
+Despesas Diversas / Outros,1.0,llm,vetorial,False,7888.7249999679625,False,Alimentação,SAPPORO RESTAURANTE,Despesas Diversas / Outros
+Transporte,1.0,vetorial,vetorial,False,33.58770010527223,False,Transporte,Uber* Trip,Transporte
+Transporte,1.0,vetorial,vetorial,False,30.306600034236908,False,Transporte,UBER* TRIP,Transporte
+Alimentação,0.9231107364659668,vetorial,vetorial,False,26.96990000549704,False,Alimentação,IFD*54.001.769 RAFAEL,Alimentação
+Despesas Diversas / Outros,1.0,llm,vetorial,False,9709.190799971111,False,Lazer e Entretenimento,PARAMOUNT+,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.9,llm,vetorial,False,19675.709699979052,False,Alimentação,IFD*ARCOS DOURADOS COM,Despesas Diversas / Outros
+Alimentação,0.8742927764313928,vetorial,vetorial,False,34.2355000320822,False,Alimentação,Supermercado Veran Lj1,Alimentação
+Moradia,0.95,llm,vetorial,False,14074.78860008996,False,Transporte,SMART HOTEL EIRELI,Moradia
+Transporte,1.0,vetorial,vetorial,False,33.38860010262579,False,Transporte,UBER* TRIP,Transporte
+Despesas Diversas / Outros,1.0,llm,vetorial,False,16550.069399992935,False,Lazer e Entretenimento,INGRESSE,Despesas Diversas / Outros
+Transporte,1.0,vetorial,vetorial,False,32.64470002613962,False,Transporte,UBER* TRIP,Transporte
+Saúde,0.9420004737831046,vetorial,vetorial,False,27.32059999834746,False,Saúde,Drogaria Sao Paulo - Parcela 2/2,Saúde
+Alimentação,0.960166669672143,vetorial,vetorial,False,26.350000058300793,False,Alimentação,SUPERMERCADO,Alimentação
+Marketplace / E-commerce,0.9487742854399022,vetorial,vetorial,False,28.75680010765791,False,Marketplace / E-commerce,AMAZONMKTPLC*RAQUENACO,Marketplace / E-commerce
+Transporte,0.9791870278568177,vetorial,vetorial,False,26.27330005634576,False,Transporte,UBER    UBER    TRIP,Transporte
+Despesas Diversas / Outros,0.95,llm,vetorial,False,8715.352799976245,False,Alimentação,Esquilos Acai,Despesas Diversas / Outros
+Lazer e Entretenimento,0.8884931933258121,vetorial,vetorial,False,34.82019994407892,False,Lazer e Entretenimento,PAG STEAM,Lazer e Entretenimento
+Despesas Diversas / Outros,1.0,llm,vetorial,False,10810.908599989489,False,Alimentação,Jose Hortifruti,Despesas Diversas / Outros
+Lazer e Entretenimento,0.8884931933258121,vetorial,vetorial,False,31.093799974769354,False,Lazer e Entretenimento,PAG STEAM,Lazer e Entretenimento
+Despesas Diversas / Outros,1.0,llm,vetorial,False,16558.154199970886,False,Lazer e Entretenimento,INGRESSE,Despesas Diversas / Outros
+Saúde,0.888934423289979,vetorial,vetorial,False,36.23840003274381,False,Saúde,Drogaria Sao Paulo,Saúde
+Marketplace / E-commerce,1.0,llm,vetorial,False,7137.831899919547,False,Marketplace / E-commerce,MERCADOLIVRE*5PRODUTO,Marketplace / E-commerce
+Transporte,0.9791870278568177,vetorial,vetorial,False,29.223600053228438,False,Transporte,UBER    UBER    TRIP,Transporte
+Saúde,0.9420004737831046,vetorial,vetorial,False,27.8674999717623,False,Saúde,Drogaria Sao Paulo - Parcela 2/2,Saúde
+Transporte,0.9791870278568177,vetorial,vetorial,False,25.832900078967214,False,Transporte,UBER    UBER    TRIP,Transporte
+Despesas Diversas / Outros,1.0,llm,vetorial,False,16543.111699982546,False,Lazer e Entretenimento,INGRESSE,Despesas Diversas / Outros
+Saúde,0.8729473868781801,vetorial,vetorial,False,33.64400006830692,False,Saúde,DROGALIS ITALO,Saúde
+Lazer e Entretenimento,0.8884931933258121,vetorial,vetorial,False,29.321399983018637,False,Lazer e Entretenimento,PAG STEAM,Lazer e Entretenimento
+Despesas Diversas / Outros,1.0,humano,humano,False,11375.08909997996,True,Vestuário,PAYPAL      *BOSS LIFE,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,12950.426399940625,False,Alimentação,Ifd*Simoes e Brandini,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,17332.480399985798,False,Lazer e Entretenimento,INGRESSE,Despesas Diversas / Outros
+Lazer e Entretenimento,0.8884931933258121,vetorial,vetorial,False,31.403800006955862,False,Lazer e Entretenimento,PAG STEAM,Lazer e Entretenimento
+Marketplace / E-commerce,0.9950223982515863,vetorial,vetorial,False,30.305700027383864,False,Marketplace / E-commerce,MERCADOLIVRE MERCADOL,Marketplace / E-commerce
+Saúde,0.9420004737831046,vetorial,vetorial,False,30.53610003553331,False,Saúde,Drogaria Sao Paulo - Parcela 2/2,Saúde
+Lazer e Entretenimento,0.8884931933258121,vetorial,vetorial,False,27.210499974898994,False,Lazer e Entretenimento,PAG STEAM,Lazer e Entretenimento
+Saúde,0.8729473868781801,vetorial,vetorial,False,28.143399977125227,False,Saúde,Drogalis Italo,Saúde
+Lazer e Entretenimento,0.8884931933258121,vetorial,vetorial,False,26.79210004862398,False,Lazer e Entretenimento,PAG STEAM,Lazer e Entretenimento
+Despesas Diversas / Outros,1.0,humano,humano,False,12532.425799989142,True,Marketplace / E-commerce,MERCPAG DILEXDISTRIBU,Despesas Diversas / Outros
+Lazer e Entretenimento,0.8884931933258121,vetorial,vetorial,False,34.12119997665286,False,Lazer e Entretenimento,PAG STEAM,Lazer e Entretenimento
+Alimentação,0.8709526821383419,vetorial,vetorial,False,26.08799992594868,False,Alimentação,BURGER KING PASSEIO SA,Alimentação
+Educação,1.0,llm,vetorial,False,12618.833999964409,False,Educação,UDEMY,Educação
+Despesas Diversas / Outros,1.0,llm,vetorial,False,8009.099600021727,False,Alimentação,SAPPORO RESTAURANTE,Despesas Diversas / Outros
+Lazer e Entretenimento,0.8884931933258121,vetorial,vetorial,False,32.41330001037568,False,Lazer e Entretenimento,PAG STEAM,Lazer e Entretenimento
+Saúde,0.95,llm,vetorial,False,11398.565900046378,False,Saúde,NEO MATRIX OTICA,Saúde
+Saúde,0.888934423289979,vetorial,vetorial,False,35.40200006682426,False,Saúde,Drogaria Sao Paulo,Saúde
+Saúde,1.0,llm,vetorial,False,12965.055900043808,False,Saúde,NEO MATRIX OTICA,Saúde
+Marketplace / E-commerce,0.9950223982515863,vetorial,vetorial,False,39.75749993696809,False,Marketplace / E-commerce,MERCADOLIVRE MERCADOL,Marketplace / E-commerce
+Transporte,0.9791870278568177,vetorial,vetorial,False,35.57849989738315,False,Transporte,UBER    UBER    TRIP,Transporte
+Saúde,0.95,llm,vetorial,False,8631.23220007401,False,Saúde,DROGA ULTRA ITAQUA LT,Saúde
+Saúde,0.8729473868781801,vetorial,vetorial,False,31.428399961441755,False,Saúde,DROGALIS ITALO,Saúde
+Saúde,1.0,llm,vetorial,False,13863.391700084321,False,Saúde,Drogaria Paulista Lj60,Saúde
+Despesas Diversas / Outros,0.85,llm,vetorial,False,17565.746500040404,False,Lazer e Entretenimento,PAYPAL *NUUVEMJOGOS,Despesas Diversas / Outros
+Saúde,1.0,llm,vetorial,False,13801.599200000055,False,Saúde,Drogaria Paulista Lj60,Saúde
+Despesas Diversas / Outros,1.0,llm,vetorial,False,12189.597200020216,False,Alimentação,Ifd*Arcos Dourados Com,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,humano,humano,False,16045.704600051977,True,Alimentação,ZIG*ZIG*LAROC GUARUJA,Despesas Diversas / Outros
+Transporte,0.9182115762905811,vetorial,vetorial,False,62.167500029318035,False,Transporte,EMIRATES AIRAWP/NVDZ2S,Transporte
+Despesas Diversas / Outros,1.0,llm,vetorial,False,8913.31870004069,False,Alimentação,HOT POT RESTAURANT,Despesas Diversas / Outros
+Saúde,0.888934423289979,vetorial,vetorial,False,36.54979995917529,False,Saúde,Drogaria Sao Paulo,Saúde
+Moradia,0.95,llm,vetorial,False,14141.364200040698,False,Transporte,SMART HOTEL EIRELI,Moradia
+Lazer e Entretenimento,1.0,vetorial,vetorial,False,33.856799942441285,False,Lazer e Entretenimento,EBANX*SONYPLAYSTATN,Lazer e Entretenimento
+Saúde,0.888934423289979,vetorial,vetorial,False,34.67229998204857,False,Saúde,Drogaria Sao Paulo,Saúde
+Despesas Diversas / Outros,0.9,llm,vetorial,False,19728.258799994364,False,Alimentação,IFD*ARCOS DOURADOS COM,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.9,llm,vetorial,False,21101.43529996276,False,Lazer e Entretenimento,PAYPAL  NUUVEMJOGOS,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.95,llm,vetorial,False,8048.298000008799,False,Alimentação,JURERE S GRILL,Despesas Diversas / Outros
+Saúde,0.95,llm,vetorial,False,11002.446400001645,False,Saúde,NEO MATRIX OTICA,Saúde
+Lazer e Entretenimento,0.9673855711782331,vetorial,vetorial,False,33.403599984012544,False,Lazer e Entretenimento,DM HELPHBOMAXCOM,Lazer e Entretenimento
+Tecnologia,0.8910708241480854,vetorial,vetorial,False,32.52130001783371,False,Marketplace / E-commerce,EC*MELIMAIS,Tecnologia
+Alimentação,0.8742927764313928,vetorial,vetorial,False,30.040499987080693,False,Alimentação,Supermercado Veran Lj1,Alimentação
+Despesas Diversas / Outros,1.0,llm,vetorial,False,16642.563700093888,False,Lazer e Entretenimento,INGRESSE,Despesas Diversas / Outros
+Marketplace / E-commerce,0.8683781392950249,vetorial,vetorial,False,33.26519997790456,False,Marketplace / E-commerce,MERCADOPAGO *2PRODUTO,Marketplace / E-commerce
+Despesas Diversas / Outros,0.95,llm,vetorial,False,15872.169499984011,False,Lazer e Entretenimento,INGRESSE,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.95,llm,vetorial,False,15885.135999997146,False,Lazer e Entretenimento,INGRESSE,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,humano,humano,False,14361.29249993246,True,Alimentação,IFD*JONATAS DA SILVA M,Despesas Diversas / Outros
+Saúde,0.95,llm,vetorial,False,8628.941399976611,False,Saúde,DROGA ULTRA ITAQUA LT,Saúde
+Despesas Diversas / Outros,0.9,llm,vetorial,False,21163.44440006651,False,Lazer e Entretenimento,PAYPAL  NUUVEMJOGOS,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,humano,humano,False,11404.683800064959,True,Lazer e Entretenimento,SYMPLA*MATHEUS ROCHA C,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,9221.30620002281,False,Alimentação,I9pay S*Supermercado T,Despesas Diversas / Outros
+Lazer e Entretenimento,1.0,vetorial,vetorial,False,28.828500071540475,False,Lazer e Entretenimento,EBANX*SONYPLAYSTATN,Lazer e Entretenimento
+Despesas Diversas / Outros,1.0,llm,vetorial,False,9081.460599903949,False,Alimentação,I9pay S*Supermercado T,Despesas Diversas / Outros
+Alimentação,0.960166669672143,vetorial,vetorial,False,33.77589990850538,False,Alimentação,SUPERMERCADO,Alimentação
+Saúde,0.9420004737831046,vetorial,vetorial,False,27.43480005301535,False,Saúde,Drogaria Sao Paulo - Parcela 2/2,Saúde
+Lazer e Entretenimento,0.9673855711782331,vetorial,vetorial,False,25.88199998717755,False,Lazer e Entretenimento,DM  HELPHBOMAXCOM,Lazer e Entretenimento
+Despesas Diversas / Outros,1.0,llm,vetorial,False,12132.695300038904,False,Alimentação,Ifd*Arcos Dourados Com,Despesas Diversas / Outros
+Saúde,0.888934423289979,vetorial,vetorial,False,35.2791000623256,False,Saúde,Drogaria Sao Paulo,Saúde
+Despesas Diversas / Outros,0.9,llm,vetorial,False,15474.339400068857,False,Vestuário,EMPORIO FOR ALL,Despesas Diversas / Outros
+Alimentação,0.960166669672143,vetorial,vetorial,False,36.54640004970133,False,Alimentação,Supermercado,Alimentação
+Moradia,0.85,llm,vetorial,False,15621.815699967556,False,Moradia,PAG ISABELGAS,Moradia
+Lazer e Entretenimento,0.9673855711782331,vetorial,vetorial,False,35.6370999943465,False,Lazer e Entretenimento,DM      HELPHBOMAXCOM,Lazer e Entretenimento
+Alimentação,0.8742927764313928,vetorial,vetorial,False,29.994399985298514,False,Alimentação,Supermercado Veran Lj1,Alimentação
+Lazer e Entretenimento,0.8884931933258121,vetorial,vetorial,False,35.86580010596663,False,Lazer e Entretenimento,PAG STEAM,Lazer e Entretenimento
+Lazer e Entretenimento,0.8884931933258121,vetorial,vetorial,False,33.10669993516058,False,Lazer e Entretenimento,PAG STEAM,Lazer e Entretenimento
+Alimentação,0.8742927764313928,vetorial,vetorial,False,31.057499931193888,False,Alimentação,Supermercado Veran Lj1,Alimentação
+Lazer e Entretenimento,0.9063492542632987,vetorial,vetorial,False,27.243299991823733,False,Lazer e Entretenimento,DM     *HELPMAXCOM,Lazer e Entretenimento
+Marketplace / E-commerce,0.9487742854399022,vetorial,vetorial,False,28.353899950161576,False,Marketplace / E-commerce,AMAZONMKTPLC*RAQUENACO,Marketplace / E-commerce
+Despesas Diversas / Outros,0.9,llm,vetorial,False,22121.924600098282,False,Lazer e Entretenimento,PAYPAL  NUUVEMJOGOS,Despesas Diversas / Outros
+Transporte,0.9791870278568177,vetorial,vetorial,False,30.815700069069862,False,Transporte,UBER    UBER    TRIP,Transporte
+Despesas Diversas / Outros,1.0,llm,vetorial,False,11298.750199959613,False,Alimentação,PARTISANS PUB BAR,Despesas Diversas / Outros
+Alimentação,0.960166669672143,vetorial,vetorial,False,29.400200000964105,False,Alimentação,SUPERMERCADO,Alimentação
+Despesas Diversas / Outros,1.0,humano,humano,False,10277.106699999422,True,Despesas Diversas / Outros,DIVIPAYPAYMENTS,Despesas Diversas / Outros
+Alimentação,0.9231107364659668,vetorial,vetorial,False,31.288000056520104,False,Alimentação,IFD*54.001.769 RAFAEL,Alimentação
+Alimentação,0.9035610991743038,vetorial,vetorial,False,31.995999976061285,False,Alimentação,IFD*50.842.325 VANESSA,Alimentação
+Saúde,1.0,llm,vetorial,False,14518.276300048456,False,Saúde,Drogaria Paulista Lj60,Saúde
+Alimentação,0.960166669672143,vetorial,vetorial,False,33.72290008701384,False,Alimentação,Supermercado,Alimentação
+Despesas Diversas / Outros,1.0,llm,vetorial,False,11188.864999916404,False,Alimentação,PARTISANS PUB BAR,Despesas Diversas / Outros
+Tecnologia,1.0,humano,humano,False,27172.3613999784,True,Tecnologia,"OPENROUTER, INC        NE",Tecnologia
+Marketplace / E-commerce,0.9908250620625518,vetorial,vetorial,False,38.084100000560284,False,Marketplace / E-commerce,MERCADOLIVRE 3PRODUTOS,Marketplace / E-commerce
+Alimentação,0.8742927764313928,vetorial,vetorial,False,37.68269997090101,False,Alimentação,Supermercado Veran Lj1,Alimentação
+Transporte,0.9791870278568177,vetorial,vetorial,False,39.97679997701198,False,Transporte,UBER    UBER    TRIP,Transporte
+Lazer e Entretenimento,0.9288635714531256,vetorial,vetorial,False,40.73420003987849,False,Lazer e Entretenimento,EBN*PLAYSTATION,Lazer e Entretenimento
+Alimentação,0.9344291100012849,vetorial,vetorial,False,33.75989990308881,False,Alimentação,Supermercado Higa Irma,Alimentação
+Despesas Diversas / Outros,1.0,llm,vetorial,False,12657.216400024481,False,Moradia,PAG*TOTALGAS,Despesas Diversas / Outros
+Educação,1.0,llm,vetorial,False,9072.828499949537,False,Educação,UDEMY,Educação
+Transporte,0.9791870278568177,vetorial,vetorial,False,34.92120001465082,False,Transporte,UBER    UBER    TRIP,Transporte
+Saúde,0.888934423289979,vetorial,vetorial,False,33.04749995004386,False,Saúde,Drogaria Sao Paulo,Saúde
+Saúde,1.0,llm,vetorial,False,20345.389500027522,False,Saúde,Drogaria Paulista Lj60,Saúde
+Marketplace / E-commerce,1.0,llm,vetorial,False,10858.782499912195,False,Marketplace / E-commerce,MERCADOLIVRE*5PRODUTO,Marketplace / E-commerce
+Alimentação,0.960166669672143,vetorial,vetorial,False,34.05949997249991,False,Alimentação,Supermercado,Alimentação
+Despesas Diversas / Outros,0.9999999239423393,vetorial,vetorial,False,30.02760000526905,False,Beleza e Cuidados Pessoais,MP *RAFAEL,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,11606.624300009571,False,Alimentação,Ifd*Arcos Dourados Com,Despesas Diversas / Outros
+Lazer e Entretenimento,0.8884931933258121,vetorial,vetorial,False,31.417699996381998,False,Lazer e Entretenimento,PAG STEAM,Lazer e Entretenimento
+Despesas Diversas / Outros,0.95,llm,vetorial,False,17111.56240000855,False,Lazer e Entretenimento,PAYPAL *NUUVEMJOGOS,Despesas Diversas / Outros
+Alimentação,0.9209521110490757,vetorial,vetorial,False,36.80719994008541,False,Alimentação,Tom Tom Churros Cafe I,Alimentação
+Lazer e Entretenimento,1.0,vetorial,vetorial,False,28.394700028002262,False,Lazer e Entretenimento,EBANX*SONYPLAYSTATN,Lazer e Entretenimento
+Despesas Diversas / Outros,1.0,llm,vetorial,False,7440.82909997087,False,Alimentação,HOT POT RESTAURANT,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,17402.044699992985,False,Lazer e Entretenimento,INGRESSE,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,16610.446200007573,False,Lazer e Entretenimento,Cinepolis Itaquaquecet,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,10055.963600054383,False,Alimentação,IFD*NEW LUCK PIZZARIA,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,11639.964199974202,False,Alimentação,Ifd*Arcos Dourados Com,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,8747.057900065556,False,Alimentação,I9pay S*Supermercado T,Despesas Diversas / Outros
+Saúde,0.888934423289979,vetorial,vetorial,False,34.342799917794764,False,Saúde,Drogaria Sao Paulo,Saúde
+Transporte,0.9182115762905811,vetorial,vetorial,False,29.630100005306304,False,Transporte,EMIRATES AIRAWP/NVDZ2S,Transporte
+Despesas Diversas / Outros,0.95,llm,vetorial,False,10037.977400003001,False,Alimentação,BHBAREDANCETERIA,Despesas Diversas / Outros
+Lazer e Entretenimento,1.0,vetorial,vetorial,False,34.57610006444156,False,Lazer e Entretenimento,EBANX*SONYPLAYSTATN,Lazer e Entretenimento
+Alimentação,0.960166669672143,vetorial,vetorial,False,31.080199987627566,False,Alimentação,Supermercado,Alimentação
+Despesas Diversas / Outros,0.888686592264806,vetorial,vetorial,False,27.75970008224249,False,Despesas Diversas / Outros,ZP      QMS INTERNATI,Despesas Diversas / Outros
+Saúde,0.8729473868781801,vetorial,vetorial,False,28.129399986937642,False,Saúde,DROGALIS ITALO,Saúde
+Marketplace / E-commerce,0.9950223982515863,vetorial,vetorial,False,27.571900049224496,False,Marketplace / E-commerce,MERCADOLIVRE MERCADOL,Marketplace / E-commerce
+Despesas Diversas / Outros,0.95,llm,vetorial,False,12140.223800088279,False,Alimentação,IFD*ARCOS DOURADOS COM,Despesas Diversas / Outros
+Saúde,1.0,llm,vetorial,False,20244.917000061832,False,Saúde,Drogaria Paulista Lj60,Saúde
+Tecnologia,1.0,humano,humano,False,26965.7484999625,True,Tecnologia,"OPENROUTER, INC        NE",Tecnologia
+Lazer e Entretenimento,0.8884931933258121,vetorial,vetorial,False,35.12989997398108,False,Lazer e Entretenimento,PAG STEAM,Lazer e Entretenimento
+Saúde,0.95,llm,vetorial,False,15759.70159994904,False,Saúde,NEO MATRIX OTICA,Saúde
+Transporte,0.9791870278568177,vetorial,vetorial,False,33.08120009023696,False,Transporte,UBER    UBER    TRIP,Transporte
+Marketplace / E-commerce,0.9950223982515863,vetorial,vetorial,False,33.0910999327898,False,Marketplace / E-commerce,MERCADOLIVRE MERCADOL,Marketplace / E-commerce
+Despesas Diversas / Outros,1.0,humano,humano,False,15166.398899978958,True,Despesas Diversas / Outros,GOOGLE NOJI STUDY WIT,Despesas Diversas / Outros
+Marketplace / E-commerce,1.0,llm,vetorial,False,7593.88509998098,False,Marketplace / E-commerce,MERCADOLIVRE*5PRODUTO,Marketplace / E-commerce
+Despesas Diversas / Outros,0.95,llm,vetorial,False,18803.437300026417,False,Alimentação,IFD*ARCOS DOURADOS COM,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.95,llm,vetorial,False,17385.89699997101,False,Alimentação,IFD*ARCOS DOURADOS COM,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.9,llm,vetorial,False,16862.018499989063,False,Lazer e Entretenimento,PAYPAL  NUUVEMJOGOS,Despesas Diversas / Outros
+Marketplace / E-commerce,0.9950223982515863,vetorial,vetorial,False,37.34270005952567,False,Marketplace / E-commerce,MERCADOLIVRE MERCADOL,Marketplace / E-commerce
+Lazer e Entretenimento,0.9063492542632987,vetorial,vetorial,False,33.230100059881806,False,Lazer e Entretenimento,DM     *HELPMAXCOM,Lazer e Entretenimento
+Saúde,0.888934423289979,vetorial,vetorial,False,30.619599972851574,False,Saúde,Drogaria Sao Paulo,Saúde
+Despesas Diversas / Outros,0.95,llm,vetorial,False,10996.6794999782,False,Alimentação,Ifd*Arcos Dourados Com,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.95,llm,vetorial,False,22415.397600037977,False,Lazer e Entretenimento,INGRESSE,Despesas Diversas / Outros
+Saúde,0.9420004737831046,vetorial,vetorial,False,32.643300015479326,False,Saúde,Drogaria Sao Paulo - Parcela 2/2,Saúde
+Despesas Diversas / Outros,1.0,llm,vetorial,False,16206.741599948145,False,Lazer e Entretenimento,INGRESSE,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.95,llm,vetorial,False,18775.481400080025,False,Alimentação,IFD*ARCOS DOURADOS COM,Despesas Diversas / Outros
+Lazer e Entretenimento,1.0,vetorial,vetorial,False,31.945800059475005,False,Lazer e Entretenimento,EBANX*SONYPLAYSTATN,Lazer e Entretenimento
+Alimentação,0.8742927764313928,vetorial,vetorial,False,28.157200082205236,False,Alimentação,Supermercado Veran Lj1,Alimentação
+Despesas Diversas / Outros,1.0,llm,vetorial,False,7752.149400068447,False,Alimentação,RESTAURANTE FLOR DA JO,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.95,llm,vetorial,False,17412.887300015427,False,Despesas Diversas / Outros,REDFIT - ITAQUA CENTRO,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.9,llm,vetorial,False,16925.03529996611,False,Lazer e Entretenimento,PAYPAL  NUUVEMJOGOS,Despesas Diversas / Outros
+Saúde,0.888934423289979,vetorial,vetorial,False,33.1455001141876,False,Saúde,Drogaria Sao Paulo,Saúde
+Saúde,0.9420004737831046,vetorial,vetorial,False,36.22530004940927,False,Saúde,Drogaria Sao Paulo - Parcela 2/2,Saúde
+Marketplace / E-commerce,0.9950223982515863,vetorial,vetorial,False,29.964799992740154,False,Marketplace / E-commerce,MERCADOLIVRE MERCADOL,Marketplace / E-commerce
+Despesas Diversas / Outros,1.0,humano,humano,False,16351.193899987265,True,Vestuário,DAIANE BRANCO DE JESU,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,14623.952400055714,False,Saúde,Drogaria Paulista Lj60,Despesas Diversas / Outros
+Alimentação,0.9231107364659668,vetorial,vetorial,False,35.276500042527914,False,Alimentação,Ifd*54.001.769 Rafael,Alimentação
+Despesas Diversas / Outros,1.0,llm,vetorial,False,9756.318699917756,False,Alimentação,I9pay S*Supermercado T,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,8598.685599979945,False,Alimentação,SAPPORO RESTAURANTE,Despesas Diversas / Outros
+Lazer e Entretenimento,0.9288635714531256,vetorial,vetorial,False,33.376800012774765,False,Lazer e Entretenimento,EBN*PLAYSTATION,Lazer e Entretenimento
+Despesas Diversas / Outros,1.0,llm,vetorial,False,14587.028800044209,False,Saúde,Drogaria Paulista Lj60,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,9769.565499969758,False,Alimentação,I9pay S*Supermercado T,Despesas Diversas / Outros
+Saúde,1.0,llm,vetorial,False,13132.615800015628,False,Saúde,NEO MATRIX OTICA,Saúde
+Despesas Diversas / Outros,0.95,llm,vetorial,False,11704.641000018455,False,Alimentação,Jose Hortifruti,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,10186.685199965723,False,Alimentação,I9pay S*Supermercado T,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,11758.258800022304,False,Alimentação,I9pay S*Supermercado T,Despesas Diversas / Outros
+Transporte,0.9791870278568177,vetorial,vetorial,False,38.0932999541983,False,Transporte,UBER    UBER    TRIP,Transporte
+Transporte,0.9791870278568177,vetorial,vetorial,False,32.135199988260865,False,Transporte,UBER    UBER    TRIP,Transporte
+Despesas Diversas / Outros,0.95,llm,vetorial,False,22855.492900009267,False,Lazer e Entretenimento,INGRESSE,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,11085.822200053371,False,Alimentação,I9pay S*Supermercado T - Parcela 2/2,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,humano,humano,False,10917.111399932764,True,Despesas Diversas / Outros,DIVIPAYPAYMENTS,Despesas Diversas / Outros
+Transporte,0.9182115762905811,vetorial,vetorial,False,35.67889996338636,False,Transporte,EMIRATES AIRAWP/NVDZ2S,Transporte
+Marketplace / E-commerce,0.9234902015618666,vetorial,vetorial,False,34.042099956423044,False,Marketplace / E-commerce,AMAZONMKTPLC*LIULINGZH,Marketplace / E-commerce
+Marketplace / E-commerce,0.9908250620625518,vetorial,vetorial,False,29.375299927778542,False,Marketplace / E-commerce,MERCADOLIVRE 3PRODUTOS,Marketplace / E-commerce
+Lazer e Entretenimento,0.9673855711782331,vetorial,vetorial,False,30.32989997882396,False,Lazer e Entretenimento,DM      HELPHBOMAXCOM,Lazer e Entretenimento
+Alimentação,0.960166669672143,vetorial,vetorial,False,31.277400092221797,False,Alimentação,Supermercado,Alimentação
+Transporte,0.9791870278568177,vetorial,vetorial,False,29.94899998884648,False,Transporte,UBER    UBER    TRIP,Transporte
+Saúde,0.9420004737831046,vetorial,vetorial,False,27.7355998987332,False,Saúde,Drogaria Sao Paulo - Parcela 2/2,Saúde
+Transporte,0.9182115762905811,vetorial,vetorial,False,28.211000026203692,False,Transporte,EMIRATES AIRAWP/NVDZ2S,Transporte
+Lazer e Entretenimento,0.9288635714531256,vetorial,vetorial,False,26.61290008109063,False,Lazer e Entretenimento,EBN*PLAYSTATION,Lazer e Entretenimento
+Moradia,0.95,llm,vetorial,False,17083.102800068446,False,Transporte,SMART HOTEL EIRELI,Moradia
+Saúde,0.888934423289979,vetorial,vetorial,False,36.26480000093579,False,Saúde,Drogaria Sao Paulo,Saúde
+Alimentação,0.9142524068249028,vetorial,vetorial,False,36.042400053702295,False,Alimentação,SODIEDOCES,Alimentação
+Marketplace / E-commerce,0.9487742854399022,vetorial,vetorial,False,39.242700091563165,False,Marketplace / E-commerce,AMAZONMKTPLC*RAQUENACO,Marketplace / E-commerce
+Despesas Diversas / Outros,1.0,llm,vetorial,False,10011.248899972998,False,Alimentação,I9pay S*Supermercado T,Despesas Diversas / Outros
+Saúde,0.8729473868781801,vetorial,vetorial,False,34.73620000295341,False,Saúde,Drogalis Italo,Saúde
+Lazer e Entretenimento,0.9288635714531256,vetorial,vetorial,False,32.93929994106293,False,Lazer e Entretenimento,EBN*PLAYSTATION,Lazer e Entretenimento
+Alimentação,0.9142524068249028,vetorial,vetorial,False,30.641700024716556,False,Alimentação,SODIEDOCES,Alimentação
+Despesas Diversas / Outros,0.95,llm,vetorial,False,11951.568799908273,False,Alimentação,Jose Hortifruti,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,8779.14559992496,False,Alimentação,SAPPORO RESTAURANTE,Despesas Diversas / Outros
+Saúde,0.9420004737831046,vetorial,vetorial,False,35.04759992938489,False,Saúde,Drogaria Sao Paulo - Parcela 2/2,Saúde
+Despesas Diversas / Outros,0.95,llm,vetorial,False,11230.231199995615,False,Moradia,PAG*TOTALGAS,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.95,llm,vetorial,False,11740.47530000098,False,Alimentação,Esquilos Acai,Despesas Diversas / Outros
+Transporte,0.9182115762905811,vetorial,vetorial,False,33.75810000579804,False,Transporte,EMIRATES AIRAWP/NVDZ2S,Transporte
+Despesas Diversas / Outros,1.0,llm,vetorial,False,10068.539900006726,False,Alimentação,I9pay S*Supermercado T,Despesas Diversas / Outros
+Saúde,1.0,llm,vetorial,False,13467.202499974519,False,Saúde,NEO MATRIX OTICA,Saúde
+Despesas Diversas / Outros,0.9,llm,vetorial,False,17336.559499963187,False,Lazer e Entretenimento,PAYPAL  NUUVEMJOGOS,Despesas Diversas / Outros
+Educação,0.95,llm,vetorial,False,9798.385399975814,False,Lazer e Entretenimento,GOOGLE NOJI STUDY WIT,Educação
+Alimentação,0.9231107364659668,vetorial,vetorial,False,34.80569995008409,False,Alimentação,IFD*54.001.769 RAFAEL,Alimentação
+Despesas Diversas / Outros,1.0,llm,vetorial,False,10175.794199923985,False,Alimentação,I9pay S*Supermercado T,Despesas Diversas / Outros
+Saúde,0.888934423289979,vetorial,vetorial,False,43.706499971449375,False,Saúde,Drogaria Sao Paulo,Saúde
+Despesas Diversas / Outros,0.85,llm,vetorial,False,14262.180999969132,False,Despesas Diversas / Outros,BLACK POWDER SISTEMAS,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,10048.33709995728,False,Alimentação,I9pay S*Supermercado T,Despesas Diversas / Outros
+Saúde,0.8729473868781801,vetorial,vetorial,False,34.394699963741004,False,Saúde,DROGALIS ITALO,Saúde
+Lazer e Entretenimento,0.9288635714531256,vetorial,vetorial,False,32.23210002761334,False,Lazer e Entretenimento,EBN*PLAYSTATION,Lazer e Entretenimento
+Saúde,0.9420004737831046,vetorial,vetorial,False,29.278700007125735,False,Saúde,Drogaria Sao Paulo - Parcela 2/2,Saúde
+Despesas Diversas / Outros,1.0,llm,vetorial,False,11696.466600056738,False,Alimentação,I9pay S*Supermercado T,Despesas Diversas / Outros
+Saúde,0.9420004737831046,vetorial,vetorial,False,35.76280002016574,False,Saúde,Drogaria Sao Paulo - Parcela 2/2,Saúde
+Despesas Diversas / Outros,1.0,llm,vetorial,False,14064.109000028111,False,Saúde,DROGA ULTRA ITAQUA LT,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,9676.120400079526,False,Alimentação,HOT POT RESTAURANT,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,9608.597000013106,False,Alimentação,HOT POT RESTAURANT,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,13010.153800016269,False,Alimentação,IFD*NEW LUCK PIZZARIA,Despesas Diversas / Outros
+Lazer e Entretenimento,1.0,vetorial,vetorial,False,41.2729000672698,False,Lazer e Entretenimento,EBANX*SONYPLAYSTATN,Lazer e Entretenimento
+Lazer e Entretenimento,1.0,vetorial,vetorial,False,44.78280001785606,False,Lazer e Entretenimento,EBANX*SONYPLAYSTATN,Lazer e Entretenimento
+Marketplace / E-commerce,0.9487742854399022,vetorial,vetorial,False,36.59509995486587,False,Marketplace / E-commerce,AMAZONMKTPLC*RAQUENACO,Marketplace / E-commerce
+Despesas Diversas / Outros,0.95,llm,vetorial,False,17914.020500029437,False,Despesas Diversas / Outros,REDFIT - ITAQUA CENTRO,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.888686592264806,vetorial,vetorial,False,37.33309998642653,False,Despesas Diversas / Outros,ZP      QMS INTERNATI,Despesas Diversas / Outros
+Marketplace / E-commerce,0.9908250620625518,vetorial,vetorial,False,43.039800017140806,False,Marketplace / E-commerce,MERCADOLIVRE 3PRODUTOS,Marketplace / E-commerce
+Saúde,0.8729473868781801,vetorial,vetorial,False,30.148699996061623,False,Saúde,DROGALIS ITALO,Saúde
+Despesas Diversas / Outros,1.0,llm,vetorial,False,9797.229500021785,False,Alimentação,HOT POT RESTAURANT,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.95,llm,vetorial,False,16060.058699920774,False,Alimentação,Baby Sorvetes,Despesas Diversas / Outros
+Alimentação,0.9443384000170215,vetorial,vetorial,False,31.502399942837656,False,Alimentação,PG CARREFOUR,Alimentação
+Beleza e Cuidados Pessoais,0.9999999162857108,vetorial,vetorial,False,29.45699996780604,False,Beleza e Cuidados Pessoais,HNA*O BOTICARIO,Beleza e Cuidados Pessoais
+Despesas Diversas / Outros,0.95,llm,vetorial,False,11932.40200006403,False,Tecnologia,IL-FL STUDIO/ FL CLOUD GE,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.9,llm,vetorial,False,16801.936900010332,False,Lazer e Entretenimento,PAYPAL  NUUVEMJOGOS,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.95,llm,vetorial,False,11935.95500010997,False,Tecnologia,IL-FL STUDIO/ FL CLOUD GE,Despesas Diversas / Outros
+Saúde,0.9420004737831046,vetorial,vetorial,False,36.639500060118735,False,Saúde,Drogaria Sao Paulo - Parcela 2/2,Saúde
+Alimentação,0.9231107364659668,vetorial,vetorial,False,31.91100002732128,False,Alimentação,Ifd*54.001.769 Rafael,Alimentação
+Despesas Diversas / Outros,0.9,llm,vetorial,False,16842.93050004635,False,Lazer e Entretenimento,PAYPAL  NUUVEMJOGOS,Despesas Diversas / Outros
+Marketplace / E-commerce,0.9950223982515863,vetorial,vetorial,False,34.796099993400276,False,Marketplace / E-commerce,MERCADOLIVRE MERCADOL,Marketplace / E-commerce
+Despesas Diversas / Outros,0.85,llm,vetorial,False,20470.929500064813,False,Lazer e Entretenimento,PAYPAL *NUUVEMJOGOS,Despesas Diversas / Outros
+Educação,1.0,llm,vetorial,False,12336.855300003663,False,Educação,UDEMY,Educação
+Despesas Diversas / Outros,1.0,llm,vetorial,False,14623.683099984191,False,Saúde,Drogaria Paulista Lj60,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.888686592264806,vetorial,vetorial,False,32.50780003145337,False,Despesas Diversas / Outros,ZP      QMS INTERNATI,Despesas Diversas / Outros
+Saúde,0.9420004737831046,vetorial,vetorial,False,29.188000014983118,False,Saúde,Drogaria Sao Paulo - Parcela 2/2,Saúde
+Despesas Diversas / Outros,0.95,llm,vetorial,False,17115.204299916513,False,Transporte,HIBIS HOTEL BARRETOS,Despesas Diversas / Outros
+Saúde,0.8729473868781801,vetorial,vetorial,False,37.50079998280853,False,Saúde,DROGALIS ITALO,Saúde
+Alimentação,0.9231107364659668,vetorial,vetorial,False,34.484300063923,False,Alimentação,IFD*54.001.769 RAFAEL,Alimentação
+Despesas Diversas / Outros,0.85,llm,vetorial,False,18105.89689994231,False,Alimentação,RODOSNACK TURMALINA,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.85,llm,vetorial,False,12772.507200017571,False,Alimentação,Ifd *Zamp,Despesas Diversas / Outros
+Marketplace / E-commerce,0.9487742854399022,vetorial,vetorial,False,37.11110004223883,False,Marketplace / E-commerce,AMAZONMKTPLC*RAQUENACO,Marketplace / E-commerce
+Lazer e Entretenimento,1.0,vetorial,vetorial,False,36.69069998431951,False,Lazer e Entretenimento,EBANX*SONYPLAYSTATN,Lazer e Entretenimento
+Despesas Diversas / Outros,1.0,llm,vetorial,False,9786.05819994118,False,Alimentação,IFOOD   IFD BELLA FON,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.9,llm,vetorial,False,15994.005600106902,False,Lazer e Entretenimento,PAYPAL  NUUVEMJOGOS,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,13903.34860002622,False,Saúde,Drogaria Paulista Lj60,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,12553.565000067465,False,Saúde,Drogaria Paulista Lj60,Despesas Diversas / Outros
+Moradia,0.95,llm,vetorial,False,15782.425599987619,False,Transporte,SMART HOTEL EIRELI,Moradia
+Despesas Diversas / Outros,1.0,llm,vetorial,False,14065.106500056572,False,Saúde,Drogaria Paulista Lj60,Despesas Diversas / Outros
+Lazer e Entretenimento,1.0,vetorial,vetorial,False,38.504699943587184,False,Lazer e Entretenimento,EBN*SPOTIFY,Lazer e Entretenimento
+Despesas Diversas / Outros,0.9223694472024744,vetorial,vetorial,False,32.58629993069917,False,Despesas Diversas / Outros,PAG ZIG,Despesas Diversas / Outros
+Transporte,0.9182115762905811,vetorial,vetorial,False,32.96829992905259,False,Transporte,EMIRATES AIRAWP/NVDZ2S,Transporte
+Despesas Diversas / Outros,0.95,llm,vetorial,False,16591.422499972396,False,Despesas Diversas / Outros,REDFIT - ITAQUA CENTRO,Despesas Diversas / Outros
+Marketplace / E-commerce,0.9419812701137565,vetorial,vetorial,False,38.46840001642704,False,Marketplace / E-commerce,Amazonmktplc*Swarovski - Parcela 4/7,Marketplace / E-commerce
+Despesas Diversas / Outros,1.0,humano,humano,False,10065.518000046723,True,Despesas Diversas / Outros,DIVIPAYPAYMENTS,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,humano,humano,False,12622.416400001384,True,Alimentação,ZIG*ERRORR,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,humano,humano,False,19219.436899991706,True,Alimentação,Ifd*Zamp S.A.,Despesas Diversas / Outros
+Saúde,0.8729473868781801,vetorial,vetorial,False,35.70810006931424,False,Saúde,Drogalis Italo,Saúde
+Despesas Diversas / Outros,1.0,llm,vetorial,False,13845.723900012672,False,Saúde,Drogaria Paulista Lj60,Despesas Diversas / Outros
+Alimentação,0.8742927764313928,vetorial,vetorial,False,36.26819991040975,False,Alimentação,Supermercado Veran Lj1,Alimentação
+Despesas Diversas / Outros,1.0,llm,vetorial,False,16091.140699922107,False,Moradia,TIM,Despesas Diversas / Outros
+Beleza e Cuidados Pessoais,0.9999999162857108,vetorial,vetorial,False,35.519200027920306,False,Beleza e Cuidados Pessoais,HNA*O BOTICARIO,Beleza e Cuidados Pessoais
+Despesas Diversas / Outros,0.888686592264806,vetorial,vetorial,False,27.272299979813397,False,Despesas Diversas / Outros,ZP      QMS INTERNATI,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,11089.44699994754,False,Alimentação,BAR E LANCHES 34 LTDA,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,12196.57140003983,False,Alimentação,BHBAREDANCETERIA,Despesas Diversas / Outros
+Alimentação,0.9231107364659668,vetorial,vetorial,False,35.9519999474287,False,Alimentação,Ifd*54.001.769 Rafael,Alimentação
+Despesas Diversas / Outros,1.0,llm,vetorial,False,11957.682400010526,False,Alimentação,IFD*NEW LUCK PIZZARIA,Despesas Diversas / Outros
+Beleza e Cuidados Pessoais,0.9999999162857108,vetorial,vetorial,False,34.398999996483326,False,Beleza e Cuidados Pessoais,HNA*O BOTICARIO,Beleza e Cuidados Pessoais
+Lazer e Entretenimento,0.9063492542632987,vetorial,vetorial,False,34.80719996150583,False,Lazer e Entretenimento,DM*HELPMAXCOM,Lazer e Entretenimento
+Despesas Diversas / Outros,1.0,llm,vetorial,False,13034.301600069739,False,Saúde,DROGA ULTRA ITAQUA LT,Despesas Diversas / Outros
+Alimentação,1.0,vetorial,vetorial,False,28.956099995411932,False,Alimentação,PAG*JERONIMOJABAQUARA,Alimentação
+Saúde,1.0,llm,vetorial,False,12671.140599995852,False,Saúde,DROGA ULTRA ITAQUA LT,Saúde
+Despesas Diversas / Outros,1.0,llm,vetorial,False,11995.456999982707,False,Alimentação,IFD*NEW LUCK PIZZARIA,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,13036.486299941316,False,Saúde,DROGA ULTRA ITAQUA LT,Despesas Diversas / Outros
+Marketplace / E-commerce,0.9382735200080364,vetorial,vetorial,False,34.80270004365593,False,Marketplace / E-commerce,MERCADOPAGO *MERCADOL,Marketplace / E-commerce
+Saúde,0.8729473868781801,vetorial,vetorial,False,34.91839999333024,False,Saúde,DROGALIS ITALO,Saúde
+Saúde,1.0,llm,vetorial,False,12430.380500038154,False,Saúde,NEO MATRIX OTICA,Saúde
+Saúde,0.95,llm,vetorial,False,15937.94150010217,False,Alimentação,Ifd*Sp Farma Metropoli,Saúde
+Despesas Diversas / Outros,0.95,llm,vetorial,False,9141.356000094675,False,Alimentação,Ifd*New Luck Pizzaria,Despesas Diversas / Outros
+Marketplace / E-commerce,0.9487742854399022,vetorial,vetorial,False,35.81610007677227,False,Marketplace / E-commerce,AMAZONMKTPLC*RAQUENACO,Marketplace / E-commerce
+Despesas Diversas / Outros,0.95,llm,vetorial,False,13400.425500003621,False,Lazer e Entretenimento,Cinepolis Itaquaquecet,Despesas Diversas / Outros
+Alimentação,0.9231107364659668,vetorial,vetorial,False,34.629999892786145,False,Alimentação,Ifd*54.001.769 Rafael,Alimentação
+Despesas Diversas / Outros,0.95,llm,vetorial,False,11062.099000089802,False,Alimentação,Jose Hortifruti,Despesas Diversas / Outros
+Alimentação,0.9231107364659668,vetorial,vetorial,False,37.91840001940727,False,Alimentação,IFD*54.001.769 RAFAEL,Alimentação
+Despesas Diversas / Outros,0.85,llm,vetorial,False,22105.971300043166,False,Lazer e Entretenimento,PAYPAL *NUUVEMJOGOS,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.95,llm,vetorial,False,10783.325499971397,False,Alimentação,Esquilos Acai,Despesas Diversas / Outros
+Marketplace / E-commerce,0.9487742854399022,vetorial,vetorial,False,41.39639995992184,False,Marketplace / E-commerce,AMAZONMKTPLC*RAQUENACO,Marketplace / E-commerce
+Alimentação,0.9231107364659668,vetorial,vetorial,False,36.11799993086606,False,Alimentação,IFD*54.001.769 RAFAEL,Alimentação
+Saúde,0.8729473868781801,vetorial,vetorial,False,35.19059997051954,False,Saúde,DROGALIS ITALO,Saúde
+Alimentação,0.9231107364659668,vetorial,vetorial,False,37.42780000902712,False,Alimentação,Ifd*54.001.769 Rafael,Alimentação
+Transporte,0.9182115762905811,vetorial,vetorial,False,35.108799929730594,False,Transporte,EMIRATES AIRAWP/NVDZ2S,Transporte
+Educação,1.0,llm,vetorial,False,11657.815600046888,False,Educação,UDEMY,Educação
+Despesas Diversas / Outros,0.85,llm,vetorial,False,16942.477700067684,False,Vestuário,EMPORIO FOR ALL,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,humano,humano,False,10629.008199903183,True,Vestuário,PAYPAL      *BOSS LIFE,Despesas Diversas / Outros
+Marketplace / E-commerce,1.0,llm,vetorial,False,8201.504199998453,False,Marketplace / E-commerce,Amazonmktplc*Cinnantie,Marketplace / E-commerce
+Despesas Diversas / Outros,0.9,llm,vetorial,False,15976.321100024506,False,Lazer e Entretenimento,PAYPAL  NUUVEMJOGOS,Despesas Diversas / Outros
+Saúde,0.8729473868781801,vetorial,vetorial,False,35.626999917440116,False,Saúde,Drogalis Italo,Saúde
+Moradia,0.8517531311615353,vetorial,vetorial,False,34.504499984905124,False,Despesas Diversas / Outros,PAG AZPLEX,Moradia
+Moradia,0.95,llm,vetorial,False,15795.754700084217,False,Transporte,SMART HOTEL EIRELI,Moradia
+Marketplace / E-commerce,0.9487742854399022,vetorial,vetorial,False,36.20109998155385,False,Marketplace / E-commerce,AMAZONMKTPLC*RAQUENACO,Marketplace / E-commerce
+Despesas Diversas / Outros,1.0,llm,vetorial,False,12168.660099967383,False,Alimentação,IFD*NEW LUCK PIZZARIA,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.9,llm,vetorial,False,16003.725199960172,False,Lazer e Entretenimento,PAYPAL  NUUVEMJOGOS,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.95,llm,vetorial,False,10992.399499984458,False,Alimentação,Jose Hortifruti,Despesas Diversas / Outros

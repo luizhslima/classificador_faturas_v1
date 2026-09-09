@@ -23,6 +23,8 @@ Reallocating 'name_of_file' (item size: 1) to 43 items.
 A level-1 auxiliary file: USPSC-TA-Textual/USPSC-Cap1-Introducao.aux
 Reallocating 'name_of_file' (item size: 1) to 54 items.
 A level-1 auxiliary file: USPSC-TA-Textual/USPSC-Cap2-Fundamentacao_Teorica.aux
+Reallocating 'name_of_file' (item size: 1) to 55 items.
+A level-1 auxiliary file: USPSC-TA-Textual/USPSC-CAPX-Trabalhos_Relacionados.aux
 Reallocating 'name_of_file' (item size: 1) to 44 items.
 A level-1 auxiliary file: USPSC-TA-Textual/USPSC-Cap3-Metodologia.aux
 Reallocating 'name_of_file' (item size: 1) to 55 items.
@@ -53,44 +55,44 @@ Reallocating 'global_strs' (item size: 1) to 4000000 items.
 | Em caso de dúvidas ou problemas com este estilo procure |
 | http://www.abntex.net.br/                               |
 +---------------------------------------------------------+
-You've used 41 entries,
+You've used 45 entries,
             6710 wiz_defined-function locations,
-            1415 strings with 16667 characters,
-and the built_in function-call counts, 37084 in all, are:
-= -- 3636
-> -- 914
-< -- 541
-+ -- 893
-- -- 277
-* -- 2423
-:= -- 4624
-add.period$ -- 114
-call.type$ -- 44
-change.case$ -- 294
-chr.to.int$ -- 78
-cite$ -- 29
-duplicate$ -- 2694
-empty$ -- 2332
-format.name$ -- 1312
-if$ -- 8236
+            1437 strings with 17872 characters,
+and the built_in function-call counts, 43091 in all, are:
+= -- 4298
+> -- 1052
+< -- 661
++ -- 1065
+- -- 318
+* -- 2821
+:= -- 5357
+add.period$ -- 137
+call.type$ -- 48
+change.case$ -- 335
+chr.to.int$ -- 82
+cite$ -- 33
+duplicate$ -- 3203
+empty$ -- 2647
+format.name$ -- 1518
+if$ -- 9535
 int.to.chr$ -- 11
 int.to.str$ -- 3
-missing$ -- 653
-newline$ -- 154
-num.names$ -- 145
-pop$ -- 759
+missing$ -- 723
+newline$ -- 169
+num.names$ -- 165
+pop$ -- 855
 preamble$ -- 1
-purify$ -- 153
+purify$ -- 171
 quote$ -- 0
-skip$ -- 3347
+skip$ -- 3905
 stack$ -- 1
-substring$ -- 1602
-swap$ -- 1070
-text.length$ -- 36
+substring$ -- 1864
+swap$ -- 1265
+text.length$ -- 40
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 10
+type$ -- 14
 warning$ -- 0
-while$ -- 224
+while$ -- 257
 width$ -- 0
-write$ -- 474
+write$ -- 537

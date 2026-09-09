@@ -1,0 +1,6 @@
+modelo,acuracia,precisao_macro,recall_macro,f1_macro,f1_weighted,latencia_ms,cv_f1_macro_mean,cv_f1_macro_std,cobertura_alta_confianca,similaridade_media_top1,taxa_hitl,frac_vetorial,frac_llm,frac_humano,erros_execucao
+tfidf_naive_bayes,0.8832,0.6984,0.6172,0.6361,0.862,0.0318,0.8849,0.0274,,,,,,,
+tfidf_random_forest,0.8473,0.7415,0.6648,0.693,0.8375,0.2791,0.9269,0.0255,,,,,,,
+byt5_finetuning,0.6587,0.5204,0.5302,0.483,0.633,65.4723,,,,,,,,,
+rag_pgvector_minilm,0.8263,0.5787,0.554,0.5623,0.8387,1.4153,,,0.5749,0.8499,,,,,
+agente_hibrido_langgraph,0.6138,0.6838,0.6292,0.5998,0.6899,6529.9684,,,,,0.0449,0.524,0.4311,0.0449,0.0

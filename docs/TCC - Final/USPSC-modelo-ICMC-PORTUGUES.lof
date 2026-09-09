@@ -1,8 +1,11 @@
 \babel@toc {brazil}{}\relax 
 \babel@toc {brazil}{}\relax 
-\contentsline {figure}{\numberline {1}{\ignorespaces Exemplo ilustrativo de despadronização e ruídos em extrato de cartão de crédito.}}{32}{figure.caption.18}%
-\contentsline {figure}{\numberline {2}{\ignorespaces Arquitetura de Data Lakehouse orientada a eventos com MLOps e agentes de IA.}}{45}{figure.caption.19}%
-\contentsline {figure}{\numberline {3}{\ignorespaces Grafo do agente}}{50}{figure.caption.20}%
-\contentsline {figure}{\numberline {4}{\ignorespaces Distribuição comparativa de CER e WER entre Docling V2 e Tesseract OCR.}}{56}{figure.caption.24}%
-\contentsline {figure}{\numberline {5}{\ignorespaces Taxa de Erro de Caracteres (CER \%) por competência de fatura (C6 Bank 2022--2026).}}{56}{figure.caption.25}%
-\contentsline {figure}{\numberline {6}{\ignorespaces Taxa de Casamento Exato (\%) e Distância Média de Levenshtein por fatura.}}{57}{figure.caption.26}%
+\contentsline {figure}{\numberline {1}{\ignorespaces Exemplo ilustrativo de despadronização e ruídos em extrato de cartão de crédito.}}{30}{figure.caption.18}%
+\contentsline {figure}{\numberline {2}{\ignorespaces Arquitetura de Data Lakehouse orientada a eventos com MLOps e agentes de IA.}}{49}{figure.caption.19}%
+\contentsline {figure}{\numberline {3}{\ignorespaces Grafo do agente}}{54}{figure.caption.20}%
+\contentsline {figure}{\numberline {4}{\ignorespaces Distribuição comparativa de CER e WER entre Docling V2 e Tesseract OCR.}}{60}{figure.caption.24}%
+\contentsline {figure}{\numberline {5}{\ignorespaces Taxa de Erro de Caracteres (CER \%) por competência de fatura (C6 Bank 2022--2026).}}{61}{figure.caption.25}%
+\contentsline {figure}{\numberline {6}{\ignorespaces Taxa de Casamento Exato (\%) e Distância Média de Levenshtein por fatura.}}{61}{figure.caption.26}%
+\contentsline {figure}{\numberline {7}{\ignorespaces Acurácia, F1-Macro e latência (escala logarítmica) por arquitetura no teste-cego.}}{63}{figure.caption.29}%
+\contentsline {figure}{\numberline {8}{\ignorespaces Matriz de confusão do Agente Híbrido no teste-cego (334 transações).}}{66}{figure.caption.31}%
+\contentsline {figure}{\numberline {9}{\ignorespaces F1-Score por categoria de despesa (melhor modelo).}}{67}{figure.caption.32}%

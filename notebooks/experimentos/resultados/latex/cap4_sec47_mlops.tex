@@ -1,0 +1,20 @@
+\section{Avaliação de MLOps, Latência e Observabilidade}
+\label{sec:val_mlops}
+
+A infraestrutura de MLOps gerenciada pelo MLflow registrou integralmente os
+5 experimentos de classificação
+(parâmetros, métricas, relatórios por categoria, predições e figuras) no experimento
+\texttt{experimento\_faturas}, garantindo reprodutibilidade:
+\begin{itemize}
+	\item \textbf{Human-in-the-Loop:} no teste-cego, 4,5\% das transações
+	acionaram a interrupção programada para confirmação humana (\texttt{requer\_confirmacao}),
+	correspondendo a nomes ambíguos roteados ao LLM com baixa confiança;
+	\item \textbf{Latência por arquitetura:} a consulta vetorial no PGVector custou
+	1,4~ms; o ramo LLM local (\texttt{gemma-4-e4b}, modelo de
+	raciocínio no LM Studio) custou 6,5~s por
+	transação, evidenciando o principal gargalo operacional para processamento em lote sem
+	GPU dedicada de maior porte;
+	\item \textbf{Aprendizado ativo:} as classificações de alta confiança ($\ge$~0,85) e
+	as validadas por humano alimentam continuamente a base vetorial (\texttt{salvar\_vectorstore}),
+	reduzindo progressivamente o acionamento do LLM em compras recorrentes.
+\end{itemize}

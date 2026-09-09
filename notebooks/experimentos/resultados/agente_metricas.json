@@ -1,0 +1,11 @@
+{
+  "n_teste": 334,
+  "acuracia": 0.6137724550898204,
+  "latencia_ms_media": 6529.968390722612,
+  "latencia_ms_mediana": 40.35550000844523,
+  "taxa_hitl": 0.04491017964071856,
+  "frac_vetorial": 0.5239520958083832,
+  "frac_llm": 0.4760479041916168,
+  "erros_execucao": 0,
+  "llm_model": "google/gemma-4-e4b"
+}

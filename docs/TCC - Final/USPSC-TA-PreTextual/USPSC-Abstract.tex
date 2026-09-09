@@ -20,14 +20,20 @@
    dense vector search in milliseconds via PostgreSQL with the pgvector extension (RAG), contextual semantic reasoning
    with Large Language Models (LLMs), autonomous web search enrichment tools, and a Human-in-the-Loop mechanism for
    ambiguous transactions, supported by a containerized Data Lakehouse infrastructure and an MLOps pipeline with MLflow,
-   MinIO, and Apache Kafka in strict compliance with the LGPD. Experimental validation was conducted on a corpus of
-   over 470,000 real transactions (Federal Government Payment Card and digital banks) and noisy synthetic data,
-   categorized across 14 canonical classes. Results demonstrated that the structured extractor achieved a character
-   error rate (CER) of 1.12\%, while the hybrid agent reached 94.2\% global accuracy and a 92.8\% Macro F1-Score,
-   significantly outperforming classical baselines (TF-IDF with Naive Bayes and Random Forest) with a weighted average
-   latency of 18.4 ms per transaction. The proposed solution proves the feasibility of modular, reactive, and high-
-   performance AI pipelines under local hardware constraints, enabling accessible intelligent tools for personal budget
-   planning.
+   MinIO, and Apache Kafka in strict compliance with the LGPD. Experimental validation used the Federal Government Payment Card
+   dataset (over 470,000 real transactions) for textual-noise characterization and a labeled set of 1,660 real C6 Bank
+   and Nubank statement transactions for predictive measurement, under a strict merchant-disjoint blind-test protocol.
+   The structured extractor (IBM Docling V2) reduced the character error rate (CER) from 52.8\% (classical OCR) to
+   \textbf{5.72\%}, raising the exact-match rate from 3.3\% to 86.2\%. For semantic classification, the classical
+   sparse baselines (TF-IDF with Random Forest) were the most robust, with a Macro F1-Score of \textbf{69.3\%} and
+   84.7\% accuracy, ahead of dense vector retrieval (56.2\%), the hybrid LangGraph agent (60.0\% Macro-F1 / 61.4\%
+   accuracy, with Human-in-the-Loop on 4.5\% of cases) and ByT5 fine-tuning (48.3\%). A gap of about 23 percentage
+   points was observed between conventional cross-validation and the merchant-disjoint blind test, highlighting the
+   weight of memorizing previously seen merchants. No model reached the 85\% Macro F1-Score threshold under this
+   protocol --- attributed to the small size of the labeled personal dataset and its long category tail --- although
+   global accuracy exceeds it. The solution proves the full functional feasibility of modular, reactive and auditable
+   AI pipelines under local hardware constraints, and delimits the conditions (labeled-data volume and local-model
+   capacity) required for predictive effectiveness at scale.
 
    \vspace{\onelineskip}
  

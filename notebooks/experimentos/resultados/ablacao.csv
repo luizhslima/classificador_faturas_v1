@@ -1,0 +1,4 @@
+componente,com,sem,delta_f1
+Normalização léxica (TF-IDF+RF),67.4,69.3,1.9
+Normalização léxica (RAG MiniLM),66.8,56.2,-10.6
+Ramo vetorial (RAG) — acurácia condicional,97.7,21.4,76.3

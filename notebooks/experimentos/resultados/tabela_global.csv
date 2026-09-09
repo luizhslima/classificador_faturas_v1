@@ -1,0 +1,6 @@
+Modelo / Arquitetura,Acurácia,Precisão,Recall,F1-Macro,Latência (ms)
+Baseline 1: TF-IDF + Naive Bayes,88.32,69.84,61.72,63.61,0.0318
+Baseline 2: TF-IDF + Random Forest,84.73,74.15,66.47999999999999,69.3,0.2791
+SOTA Neural: ByT5 Fine-Tuning,65.86999999999999,52.04,53.02,48.3,65.4723
+Busca Vetorial RAG: PGVector (MiniLM),82.63000000000001,57.87,55.400000000000006,56.230000000000004,1.4153
+Agente Híbrido Completo (LangGraph),61.38,68.38,62.92,59.98,6529.9684

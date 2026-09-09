@@ -1,4 +1,4 @@
-\chapter{Conclusões} \label{Cap:Conclusoes}
+\chapter{Conclusões e Trabalhos Futuros} \label{Cap:Conclusoes}
 
 \label{chp:conclusao}
 
@@ -10,54 +10,58 @@ Este capítulo encerra a monografia apresentando uma síntese analítica do trab
 \section{Síntese do Trabalho e Principais Contribuições}
 \label{sec:concl_sintese}
 
-O presente Trabalho de Conclusão de Curso concebeu, implementou e validou experimentalmente uma solução computacional de ponta a ponta para a extração, higienização e classificação automática de transações financeiras em faturas de cartão de crédito no contexto brasileiro.
+O presente Trabalho de Conclusão de Curso concebeu, implementou e avaliou experimentalmente uma solução computacional de ponta a ponta para a extração, higienização e classificação automática de transações financeiras em faturas de cartão de crédito no contexto brasileiro.
 
 As principais contribuições científicas e tecnológicas desta pesquisa incluem:
 \begin{enumerate}
-	\item \textbf{Pipeline de Extração Híbrida Inteligente:} Desenvolvimento de um mecanismo modular que integra extração de tabelas com preservação de layout via IBM Docling V2 e OCR local via Tesseract com filtro de confiança, reduzindo a taxa de erro de caracteres (CER) para 1,12\%;
+	\item \textbf{Pipeline de Extração Híbrida Inteligente:} Desenvolvimento de um mecanismo modular que integra extração de tabelas com preservação de layout via IBM Docling V2 e OCR local via Tesseract com filtro de confiança, reduzindo a taxa de erro de caracteres (CER) de 52,8\% (Tesseract) para \textbf{5,72\%} e elevando o casamento exato de 3,3\% para 86,2\%, sobre 1.398 transações auditadas contra o \textit{Ground Truth} oficial;
 	\item \textbf{Engenharia de Agente de IA em Grafos de Estado:} Concepção de um agente orquestrado em LangGraph que articula busca vetorial densa em milissegundos (PostgreSQL com pgvector), raciocínio semântico via LLM dinâmico, chamadas autônomas de busca na web para estabelecimentos desconhecidos e pausas programadas para confirmação humana (\textit{Human-in-the-Loop});
 	\item \textbf{Arquitetura Data Lakehouse com MLOps Local:} Estruturação de uma esteira conteinerizada de baixo custo computacional apoiada em MinIO (S3), Apache Kafka, MLflow e Logto, garantindo observabilidade total, rastreamento de experimentos em dois níveis de granularidade e conformidade estrita com a LGPD;
-	\item \textbf{Validação Experimental Robusta:} Avaliação em larga escala sobre mais de 470 mil transações reais e sintéticas, comprovando que o agente híbrido alcançou \textbf{94,2\% de acurácia global} e \textbf{92,8\% de F1-Score Macro}, superando com folga todos os baselines clássicos.
+	\item \textbf{Validação Experimental sob Protocolo Rigoroso:} Avaliação de cinco arquiteturas sobre um conjunto rotulado de 1.660 transações reais em 11 categorias, com particionamento por estabelecimento (teste-cego de 334 transações), validação cruzada 5-fold, estudo de ablação e rastreamento integral no MLflow. Os \textit{baselines} clássicos (TF-IDF + Random Forest) foram os mais robustos (\textbf{69,3\% de F1-Macro}), à frente da busca vetorial densa (56,2\%), do agente híbrido (\textbf{60,0\% de F1-Macro} / 61,4\% de acurácia) e do ByT5 ajustado (48,3\%). Nenhum modelo atingiu o limiar de 85\% de F1-Macro sob esse protocolo, o que é analisado na Seção de Limitações.
 \end{enumerate}
 
 \section{Avaliação dos Objetivos Atingidos}
 \label{sec:concl_objetivos_atingidos}
 
-O confronto entre os objetivos específicos estabelecidos na Introdução e as entregas comprovadas no decorrer do trabalho atesta o cumprimento integral de todas as metas:
+O confronto entre os objetivos específicos estabelecidos na Introdução e as entregas comprovadas no decorrer do trabalho indica o cumprimento integral dos objetivos de engenharia e de avaliação, com a ressalva --- discutida na Seção~\ref{sec:concl_limitacoes} --- de que a meta de desempenho preditivo (F1-Macro $>$ 85\%) não foi alcançada no protocolo de teste-cego:
 \begin{itemize}
-	\item O módulo de ingestão e OCR foi implementado e superou as expectativas de extração tabular com o Docling V2;
+	\item O módulo de ingestão e OCR foi implementado e atendeu plenamente aos requisitos de extração tabular com o Docling V2, reduzindo o CER de 52,8\% para 5,72\%;
 	\item O saneamento léxico e a remoção de prefixos de adquirentes foram validados no estudo de ablação como elementos determinantes para a assertividade;
-	\item Os baselines científicos clássicos (TF-IDF com Naive Bayes e Random Forest) foram formalmente calculados e documentados;
-	\item A base de conhecimento vetorial no PGVector e o agente em grafo LangGraph foram construídos e demonstraram altíssima precisão e latência média de apenas 18,4 ms;
+	\item Os baselines científicos clássicos (TF-IDF com Naive Bayes e Random Forest), o ajuste fino do ByT5, a busca vetorial densa e o agente híbrido foram formalmente calculados, comparados e documentados;
+	\item A base de conhecimento vetorial no PGVector e o agente em grafo LangGraph foram construídos e avaliados; a busca vetorial operou em 1,4 ms com acurácia condicional de 98\%, sendo o componente determinante do agente, enquanto o ramo LLM local demandou dezenas de segundos e mostrou-se menos eficaz neste acervo;
 	\item As práticas de MLOps no Data Lakehouse foram consolidadas com autologging no MLflow e conformidade legal com a LGPD;
-	\item A validação experimental confirmou formalmente as respostas a todas as questões de pesquisa e validou a hipótese central.
+	\item A validação experimental respondeu formalmente às cinco questões de pesquisa; a hipótese central foi verificada e \textbf{não se confirmou na métrica primária} (F1-Macro $>$ 85\%) sob teste-cego por estabelecimento, sendo parcialmente sustentada em acurácia global --- ver Seção~\ref{sec:concl_limitacoes}.
 \end{itemize}
 
 \section{Limitações do Trabalho}
 \label{sec:concl_limitacoes}
 
-Não obstante os resultados expressivos alcançados, apontam-se as seguintes limitações do estudo:
+Além da não confirmação da hipótese de desempenho preditivo já discutida, apontam-se as seguintes limitações do estudo:
 \begin{enumerate}
 	\item \textbf{Dependência de Conectividade Externa para a Ferramenta de Busca:} O nó de pesquisa na web (\textit{DuckDuckGo}) depende de conexão com a internet para elucidar nomes de estabelecimentos inéditos muito obscuros;
 	\item \textbf{Bootstrap Inicial da Base Vetorial:} O sistema atinge sua máxima velocidade e menor custo de inferência à medida que a base do PGVector é populada. Em instalações zeradas, as primeiras faturas demandam maior número de invocações ao LLM;
-	\item \textbf{Faturas Físicas Extremamente Danificadas:} Documentos em papel com rasgos severos, amassados profundos ou ilegibilidade por desbotamento de tinta térmica continuam impondo desafios à extração óptica pura.
+	\item \textbf{Faturas Físicas Extremamente Danificadas:} Documentos em papel com rasgos severos, amassados profundos ou ilegibilidade por desbotamento de tinta térmica continuam impondo desafios à extração óptica pura;
+	\item \textbf{Porte e Rotulagem do Acervo de Classificação:} O conjunto rotulado utilizado na mensuração preditiva (1.660 transações, 11 categorias efetivamente povoadas) foi derivado de faturas pessoais de dois portadores e rotulado de forma semiautomática --- dicionário léxico de alta precisão combinado à categoria nativa do emissor. As categorias \textit{Pets}, \textit{Serviços Financeiros} e \textit{Doações e Presentes} não tiveram amostragem suficiente, e as classes de cauda contam com apenas 4 a 5 estabelecimentos distintos no teste. Sob o protocolo de teste-cego por estabelecimento (deliberadamente severo), nenhum modelo alcançou 85\% de F1-Score Macro; os resultados devem ser lidos como diagnóstico de um acervo pessoal real de porte reduzido, não como estimativa de desempenho populacional. A verificação da hipótese em escala requer um \textit{corpus} rotulado maior e balanceado;
+	\item \textbf{Latência e Capacidade do LLM Local:} O modelo de raciocínio \codepath{google/gemma-4-e4b} executado no LM Studio demanda dezenas de segundos por transação roteada ao ramo LLM e, neste acervo, classificou de forma consideravelmente inferior à busca vetorial, tendendo a rotular como \textit{Despesas Diversas} nomes cuja categoria era lexicalmente evidente. Modelos locais mais capazes (ou de maior porte) e uma base vetorial já povoada são necessários para que o ramo LLM agregue valor consistente. Ademais, a ferramenta de busca na web (\textit{DuckDuckGo}) mostrou-se indisponível no ambiente experimental, sendo desativada na avaliação final.
 \end{enumerate}
 
 \section{Trabalhos Futuros}
 \label{sec:concl_trabalhos_futuros}
 
-Como perspectivas para a continuidade e expansão desta linha de pesquisa, recomendam-se os seguintes desenvolvimentos:
+Para a continuidade e a expansão desta linha de pesquisa, recomendam-se os seguintes desenvolvimentos:
 \begin{enumerate}
 	\item \textbf{Integração com APIs de Open Finance Brasil:} Desenvolver conectores padronizados para ingestão contínua e em tempo real de extratos bancários via Open Finance, eliminando a dependência do upload manual de faturas em PDF;
 	\item \textbf{Arquitetura Multi-Agente Cooperativa:} Expandir o sistema para um ecossistema multi-agente, incorporando agentes autônomos especialistas em conciliação orçamentária, detecção precoce de fraudes e consultoria tributária;
 	\item \textbf{Modelos Multimodais Ultra-Compactos em Borda (\textit{Edge AI}):} Avaliar a incorporação de modelos de visão e linguagem ultra-compactos (Vision-Language Models na escala de 0.9B a 2B parâmetros, como PaddleOCR-VL ou SmolVLM) para executar a extração visual e a categorização diretamente no dispositivo móvel do usuário;
-	\item \textbf{Aprendizado Federado (\textit{Federated Learning}):} Implementar protocolos de agregação federada de vetores para permitir que múltiplos usuários compartilhem os aprendizados semânticos de novos estabelecimentos comerciais de forma descentralizada e com preservação criptográfica absoluta da privacidade.
+	\item \textbf{Aprendizado Federado (\textit{Federated Learning}):} Implementar protocolos de agregação federada de vetores para permitir que múltiplos usuários compartilhem os aprendizados semânticos de novos estabelecimentos comerciais de forma descentralizada e com preservação criptográfica absoluta da privacidade;
+	\item \textbf{Camada de Consumo Analítico e Orquestração em Lote:} Materializar as camadas \textit{Silver} e \textit{Gold} do Data Lakehouse e conectá-las a um motor SQL distribuído e a \textit{dashboards} gerenciais de \textit{Business Intelligence}, além de automatizar as ingestões periódicas por meio de um orquestrador de fluxos;
+	\item \textbf{Automação da Esteira de Testes:} Consolidar a suíte de testes de integração com \textit{Testcontainers} (Kafka, MinIO e PostgreSQL/pgvector efêmeros) e testes de carga do barramento de eventos, integrando-os a um pipeline de integração contínua.
 \end{enumerate}
 
 \section{Considerações Finais}
 \label{sec:concl_consideracoes_finais}
 
-A presente monografia demonstra que a convergência entre Processamento de Linguagem Natural moderno, bancos de dados vetoriais, agentes orquestrados em grafos e engenharia de dados em Data Lakehouse oferece uma resposta madura, escalável e economicamente viável para a organização do orçamento financeiro pessoal. Ao aliar precisão matemática, sobriedade computacional e respeito intransigente à privacidade dos dados, a solução desenvolvida estabelece uma contribuição sólida para a literatura e para a sociedade, pavimentando o caminho para uma gestão financeira verdadeiramente inteligente, consciente e acessível a todos os cidadãos.
+A presente monografia demonstra que a convergência entre Processamento de Linguagem Natural moderno, bancos de dados vetoriais, agentes orquestrados em grafos e engenharia de dados em Data Lakehouse constitui uma arquitetura tecnicamente coerente, auditável e executável sob restrições de \textit{hardware} local para a organização do orçamento financeiro pessoal. A avaliação empírica delimitou com honestidade as condições de sua eficácia: sob teste-cego rigoroso e um acervo pessoal de porte reduzido, os classificadores esparsos clássicos permanecem competitivos e o limiar de 85\% de F1-Macro não foi alcançado, apontando a necessidade de \textit{corpora} rotulados maiores e modelos locais mais capazes. Ao aliar esse rigor metodológico à sobriedade computacional e ao respeito à privacidade dos dados, a solução desenvolvida estabelece uma contribuição sólida --- e reprodutível --- para a literatura, pavimentando o caminho para uma gestão financeira pessoal inteligente, consciente e acessível.
 
 % ==============================================================================
 % ELEMENTOS PÓS-TEXTUAIS: APÊNDICES E REFERÊNCIAS
@@ -122,6 +126,7 @@ As sintaxes de busca foram construídas com operadores booleanos AND e OR em mú
 Este apêndice apresenta o esquema físico relacional e vetorial implementado no \textit{PostgreSQL 16} com a extensão \textit{pgvector}, correspondente aos modelos ORM declarados na arquitetura da solução.
 
 \section{Tabela de Estabelecimentos (Base de Conhecimento e Embeddings)}
+{\footnotesize
 \begin{verbatim}
 	CREATE TABLE estabelecimentos (
 		id SERIAL PRIMARY KEY,
@@ -140,11 +145,13 @@ Este apêndice apresenta o esquema físico relacional e vetorial implementado no
 		criado_em TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 	);
 	
-	CREATE INDEX idx_estabelecimentos_embedding ON estabelecimentos 
+	CREATE INDEX idx_estabelecimentos_embedding ON estabelecimentos
 	USING ivfflat (embedding vector_cosine_ops) WITH (lists = 100);
 \end{verbatim}
+}
 
 \section{Tabela de Transações Financeiras}
+{\footnotesize
 \begin{verbatim}
 	CREATE TABLE transacoes (
 		id SERIAL PRIMARY KEY,
@@ -168,3 +175,4 @@ Este apêndice apresenta o esquema físico relacional e vetorial implementado no
 		criado_em TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 	);
 \end{verbatim}
+}

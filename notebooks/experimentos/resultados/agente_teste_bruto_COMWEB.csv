@@ -1,0 +1,335 @@
+categoria,confianca,fonte,metodo,requer_confirmacao,lat_ms,hitl,y_true,descricao,erro,y_pred
+Transporte,1.0,vetorial,vetorial,False,358.7381000397727,False,Transporte,UBER* TRIP,,Transporte
+Transporte,1.0,vetorial,vetorial,False,25.724300066940486,False,Transporte,UBER* TRIP,,Transporte
+Marketplace / E-commerce,0.9487742854399022,vetorial,vetorial,False,31.130600022152066,False,Marketplace / E-commerce,AMAZONMKTPLC*RAQUENACO,,Marketplace / E-commerce
+Transporte,1.0,vetorial,vetorial,False,24.806200060993433,False,Transporte,UBER* TRIP,,Transporte
+Despesas Diversas / Outros,0.95,llm,vetorial,False,26922.66399995424,False,Lazer e Entretenimento,INGRESSE,,Despesas Diversas / Outros
+Lazer e Entretenimento,0.9673855711782331,vetorial,vetorial,False,32.896899967454374,False,Lazer e Entretenimento,DM HELPHBOMAXCOM,,Lazer e Entretenimento
+Transporte,1.0,vetorial,vetorial,False,29.428299982100725,False,Transporte,Uber* Trip,,Transporte
+Marketplace / E-commerce,0.9487742854399022,vetorial,vetorial,False,32.89129992481321,False,Marketplace / E-commerce,AMAZONMKTPLC*RAQUENACO,,Marketplace / E-commerce
+Transporte,1.0,vetorial,vetorial,False,28.220499982126057,False,Transporte,UBER* TRIP,,Transporte
+Transporte,0.9182115762905811,vetorial,vetorial,False,29.01440009009093,False,Transporte,EMIRATES AIRAWP/NVDZ2S,,Transporte
+Transporte,1.0,vetorial,vetorial,False,27.338000014424324,False,Transporte,UBER* TRIP,,Transporte
+Transporte,1.0,vetorial,vetorial,False,26.12209995277226,False,Transporte,Uber* Trip,,Transporte
+Alimentação,0.8742927764313928,vetorial,vetorial,False,25.63930000178516,False,Alimentação,Supermercado Veran Lj1,,Alimentação
+Transporte,1.0,vetorial,vetorial,False,26.826699962839484,False,Transporte,UBER* TRIP,,Transporte
+Transporte,0.9182115762905811,vetorial,vetorial,False,25.896200095303357,False,Transporte,EMIRATES AIRAWP/NVDZ2S,,Transporte
+Saúde,0.888934423289979,vetorial,vetorial,False,26.11340000294149,False,Saúde,Drogaria Sao Paulo,,Saúde
+Despesas Diversas / Outros,0.95,llm,vetorial,False,27686.690300004557,False,Lazer e Entretenimento,PAYPAL  NUUVEMJOGOS,,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,22244.93819999043,False,Alimentação,Ifd*Arcos Dourados Com,,Despesas Diversas / Outros
+Tecnologia,0.8910708241480854,vetorial,vetorial,False,33.209600020200014,False,Marketplace / E-commerce,EC *MELIMAIS,,Tecnologia
+Beleza e Cuidados Pessoais,0.9999999162857108,vetorial,vetorial,False,32.34629996586591,False,Beleza e Cuidados Pessoais,HNA*O BOTICARIO,,Beleza e Cuidados Pessoais
+Transporte,0.9791870278568177,vetorial,vetorial,False,29.284400050528347,False,Transporte,UBER    UBER    TRIP,,Transporte
+,,,,,11489.398599951528,False,Alimentação,SAPPORO RESTAURANTE,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=SAPPORO%20RESTAURANTE%20estabelecimento) > client error (Co,Despesas Diversas / Outros
+Transporte,1.0,vetorial,vetorial,False,26.933900080621243,False,Transporte,Uber* Trip,,Transporte
+Transporte,1.0,vetorial,vetorial,False,24.898100062273443,False,Transporte,UBER* TRIP,,Transporte
+Alimentação,0.9231107364659668,vetorial,vetorial,False,26.818900019861758,False,Alimentação,IFD*54.001.769 RAFAEL,,Alimentação
+,,,,,19448.303600074723,False,Lazer e Entretenimento,PARAMOUNT+,error sending request for url (https://search.yahoo.com/search;_ylt=uhifEkK28Bu2PAl_djTcM2W3;_ylu=AZyML7pygKM4W7_tW7e7VHioHI2wztAyXs7QfWLIeQWR2dU?p=Paramount%2B+servi%C3%A7o+de+streaming+estabelecimen,Despesas Diversas / Outros
+,,,,,10217.65480004251,False,Alimentação,IFD*ARCOS DOURADOS COM,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=arcos%20dourados%20estabelecimento) > client error (Connect,Despesas Diversas / Outros
+Alimentação,0.8742927764313928,vetorial,vetorial,False,24.60070000961423,False,Alimentação,Supermercado Veran Lj1,,Alimentação
+,,,,,12939.28449996747,False,Transporte,SMART HOTEL EIRELI,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=SMART%20HOTEL%20EIRELI%20estabelecimento) > client error (C,Despesas Diversas / Outros
+Transporte,1.0,vetorial,vetorial,False,28.373399982228875,False,Transporte,UBER* TRIP,,Transporte
+Despesas Diversas / Outros,1.0,llm,vetorial,False,20814.317999989726,False,Lazer e Entretenimento,INGRESSE,,Despesas Diversas / Outros
+Transporte,1.0,vetorial,vetorial,False,34.66909995768219,False,Transporte,UBER* TRIP,,Transporte
+Saúde,0.9420004737831046,vetorial,vetorial,False,29.97849998064339,False,Saúde,Drogaria Sao Paulo - Parcela 2/2,,Saúde
+Alimentação,0.960166669672143,vetorial,vetorial,False,33.7563999928534,False,Alimentação,SUPERMERCADO,,Alimentação
+Marketplace / E-commerce,0.9487742854399022,vetorial,vetorial,False,33.627400058321655,False,Marketplace / E-commerce,AMAZONMKTPLC*RAQUENACO,,Marketplace / E-commerce
+Transporte,0.9791870278568177,vetorial,vetorial,False,28.105100034736097,False,Transporte,UBER    UBER    TRIP,,Transporte
+Despesas Diversas / Outros,0.95,llm,vetorial,False,27093.137599993497,False,Alimentação,Esquilos Acai,,Despesas Diversas / Outros
+Lazer e Entretenimento,0.8884931933258121,vetorial,vetorial,False,38.99050003383309,False,Lazer e Entretenimento,PAG STEAM,,Lazer e Entretenimento
+,,,,,9906.749799964018,False,Alimentação,Jose Hortifruti,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=Jose%20Hortifruti%20estabelecimento) > client error (Connec,Despesas Diversas / Outros
+Lazer e Entretenimento,0.8884931933258121,vetorial,vetorial,False,25.886100018396974,False,Lazer e Entretenimento,PAG STEAM,,Lazer e Entretenimento
+Despesas Diversas / Outros,1.0,llm,vetorial,False,24139.16560006328,False,Lazer e Entretenimento,INGRESSE,,Despesas Diversas / Outros
+Saúde,0.888934423289979,vetorial,vetorial,False,35.55059991776943,False,Saúde,Drogaria Sao Paulo,,Saúde
+Marketplace / E-commerce,1.0,llm,vetorial,False,15585.888399975374,False,Marketplace / E-commerce,MERCADOLIVRE*5PRODUTO,,Marketplace / E-commerce
+Transporte,0.9791870278568177,vetorial,vetorial,False,32.077500014565885,False,Transporte,UBER    UBER    TRIP,,Transporte
+Saúde,0.9420004737831046,vetorial,vetorial,False,31.289299950003624,False,Saúde,Drogaria Sao Paulo - Parcela 2/2,,Saúde
+Transporte,0.9791870278568177,vetorial,vetorial,False,29.259099974296987,False,Transporte,UBER    UBER    TRIP,,Transporte
+Despesas Diversas / Outros,1.0,llm,vetorial,False,28890.065699932165,False,Lazer e Entretenimento,INGRESSE,,Despesas Diversas / Outros
+Saúde,0.8729473868781801,vetorial,vetorial,False,34.333899966441095,False,Saúde,DROGALIS ITALO,,Saúde
+Lazer e Entretenimento,0.8884931933258121,vetorial,vetorial,False,35.0059000775218,False,Lazer e Entretenimento,PAG STEAM,,Lazer e Entretenimento
+Despesas Diversas / Outros,0.95,llm,vetorial,False,26800.571199972183,False,Vestuário,PAYPAL      *BOSS LIFE,,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.95,llm,vetorial,False,30899.635099922307,False,Alimentação,Ifd*Simoes e Brandini,,Despesas Diversas / Outros
+,,,,,10697.617400088347,False,Lazer e Entretenimento,INGRESSE,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=INGRESSE%20estabelecimento) > client error (Connect) > dns ,Despesas Diversas / Outros
+Lazer e Entretenimento,0.8884931933258121,vetorial,vetorial,False,26.331399916671216,False,Lazer e Entretenimento,PAG STEAM,,Lazer e Entretenimento
+Marketplace / E-commerce,0.9950223982515863,vetorial,vetorial,False,26.44710009917617,False,Marketplace / E-commerce,MERCADOLIVRE MERCADOL,,Marketplace / E-commerce
+Saúde,0.9420004737831046,vetorial,vetorial,False,26.204300113022327,False,Saúde,Drogaria Sao Paulo - Parcela 2/2,,Saúde
+Lazer e Entretenimento,0.8884931933258121,vetorial,vetorial,False,27.39349997136742,False,Lazer e Entretenimento,PAG STEAM,,Lazer e Entretenimento
+Saúde,0.8729473868781801,vetorial,vetorial,False,26.007300009950995,False,Saúde,Drogalis Italo,,Saúde
+Lazer e Entretenimento,0.8884931933258121,vetorial,vetorial,False,27.508199913427234,False,Lazer e Entretenimento,PAG STEAM,,Lazer e Entretenimento
+,,,,,9421.813399996608,False,Marketplace / E-commerce,MERCPAG DILEXDISTRIBU,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=DILEXDISTRIBU%20estabelecimento) > client error (Connect) >,Despesas Diversas / Outros
+Lazer e Entretenimento,0.8884931933258121,vetorial,vetorial,False,26.83739992789924,False,Lazer e Entretenimento,PAG STEAM,,Lazer e Entretenimento
+Alimentação,0.8709526821383419,vetorial,vetorial,False,25.950699928216636,False,Alimentação,BURGER KING PASSEIO SA,,Alimentação
+Educação,1.0,llm,vetorial,False,17507.645300007425,False,Educação,UDEMY,,Educação
+Despesas Diversas / Outros,1.0,llm,vetorial,False,9304.766099900007,False,Alimentação,SAPPORO RESTAURANTE,,Despesas Diversas / Outros
+Lazer e Entretenimento,0.8884931933258121,vetorial,vetorial,False,36.82509995996952,False,Lazer e Entretenimento,PAG STEAM,,Lazer e Entretenimento
+,,,,,14278.305000043474,False,Saúde,NEO MATRIX OTICA,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=NEO%20MATRIX%20OTICA%20estabelecimento%20ramo%20de%20ativid,Despesas Diversas / Outros
+Saúde,0.888934423289979,vetorial,vetorial,False,27.668299968354404,False,Saúde,Drogaria Sao Paulo,,Saúde
+Despesas Diversas / Outros,1.0,llm,vetorial,False,29163.34359999746,False,Saúde,NEO MATRIX OTICA,,Despesas Diversas / Outros
+Marketplace / E-commerce,0.9950223982515863,vetorial,vetorial,False,38.32019993569702,False,Marketplace / E-commerce,MERCADOLIVRE MERCADOL,,Marketplace / E-commerce
+Transporte,0.9791870278568177,vetorial,vetorial,False,32.661200035363436,False,Transporte,UBER    UBER    TRIP,,Transporte
+,,,,,9996.692500077188,False,Saúde,DROGA ULTRA ITAQUA LT,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=DROGA%20ULTRA%20ITAQUA%20LT%20estabelecimento) > client err,Despesas Diversas / Outros
+Saúde,0.8729473868781801,vetorial,vetorial,False,26.607800042256713,False,Saúde,DROGALIS ITALO,,Saúde
+Despesas Diversas / Outros,0.98,llm,vetorial,False,25350.498800049536,False,Saúde,Drogaria Paulista Lj60,,Despesas Diversas / Outros
+Marketplace / E-commerce,0.95,llm,vetorial,False,44098.707400029525,False,Lazer e Entretenimento,PAYPAL *NUUVEMJOGOS,,Marketplace / E-commerce
+Despesas Diversas / Outros,0.95,llm,vetorial,False,9323.3911000425,False,Saúde,Drogaria Paulista Lj60,,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,26213.35520001594,False,Alimentação,Ifd*Arcos Dourados Com,,Despesas Diversas / Outros
+,,,,,8900.561399990693,False,Alimentação,ZIG*ZIG*LAROC GUARUJA,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=LAROC%20GUARUJA%20estabelecimento) > client error (Connect),Despesas Diversas / Outros
+Transporte,0.9182115762905811,vetorial,vetorial,False,34.93980003986508,False,Transporte,EMIRATES AIRAWP/NVDZ2S,,Transporte
+Despesas Diversas / Outros,1.0,llm,vetorial,False,13136.376800015569,False,Alimentação,HOT POT RESTAURANT,,Despesas Diversas / Outros
+Saúde,0.888934423289979,vetorial,vetorial,False,40.85049999412149,False,Saúde,Drogaria Sao Paulo,,Saúde
+Despesas Diversas / Outros,0.95,llm,vetorial,False,31496.26739998348,False,Transporte,SMART HOTEL EIRELI,,Despesas Diversas / Outros
+Lazer e Entretenimento,1.0,vetorial,vetorial,False,39.436800056137145,False,Lazer e Entretenimento,EBANX*SONYPLAYSTATN,,Lazer e Entretenimento
+Saúde,0.888934423289979,vetorial,vetorial,False,35.16750002745539,False,Saúde,Drogaria Sao Paulo,,Saúde
+Despesas Diversas / Outros,1.0,llm,vetorial,False,30936.914000078104,False,Alimentação,IFD*ARCOS DOURADOS COM,,Despesas Diversas / Outros
+Marketplace / E-commerce,1.0,llm,vetorial,False,23075.563700054772,False,Lazer e Entretenimento,PAYPAL  NUUVEMJOGOS,,Marketplace / E-commerce
+,,,,,10694.843200035393,False,Alimentação,JURERE S GRILL,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=JURERE%20S%20GRILL%20estabelecimento) > client error (Conne,Despesas Diversas / Outros
+Saúde,0.95,llm,vetorial,False,24592.563100042753,False,Saúde,NEO MATRIX OTICA,,Saúde
+Lazer e Entretenimento,0.9673855711782331,vetorial,vetorial,False,38.60620001796633,False,Lazer e Entretenimento,DM HELPHBOMAXCOM,,Lazer e Entretenimento
+Tecnologia,0.8910708241480854,vetorial,vetorial,False,30.191299971193075,False,Marketplace / E-commerce,EC*MELIMAIS,,Tecnologia
+Alimentação,0.8742927764313928,vetorial,vetorial,False,33.01290003582835,False,Alimentação,Supermercado Veran Lj1,,Alimentação
+,,,,,11570.962600060739,False,Lazer e Entretenimento,INGRESSE,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=ingresse%20estabelecimento%20brasil) > client error (Connec,Despesas Diversas / Outros
+Marketplace / E-commerce,0.8683781392950249,vetorial,vetorial,False,29.594200081191957,False,Marketplace / E-commerce,MERCADOPAGO *2PRODUTO,,Marketplace / E-commerce
+Despesas Diversas / Outros,1.0,llm,vetorial,False,25276.62700007204,False,Lazer e Entretenimento,INGRESSE,,Despesas Diversas / Outros
+,,,,,10061.28359993454,False,Lazer e Entretenimento,INGRESSE,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=INGRESSE%20estabelecimento) > client error (Connect) > dns ,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,humano,vetorial,True,33645.77480009757,True,Alimentação,IFD*JONATAS DA SILVA M,,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.95,llm,vetorial,False,12620.318600093015,False,Saúde,DROGA ULTRA ITAQUA LT,,Despesas Diversas / Outros
+Marketplace / E-commerce,0.95,llm,vetorial,False,23638.763100025244,False,Lazer e Entretenimento,PAYPAL  NUUVEMJOGOS,,Marketplace / E-commerce
+Despesas Diversas / Outros,1.0,humano,vetorial,True,38585.23820003029,True,Lazer e Entretenimento,SYMPLA*MATHEUS ROCHA C,,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.95,llm,vetorial,False,22892.886199988425,False,Alimentação,I9pay S*Supermercado T,,Despesas Diversas / Outros
+Lazer e Entretenimento,1.0,vetorial,vetorial,False,43.048799969255924,False,Lazer e Entretenimento,EBANX*SONYPLAYSTATN,,Lazer e Entretenimento
+Despesas Diversas / Outros,1.0,llm,vetorial,False,14935.964100062847,False,Alimentação,I9pay S*Supermercado T,,Despesas Diversas / Outros
+Alimentação,0.960166669672143,vetorial,vetorial,False,38.81629998795688,False,Alimentação,SUPERMERCADO,,Alimentação
+Saúde,0.9420004737831046,vetorial,vetorial,False,32.61650004424155,False,Saúde,Drogaria Sao Paulo - Parcela 2/2,,Saúde
+Lazer e Entretenimento,0.9673855711782331,vetorial,vetorial,False,32.533999998122454,False,Lazer e Entretenimento,DM  HELPHBOMAXCOM,,Lazer e Entretenimento
+,,,,,12464.846400078386,False,Alimentação,Ifd*Arcos Dourados Com,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=Arcos%20Dourados%20estabelecimento) > client error (Connect,Despesas Diversas / Outros
+Saúde,0.888934423289979,vetorial,vetorial,False,27.225500089116395,False,Saúde,Drogaria Sao Paulo,,Saúde
+,,,,,12613.170900032856,False,Vestuário,EMPORIO FOR ALL,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=emporio%20for%20all%20estabelecimento) > client error (Conn,Despesas Diversas / Outros
+Alimentação,0.960166669672143,vetorial,vetorial,False,29.697699937969446,False,Alimentação,Supermercado,,Alimentação
+,,,,,8250.030299997889,False,Moradia,PAG ISABELGAS,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=ISABELGAS%20estabelecimento) > client error (Connect) > dns,Despesas Diversas / Outros
+Lazer e Entretenimento,0.9673855711782331,vetorial,vetorial,False,25.600799941457808,False,Lazer e Entretenimento,DM      HELPHBOMAXCOM,,Lazer e Entretenimento
+Alimentação,0.8742927764313928,vetorial,vetorial,False,25.45079996343702,False,Alimentação,Supermercado Veran Lj1,,Alimentação
+Lazer e Entretenimento,0.8884931933258121,vetorial,vetorial,False,25.69519996177405,False,Lazer e Entretenimento,PAG STEAM,,Lazer e Entretenimento
+Lazer e Entretenimento,0.8884931933258121,vetorial,vetorial,False,25.683299987576902,False,Lazer e Entretenimento,PAG STEAM,,Lazer e Entretenimento
+Alimentação,0.8742927764313928,vetorial,vetorial,False,27.271499973721802,False,Alimentação,Supermercado Veran Lj1,,Alimentação
+Lazer e Entretenimento,0.9063492542632987,vetorial,vetorial,False,26.343300007283688,False,Lazer e Entretenimento,DM     *HELPMAXCOM,,Lazer e Entretenimento
+Marketplace / E-commerce,0.9487742854399022,vetorial,vetorial,False,30.00270004849881,False,Marketplace / E-commerce,AMAZONMKTPLC*RAQUENACO,,Marketplace / E-commerce
+,,,,,11998.282099957578,False,Lazer e Entretenimento,PAYPAL  NUUVEMJOGOS,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=NUUVEMJOGOS%20estabelecimento) > client error (Connect) > d,Despesas Diversas / Outros
+Transporte,0.9791870278568177,vetorial,vetorial,False,26.90910000819713,False,Transporte,UBER    UBER    TRIP,,Transporte
+Despesas Diversas / Outros,1.0,llm,vetorial,False,14396.071500028484,False,Alimentação,PARTISANS PUB BAR,,Despesas Diversas / Outros
+Alimentação,0.960166669672143,vetorial,vetorial,False,35.257100011222064,False,Alimentação,SUPERMERCADO,,Alimentação
+,,,,,10453.040200052783,False,Despesas Diversas / Outros,DIVIPAYPAYMENTS,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=DIVIPAYPAYMENTS%20estabelecimento%20pagamento) > client err,Despesas Diversas / Outros
+Alimentação,0.9231107364659668,vetorial,vetorial,False,26.00800001528114,False,Alimentação,IFD*54.001.769 RAFAEL,,Alimentação
+Alimentação,0.9035610991743038,vetorial,vetorial,False,26.32509998511523,False,Alimentação,IFD*50.842.325 VANESSA,,Alimentação
+Despesas Diversas / Outros,1.0,llm,vetorial,False,12006.785100093111,False,Saúde,Drogaria Paulista Lj60,,Despesas Diversas / Outros
+Alimentação,0.960166669672143,vetorial,vetorial,False,33.0093998927623,False,Alimentação,Supermercado,,Alimentação
+Despesas Diversas / Outros,1.0,llm,vetorial,False,14795.772799989209,False,Alimentação,PARTISANS PUB BAR,,Despesas Diversas / Outros
+,,,,,8389.69530002214,False,Tecnologia,"OPENROUTER, INC        NE",ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=OPENROUTER%2C%20INC%20estabelecimento) > client error (Conn,Despesas Diversas / Outros
+Marketplace / E-commerce,0.9908250620625518,vetorial,vetorial,False,26.42290003132075,False,Marketplace / E-commerce,MERCADOLIVRE 3PRODUTOS,,Marketplace / E-commerce
+Alimentação,0.8742927764313928,vetorial,vetorial,False,28.34149997215718,False,Alimentação,Supermercado Veran Lj1,,Alimentação
+Transporte,0.9791870278568177,vetorial,vetorial,False,27.623599977232516,False,Transporte,UBER    UBER    TRIP,,Transporte
+Lazer e Entretenimento,0.9288635714531256,vetorial,vetorial,False,31.694100005552173,False,Lazer e Entretenimento,EBN*PLAYSTATION,,Lazer e Entretenimento
+Alimentação,0.9344291100012849,vetorial,vetorial,False,29.54619994852692,False,Alimentação,Supermercado Higa Irma,,Alimentação
+Despesas Diversas / Outros,1.0,llm,vetorial,False,11645.034200046211,False,Moradia,PAG*TOTALGAS,,Despesas Diversas / Outros
+Educação,1.0,llm,vetorial,False,30342.822199920192,False,Educação,UDEMY,,Educação
+Transporte,0.9791870278568177,vetorial,vetorial,False,38.139899959787726,False,Transporte,UBER    UBER    TRIP,,Transporte
+Saúde,0.888934423289979,vetorial,vetorial,False,33.14030007459223,False,Saúde,Drogaria Sao Paulo,,Saúde
+Despesas Diversas / Outros,1.0,llm,vetorial,False,11990.61590002384,False,Saúde,Drogaria Paulista Lj60,,Despesas Diversas / Outros
+Marketplace / E-commerce,1.0,llm,vetorial,False,10835.828599985689,False,Marketplace / E-commerce,MERCADOLIVRE*5PRODUTO,,Marketplace / E-commerce
+Alimentação,0.960166669672143,vetorial,vetorial,False,37.71399997640401,False,Alimentação,Supermercado,,Alimentação
+Despesas Diversas / Outros,0.9999999239423393,vetorial,vetorial,False,35.34860000945628,False,Beleza e Cuidados Pessoais,MP *RAFAEL,,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.95,llm,vetorial,False,23989.017799962312,False,Alimentação,Ifd*Arcos Dourados Com,,Despesas Diversas / Outros
+Lazer e Entretenimento,0.8884931933258121,vetorial,vetorial,False,40.6588000478223,False,Lazer e Entretenimento,PAG STEAM,,Lazer e Entretenimento
+Despesas Diversas / Outros,0.95,llm,vetorial,False,26677.03770007938,False,Lazer e Entretenimento,PAYPAL *NUUVEMJOGOS,,Despesas Diversas / Outros
+Alimentação,0.9209521110490757,vetorial,vetorial,False,42.6123000215739,False,Alimentação,Tom Tom Churros Cafe I,,Alimentação
+Lazer e Entretenimento,1.0,vetorial,vetorial,False,34.172400017268956,False,Lazer e Entretenimento,EBANX*SONYPLAYSTATN,,Lazer e Entretenimento
+Despesas Diversas / Outros,1.0,llm,vetorial,False,15825.777099933475,False,Alimentação,HOT POT RESTAURANT,,Despesas Diversas / Outros
+,,,,,11045.646999962628,False,Lazer e Entretenimento,INGRESSE,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=ingresse%20estabelecimento%20brasil) > client error (Connec,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,16490.246000001207,False,Lazer e Entretenimento,Cinepolis Itaquaquecet,,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.98,llm,vetorial,False,11115.506500005722,False,Alimentação,IFD*NEW LUCK PIZZARIA,,Despesas Diversas / Outros
+,,,,,12819.990599993616,False,Alimentação,Ifd*Arcos Dourados Com,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=Arcos%20Dourados%20estabelecimento) > client error (Connect,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.95,llm,vetorial,False,22735.06490001455,False,Alimentação,I9pay S*Supermercado T,,Despesas Diversas / Outros
+Saúde,0.888934423289979,vetorial,vetorial,False,38.181299925781786,False,Saúde,Drogaria Sao Paulo,,Saúde
+Transporte,0.9182115762905811,vetorial,vetorial,False,28.960100025869906,False,Transporte,EMIRATES AIRAWP/NVDZ2S,,Transporte
+,,,,,13161.323999986053,False,Alimentação,BHBAREDANCETERIA,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=BHBAREDANCETERIA%20estabelecimento) > client error (Connect,Despesas Diversas / Outros
+Lazer e Entretenimento,1.0,vetorial,vetorial,False,25.499299983493984,False,Lazer e Entretenimento,EBANX*SONYPLAYSTATN,,Lazer e Entretenimento
+Alimentação,0.960166669672143,vetorial,vetorial,False,25.17069992609322,False,Alimentação,Supermercado,,Alimentação
+Despesas Diversas / Outros,0.888686592264806,vetorial,vetorial,False,25.641100015491247,False,Despesas Diversas / Outros,ZP      QMS INTERNATI,,Despesas Diversas / Outros
+Saúde,0.8729473868781801,vetorial,vetorial,False,25.731899891979992,False,Saúde,DROGALIS ITALO,,Saúde
+Marketplace / E-commerce,0.9950223982515863,vetorial,vetorial,False,24.85980000346899,False,Marketplace / E-commerce,MERCADOLIVRE MERCADOL,,Marketplace / E-commerce
+Despesas Diversas / Outros,1.0,llm,vetorial,False,36318.36989999283,False,Alimentação,IFD*ARCOS DOURADOS COM,,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,11805.953200091608,False,Saúde,Drogaria Paulista Lj60,,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.95,llm,vetorial,False,26118.015800020657,False,Tecnologia,"OPENROUTER, INC        NE",,Despesas Diversas / Outros
+Lazer e Entretenimento,0.8884931933258121,vetorial,vetorial,False,41.75279999617487,False,Lazer e Entretenimento,PAG STEAM,,Lazer e Entretenimento
+Saúde,0.95,llm,vetorial,False,24051.95230001118,False,Saúde,NEO MATRIX OTICA,,Saúde
+Transporte,0.9791870278568177,vetorial,vetorial,False,34.8973999498412,False,Transporte,UBER    UBER    TRIP,,Transporte
+Marketplace / E-commerce,0.9950223982515863,vetorial,vetorial,False,33.01020001526922,False,Marketplace / E-commerce,MERCADOLIVRE MERCADOL,,Marketplace / E-commerce
+Educação,0.95,llm,vetorial,False,25990.71540008299,False,Despesas Diversas / Outros,GOOGLE NOJI STUDY WIT,,Educação
+Marketplace / E-commerce,1.0,llm,vetorial,False,10967.707399977371,False,Marketplace / E-commerce,MERCADOLIVRE*5PRODUTO,,Marketplace / E-commerce
+,,,,,19177.019199938513,False,Alimentação,IFD*ARCOS DOURADOS COM,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=Arcos%20Dourados%20estabelecimento) > client error (Connect,Despesas Diversas / Outros
+,,,,,14043.552899966016,False,Alimentação,IFD*ARCOS DOURADOS COM,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=arcos%20dourados%20estabelecimento%20ramo%20de%20atividade),Despesas Diversas / Outros
+Marketplace / E-commerce,0.95,llm,vetorial,False,25777.896400075406,False,Lazer e Entretenimento,PAYPAL  NUUVEMJOGOS,,Marketplace / E-commerce
+Marketplace / E-commerce,0.9950223982515863,vetorial,vetorial,False,41.165499947965145,False,Marketplace / E-commerce,MERCADOLIVRE MERCADOL,,Marketplace / E-commerce
+Lazer e Entretenimento,0.9063492542632987,vetorial,vetorial,False,43.547699926421046,False,Lazer e Entretenimento,DM     *HELPMAXCOM,,Lazer e Entretenimento
+Saúde,0.888934423289979,vetorial,vetorial,False,31.732700066640973,False,Saúde,Drogaria Sao Paulo,,Saúde
+,,,,,12645.13119996991,False,Alimentação,Ifd*Arcos Dourados Com,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=Arcos%20Dourados%20estabelecimento) > client error (Connect,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,23585.742100025527,False,Lazer e Entretenimento,INGRESSE,,Despesas Diversas / Outros
+Saúde,0.9420004737831046,vetorial,vetorial,False,41.28350003156811,False,Saúde,Drogaria Sao Paulo - Parcela 2/2,,Saúde
+Despesas Diversas / Outros,1.0,llm,vetorial,False,23087.029599933885,False,Lazer e Entretenimento,INGRESSE,,Despesas Diversas / Outros
+,,,,,18545.010600006208,False,Alimentação,IFD*ARCOS DOURADOS COM,RequestError: RequestError('error sending request for url (https://search.yahoo.com/search;_ylt=lM7V3LynDv3OLIZJfmuGL9IA;_ylu=hqVBTq8S8DgBHUQ768cUIG7ejWlhfAGYGmYV2L7IPUa2Ct0?p=Arcos+Dourados+estabelec,Despesas Diversas / Outros
+Lazer e Entretenimento,1.0,vetorial,vetorial,False,30.22330009844154,False,Lazer e Entretenimento,EBANX*SONYPLAYSTATN,,Lazer e Entretenimento
+Alimentação,0.8742927764313928,vetorial,vetorial,False,29.489399981684983,False,Alimentação,Supermercado Veran Lj1,,Alimentação
+Despesas Diversas / Outros,1.0,llm,vetorial,False,13425.057500018738,False,Alimentação,RESTAURANTE FLOR DA JO,,Despesas Diversas / Outros
+,,,,,16628.79139999859,False,Despesas Diversas / Outros,REDFIT - ITAQUA CENTRO,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=REDFIT%20ITAQUA%20CENTRO%20estabelecimento) > client error ,Despesas Diversas / Outros
+Marketplace / E-commerce,1.0,llm,vetorial,False,30474.73550005816,False,Lazer e Entretenimento,PAYPAL  NUUVEMJOGOS,,Marketplace / E-commerce
+Saúde,0.888934423289979,vetorial,vetorial,False,37.931300001218915,False,Saúde,Drogaria Sao Paulo,,Saúde
+Saúde,0.9420004737831046,vetorial,vetorial,False,32.21500001382083,False,Saúde,Drogaria Sao Paulo - Parcela 2/2,,Saúde
+Marketplace / E-commerce,0.9950223982515863,vetorial,vetorial,False,29.438700061291456,False,Marketplace / E-commerce,MERCADOLIVRE MERCADOL,,Marketplace / E-commerce
+Despesas Diversas / Outros,1.0,humano,vetorial,True,16865.630400017835,True,Vestuário,DAIANE BRANCO DE JESU,,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,12008.780500036664,False,Saúde,Drogaria Paulista Lj60,,Despesas Diversas / Outros
+Alimentação,0.9231107364659668,vetorial,vetorial,False,36.06270009186119,False,Alimentação,Ifd*54.001.769 Rafael,,Alimentação
+Despesas Diversas / Outros,0.95,llm,vetorial,False,22636.139699956402,False,Alimentação,I9pay S*Supermercado T,,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,21464.59749992937,False,Alimentação,SAPPORO RESTAURANTE,,Despesas Diversas / Outros
+Lazer e Entretenimento,0.9288635714531256,vetorial,vetorial,False,40.24470003787428,False,Lazer e Entretenimento,EBN*PLAYSTATION,,Lazer e Entretenimento
+Despesas Diversas / Outros,1.0,llm,vetorial,False,12106.85260000173,False,Saúde,Drogaria Paulista Lj60,,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.95,llm,vetorial,False,22773.184000048786,False,Alimentação,I9pay S*Supermercado T,,Despesas Diversas / Outros
+Saúde,0.95,llm,vetorial,False,23790.61159992125,False,Saúde,NEO MATRIX OTICA,,Saúde
+,,,,,8810.608099913225,False,Alimentação,Jose Hortifruti,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=Jose%20Hortifruti%20estabelecimento) > client error (Connec,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.95,llm,vetorial,False,22916.706799995154,False,Alimentação,I9pay S*Supermercado T,,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,14642.353600007482,False,Alimentação,I9pay S*Supermercado T,,Despesas Diversas / Outros
+Transporte,0.9791870278568177,vetorial,vetorial,False,39.31260004173964,False,Transporte,UBER    UBER    TRIP,,Transporte
+Transporte,0.9791870278568177,vetorial,vetorial,False,34.61430000606924,False,Transporte,UBER    UBER    TRIP,,Transporte
+,,,,,10748.707900056615,False,Lazer e Entretenimento,INGRESSE,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=ingresse%20estabelecimento%20brasil) > client error (Connec,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,16192.607900011353,False,Alimentação,I9pay S*Supermercado T - Parcela 2/2,,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,22310.12949999422,False,Despesas Diversas / Outros,DIVIPAYPAYMENTS,,Despesas Diversas / Outros
+Transporte,0.9182115762905811,vetorial,vetorial,False,36.557700019329786,False,Transporte,EMIRATES AIRAWP/NVDZ2S,,Transporte
+Marketplace / E-commerce,0.9234902015618666,vetorial,vetorial,False,37.5791999977082,False,Marketplace / E-commerce,AMAZONMKTPLC*LIULINGZH,,Marketplace / E-commerce
+Marketplace / E-commerce,0.9908250620625518,vetorial,vetorial,False,29.312700033187866,False,Marketplace / E-commerce,MERCADOLIVRE 3PRODUTOS,,Marketplace / E-commerce
+Lazer e Entretenimento,0.9673855711782331,vetorial,vetorial,False,27.74620009586215,False,Lazer e Entretenimento,DM      HELPHBOMAXCOM,,Lazer e Entretenimento
+Alimentação,0.960166669672143,vetorial,vetorial,False,28.846399975009263,False,Alimentação,Supermercado,,Alimentação
+Transporte,0.9791870278568177,vetorial,vetorial,False,27.20669994596392,False,Transporte,UBER    UBER    TRIP,,Transporte
+Saúde,0.9420004737831046,vetorial,vetorial,False,26.52800001669675,False,Saúde,Drogaria Sao Paulo - Parcela 2/2,,Saúde
+Transporte,0.9182115762905811,vetorial,vetorial,False,26.54719993006438,False,Transporte,EMIRATES AIRAWP/NVDZ2S,,Transporte
+Lazer e Entretenimento,0.9288635714531256,vetorial,vetorial,False,25.7339000236243,False,Lazer e Entretenimento,EBN*PLAYSTATION,,Lazer e Entretenimento
+Despesas Diversas / Outros,0.95,llm,vetorial,False,26238.607699982822,False,Transporte,SMART HOTEL EIRELI,,Despesas Diversas / Outros
+Saúde,0.888934423289979,vetorial,vetorial,False,44.124600011855364,False,Saúde,Drogaria Sao Paulo,,Saúde
+Alimentação,0.9142524068249028,vetorial,vetorial,False,31.799099990166724,False,Alimentação,SODIEDOCES,,Alimentação
+Marketplace / E-commerce,0.9487742854399022,vetorial,vetorial,False,33.836200018413365,False,Marketplace / E-commerce,AMAZONMKTPLC*RAQUENACO,,Marketplace / E-commerce
+Despesas Diversas / Outros,0.95,llm,vetorial,False,23065.546500030905,False,Alimentação,I9pay S*Supermercado T,,Despesas Diversas / Outros
+Saúde,0.8729473868781801,vetorial,vetorial,False,40.86579999420792,False,Saúde,Drogalis Italo,,Saúde
+Lazer e Entretenimento,0.9288635714531256,vetorial,vetorial,False,37.653399980627,False,Lazer e Entretenimento,EBN*PLAYSTATION,,Lazer e Entretenimento
+Alimentação,0.9142524068249028,vetorial,vetorial,False,30.849599977955222,False,Alimentação,SODIEDOCES,,Alimentação
+Despesas Diversas / Outros,1.0,llm,vetorial,False,26059.005200047977,False,Alimentação,Jose Hortifruti,,Despesas Diversas / Outros
+,,,,,8201.122300000861,False,Alimentação,SAPPORO RESTAURANTE,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=SAPPORO%20RESTAURANTE%20estabelecimento) > client error (Co,Despesas Diversas / Outros
+Saúde,0.9420004737831046,vetorial,vetorial,False,26.588899898342788,False,Saúde,Drogaria Sao Paulo - Parcela 2/2,,Saúde
+Despesas Diversas / Outros,1.0,llm,vetorial,False,11539.897700073197,False,Moradia,PAG*TOTALGAS,,Despesas Diversas / Outros
+,,,,,10107.975400052965,False,Alimentação,Esquilos Acai,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=Esquilos%20Acai%20estabelecimento) > client error (Connect),Despesas Diversas / Outros
+Transporte,0.9182115762905811,vetorial,vetorial,False,28.536099940538406,False,Transporte,EMIRATES AIRAWP/NVDZ2S,,Transporte
+Despesas Diversas / Outros,0.95,llm,vetorial,False,22794.559599948116,False,Alimentação,I9pay S*Supermercado T,,Despesas Diversas / Outros
+Saúde,0.95,llm,vetorial,False,23993.55450004805,False,Saúde,NEO MATRIX OTICA,,Saúde
+Marketplace / E-commerce,1.0,llm,vetorial,False,24750.634099938907,False,Lazer e Entretenimento,PAYPAL  NUUVEMJOGOS,,Marketplace / E-commerce
+Educação,0.95,llm,vetorial,False,25380.15500002075,False,Lazer e Entretenimento,GOOGLE NOJI STUDY WIT,,Educação
+Alimentação,0.9231107364659668,vetorial,vetorial,False,46.739500015974045,False,Alimentação,IFD*54.001.769 RAFAEL,,Alimentação
+Despesas Diversas / Outros,0.95,llm,vetorial,False,22999.201100086793,False,Alimentação,I9pay S*Supermercado T,,Despesas Diversas / Outros
+Saúde,0.888934423289979,vetorial,vetorial,False,42.749400017783046,False,Saúde,Drogaria Sao Paulo,,Saúde
+Despesas Diversas / Outros,0.95,llm,vetorial,False,22543.960300041363,False,Despesas Diversas / Outros,BLACK POWDER SISTEMAS,,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.95,llm,vetorial,False,22896.44899999257,False,Alimentação,I9pay S*Supermercado T,,Despesas Diversas / Outros
+Saúde,0.8729473868781801,vetorial,vetorial,False,44.176200055517256,False,Saúde,DROGALIS ITALO,,Saúde
+Lazer e Entretenimento,0.9288635714531256,vetorial,vetorial,False,45.50160001963377,False,Lazer e Entretenimento,EBN*PLAYSTATION,,Lazer e Entretenimento
+Saúde,0.9420004737831046,vetorial,vetorial,False,38.34069997537881,False,Saúde,Drogaria Sao Paulo - Parcela 2/2,,Saúde
+Despesas Diversas / Outros,1.0,llm,vetorial,False,14811.189199914224,False,Alimentação,I9pay S*Supermercado T,,Despesas Diversas / Outros
+Saúde,0.9420004737831046,vetorial,vetorial,False,38.442399934865534,False,Saúde,Drogaria Sao Paulo - Parcela 2/2,,Saúde
+Despesas Diversas / Outros,0.95,llm,vetorial,False,12353.14590006601,False,Saúde,DROGA ULTRA ITAQUA LT,,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,15731.499599991366,False,Alimentação,HOT POT RESTAURANT,,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,11796.902299975045,False,Alimentação,HOT POT RESTAURANT,,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.98,llm,vetorial,False,11569.718200014904,False,Alimentação,IFD*NEW LUCK PIZZARIA,,Despesas Diversas / Outros
+Lazer e Entretenimento,1.0,vetorial,vetorial,False,39.380099973641336,False,Lazer e Entretenimento,EBANX*SONYPLAYSTATN,,Lazer e Entretenimento
+Lazer e Entretenimento,1.0,vetorial,vetorial,False,35.71740002371371,False,Lazer e Entretenimento,EBANX*SONYPLAYSTATN,,Lazer e Entretenimento
+Marketplace / E-commerce,0.9487742854399022,vetorial,vetorial,False,42.131900088861585,False,Marketplace / E-commerce,AMAZONMKTPLC*RAQUENACO,,Marketplace / E-commerce
+Saúde,1.0,llm,vetorial,False,30420.185299939476,False,Despesas Diversas / Outros,REDFIT - ITAQUA CENTRO,,Saúde
+Despesas Diversas / Outros,0.888686592264806,vetorial,vetorial,False,36.44569998141378,False,Despesas Diversas / Outros,ZP      QMS INTERNATI,,Despesas Diversas / Outros
+Marketplace / E-commerce,0.9908250620625518,vetorial,vetorial,False,35.042200004681945,False,Marketplace / E-commerce,MERCADOLIVRE 3PRODUTOS,,Marketplace / E-commerce
+Saúde,0.8729473868781801,vetorial,vetorial,False,32.95849997084588,False,Saúde,DROGALIS ITALO,,Saúde
+Despesas Diversas / Outros,1.0,llm,vetorial,False,15684.960799990222,False,Alimentação,HOT POT RESTAURANT,,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,29813.61240008846,False,Alimentação,Baby Sorvetes,,Despesas Diversas / Outros
+Alimentação,0.9443384000170215,vetorial,vetorial,False,45.23819999303669,False,Alimentação,PG CARREFOUR,,Alimentação
+Beleza e Cuidados Pessoais,0.9999999162857108,vetorial,vetorial,False,41.05680005159229,False,Beleza e Cuidados Pessoais,HNA*O BOTICARIO,,Beleza e Cuidados Pessoais
+Despesas Diversas / Outros,0.95,llm,vetorial,False,35727.07429993898,False,Tecnologia,IL-FL STUDIO/ FL CLOUD GE,,Despesas Diversas / Outros
+,,,,,12115.120599977672,False,Lazer e Entretenimento,PAYPAL  NUUVEMJOGOS,RequestError: RequestError('error sending request for url (https://search.yahoo.com/search;_ylt=dcR23uALCScOvsRq-sPCZX7A;_ylu=EIC0-0lEK8Ew0FGmNXl-rrcPMeJ__nWvA6TVqyRdSeKZJN8?p=NUUVEMJOGOS+estabelecime,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.95,llm,vetorial,False,34588.80320005119,False,Tecnologia,IL-FL STUDIO/ FL CLOUD GE,,Despesas Diversas / Outros
+Saúde,0.9420004737831046,vetorial,vetorial,False,39.89110002294183,False,Saúde,Drogaria Sao Paulo - Parcela 2/2,,Saúde
+Alimentação,0.9231107364659668,vetorial,vetorial,False,34.0676000341773,False,Alimentação,Ifd*54.001.769 Rafael,,Alimentação
+,,,,,12589.8038999876,False,Lazer e Entretenimento,PAYPAL  NUUVEMJOGOS,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=NUUVEMJOGOS%20estabelecimento) > client error (Connect) > d,Despesas Diversas / Outros
+Marketplace / E-commerce,0.9950223982515863,vetorial,vetorial,False,26.805800036527216,False,Marketplace / E-commerce,MERCADOLIVRE MERCADOL,,Marketplace / E-commerce
+,,,,,11141.536099952646,False,Lazer e Entretenimento,PAYPAL *NUUVEMJOGOS,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=NUUVEMJOGOS%20estabelecimento) > client error (Connect) > d,Despesas Diversas / Outros
+Educação,0.98,llm,vetorial,False,28730.224299943075,False,Educação,UDEMY,,Educação
+Despesas Diversas / Outros,0.95,llm,vetorial,False,9157.208399963565,False,Saúde,Drogaria Paulista Lj60,,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.888686592264806,vetorial,vetorial,False,45.41209992021322,False,Despesas Diversas / Outros,ZP      QMS INTERNATI,,Despesas Diversas / Outros
+Saúde,0.9420004737831046,vetorial,vetorial,False,34.44479999598116,False,Saúde,Drogaria Sao Paulo - Parcela 2/2,,Saúde
+,,,,,18441.18109997362,False,Transporte,HIBIS HOTEL BARRETOS,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=HIBIS%20HOTEL%20BARRETOS%20estabelecimento) > client error ,Despesas Diversas / Outros
+Saúde,0.8729473868781801,vetorial,vetorial,False,26.530600036494434,False,Saúde,DROGALIS ITALO,,Saúde
+Alimentação,0.9231107364659668,vetorial,vetorial,False,25.65720002166927,False,Alimentação,IFD*54.001.769 RAFAEL,,Alimentação
+,,,,,10447.752799955197,False,Alimentação,RODOSNACK TURMALINA,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=RODOSNACK%20TURMALINA%20estabelecimento) > client error (Co,Despesas Diversas / Outros
+,,,,,11029.537700000219,False,Alimentação,Ifd *Zamp,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=Ifd%20Zamp%20estabelecimento) > client error (Connect) > dn,Despesas Diversas / Outros
+Marketplace / E-commerce,0.9487742854399022,vetorial,vetorial,False,29.03360000345856,False,Marketplace / E-commerce,AMAZONMKTPLC*RAQUENACO,,Marketplace / E-commerce
+Lazer e Entretenimento,1.0,vetorial,vetorial,False,31.15059994161129,False,Lazer e Entretenimento,EBANX*SONYPLAYSTATN,,Lazer e Entretenimento
+Despesas Diversas / Outros,1.0,llm,vetorial,False,26171.595700085163,False,Alimentação,IFOOD   IFD BELLA FON,,Despesas Diversas / Outros
+Marketplace / E-commerce,0.95,llm,vetorial,False,30062.635299982503,False,Lazer e Entretenimento,PAYPAL  NUUVEMJOGOS,,Marketplace / E-commerce
+Despesas Diversas / Outros,0.95,llm,vetorial,False,9175.638799904846,False,Saúde,Drogaria Paulista Lj60,,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,12972.608800046146,False,Saúde,Drogaria Paulista Lj60,,Despesas Diversas / Outros
+,,,,,13768.303700024262,False,Transporte,SMART HOTEL EIRELI,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=SMART%20HOTEL%20EIRELI%20estabelecimento) > client error (C,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.95,llm,vetorial,False,9556.800000020303,False,Saúde,Drogaria Paulista Lj60,,Despesas Diversas / Outros
+Lazer e Entretenimento,1.0,vetorial,vetorial,False,40.627799928188324,False,Lazer e Entretenimento,EBN*SPOTIFY,,Lazer e Entretenimento
+Despesas Diversas / Outros,0.9223694472024744,vetorial,vetorial,False,34.8000000230968,False,Despesas Diversas / Outros,PAG ZIG,,Despesas Diversas / Outros
+Transporte,0.9182115762905811,vetorial,vetorial,False,30.09310003835708,False,Transporte,EMIRATES AIRAWP/NVDZ2S,,Transporte
+Despesas Diversas / Outros,1.0,llm,vetorial,False,23425.71430001408,False,Despesas Diversas / Outros,REDFIT - ITAQUA CENTRO,,Despesas Diversas / Outros
+Marketplace / E-commerce,0.9419812701137565,vetorial,vetorial,False,44.24780001863837,False,Marketplace / E-commerce,Amazonmktplc*Swarovski - Parcela 4/7,,Marketplace / E-commerce
+Despesas Diversas / Outros,0.95,llm,vetorial,False,24351.60559997894,False,Despesas Diversas / Outros,DIVIPAYPAYMENTS,,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,humano,vetorial,True,22477.980499970727,True,Alimentação,ZIG*ERRORR,,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,20366.336999926716,False,Alimentação,Ifd*Zamp S.A.,,Despesas Diversas / Outros
+Saúde,0.8729473868781801,vetorial,vetorial,False,41.99629998765886,False,Saúde,Drogalis Italo,,Saúde
+Despesas Diversas / Outros,0.95,llm,vetorial,False,9308.333300054073,False,Saúde,Drogaria Paulista Lj60,,Despesas Diversas / Outros
+Alimentação,0.8742927764313928,vetorial,vetorial,False,34.12900003604591,False,Alimentação,Supermercado Veran Lj1,,Alimentação
+Moradia,1.0,llm,vetorial,False,30653.568600071594,False,Moradia,TIM,,Moradia
+Beleza e Cuidados Pessoais,0.9999999162857108,vetorial,vetorial,False,42.62860002927482,False,Beleza e Cuidados Pessoais,HNA*O BOTICARIO,,Beleza e Cuidados Pessoais
+Despesas Diversas / Outros,0.888686592264806,vetorial,vetorial,False,34.46240001358092,False,Despesas Diversas / Outros,ZP      QMS INTERNATI,,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,14304.397700005211,False,Alimentação,BAR E LANCHES 34 LTDA,,Despesas Diversas / Outros
+,,,,,10948.82059993688,False,Alimentação,BHBAREDANCETERIA,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=BHBAREDANCETERIA%20estabelecimento) > client error (Connect,Despesas Diversas / Outros
+Alimentação,0.9231107364659668,vetorial,vetorial,False,25.542300078086555,False,Alimentação,Ifd*54.001.769 Rafael,,Alimentação
+,,,,,9868.166200001724,False,Alimentação,IFD*NEW LUCK PIZZARIA,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=NEW%20LUCK%20PIZZARIA%20estabelecimento) > client error (Co,Despesas Diversas / Outros
+Beleza e Cuidados Pessoais,0.9999999162857108,vetorial,vetorial,False,30.350400018505752,False,Beleza e Cuidados Pessoais,HNA*O BOTICARIO,,Beleza e Cuidados Pessoais
+Lazer e Entretenimento,0.9063492542632987,vetorial,vetorial,False,25.335000013001263,False,Lazer e Entretenimento,DM*HELPMAXCOM,,Lazer e Entretenimento
+Despesas Diversas / Outros,1.0,llm,vetorial,False,22961.438599973917,False,Saúde,DROGA ULTRA ITAQUA LT,,Despesas Diversas / Outros
+Alimentação,1.0,vetorial,vetorial,False,43.993899947963655,False,Alimentação,PAG*JERONIMOJABAQUARA,,Alimentação
+Saúde,1.0,llm,vetorial,False,13338.614699896425,False,Saúde,DROGA ULTRA ITAQUA LT,,Saúde
+,,,,,8956.419500056654,False,Alimentação,IFD*NEW LUCK PIZZARIA,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=NEW%20LUCK%20PIZZARIA%20estabelecimento) > client error (Co,Despesas Diversas / Outros
+Despesas Diversas / Outros,1.0,llm,vetorial,False,24464.4417000236,False,Saúde,DROGA ULTRA ITAQUA LT,,Despesas Diversas / Outros
+Marketplace / E-commerce,0.9382735200080364,vetorial,vetorial,False,35.761300008744,False,Marketplace / E-commerce,MERCADOPAGO *MERCADOL,,Marketplace / E-commerce
+Saúde,0.8729473868781801,vetorial,vetorial,False,40.1290999725461,False,Saúde,DROGALIS ITALO,,Saúde
+Despesas Diversas / Outros,0.95,llm,vetorial,False,33825.16010000836,False,Saúde,NEO MATRIX OTICA,,Despesas Diversas / Outros
+Despesas Diversas / Outros,0.98,llm,vetorial,False,22165.65370000899,False,Alimentação,Ifd*Sp Farma Metropoli,,Despesas Diversas / Outros
+,,,,,14165.01229989808,False,Alimentação,Ifd*New Luck Pizzaria,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=New%20Luck%20Pizzaria%20estabelecimento) > client error (Co,Despesas Diversas / Outros
+Marketplace / E-commerce,0.9487742854399022,vetorial,vetorial,False,30.216900049708784,False,Marketplace / E-commerce,AMAZONMKTPLC*RAQUENACO,,Marketplace / E-commerce
+Despesas Diversas / Outros,1.0,llm,vetorial,False,24489.581299945712,False,Lazer e Entretenimento,Cinepolis Itaquaquecet,,Despesas Diversas / Outros
+Alimentação,0.9231107364659668,vetorial,vetorial,False,34.657300100661814,False,Alimentação,Ifd*54.001.769 Rafael,,Alimentação
+,,,,,10386.80940004997,False,Alimentação,Jose Hortifruti,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=Jose%20Hortifruti%20estabelecimento) > client error (Connec,Despesas Diversas / Outros
+Alimentação,0.9231107364659668,vetorial,vetorial,False,33.65500003565103,False,Alimentação,IFD*54.001.769 RAFAEL,,Alimentação
+Despesas Diversas / Outros,1.0,llm,vetorial,False,24455.771900014952,False,Lazer e Entretenimento,PAYPAL *NUUVEMJOGOS,,Despesas Diversas / Outros
+,,,,,9875.912600080483,False,Alimentação,Esquilos Acai,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=Esquilos%20Acai%20estabelecimento) > client error (Connect),Despesas Diversas / Outros
+Marketplace / E-commerce,0.9487742854399022,vetorial,vetorial,False,27.002999908290803,False,Marketplace / E-commerce,AMAZONMKTPLC*RAQUENACO,,Marketplace / E-commerce
+Alimentação,0.9231107364659668,vetorial,vetorial,False,24.57830007188022,False,Alimentação,IFD*54.001.769 RAFAEL,,Alimentação
+Saúde,0.8729473868781801,vetorial,vetorial,False,25.148099986836314,False,Saúde,DROGALIS ITALO,,Saúde
+Alimentação,0.9231107364659668,vetorial,vetorial,False,25.62750002834946,False,Alimentação,Ifd*54.001.769 Rafael,,Alimentação
+Transporte,0.9182115762905811,vetorial,vetorial,False,25.340899941511452,False,Transporte,EMIRATES AIRAWP/NVDZ2S,,Transporte
+Educação,1.0,llm,vetorial,False,25012.925799936056,False,Educação,UDEMY,,Educação
+Despesas Diversas / Outros,1.0,llm,vetorial,False,25460.643999977037,False,Vestuário,EMPORIO FOR ALL,,Despesas Diversas / Outros
+,,,,,11156.75059997011,False,Vestuário,PAYPAL      *BOSS LIFE,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=BOSS%20LIFE%20estabelecimento) > client error (Connect) > d,Despesas Diversas / Outros
+Marketplace / E-commerce,0.95,llm,vetorial,False,24483.887300011702,False,Marketplace / E-commerce,Amazonmktplc*Cinnantie,,Marketplace / E-commerce
+,,,,,12567.518100026064,False,Lazer e Entretenimento,PAYPAL  NUUVEMJOGOS,RequestError: RequestError('error sending request for url (https://search.yahoo.com/search;_ylt=jOSo7q1fwMGNOPFhEKOmvgsm;_ylu=3ieSWK0ASmbll9lBy1qdc-KD6puWdvhNfGHnRI0Q2qpbyEM?p=NUUVEMJOGOS+estabelecime,Despesas Diversas / Outros
+Saúde,0.8729473868781801,vetorial,vetorial,False,28.09579996392131,False,Saúde,Drogalis Italo,,Saúde
+Moradia,0.8517531311615353,vetorial,vetorial,False,28.066599974408746,False,Despesas Diversas / Outros,PAG AZPLEX,,Moradia
+Despesas Diversas / Outros,0.95,llm,vetorial,False,30422.74259997066,False,Transporte,SMART HOTEL EIRELI,,Despesas Diversas / Outros
+Marketplace / E-commerce,0.9487742854399022,vetorial,vetorial,False,39.37339992262423,False,Marketplace / E-commerce,AMAZONMKTPLC*RAQUENACO,,Marketplace / E-commerce
+Despesas Diversas / Outros,0.95,llm,vetorial,False,15787.25289995782,False,Alimentação,IFD*NEW LUCK PIZZARIA,,Despesas Diversas / Outros
+,,,,,12330.193700036034,False,Lazer e Entretenimento,PAYPAL  NUUVEMJOGOS,ConnectError: ConnectError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=NUUVEMJOGOS%20estabelecimento) > client error (Connect) > d,Despesas Diversas / Outros
+,,,,,10611.251900088973,False,Alimentação,Jose Hortifruti,RemoteProtocolError: RemoteProtocolError('Server disconnected'),Despesas Diversas / Outros

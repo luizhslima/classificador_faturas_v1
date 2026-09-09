@@ -1,0 +1,19 @@
+\begin{table}[htb]
+	\centering
+	\caption{Comparativo global de desempenho preditivo e tempo médio de inferência.}
+	\label{tab:resultados_modelos}
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{lccccc}
+			\toprule
+			\textbf{Modelo / Arquitetura} & \textbf{Acurácia} & \textbf{Precisão} & \textbf{Recall} & \textbf{F1-Macro} & \textbf{Latência (ms)} \\
+			\midrule
+				Baseline 1: TF-IDF + Naive Bayes & 88.3\% & 69.8\% & 61.7\% & 63.6\% & 0.03 ms \\
+				Baseline 2: TF-IDF + Random Forest & 84.7\% & 74.2\% & 66.5\% & 69.3\% & 0.28 ms \\
+				SOTA Neural: ByT5 Fine-Tuning & 65.9\% & 52.0\% & 53.0\% & 48.3\% & 65.5 ms \\
+				Busca Vetorial RAG: PGVector (MiniLM) & 82.6\% & 57.9\% & 55.4\% & 56.2\% & 1.42 ms \\
+				\textbf{Agente Híbrido Completo (LangGraph)} & \textbf{61.4\%} & \textbf{68.4\%} & \textbf{62.9\%} & \textbf{60.0\%} & \textbf{6530.0 ms} \\
+			\bottomrule
+		\end{tabular}%
+	}
+	\fonte{Elaborado pelo autor (\the\year).}
+\end{table}

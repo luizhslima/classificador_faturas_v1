@@ -104,7 +104,13 @@ brazil				% o último idioma é o principal do documento
 \usepackage{tcolorbox}
 \usepackage{booktabs}
 \usepackage{caption}
-\usepackage{ltablex}
+\usepackage{tabularx}
+\usepackage{xltabular}
+\usepackage{seqsplit}
+% Nome longo do modelo de embeddings, com pontos de quebra de linha (sem inserir hifen)
+\newcommand{\modelemb}{\texttt{paraphrase-\discretionary{}{}{}multilingual-\discretionary{}{}{}MiniLM-\discretionary{}{}{}L12-v2}}
+% Permite quebra de linha em qualquer caractere dentro de trechos de codigo longos
+\newcommand{\codepath}[1]{\texttt{\expandafter\seqsplit\expandafter{\detokenize{#1}}}}
 \usepackage{svg}
 \usepackage[left=3cm,right=2cm,top=3cm,bottom=2cm]{geometry}
 \usepackage{tikz}
@@ -429,6 +435,8 @@ brazil				% o último idioma é o principal do documento
 \include{USPSC-TA-Textual/USPSC-Cap1-Introducao}
 
 \include{USPSC-TA-Textual/USPSC-Cap2-Fundamentacao_Teorica}
+
+\include{USPSC-TA-Textual/USPSC-CAPX-Trabalhos_Relacionados}
 
 \include{USPSC-TA-Textual/USPSC-Cap3-Metodologia}
 

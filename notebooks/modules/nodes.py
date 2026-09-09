@@ -146,10 +146,16 @@ def make_nodes(services: AsyncService):
         instrucao_ocr = gerar_regra_ocr(dtlk["is_digital_nativo"])
         async with services.session_factory() as session:
             result = await session.execute(
-                select(TipoEstabelecimento)
+                select(Categoria).where(Categoria.ativo.is_(True)).order_by(Categoria.id)
             )
             tipos = result.scalars().all()
-            classificador = services.llm.bind_tools(services.tools)
+            if not tipos:
+                result = await session.execute(select(TipoEstabelecimento))
+                tipos = result.scalars().all()
+            try:
+                classificador = services.llm.bind_tools(services.tools)
+            except Exception:
+                classificador = services.llm
             sistem_msg = SystemMessage(
                 content=f"""
                         Você é um assistente financeiro especialista em classificar transações de faturas de cartão de crédito no Brasil.
@@ -158,23 +164,25 @@ def make_nodes(services: AsyncService):
                         - Formato do Dado: {dtlk['extensao']}
                         Você tem acesso a ferramentas. Sempre que usar uma ferramenta, certifique-se de preencher os parâmetros com um JSON estrito, utilizando os tipos corretos (ex: booleanos não devem ter aspas).
                         REGRAS DE ANÁLISE:
-                        1. PROCESSADORES DE PAGAMENTO: Prefixos como "PG*", "PAG*", "MP*", "ZOOP*", "SUMUP*" indicam apenas a maquininha/gateway. Descodifique siglas comuns (IFD, UBR, AMZN).
-                        2. COMBATE A ALUCINAÇÕES: Não invente marcas ou aplicativos. Se você não reconhecer o estabelecimento com certeza absoluta baseada em fatos reais, não tente forçar um encaixe.
-                        3. REGRA DE ORIGEM DO DADO: {instrucao_ocr}
-                        4. ESTABELECIMENTOS DESCONHECIDOS: Se a transação for ambígua, um nome próprio informal (ex: 'jhoonymorango'), ou apenas um gateway genérico, defina 'requer_confirmacao=true' e use confiança baixa (<=0.70).
-                        5. CADEIA DE PENSAMENTO: Pense passo a passo. Gere o campo "raciocinio" ANTES de gerar a "categoria".
-                        6. Caso necessário faça UMA ÚNICA pesquisa com a 'tool' duckduckgo_search.
-                        7. DIRETRIZES DE PESQUISA (duckduckgo_search):
-                        - NUNCA use aspas (" ") na sua string de busca.
-                        - Pesquise de forma ampla. Adicione palavras de contexto como "estabelecimento", "loja" ou "empresa". 
-                        - Se o nome parecer aglutinado (ex: 'jhoonymorango'), separe as palavras na pesquisa (ex: 'jhoony morango estabelecimento').
-                        - Não inclua as siglas de pagamento (MP, PG) na pesquisa.
+                        1. PROCESSADORES DE PAGAMENTO: Prefixos como "PG*", "PAG*", "MP*", "ZOOP*", "SUMUP*", "IFD*", "EBN*", "HNA*" indicam apenas a maquininha/gateway. Descodifique siglas comuns (IFD/IFOOD=comida, UBR/UBER=transporte, AMZN=marketplace, DROGA=farmácia).
+                        2. SUA TAREFA É A CATEGORIA, NÃO A MARCA: mesmo sem reconhecer o estabelecimento específico, use pistas genéricas do texto para inferir a categoria. Palavras como "RESTAURANTE", "LANCHONETE", "PIZZA", "ACAI", "PADARIA", "MERCADO", "HORTIFRUTI" => Alimentação; "DROGARIA", "DROGA", "FARMACIA", "OTICA", "CLINICA" => Saúde; "POSTO", "AUTO POSTO", "UBER", "99" => Transporte; "INGRESSE", "INGRESSO", "CINEMA", "STEAM", "PLAYSTATION", "JOGOS", "GAMES" => Lazer e Entretenimento; "MERCADOLIVRE", "AMAZON", "SHOPEE", "MAGALU" => Marketplace / E-commerce. Só use "Despesas Diversas / Outros" quando NENHUMA pista de categoria estiver presente.
+                        3. COMBATE A ALUCINAÇÕES: não invente a identidade da marca; mas inferir a categoria a partir de pistas genéricas NÃO é alucinação.
+                        4. REGRA DE ORIGEM DO DADO: {instrucao_ocr}
+                        6. ESTABELECIMENTOS TOTALMENTE OPACOS: apenas quando o nome for um gateway genérico sem pista (ex.: "DIVIPAYPAYMENTS", "PAYPAL *XXXX") ou um nome próprio informal sem contexto, defina 'requer_confirmacao=true' e confiança <= 0.70.
+                        7. CADEIA DE PENSAMENTO: Pense passo a passo (raciocínio curto) ANTES de decidir a categoria.
+                        8. Se houver a ferramenta 'duckduckgo_search', use-a no máximo UMA vez, sem aspas na busca, para nomes obscuros.
+                        9. SAÍDA FINAL: termine sua resposta com um bloco JSON em uma única linha, no formato exato:
+                        {{"categoria": "<um rótulo EXATO da lista abaixo>", "subcategoria": null, "confianca": <0..1>, "requer_confirmacao": <true|false>, "justificativa": "<curta>", "possiveis_categorias": ["...","...","..."], "raciocinio": "<resumo>"}}
 
                         CATEGORIAS PERMITIDAS (Você DEVE escolher apenas uma desta lista ):
                         {';'.join([f'Nome:{tipo.nome} - descrição: {tipo.descricao}' for tipo in tipos])}
                         """)
             msgs = [sistem_msg] + state.get('messages', [])
-            response = await classificador.ainvoke(msgs)
+            try:
+                response = await classificador.ainvoke(msgs)
+            except Exception:
+                # LM Studio pode rejeitar o grammar de tool-calling; tenta sem ferramentas
+                response = await services.llm.ainvoke(msgs)
             return {"messages": [response]}
 
     async def estruturar_saida_llm(state: AgentState) -> dict:
@@ -187,19 +195,110 @@ def make_nodes(services: AsyncService):
             }
 
         ultima_mensagem = mensagens[-1]
-        conteudo_texto = (
-            ultima_mensagem.content
-            if hasattr(ultima_mensagem, "content")
-            else str(ultima_mensagem)
+
+        def _texto_msg(msg) -> str:
+            partes = []
+            c = getattr(msg, "content", None)
+            if isinstance(c, str) and c.strip():
+                partes.append(c)
+            elif isinstance(c, list):
+                partes.extend(str(x.get("text", x)) if isinstance(x, dict) else str(x) for x in c)
+            ak = getattr(msg, "additional_kwargs", {}) or {}
+            for k in ("reasoning_content", "reasoning"):
+                if ak.get(k):
+                    partes.append(str(ak[k]))
+            return "\n".join(partes) if partes else str(msg)
+
+        conteudo_texto = _texto_msg(ultima_mensagem)
+
+        import json as _json
+        import re as _re
+        from difflib import get_close_matches
+
+        async with services.session_factory() as _s:
+            _cats = [c.nome for c in (
+                await _s.execute(select(Categoria).order_by(Categoria.id))
+            ).scalars().all()]
+        _cats = _cats or [
+            "Alimentação", "Transporte", "Saúde", "Moradia", "Lazer e Entretenimento",
+            "Tecnologia", "Marketplace / E-commerce", "Vestuário",
+            "Beleza e Cuidados Pessoais", "Educação", "Pets", "Serviços Financeiros",
+            "Doações e Presentes", "Despesas Diversas / Outros",
+        ]
+
+        def _ancora_cat(valor: str) -> str:
+            valor = (valor or "").strip()
+            for c in _cats:
+                if c.lower() == valor.lower():
+                    return c
+            mm = get_close_matches(valor, _cats, n=1, cutoff=0.6)
+            if mm:
+                return mm[0]
+            vl = valor.lower()
+            for c in _cats:
+                if vl and (vl in c.lower() or c.lower().split()[0] in vl):
+                    return c
+            return "Despesas Diversas / Outros"
+
+        prompt_extracao = (
+            "Com base na análise abaixo, responda APENAS com um objeto JSON válido "
+            "(sem markdown, sem comentários) com as chaves: categoria, subcategoria "
+            "(ou null), confianca (número 0..1), justificativa, requer_confirmacao "
+            "(booleano), possiveis_categorias (lista), raciocinio.\n"
+            "O campo 'categoria' DEVE ser exatamente um destes rótulos: "
+            + "; ".join(_cats)
+            + "\n\nAnálise:\n" + str(conteudo_texto)
         )
 
-        model_with_structured = services.llm.with_structured_output(ClassificacaoLLM)
-        prompt_extracao = (
-            f"Baseado nesta análise final, extraia os dados para o formato exigido:\n\n{conteudo_texto}"
-        )
+        async def _parse_manual():
+            raw = await services.llm.ainvoke(prompt_extracao)
+            txt = _texto_msg(raw)
+            m = _re.search(r"\{[^{}]*\"categoria\".*\}", txt, _re.DOTALL) or \
+                _re.search(r"\{.*\}", txt, _re.DOTALL)
+            if not m:
+                raise ValueError("sem JSON na resposta")
+            data = _json.loads(m.group(0))
+            return ClassificacaoLLM(
+                categoria=_ancora_cat(str(data.get("categoria") or "")),
+                subcategoria=(data.get("subcategoria") or None),
+                confianca=float(data.get("confianca", 0.5) or 0.5),
+                justificativa=str(data.get("justificativa") or ""),
+                requer_confirmacao=bool(data.get("requer_confirmacao", False)),
+                possiveis_categorias=list(data.get("possiveis_categorias") or []),
+                raciocinio=str(data.get("raciocinio") or conteudo_texto),
+            )
+
+        def _json_do_texto(txt: str):
+            m = _re.search(r"\{[^{}]*\"categoria\"[^{}]*\}", txt, _re.DOTALL) or \
+                _re.search(r"\{.*\}", txt, _re.DOTALL)
+            if not m:
+                return None
+            try:
+                d = _json.loads(m.group(0))
+            except Exception:
+                return None
+            if "categoria" not in d:
+                return None
+            return ClassificacaoLLM(
+                categoria=_ancora_cat(str(d.get("categoria") or "")),
+                subcategoria=(d.get("subcategoria") or None),
+                confianca=float(d.get("confianca", 0.6) or 0.6),
+                justificativa=str(d.get("justificativa") or ""),
+                requer_confirmacao=bool(d.get("requer_confirmacao", False)),
+                possiveis_categorias=list(d.get("possiveis_categorias") or []),
+                raciocinio=str(d.get("raciocinio") or txt)[:2000],
+            )
 
         try:
-            resposta_estruturada = await model_with_structured.ainvoke(prompt_extracao)
+            # 1) tenta extrair o JSON que o próprio nó de classificação já produziu
+            resposta_estruturada = _json_do_texto(conteudo_texto)
+            # 2) só chama o LLM de novo se necessário
+            if resposta_estruturada is None:
+                try:
+                    model_with_structured = services.llm.with_structured_output(ClassificacaoLLM)
+                    resposta_estruturada = await model_with_structured.ainvoke(prompt_extracao)
+                except Exception:
+                    resposta_estruturada = await _parse_manual()
 
             if isinstance(resposta_estruturada, dict):
                 categoria = resposta_estruturada.get("categoria")
@@ -217,6 +316,8 @@ def make_nodes(services: AsyncService):
                 justificativa = getattr(resposta_estruturada, "justificativa", "")
                 possiveis_categorias = getattr(resposta_estruturada, "possiveis_categorias", [])
                 raciocinio = getattr(resposta_estruturada, "raciocinio", "")
+
+            categoria = _ancora_cat(categoria if isinstance(categoria, str) else "")
 
             return {
                 "categoria": categoria,
@@ -241,11 +342,15 @@ def make_nodes(services: AsyncService):
             run_type="retriever"
     )
     async def buscar_historico_marketplace(state: AgentState) -> dict:
+        try:
+            uid = int(state.get('usuario_id'))
+        except (TypeError, ValueError):
+            return {"historico_marketplace": {}}
         async with services.session_factory() as session:
             result = await session.execute(
                 select(SugestaoCategoriaMarketplace)
                 .where(
-                    SugestaoCategoriaMarketplace.usuario_id ==  state.get('usuario_id'),
+                    SugestaoCategoriaMarketplace.usuario_id == uid,
                     SugestaoCategoriaMarketplace.quantidade_confirmada > 0
                 )
                 .order_by(SugestaoCategoriaMarketplace.confianca_historica.desc())
@@ -261,17 +366,33 @@ def make_nodes(services: AsyncService):
             }
             return {"historico_marketplace": historico}
     async def buscar_por_similaridade(state: AgentState):
-        docs = await services.retrivier.ainvoke(state.get('nome_normalizado', 'invalido'))
+        query = state.get('nome_normalizado', 'invalido')
+        try:
+            pares = await services.vectorstore.asimilarity_search_with_relevance_scores(
+                query, k=3
+            )
+        except Exception:
+            pares = []
 
-        if not docs:
+        if not pares:
             return {}
 
-        melhor = docs[0]
+        melhor, score = pares[0]
+        try:
+            score = max(0.0, min(1.0, float(score)))
+        except (TypeError, ValueError):
+            score = 0.0
+
+        categoria = melhor.metadata.get('categoria') or melhor.metadata.get('categoria_nome')
+        if not categoria:
+            return {}
+
         return {
-            "categoria": melhor.metadata['categoria'],
-            "confianca": float(melhor.metadata['confianca']),
+            "categoria": categoria,
+            "confianca": score,
             "fonte": "vetorial",
-            "requer_confirmacao": float(melhor.metadata['confianca']) < 0.95,
+            "metodo_classificacao": "vetorial",
+            "requer_confirmacao": score < services.SIMILARITY_THRESHOLD,
         }
     def detectar_estabelecimento(nome_normalizado: str) -> str:
         """
@@ -393,11 +514,23 @@ def make_nodes(services: AsyncService):
         categoria_final = resposta.get('categoria') or state.get('categoria')
         confirmado  = resposta.get('confirmado', True)
 
+        if confirmado:
+            return {
+                "categoria": categoria_final,
+                "confianca": 1.0,
+                'fonte': "humano",
+                "metodo_classificacao": "humano",
+                "requer_confirmacao": False,
+                "status_classificacao": "confirmada_usuario",
+            }
+        # sem confirmação humana efetiva: mantém sugestão do LLM p/ revisão posterior
         return {
             "categoria": categoria_final,
-            "confianca": 1.0 if confirmado else state.get('confianca', 0.5),
-            'fonte': "humano",
+            "confianca": state.get('confianca', 0.5),
+            'fonte': "llm",
+            "metodo_classificacao": "llm",
             "requer_confirmacao": True,
+            "status_classificacao": "sugerida",
         }
 
     def rota_apos_busca_vetorial(state: AgentState) -> str:

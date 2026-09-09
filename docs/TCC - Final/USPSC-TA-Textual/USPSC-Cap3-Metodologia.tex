@@ -1,9 +1,9 @@
-\chapter{Metodologia} \label{Cap:Metodologia}
+\chapter{Solução Proposta} \label{Cap:Metodologia}
 
 \section{Considerações Iniciais}
 \label{sec:sol_consideracoes_iniciais}
 
-Este capítulo detalha a concepção arquitetural, os modelos matemáticos e a implementação prática da solução desenvolvida para a extração e classificação de faturas de cartão de crédito. Afastando-se de abstrações puramente teóricas, a seção formaliza as questões de pesquisa e as hipóteses norteadoras, descreve a metodologia baseada no CRISP-DM adaptado, especifica os microsserviços do ecossistema Data Lakehouse, pormenoriza a engenharia do agente inteligente em grafo (LangGraph), estabelece as salvaguardas de conformidade com a LGPD e delineia a pirâmide de testes de software.
+Este capítulo detalha a concepção arquitetural, os modelos matemáticos e a implementação prática da solução desenvolvida para a extração e classificação de faturas de cartão de crédito. Afastando-se de abstrações puramente teóricas, a seção formaliza as questões de pesquisa e as hipóteses norteadoras, descreve a metodologia baseada no CRISP-DM adaptado, especifica os microsserviços do ecossistema Data Lakehouse, pormenoriza a engenharia do agente inteligente em grafo (LangGraph), estabelece as salvaguardas de conformidade com a LGPD e delineia a estratégia de garantia de qualidade e testes de software.
 
 \section{Questões de Pesquisa e Hipótese Central}
 \label{sec:sol_questoes_pesquisa}
@@ -41,7 +41,7 @@ O ciclo metodológico adotou o framework padrão da indústria \textit{Cross-Ind
 \section{Arquitetura Geral da Solução e Ecossistema Data Lakehouse}
 \label{sec:sol_arquitetura}
 
-A arquitetura geral do sistema foi concebida sob o paradigma orientado a eventos e microsserviços desacoplados, implementada integralmente com tecnologias de código aberto (\textit{Open Source}) orquestradas via \textit{Docker Compose}. A Figura~\ref{fig:arquitetura_mlops} ilustra a topologia completa da infraestrutura.
+A arquitetura geral do sistema foi concebida sob o paradigma orientado a eventos e microsserviços desacoplados, implementada com tecnologias de código aberto (\textit{Open Source}) orquestradas via \textit{Docker Compose}. A Figura~\ref{fig:arquitetura_mlops} ilustra a topologia da infraestrutura efetivamente implementada e exercitada neste trabalho.
 
 \begin{figure}[htb]
 	\centering
@@ -54,54 +54,50 @@ A arquitetura geral do sistema foi concebida sob o paradigma orientado a eventos
 			box/.style={draw, rectangle, rounded corners, align=center, minimum width=3.2cm, minimum height=1.4cm, font=\sffamily\small, fill=white},
 			storage/.style={draw, cylinder, shape border rotate=90, aspect=0.25, align=center, minimum width=2.8cm, minimum height=1.6cm, font=\sffamily\scriptsize, fill=white},
 			arrow/.style={-Latex, thick, draw=gray!80!black},
-			dashed_arrow/.style={Latex-, dashed, thick, draw=gray!80!black}
+			dashed_arrow/.style={Latex-, dashed, thick, draw=gray!80!black},
+			elabel/.style={font=\sffamily\scriptsize, fill=white, inner sep=1.5pt}
 			]
-			
+
 			% Linha 1: Ingestão e Usuários
-			\node[box, fill=gray!10]   (user)  at (-4.5, 0) {Usuário / Cliente \\ (Upload da Fatura)};
-			\node[box, fill=blue!10]   (api)   at (0, 0)    {API WebFlux / n8n \\ (Ingestão Reativa)};
-			\node[box, fill=orange!10] (kafka) at (4.5, 0)  {Apache Kafka \\ (Mensageria e Tópicos)};
-			\node[box, fill=purple!15] (ds)    at (9, 0)    {Cientista de Dados \\ (Jupyter / MLflow)};
-			
+			\node[box, fill=gray!10]   (user)  at (-5.6, 0)  {Usuário / Cliente \\ (Upload da Fatura)};
+			\node[box, fill=blue!10]   (api)   at (0, 0)     {API WebFlux \\ (Ingestão Reativa)};
+			\node[box, fill=orange!10] (kafka) at (5.6, 0)   {Apache Kafka \\ (Mensageria e Tópicos)};
+			\node[box, fill=purple!15] (ds)    at (11.2, 0)  {Cientista de Dados \\ (Jupyter / MLflow)};
+
 			% Linha 2: Workers de Extração e IA
-			\node[storage, fill=red!10]   (bronze_raw) at (-4.5, -3.5) {MinIO Bronze \\ (PDFs / CSVs Brutos)};
-			\node[box, fill=green!10]     (ocr)        at (0, -3.5)    {Worker Extração \\ (Docling / Tesseract)};
-			\node[box, fill=purple!10]    (byt5)       at (4.5, -3.5)  {Agente Inteligente \\ (LangGraph + LLM)};
-			\node[storage, fill=orange!20](mlops)      at (9, -3.5)    {MinIO MLOps \\ (Artefatos MLflow)};
-			
+			\node[storage, fill=red!10]   (bronze_raw) at (-5.6, -3.6) {MinIO Bronze \\ (PDFs / CSVs Brutos)};
+			\node[box, fill=green!10]     (ocr)        at (0, -3.6)     {Worker Extração \\ (Docling / Tesseract)};
+			\node[box, fill=purple!10]    (byt5)       at (5.6, -3.6)   {Agente Inteligente \\ (LangGraph + LLM)};
+			\node[storage, fill=orange!20](mlops)      at (11.2, -3.6)  {MinIO MLOps \\ (Artefatos MLflow)};
+
 			% Linha 3: Camadas de Dados Lakehouse
-			\node[storage, fill=red!10]  (bronze_txt) at (0, -7)   {MinIO Bronze \\ (Textos Sujos / Metadados)};
-			\node[storage, fill=teal!10] (silver)     at (4.5, -7) {Postgres + PGVector \\ (Dados e Embeddings)};
-			
-			% Linha 4: Consumo e BI
-			\node[box, fill=cyan!10]   (bi)    at (0, -10.5)   {Dashboard BI \\ (Metabase)};
-			\node[box, fill=yellow!10] (trino) at (4.5, -10.5) {Motor SQL \\ (Trino / DuckDB)};
-			
+			\node[storage, fill=red!10]  (bronze_txt) at (0, -7.4)   {MinIO Bronze \\ (Textos Sujos / Metadados)};
+			\node[storage, fill=teal!10] (silver)     at (5.6, -7.4) {Postgres + PGVector \\ (Dados e Embeddings)};
+
+			% (Camada de consumo analítico -- Trino/Metabase -- prevista para evolução, ver Cap. 6)
+
 			% Fundo Agrupador Data Lakehouse
 			\begin{scope}[on background layer]
-				\node[fill=gray!5, rounded corners, draw=gray, dashed, fit=(bronze_raw) (bronze_txt) (silver) (mlops), inner sep=18pt, yshift=-0.2cm] (datalake) {};
-				\node[anchor=north, font=\sffamily\bfseries, align=center, text=gray!70!black] at (datalake.north) {Ecossistema Data Lakehouse (S3 Compatible)};
+				\node[fill=gray!5, rounded corners, draw=gray, dashed, fit=(bronze_raw) (bronze_txt) (silver) (mlops), inner sep=18pt] (datalake) {};
+				\node[anchor=north, font=\sffamily\bfseries\scriptsize, align=center, text=gray!70!black, yshift=-2pt] at (datalake.south) {Ecossistema Data Lakehouse (S3 Compatible)};
 			\end{scope}
-			
+
 			% Conexões / Setas
 			\draw[arrow] (user) -- (api);
-			\draw[arrow] (api) -- node[midway, above, font=\scriptsize] {Publica Evento} (kafka);
-			\draw[arrow] (api.south west) -- node[sloped, above, font=\scriptsize] {Persiste Bruto} (bronze_raw.north east);
-			
-			\draw[arrow] (kafka.south west) -- node[sloped, above, font=\scriptsize] {Consome Evento} (ocr.north east);
-			\draw[dashed_arrow] (ocr.west) -- node[midway, above, font=\scriptsize] {Lê Arquivo} (bronze_raw.east);
-			\draw[arrow] (ocr.south) -- node[midway, left, font=\scriptsize] {Grava Transações} (bronze_txt.north);
-			
-			\draw[arrow] (kafka.south) -- node[midway, right, font=\scriptsize] {Dispara Grafo} (byt5.north);
-			\draw[dashed_arrow] (byt5.south west) -- node[sloped, above, font=\scriptsize] {Consome Dados} (bronze_txt.north east);
-			\draw[arrow] (byt5.south) -- node[midway, right, font=\scriptsize] {Grava Classificação} (silver.north);
-			
-			\draw[arrow] (ds.south) -- node[midway, right, font=\scriptsize] {Rastreia Runs} (mlops.north);
-			\draw[dashed_arrow] (byt5.east) -- node[midway, above, font=\scriptsize] {Loga Métricas} (mlops.west);
-			
-			\draw[dashed_arrow] (trino.north) -- node[midway, right, font=\scriptsize] {Consulta SQL} (silver.south);
-			\draw[arrow] (trino.west) -- node[midway, above, font=\scriptsize] {Serve Indicadores} (bi.east);
-			
+			\draw[arrow] (api) -- node[elabel] {Publica Evento} (kafka);
+			\draw[arrow] (api.south) -- node[elabel, pos=0.3] {Persiste Bruto} (bronze_raw.north);
+
+			\draw[arrow] (kafka.south west) -- node[elabel, pos=0.26] {Consome Evento} (ocr.north east);
+			\draw[dashed_arrow] (ocr.west) -- node[elabel] {Lê Arquivo} (bronze_raw.east);
+			\draw[arrow] (ocr.south) -- node[elabel] {Grava Transações} (bronze_txt.north);
+
+			\draw[arrow] (kafka.south) -- node[elabel, pos=0.3] {Dispara Grafo} (byt5.north);
+			\draw[dashed_arrow] (byt5.south west) -- node[elabel, sloped, pos=0.4] {Consome Dados} (bronze_txt.north east);
+			\draw[arrow] (byt5.south) -- node[elabel] {Grava Classificação} (silver.north);
+
+			\draw[arrow] (ds.south) -- node[elabel, pos=0.32] {Rastreia Runs} (mlops.north);
+			\draw[dashed_arrow] (byt5.east) -- node[elabel] {Loga Métricas} (mlops.west);
+
 		\end{tikzpicture}
 	}
 	
@@ -112,13 +108,13 @@ A arquitetura geral do sistema foi concebida sob o paradigma orientado a eventos
 O ecossistema divide-se nos seguintes serviços especializados:
 \begin{itemize}
 	\item \textbf{MinIO (Object Storage S3):} Provedor de armazenamento em nuvem local compatível com a API AWS S3. Organiza o Data Lakehouse em três buckets particionados por fonte e data: (i) \texttt{bronze-raw} para preservação imutável dos arquivos brutos (PDFs, CSVs); (ii) \texttt{bronze-txt} para dados textuais extraídos; e (iii) \texttt{mlflow-artifacts} para armazenamento de pesos e rastreios de modelos;
-	\item \textbf{Apache Kafka:} Barramento de mensageria distribuído que garante o desacoplamento temporal e a resiliência volumétrica entre a camada de ingestão e os workers assíncronos através dos tópicos \texttt{test-topic}, \texttt{events-topic} e \texttt{datalake-bronze-ingestao-topic};
-	\item \textbf{PostgreSQL 16 com extensão PGVector:} Banco de dados relacional e vetorial encarregado de armazenar a base de conhecimento de estabelecimentos, usuários, faturas, alocações de transações e vetores de características densas de 384 dimensões gerados pelo modelo \texttt{paraphrase-multilingual-MiniLM-L12-v2};
+	\item \textbf{Apache Kafka:} Barramento de mensageria distribuído que garante o desacoplamento temporal e a resiliência volumétrica entre a camada de ingestão e os workers assíncronos através dos tópicos \texttt{test-topic}, \texttt{events-topic} e \codepath{datalake-bronze-ingestao-topic};
+	\item \textbf{PostgreSQL 16 com extensão PGVector:} Banco de dados relacional e vetorial encarregado de armazenar a base de conhecimento de estabelecimentos, usuários, faturas, alocações de transações e vetores de características densas de 384 dimensões gerados pelo modelo \modelemb{};
 	\item \textbf{Servidor MLflow:} Servidor centralizado de MLOps apoiado por backend relacional PostgreSQL (\texttt{mlops\_db}) e bucket S3. Realiza o autologging de experimentos LangChain/LangGraph, registrando parâmetros de prompt, latência de inferência, tokens consumidos, tags de rastreamento e arquivos de cadeia de pensamento em formato texto (\texttt{results/raciocinio.txt});
-	\item \textbf{Motor Analítico Trino e Metabase BI:} Camada de consumo analítico que executa consultas SQL distribuídas e disponibiliza dashboards gerenciais para visualização interativa do orçamento do usuário;
-	\item \textbf{n8n e Apache Airflow:} Plataformas de orquestração de fluxos para agendamento de pipelines de ingestão em lote e integração de webhooks reativos;
 	\item \textbf{Logto IAM:} Servidor de autenticação e controle de acesso baseado em OpenID Connect (OIDC) e OAuth 2.0, garantindo o isolamento multi-inquilino (\textit{multi-tenant}) e a segurança de acesso aos dados financeiros.
 \end{itemize}
+
+A camada de consumo analítico dedicada (motor SQL distribuído e \textit{dashboards} gerenciais de \textit{Business Intelligence}) e a orquestração de pipelines em lote não integram o escopo implementado e avaliado nesta monografia, sendo apontadas como evolução natural da solução no Capítulo~\ref{Cap:Conclusoes}. A visualização orçamentária ao usuário é atendida diretamente pela aplicação \textit{web} sobre o PostgreSQL.
 
 \section{Pipeline de Ingestão e Extração Híbrida de Documentos}
 \label{sec:sol_extracao_hibrida}
@@ -126,7 +122,7 @@ O ecossistema divide-se nos seguintes serviços especializados:
 A camada de extração foi arquitetada para processar indistintamente documentos digitais nativos e arquivos ópticos escaneados, operando através de um fluxo em três etapas:
 
 \begin{enumerate}
-	\item \textbf{Identificação de Metadados no Data Lakehouse:} A função determinística \texttt{extrair\_metadados\_datalake} inspeciona o caminho do arquivo (ex.: \texttt{bronze/source=nubank/year=2026/month=08/.../original.csv}) e extrai o banco de origem, partições temporais e a flag \texttt{is\_digital\_nativo}. Caso a extensão seja \texttt{.csv}, \texttt{.ofx} ou \texttt{.json}, o sistema desativa hipóteses de erro de OCR; caso seja imagem ou PDF escaneado, ativa heurísticas de correção óptica;
+	\item \textbf{Identificação de Metadados no Data Lakehouse:} A função determinística \codepath{extrair_metadados_datalake} inspeciona o caminho do arquivo (ex.: \codepath{bronze/source=nubank/.../original.csv}) e extrai o banco de origem, partições temporais e a flag \texttt{is\_digital\_nativo}. Caso a extensão seja \texttt{.csv}, \texttt{.ofx} ou \texttt{.json}, o sistema desativa hipóteses de erro de OCR; caso seja imagem ou PDF escaneado, ativa heurísticas de correção óptica;
 	\item \textbf{Conversão com Docling V2 (Layout Tabular):} Em faturas em formato PDF (como Nubank e C6 Bank), utiliza-se o \textit{DocumentConverter} da biblioteca IBM Docling com backend PyPdfium acelerado por GPU CUDA. O conversor mapeia itens de tabela com caixas delimitadoras e exporta o conteúdo estruturado em Markdown delimitado por pipes (\texttt{|}), preservando a correspondência exata entre data, final do cartão de crédito, descrição do estabelecimento e valor em reais (R\$);
 	\item \textbf{Extração com Tesseract OCR e Filtro de Confiança:} Para recibos em imagem estrita ou páginas onde o conversor não identifica tabelas, aciona-se o Tesseract OCR configurado em modo OEM 3 (redes LSTM) e PSM 6 (bloco uniforme de texto). Aplica-se a função \texttt{image\_to\_data} com um \textbf{filtro de confiança}> 40\%, descartando fragmentos visuais irrecuperáveis antes do envio à camada semântica.
 \end{enumerate}
@@ -152,7 +148,7 @@ O núcleo de tomada de decisão do sistema foi codificado como um grafo de estad
 	\item \textbf{Nó \texttt{normalizar}:} Executa a limpeza léxica da descrição da transação com Regex, eliminando duplicações em torno de asteriscos (ex.: ``TIM*TIM'' $\to$ ``TIM''), descartando termos de pagamento (``PAG*'', ``PIX'', ``COMPRA'') e sufixos societários (``LTDA'', ``ME''). Realiza a resolução de aliases de marcas e verifica se a compra pertence à lista de marketplaces ambíguos (\texttt{eh\_marketplace});
 	\item \textbf{Roteamento Pós-Normalização (\texttt{rota\_apos\_normalizar}):} Se a transação for detectada como marketplace (Mercado Livre, Amazon, Shopee), encaminha o fluxo para o nó \texttt{buscar\_historico\_marketplace}; caso contrário, direciona para o nó de busca vetorial \texttt{buscar\_por\_similaridade};
 	\item \textbf{Nó \texttt{buscar\_historico\_marketplace}:} Consulta o histórico consolidado do usuário no banco PostgreSQL (\texttt{sugestoes\_categoria\_marketplace}), recuperando as preferências de compras confirmadas anteriormente no mesmo marketplace;
-	\item \textbf{Nó \texttt{buscar\_por\_similaridade}:} Executa a busca por similaridade de cosseno na extensão PGVector utilizando os embeddings gerados pelo modelo \texttt{paraphrase-multilingual-MiniLM-L12-v2}. Se a melhor correspondência apresentar escore de similaridade $\ge 0.85$, a transação é considerada classificada com alta certeza, sendo roteada diretamente para o nó \texttt{salvar\_resultado};
+	\item \textbf{Nó \texttt{buscar\_por\_similaridade}:} Executa a busca por similaridade de cosseno na extensão PGVector utilizando os embeddings gerados pelo modelo \modelemb{}. Se a melhor correspondência apresentar escore de similaridade $\ge 0.85$, a transação é considerada classificada com alta certeza, sendo roteada diretamente para o nó \texttt{salvar\_resultado};
 	\item \textbf{Nó \texttt{classificar\_com\_llm}:} Caso a busca vetorial resulte em confiança inferior a 0.85, aciona-se o modelo de linguagem (LLM). O nó injeta um System Prompt dinâmico contendo: (i) metadados da origem do arquivo; (ii) regras de decodificação de maquininhas de pagamento; (iii) diretrizes anti-alucinação; (iv) cadeia de pensamento obrigatória gerando o campo \texttt{raciocinio} antes da categoria; e (v) acesso à ferramenta \texttt{duckduckgo\_search} para pesquisar nomes comerciais obscuros;
 	\item \textbf{Roteador Unificado e Nó \texttt{tools}:} Se o LLM emitir uma chamada de ferramenta (\textit{tool call}), o fluxo executa a pesquisa autônoma na web pelo \texttt{ToolNode} e retorna as evidências para o classificador;
 	\item \textbf{Nó \texttt{estruturar\_saida\_llm}:} Utiliza o método \texttt{with\_structured\_output} com validação Pydantic (\texttt{ClassificacaoLLM}) para garantir que a resposta do LLM respeite o contrato de tipos com categoria, subcategoria, escore de confiança de 0 a 1, justificativa, lista de categorias alternativas e cadeia de raciocínio;
@@ -173,17 +169,18 @@ O processamento de dados transacionais bancários envolve informações estritam
 	\item \textbf{Autenticação e Rastreabilidade de Acesso (Art. 46):} O acesso às interfaces gerenciais e endpoints de API é protegido pelo servidor Logto via protocolo OpenID Connect (OIDC), com controle de acesso baseado em papéis (RBAC). Ademais, a tabela \texttt{log\_classificacoes} mantém registro temporal auditável de todas as inferências, métodos e revisões humanas realizadas.
 \end{enumerate}
 
-\section{Estratégia de Garantia de Qualidade e Pirâmide de Testes}
+\section{Estratégia de Garantia de Qualidade e Testes}
 \label{sec:sol_testes}
 
-Para garantir a confiabilidade operacional de um sistema distribuído e poliglota, instituiu-se uma estratégia alinhada à Pirâmide de Testes de Software:
+Para um sistema distribuído e poliglota de natureza exploratória, a garantia de qualidade apoiou-se em três frentes complementares:
 
 \begin{itemize}
-	\item \textbf{Testes Unitários:} Desenvolvidos com \textit{pytest} no ambiente Python e \textit{JUnit 5} com \texttt{StepVerifier} na camada reativa, validando funções determinísticas de saneamento Regex, parsers de datas, cálculos de métricas e contratos Pydantic de forma isolada em memória;
-	\item \textbf{Testes de Integração com Testcontainers:} Utilização da biblioteca \textit{Testcontainers} para instanciar containers Docker efêmeros do Apache Kafka, MinIO e PostgreSQL com pgvector durante a execução dos testes automatizados de integração, validando a persistência real de mensagens e consultas vetoriais;
-	\item \textbf{Testes de Regressão de Agente:} Baterias de teste automatizadas que submetem um conjunto canônico de 100 transações de referência (\textit{Golden Dataset}) ao grafo de estados, verificando se alterações de código ou hiperparâmetros causam regressão nas previsões semânticas;
-	\item \textbf{Testes de Carga com k6:} Execução de testes de estresse assíncrono via ferramenta \textit{k6}, simulando o envio concorrente de centenas de requisições de faturas para comprovar a estabilidade do barramento Kafka e a ausência de travamentos de memória.
+	\item \textbf{Testes Unitários:} Verificação isolada das funções determinísticas de pré-processamento --- saneamento léxico com \textit{Regex}, \textit{parsers} de datas e valores monetários, resolução de \textit{aliases} comerciais e contratos Pydantic --- por meio de \textit{pytest} (com suporte a execução assíncrona) no núcleo Python. O serviço de ingestão reativa em Java conta com verificação de carga do contexto da aplicação \textit{Spring Boot} via \textit{JUnit~5};
+	\item \textbf{Testes de Regressão de Modelo:} O pipeline experimental reprodutível (\codepath{notebooks/experimentos/}, etapas 01 a 08) fixa a semente aleatória e um conjunto de teste-cego particionado por estabelecimento (sem vazamento de \textit{merchant}), permitindo detectar regressões nas métricas preditivas a cada alteração de código, \textit{prompt} ou hiperparâmetro, com os resultados versionados no MLflow;
+	\item \textbf{Validação de Integração Assistida:} A comunicação de ponta a ponta entre a API de ingestão, o barramento Kafka, o \textit{Object Storage} MinIO e o \textit{worker} de extração foi exercitada de forma assistida em ambiente \textit{Docker Compose}, confirmando a publicação e o consumo de eventos e a persistência dos artefatos nas camadas do Data Lakehouse.
 \end{itemize}
+
+A automação plena da esteira de testes (integração com \textit{Testcontainers} e testes de carga do barramento) é registrada como trabalho futuro no Capítulo~\ref{Cap:Conclusoes}.
 
 \section{Considerações Finais do Capítulo}
 \label{sec:sol_consideracoes_finais}

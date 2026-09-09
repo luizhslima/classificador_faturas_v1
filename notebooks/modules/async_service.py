@@ -58,6 +58,7 @@ class AsyncService:
             "model": llm_model,
             "model_provider": llm_provider,
             "temperature": 0,
+            "max_tokens": 2048,
         }
 
 

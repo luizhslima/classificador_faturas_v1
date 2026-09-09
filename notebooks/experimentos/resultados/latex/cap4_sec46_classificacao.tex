@@ -1,0 +1,156 @@
+\section{Resultados Comparativos da Classificação de Transações}
+\label{sec:val_resultados_classificacao}
+
+Para responder às questões de pesquisa Q1 e Q2, cinco arquiteturas foram implementadas e
+avaliadas sobre \textbf{o mesmo conjunto de teste-cego de 334 transações}, cujos
+estabelecimentos são \textbf{disjuntos} dos utilizados em treino e no povoamento da base
+vetorial (particionamento por estabelecimento; Seção~\ref{sec:val_datasets}). Todas as
+métricas e artefatos foram registrados no MLflow. A Tabela~\ref{tab:resultados_modelos}
+sumariza os resultados globais.
+
+\begin{table}[htb]
+	\centering
+	\caption{Comparativo global de desempenho preditivo e tempo médio de inferência (teste-cego de 334 transações, estabelecimentos disjuntos).}
+	\label{tab:resultados_modelos}
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{lccccc}
+			\toprule
+			\textbf{Modelo / Arquitetura} & \textbf{Acurácia} & \textbf{Precisão} & \textbf{Recall} & \textbf{F1-Macro} & \textbf{Latência} \\
+			\midrule
+				Baseline 1: TF-IDF + Naive Bayes & 88,3\% & 69,8\% & 61,7\% & 63,6\% & 0,03 ms \\
+				Baseline 2: TF-IDF + Random Forest & 84,7\% & 74,2\% & 66,5\% & 69,3\% & 0,28 ms \\
+				SOTA Neural: ByT5 Fine-Tuning (byt5-small) & 65,9\% & 52,0\% & 53,0\% & 48,3\% & 65,5 ms \\
+				Busca Vetorial RAG: PGVector (MiniLM) & 82,6\% & 57,9\% & 55,4\% & 56,2\% & 1,42 ms \\
+				\textbf{Agente Híbrido Completo (LangGraph)} & \textbf{61,4\%} & \textbf{68,4\%} & \textbf{62,9\%} & \textbf{60,0\%} & \textbf{6,5 s} \\
+			\bottomrule
+		\end{tabular}%
+	}
+	\fonte{Elaborado pelo autor (\the\year). Latência do agente: média por transação, dominada pelo ramo LLM (gemma-4-e4b local).}
+\end{table}
+
+
+A análise revela um quadro \textbf{distinto do relatado pela literatura apoiada em grandes
+corpora}, atribuível às características do acervo pessoal disponível (volume reduzido,
+11 categorias efetivamente povoadas e forte
+desbalanceamento):
+
+\begin{enumerate}
+	\item \textbf{Os baselines esparsos foram os mais robustos.} O TF-IDF com Random Forest
+	obteve o melhor F1-Macro (\textbf{69,3\%}) e o TF-IDF com Naive
+	Bayes a melhor acurácia global (\textbf{88,3\%}), ambos com
+	latência inferior a 0,3~ms. A vetorização por $n$-gramas de caractere (\texttt{char\_wb},
+	2--4) capturou a morfologia recorrente das descrições brasileiras (``UBER'', ``IFD*'',
+	``DROGA-'') mesmo em estabelecimentos inéditos;
+
+	\item \textbf{A diferença entre validação cruzada e teste-cego foi acentuada.} Sob
+	validação cruzada 5-fold (com repetição de estabelecimentos entre folds), o Random Forest
+	atingiu F1-Macro de \textbf{92,7\%}; no teste-cego por estabelecimento o
+	valor caiu para \textbf{69,3\%}. Essa diferença de
+	$\approx$23~pontos percentuais quantifica o quanto o desempenho aparente de um
+	classificador de transações depende da \textbf{memorização de comércios já observados};
+
+	\item \textbf{O ByT5 ajustado sofreu sobreajuste.} Com 1150 exemplos de treino, o
+	\texttt{byt5-small} convergiu a \textit{loss} de treino inferior a 0,02 mas
+	generalizou mal (F1-Macro \textbf{48,3\%}), colapsando a predição
+	da classe majoritária \textit{Lazer e Entretenimento}. Modelos no nível de byte exigem
+	corpora de ordem de grandeza superior;
+
+	\item \textbf{A busca vetorial densa (RAG) ficou limitada pela base fria.} Com
+	488 estabelecimentos vetorizados por
+	\texttt{paraphrase-multilingual-MiniLM-L12-v2} (384-d), apenas
+	\textbf{57,5\%} das transações de teste
+	obtiveram vizinho com similaridade de cosseno $\ge$~0,85; nas demais o vizinho foi
+	semanticamente fraco, resultando em F1-Macro de \textbf{56,2\%}
+	(latência real de consulta no PGVector: \textbf{1,4~ms});
+
+	\item \textbf{O Agente Híbrido combinou os dois ramos, ao custo de latência.} O agente roteou 52\% das transações para a busca vetorial (mediana de 40~ms) e 48\% para o LLM local (dezenas de segundos), acionando confirmação humana em 4,5\% dos casos. Atingiu acurácia de 61,4\% e F1-Macro de 60,0\% (latência média ponderada de 6,5~s). O F1-Macro do agente supera o da busca vetorial isolada (56,2\%) --- o ramo LLM recupera parte das classes de cauda --- mas sua acurácia global é a mais baixa entre os modelos, porque o ramo LLM, sob a diretriz anti-alucinação, tende a rotular como \textit{Despesas Diversas} nomes cuja categoria era lexicalmente evidente (acurácia condicional do ramo LLM: apenas 21\%, contra 98\% do ramo vetorial).
+\end{enumerate}
+
+\subsection{Acurácia global versus F1-Macro}
+Todos os modelos apresentam acurácia global sensivelmente superior ao F1-Macro (o Naive
+Bayes, por exemplo: 88,3\% de acurácia contra
+63,6\% de F1-Macro). Isso decorre de dois fatores do acervo pessoal:
+(i) o forte desbalanceamento --- \textit{Alimentação} e \textit{Lazer e
+Entretenimento} respondem por cerca de metade do teste; e (ii) o tamanho reduzido das
+classes de cauda --- \textit{Moradia}, \textit{Tecnologia}, \textit{Vestuário} e
+\textit{Educação} contam com 4 a 5 estabelecimentos distintos cada. As categorias
+\textit{Pets}, \textit{Serviços Financeiros} e \textit{Doações e Presentes} não
+tiveram amostragem suficiente e foram agregadas a \textit{Despesas Diversas / Outros}. O
+F1-Macro é adotado como métrica conservadora de referência; os resultados devem ser lidos
+como \textbf{diagnóstico sobre um acervo pessoal real de porte reduzido}, não como
+estimativa de desempenho populacional.
+
+\subsection{Desempenho Detalhado por Categoria de Despesa}
+A Tabela~\ref{tab:resultados_categorias} detalha o comportamento do TF-IDF + Random Forest nas
+categorias efetivamente avaliadas.
+
+\begin{table}[htb]
+	\centering
+	\caption{Desempenho do TF-IDF + Random Forest discriminado por categoria de despesa efetivamente avaliada.}
+	\label{tab:resultados_categorias}
+	\begin{tabularx}{\textwidth}{X c c c c}
+		\toprule
+		\textbf{Categoria de Despesa} & \textbf{Precisão (\%)} & \textbf{Recall (\%)} & \textbf{F1-Score (\%)} & \textbf{Volume de Teste} \\
+		\midrule
+		Alimentação & 69,4\% & 100,0\% & 82,0\% & 100 \\
+		Transporte & 100,0\% & 61,5\% & 76,2\% & 39 \\
+		Saúde & 100,0\% & 88,5\% & 93,9\% & 61 \\
+		Moradia & 100,0\% & 75,0\% & 85,7\% & 4 \\
+		Lazer e Entretenimento & 100,0\% & 86,6\% & 92,8\% & 67 \\
+		Tecnologia & 0,0\% & 0,0\% & 0,0\% & 4 \\
+		Marketplace / E-commerce & 100,0\% & 96,8\% & 98,4\% & 31 \\
+		Vestuário & 0,0\% & 0,0\% & 0,0\% & 5 \\
+		Beleza e Cuidados Pessoais & 100,0\% & 80,0\% & 88,9\% & 5 \\
+		Educação & 100,0\% & 100,0\% & 100,0\% & 4 \\
+		Despesas Diversas / Outros & 46,2\% & 42,9\% & 44,4\% & 14 \\
+		\midrule
+		\textbf{Média Macro} & \textbf{74,1\%} & \textbf{66,5\%} & \textbf{69,3\%} & \textbf{334} \\
+		\bottomrule
+	\end{tabularx}
+	\fonte{Elaborado pelo autor (\the\year).}
+\end{table}
+
+
+Categorias com padrões léxicos fortes e volume adequado --- \textit{Alimentação},
+\textit{Transporte}, \textit{Saúde} e \textit{Marketplace / E-commerce} ---
+alcançaram F1-Score entre 90\% e 100\%. As classes de cauda (\textit{Tecnologia},
+\textit{Vestuário}, \textit{Moradia}) obtiveram F1 nulo ou próximo de zero em quase
+todos os modelos: com 4 a 5 exemplos no teste, um único erro derruba a métrica. Esse é o
+principal fator limitante do F1-Macro.
+
+\subsection{Estudo de Ablação}
+O estudo de ablação isolou os componentes mensuráveis sem novo custo de inferência do LLM
+(Tabela~\ref{tab:ablacao}). O ramo vetorial do agente respondeu por 52\% das transações (acurácia condicional 98\%) e o ramo LLM por 48\% (acurácia 21\%).
+
+\begin{table}[htb]
+	\centering
+	\caption{Ablação de componentes sobre o teste-cego (variação de F1-Macro).}
+	\label{tab:ablacao}
+	\begin{tabularx}{\textwidth}{X c c c}
+		\toprule
+		\textbf{Componente} & \textbf{Com} & \textbf{Sem} & \textbf{$\Delta$ F1 (p.p.)} \\
+		\midrule
+		Normalização léxica (TF-IDF+RF) & 67,4\% & 69,3\% & +1,9 \\
+		Normalização léxica (RAG MiniLM) & 66,8\% & 56,2\% & -10,6 \\
+		Ramo vetorial (RAG) — acurácia condicional & 97,7\% & 21,4\% & +76,3 \\
+		\bottomrule
+	\end{tabularx}
+	\fonte{Elaborado pelo autor (\the\year).}
+\end{table}
+
+
+A ablação revela um efeito \textbf{dependente da representação}. Para os classificadores
+esparsos (TF-IDF + Random Forest), a normalização léxica agressiva de gateways foi
+neutra ou levemente prejudicial ($\Delta$ F1 $\approx -2$~p.p.): a vetorização por
+$n$-gramas de caractere já é robusta a prefixos como ``PAG*'' e ``MP*'', que por vezes
+carregam sinal útil. Para a busca vetorial densa, ao contrário, a normalização foi
+\textbf{decisiva} ($\Delta$ F1 $\approx +11$~p.p.): sem ela, o \textit{embedding}
+multilíngue se confunde com o ruído dos intermediadores. O componente que sustenta o
+desempenho do agente é a \textbf{busca vetorial}: seu ramo respondeu corretamente a
+98\% das
+transações que resolveu, enquanto o ramo LLM local (\texttt{gemma-4-e4b}) acertou apenas
+21\% ---
+tendendo, sob a diretriz anti-alucinação, a rotular como \textit{Despesas Diversas}
+nomes cuja categoria era lexicalmente evidente (``SAPPORO RESTAURANTE'', ``Drogaria
+Paulista''). A ferramenta de busca na web foi desativada por indisponibilidade de
+conectividade no ambiente experimental.

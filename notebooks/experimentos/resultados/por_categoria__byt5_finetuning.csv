@@ -1,0 +1,15 @@
+categoria,precisao,recall,f1,suporte
+Alimentação,75.1937984496124,97.0,84.71615720524017,100
+Transporte,78.125,64.1025641025641,70.4225352112676,39
+Saúde,100.0,88.52459016393442,93.91304347826087,61
+Moradia,50.0,25.0,33.33333333333333,4
+Lazer e Entretenimento,0.0,0.0,0.0,67
+Tecnologia,0.0,0.0,0.0,4
+Marketplace / E-commerce,96.875,100.0,98.4126984126984,31
+Vestuário,0.0,0.0,0.0,5
+Beleza e Cuidados Pessoais,5.633802816901409,80.0,10.526315789473683,5
+Educação,100.0,100.0,100.0,4
+Pets,0.0,0.0,0.0,0
+Serviços Financeiros,0.0,0.0,0.0,0
+Doações e Presentes,0.0,0.0,0.0,0
+Despesas Diversas / Outros,66.66666666666666,28.57142857142857,40.0,14

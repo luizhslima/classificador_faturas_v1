@@ -1,0 +1,5 @@
+{
+  "melhor_modelo": "Baseline 2: TF-IDF + Random Forest",
+  "melhor_f1_macro": 69.3,
+  "melhor_acuracia": 88.32
+}

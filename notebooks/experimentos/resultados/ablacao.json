@@ -1,0 +1,29 @@
+{
+  "componentes": [
+    {
+      "componente": "Normalização léxica (TF-IDF+RF)",
+      "com": 67.4,
+      "sem": 69.3,
+      "delta_f1": 1.9
+    },
+    {
+      "componente": "Normalização léxica (RAG MiniLM)",
+      "com": 66.8,
+      "sem": 56.2,
+      "delta_f1": -10.6
+    },
+    {
+      "componente": "Ramo vetorial (RAG) — acurácia condicional",
+      "com": 97.7,
+      "sem": 21.4,
+      "delta_f1": 76.3
+    }
+  ],
+  "roteamento_agente": {
+    "frac_vetorial": 0.5239520958083832,
+    "frac_llm": 0.47604790419161674,
+    "frac_hitl": 0.04491017964071856,
+    "acuracia_ramo_vetorial": 0.9771428571428571,
+    "acuracia_ramo_llm": 0.2138364779874214
+  }
+}

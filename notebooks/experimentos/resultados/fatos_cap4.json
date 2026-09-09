@@ -1,0 +1,85 @@
+{
+  "dataset": {
+    "n_base": 1660,
+    "n_treino": 1150,
+    "n_validacao": 176,
+    "n_teste": 334,
+    "n_categorias_presentes": 11,
+    "dist_base": {
+      "Alimentação": 465,
+      "Lazer e Entretenimento": 357,
+      "Marketplace / E-commerce": 247,
+      "Saúde": 171,
+      "Transporte": 114,
+      "Despesas Diversas / Outros": 95,
+      "Vestuário": 51,
+      "Moradia": 50,
+      "Beleza e Cuidados Pessoais": 44,
+      "Tecnologia": 41,
+      "Educação": 25
+    },
+    "rotulo_por_regra_pct": 74.21686746987952,
+    "n_estabelecimentos_kb": 488
+  },
+  "modelos": {
+    "Baseline 1: TF-IDF + Naive Bayes": {
+      "Acurácia": 88.32,
+      "Precisão": 69.84,
+      "Recall": 61.72,
+      "F1-Macro": 63.61,
+      "Latência (ms)": 0.03
+    },
+    "Baseline 2: TF-IDF + Random Forest": {
+      "Acurácia": 84.73,
+      "Precisão": 74.15,
+      "Recall": 66.48,
+      "F1-Macro": 69.3,
+      "Latência (ms)": 0.28
+    },
+    "SOTA Neural: ByT5 Fine-Tuning": {
+      "Acurácia": 65.87,
+      "Precisão": 52.04,
+      "Recall": 53.02,
+      "F1-Macro": 48.3,
+      "Latência (ms)": 65.47
+    },
+    "Busca Vetorial RAG: PGVector (MiniLM)": {
+      "Acurácia": 82.63,
+      "Precisão": 57.87,
+      "Recall": 55.4,
+      "F1-Macro": 56.23,
+      "Latência (ms)": 1.42
+    },
+    "Agente Híbrido Completo (LangGraph)": {
+      "Acurácia": 61.38,
+      "Precisão": 68.38,
+      "Recall": 62.92,
+      "F1-Macro": 59.98,
+      "Latência (ms)": 6529.97
+    }
+  },
+  "melhor_modelo": "Baseline 2: TF-IDF + Random Forest",
+  "melhor_f1_macro": 69.3,
+  "melhor_acuracia": 88.32,
+  "cv": {
+    "cv_f1_macro_mean": {
+      "tfidf_naive_bayes": 0.8849,
+      "tfidf_random_forest": 0.9269
+    },
+    "cv_f1_macro_std": {
+      "tfidf_naive_bayes": 0.0274,
+      "tfidf_random_forest": 0.0255
+    }
+  },
+  "agente": {
+    "n_teste": 334,
+    "acuracia": 0.6137724550898204,
+    "latencia_ms_media": 6529.968390722612,
+    "latencia_ms_mediana": 40.35550000844523,
+    "taxa_hitl": 0.04491017964071856,
+    "frac_vetorial": 0.5239520958083832,
+    "frac_llm": 0.4760479041916168,
+    "erros_execucao": 0,
+    "llm_model": "google/gemma-4-e4b"
+  }
+}

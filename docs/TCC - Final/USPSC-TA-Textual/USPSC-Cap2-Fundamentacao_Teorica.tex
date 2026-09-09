@@ -20,7 +20,7 @@ Adicionalmente, a literatura enfatiza a remoção de \textit{stopwords} — pala
 \subsection{Estratégias de Tokenização: Da Palavra ao Nível de Byte}
 A tokenização segmenta a cadeia textual contínua em unidades atômicas de processamento denominadas \textit{tokens} \cite{BPLN_livro:2024}. Modelos tradicionais baseados em palavras inteiras (\textit{word-level}) dependem de vocabulários fechados predefinidos. Diante de faturas financeiras, onde erros de digitação, truncamentos e aglutinações são onipresentes, essa abordagem falha sistematicamente devido à explosão de termos fora do vocabulário (\textit{Out-Of-Vocabulary} -- OOV).
 
-Para superar essa fragilidade, o estado da arte avançou para a tokenização em subpalavras (\textit{subwords}, como Byte-Pair Encoding e WordPiece) e, no limite da granularidade, para a tokenização no nível de caractere ou byte \cite{xue2021byt5, zhang2021mineracao}. Modelos que operam diretamente sobre sequências de bytes UTF-8, a exemplo do ByT5 \cite{xue2021byt5}, eliminam completamente o vocabulário fixo. Essa característica confere ao sistema imunidade contra erros ortográficos e capacidade inata de generalizar sobre siglas desconhecidas e nomes comerciais aglutinados (ex.: ``MERCADOPAG*LOJA123'').
+Para superar essa fragilidade, o estado da arte avançou para a tokenização em subpalavras (\textit{subwords}, como Byte-Pair Encoding e WordPiece) e, no limite da granularidade, para a tokenização no nível de caractere ou byte \cite{zhang2015character, xue2021byt5}. Modelos que operam diretamente sobre sequências de bytes UTF-8, a exemplo do ByT5 \cite{xue2021byt5}, eliminam completamente o vocabulário fixo. Essa característica confere ao sistema imunidade contra erros ortográficos e capacidade inata de generalizar sobre siglas desconhecidas e nomes comerciais aglutinados (ex.: ``MERCADOPAG*LOJA123'').
 
 \subsection{Vetorização Estatística versus Representações Densas (Embeddings)}
 Para que algoritmos computacionais processem dados textuais, é imperativo convertê-los em representações numéricas vetoriais.
@@ -33,7 +33,7 @@ A técnica clássica de TF-IDF quantifica a importância de um termo $t$ em um d
 Embora gere matrizes esparsas de alta dimensionalidade que desconsideram o contexto e a ordem sintagmática das palavras, o TF-IDF permanece relevante como uma linha de base científica (\textit{baseline}) de referência rápida, interpretável e de baixo custo computacional \cite{santos2023classificacao}.
 
 \subsubsection{Embeddings Densos e Bancos de Dados Vetoriais}
-A superação das limitações esparsas consolidou-se com a semântica distribucional profunda. Modelos como o Sentence-BERT (SBERT) \cite{reimers2019sentence}, implementados através de arquiteturas siamesas de Sentence Transformers (ex.: \texttt{paraphrase-multilingual-MiniLM-L12-v2}), mapeiam sentenças inteiras em vetores densos e contínuos de dimensionalidade fixa (ex.: 384 dimensões).
+A superação das limitações esparsas consolidou-se com a semântica distribucional profunda. Modelos como o Sentence-BERT (SBERT) \cite{reimers2019sentence}, implementados através de arquiteturas siamesas de Sentence Transformers (ex.: \modelemb{}), mapeiam sentenças inteiras em vetores densos e contínuos de dimensionalidade fixa (ex.: 384 dimensões).
 
 Nesse espaço vetorial contínuo, a proximidade semântica entre duas transações $u$ e $v$ é mensurada diretamente pela similaridade de cosseno:
 \begin{equation}
@@ -49,7 +49,7 @@ A Inteligência de Documentos (\textit{Document AI}) integra Visão Computaciona
 \subsection{Análise de Layout de Documentos (DLA) e Caixas Delimitadoras}
 A Análise de Layout de Documentos (DLA) é a etapa encarregada de segmentar a imagem da página, identificando blocos lógicos como tabelas, colunas, parágrafos e cabeçalhos. Cada entidade visual é mapeada por coordenadas espaciais denominadas caixas delimitadoras (\textit{bounding boxes}): $[x_{\min}, y_{\min}, x_{\max}, y_{\max}]$.
 
-Em faturas de cartão de crédito, a preservação da topologia e da ordem de leitura é mandatória: a relação espacial de alinhamento horizontal entre o nome do estabelecimento comercial e o seu respectivo valor monetário em reais (R\$) carrega a semântica relacional necessária para isolar a transação e evitar a fusão indevida de dados entre colunas paralelas \cite{drumond2023analise}.
+Em faturas de cartão de crédito, a preservação da topologia e da ordem de leitura é mandatória: a relação espacial de alinhamento horizontal entre o nome do estabelecimento comercial e o seu respectivo valor monetário em reais (R\$) carrega a semântica relacional necessária para isolar a transação e evitar a fusão indevida de dados entre colunas paralelas \cite{docling2024}.
 
 \subsection{Motores de OCR e Ferramentas de Conversão Estruturada}
 \begin{itemize}
@@ -111,8 +111,8 @@ Para contornar o custo proibitivo da rotulação manual exaustiva diante do surg
 A infraestrutura de suporte a dados moderna adota o paradigma de Data Lakehouse, combinando a flexibilidade e o baixo custo de armazenamento de objetos compatíveis com S3 (como o MinIO) com as garantias transacionais e a organização em camadas (\textit{Medallion Architecture}) \cite{treveil2020mlops}:
 \begin{itemize}
 	\item \textbf{Camada Bronze:} Armazena os dados brutos e imutáveis exatamente como foram ingeridos (PDFs originais, extratos bancários em CSV, textos ruidosos extraídos);
-	\item \textbf{Camada Silver:} Contém os dados limpos, saneados, normalizados e enriquecidos em esquemas analíticos (Parquet/Iceberg);
-	\item \textbf{Camada Gold:} Tabelas agregadas e visões analíticas prontas para consumo por motores SQL distribuídos (Trino) e dashboards de inteligência de negócios (Metabase).
+	\item \textbf{Camada Silver:} Contém os dados limpos, saneados, normalizados e enriquecidos, organizados em esquemas analíticos;
+	\item \textbf{Camada Gold:} Tabelas agregadas e visões analíticas prontas para consumo por motores de consulta e ferramentas de inteligência de negócios.
 \end{itemize}
 
 O ciclo de vida experimental e operacional é unificado pelo \textit{MLflow} \cite{treveil2020mlops}. A plataforma atua como repositório centralizado de parâmetros, métricas e artefatos, suportando execuções aninhadas (\textit{nested runs}) que viabilizam o rastreamento em dois níveis de granularidade: a corrida global correspondente à fatura completa e corridas filhas isoladas para cada transação individualmente classificada.

@@ -1,0 +1,46 @@
+\section{Respostas às Questões de Pesquisa e Verificação da Hipótese}
+\label{sec:val_respostas_questoes}
+
+\begin{itemize}
+	\item \textbf{Resposta a Q1:} sob teste-cego rigoroso com estabelecimentos disjuntos,
+	as representações \textbf{esparsas} (TF-IDF com $n$-gramas de caractere) foram mais
+	eficazes que as densas neste acervo de porte reduzido: o TF-IDF + Random Forest
+	(69,3\% de F1-Macro) superou a busca vetorial densa
+	(56,2\%) e o ByT5 ajustado (48,3\%). Modelos
+	densos e agentes LLM tendem a compensar essa diferença apenas com corpora maiores e bases
+	vetoriais já povoadas;
+
+	\item \textbf{Resposta a Q2:} o melhor F1-Macro alcançado foi de
+	69,3\% (acurácia global de até 88,3\%) sobre 11
+	categorias efetivamente povoadas. O limiar de 85\% de F1-Macro \textbf{não foi
+	atingido} por nenhuma arquitetura neste protocolo, embora a acurácia global o supere;
+
+	\item \textbf{Resposta a Q3:} os erros concentraram-se em (i) categorias de cauda com
+	4--5 exemplos de teste (F1 nulo para quase todos os modelos) e (ii) nomes opacos de
+	intermediadores (``PAYPAL~*BOSS~LIFE'', ``DIVIPAYPAYMENTS''). O ramo LLM local, sob
+	diretriz anti-alucinação, mostrou-se \textbf{contraproducente}, rotulando como
+	\textit{Despesas Diversas} até nomes com pista de categoria explícita; a busca na web
+	que mitigaria nomes informais esteve indisponível no ambiente;
+
+	\item \textbf{Resposta a Q4:} a contribuição da normalização léxica é \textbf{dependente
+	da representação}: neutra/levemente negativa para o TF-IDF ($\Delta$ F1 $\approx -2$~p.p.),
+	mas decisiva para a busca vetorial densa ($\Delta$ F1 $\approx +11$~p.p.). O histórico de
+	marketplace do usuário não pôde ser avaliado por ausência de compras confirmadas na base;
+
+	\item \textbf{Resposta a Q5:} o ciclo de MLOps com MLflow e aprendizado ativo mostrou-se
+	viável e auditável; as limitações práticas são a \textbf{latência} e a \textbf{baixa
+	acurácia} do LLM local roteado (6,5~s por
+	transação; acurácia condicional de apenas 21\%), que tornam o ramo LLM,
+	neste acervo, menos eficaz que a busca vetorial isolada.
+\end{itemize}
+
+\textbf{Veredito sobre a Hipótese Central:} a hipótese \textbf{não se confirma} na
+métrica primária (F1-Score Macro $>$ 85\%) sob avaliação por estabelecimento: o melhor
+resultado foi 69,3\%. Ela é \textbf{parcialmente sustentada} quando
+o critério é a acurácia global (o Naive Bayes atinge 88,3\%) e quando
+se admite a repetição de estabelecimentos entre treino e teste (validação cruzada:
+92,7\% de F1-Macro). As causas da não confirmação são discutidas na
+Seção~\ref{sec:concl_limitacoes}: porte e cobertura do acervo rotulado, cauda longa de
+categorias com pouquíssimos exemplos, e rotulagem de referência semiautomática. O pipeline
+técnico (extração, normalização, RAG, agente em grafo, HITL, MLOps) foi integralmente
+implementado e validado do ponto de vista funcional.
