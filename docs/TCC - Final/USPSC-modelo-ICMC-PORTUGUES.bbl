@@ -20,7 +20,7 @@ Dispon{\'\i}vel em:
   correction using monolingual byte-level language models. \textit{In}:
   \textbf{Proceedings of the 25th ACM Symposium on Document Engineering (DocEng
   '25)}. New York, NY, USA: Association for Computing Machinery, 2025.
-  Dispon{\'\i}vel em: \url{https://dl.acm.org/doi/10.1145/3704268.3748673}.}
+DOI: \url{https://doi.org/10.1145/3704268.3748673}.}
 
 \bibitem[Auer, Dolfi e Staar 2024]{docling2024}
 \abntrefinfo{Auer, Dolfi e Staar}{Auer; Dolfi; Staar}{2024}
@@ -43,8 +43,9 @@ Dispon{\'\i}vel em:
 {{BRASIL. Controladoria-Geral da Uni\~ao}. \textbf{Portal da Transpar\^encia:
   gastos por meio do Cart\~ao de Pagamento do Governo Federal (CPGF)}. 2024.
   Conjunto de dados abertos governamentais.
-Dispon{\'\i}vel em: \url{https://portaldatransparencia.gov.br/despesas/cartao}.
-  Acesso em: 20 jan. 2026.}
+Dispon{\'\i}vel em:
+  \url{https://portaldatransparencia.gov.br/download-de-dados/cpgf}. Acesso em:
+  20 jan. 2026.}
 
 \bibitem[Caseli e Nunes 2024]{BPLN_livro:2024}
 \abntrefinfo{Caseli e Nunes}{Caseli; Nunes}{2024}
@@ -66,13 +67,15 @@ Dispon{\'\i}vel em: \url{https://blog.langchain.dev/langgraph/}.}
 {CHO, K. \textit{et al.} Learning phrase representations using {RNN}
   encoder--decoder for statistical machine translation.
 \textbf{Proceedings of the 2014 Conference on Empirical Methods in Natural
-  Language Processing (EMNLP)}, p. 1724--1734, 2014.}
+  Language Processing (EMNLP)}, p. 1724--1734, 2014.
+DOI: \url{https://doi.org/10.3115/v1/D14-1179}.}
 
 \bibitem[Chowdhury 2003]{chowdhury2003natural}
 \abntrefinfo{Chowdhury}{Chowdhury}{2003}
 {CHOWDHURY, G.~G. Natural language processing.
 \textbf{Annual Review of Information Science and Technology}, v.~37, n.~1, p.
-  51--89, 2003.}
+  51--89, 2003.
+DOI: \url{https://doi.org/10.1002/aris.1440370103}.}
 
 \bibitem[Devlin \textit{et al.} 2019]{devlin2019bert}
 \abntrefinfo{Devlin \textit{et al.}}{Devlin \textit{et al.}}{2019}
@@ -80,7 +83,8 @@ Dispon{\'\i}vel em: \url{https://blog.langchain.dev/langgraph/}.}
   transformers for language understanding. \textit{In}:  \textbf{Proceedings of
   the 2019 Conference of the North American Chapter of the Association for
   Computational Linguistics: Human Language Technologies (NAACL-HLT)}.
-  [\textit{S.l.: s.n.}], 2019. p. 4171--4186.}
+  [\textit{S.l.: s.n.}], 2019. p. 4171--4186.
+DOI: \url{https://doi.org/10.18653/v1/N19-1423}.}
 
 \bibitem[Dhingra \textit{et al.} 2016]{dhingra2016tweet2vec}
 \abntrefinfo{Dhingra \textit{et al.}}{Dhingra \textit{et al.}}{2016}
@@ -92,54 +96,61 @@ Dispon{\'\i}vel em: \url{https://arxiv.org/abs/1605.03481}.}
 \bibitem[Gerhardt e Silveira 2009]{gerhardt2009metodos}
 \abntrefinfo{Gerhardt e Silveira}{Gerhardt; Silveira}{2009}
 {GERHARDT, T.~E.; SILVEIRA, D.~T. \textbf{Métodos de pesquisa}. Porto Alegre,
-  RS: Editora da UFRGS, 2009.}
+  RS: Editora da UFRGS, 2009. Dispon{\'\i}vel em:
+  \url{https://lume.ufrgs.br/handle/10183/52806}.}
 
 \bibitem[Gil 2019]{gil2019metodos}
 \abntrefinfo{Gil}{Gil}{2019}
 {GIL, A.~C. \textbf{Métodos e Técnicas de Pesquisa Social}. 7. ed. São
-  Paulo, SP: Atlas, 2019.}
+  Paulo, SP: Atlas, 2019. Dispon{\'\i}vel em:
+  \url{https://www.grupogen.com.br/livro-metodos-e-tecnicas-de-pesquisa-social-antonio-carlos-gil-9786559778560}.}
 
 \bibitem[Hochreiter e Schmidhuber 1997]{hochreiter1997long}
 \abntrefinfo{Hochreiter e Schmidhuber}{Hochreiter; Schmidhuber}{1997}
 {HOCHREITER, S.; SCHMIDHUBER, J. Long short-term memory.
-\textbf{Neural Computation}, v.~9, n.~8, p. 1735--1780, 1997.}
+\textbf{Neural Computation}, v.~9, n.~8, p. 1735--1780, 1997.
+DOI: \url{https://doi.org/10.1162/neco.1997.9.8.1735}.}
 
 \bibitem[Huang \textit{et al.} 2019]{icdar2019competition}
 \abntrefinfo{Huang \textit{et al.}}{Huang \textit{et al.}}{2019}
 {HUANG, Z. \textit{et al.} {ICDAR2019} competition on scanned receipt {OCR} and
   information extraction. \textit{In}:  \textbf{2019 International Conference
   on Document Analysis and Recognition (ICDAR)}. [\textit{S.l.: s.n.}], 2019.
-  p. 1516--1520.}
+  p. 1516--1520.
+DOI: \url{https://doi.org/10.1109/ICDAR.2019.00244}.}
 
 \bibitem[Kreuzberger, K{\"u}hl e Hirschl 2022]{kreuzberger2022mlops}
 \abntrefinfo{Kreuzberger, K{\"u}hl e Hirschl}{Kreuzberger; K{\"u}hl;
   Hirschl}{2022}
 {KREUZBERGER, D.; K{\"U}HL, N.; HIRSCHL, S. Machine learning operations
   ({MLOps}): Overview, definition, and architecture.
-\textbf{IEEE Access}, IEEE, v.~10, p. 31866--31879, 2022.}
+\textbf{IEEE Access}, IEEE, v.~10, p. 31866--31879, 2022.
+DOI: \url{https://doi.org/10.1109/ACCESS.2022.3160450}.}
 
 \bibitem[Lu \textit{et al.} 2019]{Lu2019LearningConceptDriftReview}
 \abntrefinfo{Lu \textit{et al.}}{Lu \textit{et al.}}{2019}
 {LU, J. \textit{et al.} Learning under concept drift: A review.
 \textbf{IEEE Transactions on Knowledge and Data Engineering}, v.~31, n.~12, p.
-  2346--2363, 2019.}
+  2346--2363, 2019.
+DOI: \url{https://doi.org/10.1109/TKDE.2018.2876857}.}
 
-\bibitem[Matos 2010]{matos2010pre}
-\abntrefinfo{Matos}{Matos}{2010}
-{MATOS, P.~F.
-\textbf{Metodologia de pré-processamento textual para extração de
-  informação sobre efeitos de doenças em artigos científicos do domínio
-  biomédico}.
-2010. Disserta\c{c}\~{a}o (Dissertação (Mestrado em Ciência da
-  Computação)) --- Universidade Federal de São Carlos (UFSCar), São Carlos,
-  SP, 2010.}
+\bibitem[Matos, Ciferri e Pardo 2009]{matos2010pre}
+\abntrefinfo{Matos, Ciferri e Pardo}{Matos; Ciferri; Pardo}{2009}
+{MATOS, P.~F.; CIFERRI, R.~R.; PARDO, T. A.~S. Metodologia de
+  pré-processamento textual para extração de informação sobre efeitos de
+  doenças em artigos científicos do domínio biomédico. \textit{In}:
+  \textbf{Workshop de Teses e Dissertações em Banco de Dados (WTDBD), XXIV
+  Simpósio Brasileiro de Banco de Dados (SBBD)}. São Carlos, SP:
+  [\textit{S.l.: s.n.}], 2009. p. 7--12. Dispon{\'\i}vel em:
+  \url{https://sites.icmc.usp.br/taspardo/WTDBD09-MatosEtAl.pdf}.}
 
 \bibitem[Northcutt, Jiang e Chuang 2021]{northcutt2021aprendizagem}
 \abntrefinfo{Northcutt, Jiang e Chuang}{Northcutt; Jiang; Chuang}{2021}
 {NORTHCUTT, C.~G.; JIANG, L.; CHUANG, I.~L. Confident learning: Estimating
   uncertainty in dataset labels.
 \textbf{Journal of Artificial Intelligence Research}, v.~70, p. 1373--1411,
-  2021.}
+  2021.
+DOI: \url{https://doi.org/10.1613/jair.1.12125}.}
 
 \bibitem[{PODER360} 2025]{poder360_2025}
 \abntrefinfo{{PODER360}}{{PODER360}}{2025}
@@ -153,24 +164,28 @@ Dispon{\'\i}vel em:
 \abntrefinfo{Qui{\~n}onero-Candela \textit{et al.}}{Qui{\~n}onero-Candela
   \textit{et al.}}{2008}
 {QUI{\~N}ONERO-CANDELA, J. \textit{et al.} \textbf{Dataset Shift in Machine
-  Learning}. Cambridge, MA: The MIT Press, 2008.}
+  Learning}. Cambridge, MA: The MIT Press, 2008.
+DOI: \url{https://doi.org/10.7551/mitpress/9780262170055.001.0001}.}
 
 \bibitem[Rajaraman e Ullman 2011]{rajaraman2011mining}
 \abntrefinfo{Rajaraman e Ullman}{Rajaraman; Ullman}{2011}
 {RAJARAMAN, A.; ULLMAN, J.~D. \textbf{Mining of Massive Datasets}. Cambridge,
-  UK: Cambridge University Press, 2011.}
+  UK: Cambridge University Press, 2011.
+DOI: \url{https://doi.org/10.1017/CBO9781139058452}.}
 
 \bibitem[Reimers e Gurevych 2019]{reimers2019sentence}
 \abntrefinfo{Reimers e Gurevych}{Reimers; Gurevych}{2019}
 {REIMERS, N.; GUREVYCH, I. Sentence-{BERT}: Sentence embeddings using siamese
   {BERT}-networks.
 \textbf{Proceedings of the 2019 Conference on Empirical Methods in Natural
-  Language Processing (EMNLP-IJCNLP)}, p. 3982--3992, 2019.}
+  Language Processing (EMNLP-IJCNLP)}, p. 3982--3992, 2019.
+DOI: \url{https://doi.org/10.18653/v1/D19-1410}.}
 
 \bibitem[Ren \textit{et al.} 2021]{ren2021aprendizagem}
 \abntrefinfo{Ren \textit{et al.}}{Ren \textit{et al.}}{2021}
 {REN, P. \textit{et al.} A survey of deep active learning.
-\textbf{ACM Computing Surveys}, v.~54, n.~9, p. 1--40, 2021.}
+\textbf{ACM Computing Surveys}, v.~54, n.~9, p. 1--40, 2021.
+DOI: \url{https://doi.org/10.1145/3472291}.}
 
 \bibitem[Santos 2022]{santos2023classificacao}
 \abntrefinfo{Santos}{Santos}{2022}
@@ -179,7 +194,9 @@ Dispon{\'\i}vel em:
   Descrições Textuais não estruturadas}.
 2022. Disserta\c{c}\~{a}o (Trabalho de Conclusão de Curso (Engenharia de
   Computação)) --- Universidade Federal de Alagoas (UFAL), Instituto de
-  Computação, Maceió, AL, 2022.}
+  Computação, Maceió, AL, 2022.
+Dispon{\'\i}vel em:
+  \url{https://www.repositorio.ufal.br/handle/123456789/11641}.}
 
 \bibitem[{SERASA EXPERIAN} 2024]{serasa2024inadimplencia}
 \abntrefinfo{{SERASA EXPERIAN}}{{SERASA EXPERIAN}}{2024}
@@ -193,7 +210,8 @@ Dispon{\'\i}vel em:
 \abntrefinfo{Smith}{Smith}{2007}
 {SMITH, R. An overview of the {Tesseract} {OCR} engine.
 \textbf{Ninth International Conference on Document Analysis and Recognition
-  (ICDAR 2007)}, v.~2, p. 629--633, 2007.}
+  (ICDAR 2007)}, v.~2, p. 629--633, 2007.
+DOI: \url{https://doi.org/10.1109/ICDAR.2007.4378789}.}
 
 \bibitem[Souza 2025]{souza2025extracao}
 \abntrefinfo{Souza}{Souza}{2025}
@@ -201,7 +219,8 @@ Dispon{\'\i}vel em:
 \textbf{Extração automática de informações em imagens de notas fiscais}.
 2025. Disserta\c{c}\~{a}o (Dissertação (Mestrado em Ciência da
   Computação)) --- Universidade Federal de Viçosa (UFV), Departamento de
-  Informática, Viçosa, MG, 2025.}
+  Informática, Viçosa, MG, 2025.
+DOI: \url{https://doi.org/10.47328/ufvbbt.2025.430}.}
 
 \bibitem[{SPC BRASIL} 2024]{spcbrasil2024controle}
 \abntrefinfo{{SPC BRASIL}}{{SPC BRASIL}}{2024}
@@ -214,20 +233,24 @@ Dispon{\'\i}vel em: \url{https://www.spcbrasil.org.br}. Acesso em: 20 jan.
 \bibitem[Treveil \textit{et al.} 2020]{treveil2020mlops}
 \abntrefinfo{Treveil \textit{et al.}}{Treveil \textit{et al.}}{2020}
 {TREVEIL, M. \textit{et al.} \textbf{Introducing MLOps: How to Scale Machine
-  Learning in the Enterprise}. Sebastopol, CA: O'Reilly Media, 2020.}
+  Learning in the Enterprise}. Sebastopol, CA: O'Reilly Media, 2020.
+  Dispon{\'\i}vel em:
+  \url{https://www.oreilly.com/library/view/introducing-mlops/9781492083283/}.}
 
 \bibitem[Vaswani \textit{et al.} 2017]{vaswani2017attention}
 \abntrefinfo{Vaswani \textit{et al.}}{Vaswani \textit{et al.}}{2017}
 {VASWANI, A. \textit{et al.} Attention is all you need. \textit{In}:
   \textbf{Advances in Neural Information Processing Systems (NeurIPS 2017)}.
-  [\textit{S.l.: s.n.}], 2017. v.~30, p. 5998--6008.}
+  [\textit{S.l.: s.n.}], 2017. v.~30, p. 5998--6008. Dispon{\'\i}vel em:
+  \url{https://arxiv.org/abs/1706.03762}.}
 
 \bibitem[Xue \textit{et al.} 2022]{xue2021byt5}
 \abntrefinfo{Xue \textit{et al.}}{Xue \textit{et al.}}{2022}
 {XUE, L. \textit{et al.} {ByT5}: Towards a token-free future with pre-trained
   byte-to-byte models.
 \textbf{Transactions of the Association for Computational Linguistics}, v.~10,
-  p. 291--306, 2022.}
+  p. 291--306, 2022.
+DOI: \url{https://doi.org/10.1162/tacl_a_00461}.}
 
 \bibitem[Zhang, Zhao e LeCun 2015]{zhang2015character}
 \abntrefinfo{Zhang, Zhao e LeCun}{Zhang; Zhao; LeCun}{2015}

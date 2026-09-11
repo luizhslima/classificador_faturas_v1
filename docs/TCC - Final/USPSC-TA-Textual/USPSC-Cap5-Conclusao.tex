@@ -176,3 +176,27 @@ Este apêndice apresenta o esquema físico relacional e vetorial implementado no
 	);
 \end{verbatim}
 }
+
+\chapter{Repositório de Código-Fonte e Reprodutibilidade}
+\label{apendice:repositorio}
+
+Todo o código-fonte desenvolvido nesta monografia --- microsserviços, \textit{workers} assíncronos, \textit{notebooks} de experimentação, definições de infraestrutura e \textit{scripts} de banco de dados --- está publicado, sob controle de versão, no seguinte repositório público:
+
+\begin{center}
+	\url{https://github.com/luizhslima/classificador_faturas_v1}
+\end{center}
+
+O repositório é obtido com os submódulos por meio do comando \texttt{git clone -{}-recurse-submodules}. Sua organização de diretórios é resumida a seguir:
+
+\begin{itemize}
+	\item \codepath{infra/} --- arquivos \textit{Docker Compose} e \textit{scripts} de inicialização (\texttt{setup\_minio.sh}, \texttt{base.sql}, \texttt{basev2.sql}) que provisionam o MinIO, o Apache Kafka e o PostgreSQL~16 com a extensão \textit{pgvector};
+	\item \codepath{service-ingestao/} --- API reativa de ingestão em Java (\textit{Spring WebFlux}), organizada em arquitetura hexagonal, responsável por persistir os arquivos brutos no MinIO e publicar os eventos de ingestão no barramento Kafka;
+	\item \codepath{worker-prata/} --- \textit{worker} de extração em Python que consome os eventos do Kafka e executa o pipeline híbrido de conversão documental (IBM Docling V2 e Tesseract OCR);
+	\item \codepath{notebooks/modules/} --- implementação do agente de classificação em grafo de estados (\textit{LangGraph}): nós, roteadores, contratos Pydantic, serviços de banco de dados e integração com o \textit{vector store};
+	\item \codepath{notebooks/experimentos/} --- \textbf{pipeline experimental reprodutível} (\texttt{common.py} e as etapas \texttt{01} a \texttt{08}) que gera integralmente os resultados do Capítulo~\ref{Cap:Ava_Exp}: avaliação de OCR, treino e teste-cego dos \textit{baselines} clássicos, ajuste do ByT5, busca vetorial densa, execução do agente híbrido, estudo de ablação e consolidação das tabelas e figuras em \LaTeX;
+	\item \codepath{service-classification/} --- API de exposição do serviço de classificação;
+	\item \codepath{web/} --- aplicação \textit{web} de visualização orçamentária e confirmação \textit{Human-in-the-Loop} (submódulo);
+	\item \codepath{requirements*.txt} --- conjuntos de dependências Python (núcleo da solução, agentes e ambiente de redação da monografia).
+\end{itemize}
+
+Os experimentos de classificação foram rastreados em um servidor \textit{MLflow} sob o experimento \texttt{experimento\_faturas}, registrando parâmetros, métricas, relatórios por categoria, predições e artefatos gráficos. Em razão do caráter estritamente pessoal e sensível dos dados financeiros utilizados (Seção~\ref{sec:sol_lgpd}), o acervo de faturas reais e os respectivos arquivos de \textit{Ground Truth} não são distribuídos no repositório.

@@ -63,20 +63,20 @@
 \contentsline {chapter}{\chapternumberline {5}\MakeTextUppercase []{Validação Experimental e Resultados}}{55}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Considerações Iniciais}{55}{section.5.1}%
 \contentsline {section}{\numberline {5.2}Ambiente Computacional e Configuração Experimental}{55}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Caracterização dos Conjuntos de Dados (Datasets)}{55}{section.5.3}%
+\contentsline {section}{\numberline {5.3}Caracterização dos Conjuntos de Dados (Datasets)}{56}{section.5.3}%
 \contentsline {subsection}{\numberline {5.3.1}Conjunto Rotulado de Referência para a Classificação}{57}{subsection.5.3.1}%
-\contentsline {section}{\numberline {5.4}Protocolo Experimental e Métricas de Avaliação}{57}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}Métricas para Extração Óptica e Reconhecimento de Texto}{57}{subsection.5.4.1}%
+\contentsline {section}{\numberline {5.4}Protocolo Experimental e Métricas de Avaliação}{58}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Métricas para Extração Óptica e Reconhecimento de Texto}{58}{subsection.5.4.1}%
 \contentsline {subsection}{\numberline {5.4.2}Métricas para Classificação Semântica de Transações}{58}{subsection.5.4.2}%
 \contentsline {section}{\numberline {5.5}Resultados da Extração e Pré-Processamento Óptico}{59}{section.5.5}%
 \contentsline {subsection}{\numberline {5.5.1}Desempenho Quantitativo Global: Docling versus Tesseract}{59}{subsection.5.5.1}%
 \contentsline {subsection}{\numberline {5.5.2}Análise Visual das Métricas e Dispersão de Erros}{59}{subsection.5.5.2}%
-\contentsline {subsection}{\numberline {5.5.3}Análise Qualitativa de Erros e Preservação Estrutural de Tabelas}{61}{subsection.5.5.3}%
-\contentsline {section}{\numberline {5.6}Resultados Comparativos da Classificação de Transações}{62}{section.5.6}%
+\contentsline {subsection}{\numberline {5.5.3}Análise Qualitativa de Erros e Preservação Estrutural de Tabelas}{60}{subsection.5.5.3}%
+\contentsline {section}{\numberline {5.6}Resultados Comparativos da Classificação de Transações}{63}{section.5.6}%
 \contentsline {subsection}{\numberline {5.6.1}Acurácia global versus F1-Macro}{64}{subsection.5.6.1}%
-\contentsline {subsection}{\numberline {5.6.2}Desempenho Detalhado por Categoria de Despesa}{64}{subsection.5.6.2}%
+\contentsline {subsection}{\numberline {5.6.2}Desempenho Detalhado por Categoria de Despesa}{65}{subsection.5.6.2}%
 \contentsline {subsection}{\numberline {5.6.3}Estudo de Ablação}{65}{subsection.5.6.3}%
-\contentsline {section}{\numberline {5.7}Avaliação de MLOps, Latência e Observabilidade}{66}{section.5.7}%
+\contentsline {section}{\numberline {5.7}Avaliação de MLOps, Latência e Observabilidade}{67}{section.5.7}%
 \contentsline {section}{\numberline {5.8}Respostas às Questões de Pesquisa e Verificação da Hipótese}{67}{section.5.8}%
 \contentsline {section}{\numberline {5.9}Considerações Finais do Capítulo}{68}{section.5.9}%
 \setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
@@ -101,6 +101,10 @@
 \contentsline {appendix}{\chapternumberline {B}\MakeTextUppercase []{Esquema do Banco de Dados Relacional e Vetorial}}{77}{chapter.B}%
 \contentsline {section}{\numberline {B.1}Tabela de Estabelecimentos (Base de Conhecimento e Embeddings)}{77}{section.B.1}%
 \contentsline {section}{\numberline {B.2}Tabela de Transações Financeiras}{77}{section.B.2}%
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\cftinsert {A}
+\contentsline {appendix}{\chapternumberline {C}\MakeTextUppercase []{Repositório de Código-Fonte e Reprodutibilidade}}{79}{chapter.C}%
 \vspace {\cftbeforechapterskip }
 \setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
-\contentsline {chapter}{\uppercase {Refer\^encias}}{79}{section*.37}%
+\contentsline {chapter}{\uppercase {Refer\^encias}}{81}{section*.37}%

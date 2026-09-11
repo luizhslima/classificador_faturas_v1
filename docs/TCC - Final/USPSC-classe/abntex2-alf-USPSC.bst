@@ -33,7 +33,7 @@ ENTRY
     isbn issn journal key month note marginnote number organization
     org-short pages pagename
     publisher reprinted-from reprinted-text school
-    series subtitle section title type url urlaccessdate
+    series subtitle section title type url urlaccessdate doi
     volume year year-presented
     abnt-and-type
     abnt-doi abnt-dont-use-etal
@@ -990,8 +990,16 @@ FUNCTION {compose.url}
      {"$<$" * filter.url.tex * "$>$" *}
      'skip$ if$} 'skip$ if$
 }
+FUNCTION {format.doi}
+{ doi empty$ 'skip$
+    { new.block
+      "DOI: \url{https://doi.org/" doi * "}" * output
+      new.sentence }
+  if$
+}
 FUNCTION {format.url}
-{ url empty$ 'skip$
+{ format.doi
+  url empty$ 'skip$
     {url compose.url output new.sentence }
   if$
  urlaccessdate duplicate$ empty$ 'skip$

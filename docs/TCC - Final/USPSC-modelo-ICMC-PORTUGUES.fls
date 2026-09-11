@@ -920,6 +920,22 @@ INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-TA-Textual\USPSC-Cap1-Introducao.tex
 INPUT .\USPSC-TA-Textual\USPSC-Cap1-Introducao.tex
 OUTPUT USPSC-TA-Textual\USPSC-Cap1-Introducao.aux
@@ -1229,6 +1245,14 @@ INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\assets\grafico_distribuicao_cer_wer.png
 INPUT .\assets\grafico_distribuicao_cer_wer.png
 INPUT .\assets\grafico_distribuicao_cer_wer.png
@@ -1236,14 +1260,6 @@ INPUT .\assets\grafico_distribuicao_cer_wer.png
 INPUT .\assets\grafico_distribuicao_cer_wer.png
 INPUT .\assets\grafico_distribuicao_cer_wer.png
 INPUT .\assets\grafico_distribuicao_cer_wer.png
-INPUT .\USPSC-img\CapaICMC.jpg
-INPUT .\USPSC-img\CapaICMC.jpg
-INPUT .\USPSC-img\CapaICMC.jpg
-INPUT .\USPSC-img\CapaICMC.jpg
-INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
-INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
-INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
-INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\assets\grafico_evolucao_cer_faturas.png
 INPUT .\assets\grafico_evolucao_cer_faturas.png
 INPUT .\assets\grafico_evolucao_cer_faturas.png
@@ -1251,6 +1267,13 @@ INPUT .\assets\grafico_evolucao_cer_faturas.png
 INPUT .\assets\grafico_evolucao_cer_faturas.png
 INPUT .\assets\grafico_evolucao_cer_faturas.png
 INPUT .\assets\grafico_evolucao_cer_faturas.png
+INPUT .\assets\grafico_exato_levenshtein_ocr.png
+INPUT .\assets\grafico_exato_levenshtein_ocr.png
+INPUT .\assets\grafico_exato_levenshtein_ocr.png
+INPUT .\assets\grafico_exato_levenshtein_ocr.png
+INPUT .\assets\grafico_exato_levenshtein_ocr.png
+INPUT .\assets\grafico_exato_levenshtein_ocr.png
+INPUT .\assets\grafico_exato_levenshtein_ocr.png
 INPUT .\USPSC-img\CapaICMC.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
@@ -1259,13 +1282,14 @@ INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
-INPUT .\assets\grafico_exato_levenshtein_ocr.png
-INPUT .\assets\grafico_exato_levenshtein_ocr.png
-INPUT .\assets\grafico_exato_levenshtein_ocr.png
-INPUT .\assets\grafico_exato_levenshtein_ocr.png
-INPUT .\assets\grafico_exato_levenshtein_ocr.png
-INPUT .\assets\grafico_exato_levenshtein_ocr.png
-INPUT .\assets\grafico_exato_levenshtein_ocr.png
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
@@ -1311,14 +1335,6 @@ INPUT .\assets\grafico_f1_categorias.png
 INPUT .\assets\grafico_f1_categorias.png
 INPUT .\assets\grafico_f1_categorias.png
 INPUT .\assets\grafico_f1_categorias.png
-INPUT .\USPSC-img\CapaICMC.jpg
-INPUT .\USPSC-img\CapaICMC.jpg
-INPUT .\USPSC-img\CapaICMC.jpg
-INPUT .\USPSC-img\CapaICMC.jpg
-INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
-INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
-INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
-INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
@@ -1438,9 +1454,41 @@ INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-modelo-ICMC-PORTUGUES.bbl
 INPUT .\USPSC-modelo-ICMC-PORTUGUES.bbl
 INPUT USPSC-modelo-ICMC-PORTUGUES.bbl
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-TA-PosTextual\USPSC-IndicesRemissivos.tex
 INPUT .\USPSC-TA-PosTextual\USPSC-IndicesRemissivos.tex
 INPUT .\USPSC-img\CapaICMC.jpg
@@ -1509,3 +1557,47 @@ INPUT USPSC-TA-Textual\USPSC-Cap5-Conclusao.aux
 INPUT .\USPSC-TA-PosTextual\USPSC-IndicesRemissivos.aux
 INPUT .\USPSC-TA-PosTextual\USPSC-IndicesRemissivos.aux
 INPUT USPSC-TA-PosTextual\USPSC-IndicesRemissivos.aux
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmbx10.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmbx10.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmbx12.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmbx12.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmbx8.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmbx8.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmbxi10.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmbxi10.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmex10.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmex10.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmmi12.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmmi12.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmmi8.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmmi8.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmr10.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmr10.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmr12.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmr12.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmr8.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmr8.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmr9.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmr9.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmri10.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmri10.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmri12.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmri12.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmss10.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmss10.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmss12.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmss12.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmss9.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmss9.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmssbx10.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmssbx10.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmsy10.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmsy10.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmtk10.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmtk10.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmtt10.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmtt10.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmtt12.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmtt12.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\amsfonts\symbols\msbm10.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\amsfonts\symbols\msbm10.pfb
