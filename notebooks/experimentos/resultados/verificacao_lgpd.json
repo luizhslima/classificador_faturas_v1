@@ -1,0 +1,79 @@
+{
+  "tabelas": {
+    "transacoes.nome_original": 3025,
+    "transacoes.nome_normalizado": 3025,
+    "transacoes.origem_detalhamento": 0,
+    "estabelecimentos.nome_original": 488,
+    "estabelecimentos.nome_normalizado": 488
+  },
+  "padroes": {
+    "pan_cartao_13_19_digitos": {
+      "total": 4,
+      "por_campo": {
+        "transacoes.nome_original": 2,
+        "transacoes.nome_normalizado": 0,
+        "transacoes.origem_detalhamento": 0,
+        "estabelecimentos.nome_original": 1,
+        "estabelecimentos.nome_normalizado": 1
+      },
+      "log_classificacoes": 0
+    },
+    "cpf_mascarado_ou_nao": {
+      "total": 0,
+      "por_campo": {
+        "transacoes.nome_original": 0,
+        "transacoes.nome_normalizado": 0,
+        "transacoes.origem_detalhamento": 0,
+        "estabelecimentos.nome_original": 0,
+        "estabelecimentos.nome_normalizado": 0
+      },
+      "log_classificacoes": 0
+    },
+    "cvv_rotulado": {
+      "total": 0,
+      "por_campo": {
+        "transacoes.nome_original": 0,
+        "transacoes.nome_normalizado": 0,
+        "transacoes.origem_detalhamento": 0,
+        "estabelecimentos.nome_original": 0,
+        "estabelecimentos.nome_normalizado": 0
+      },
+      "log_classificacoes": 0
+    },
+    "email": {
+      "total": 0,
+      "por_campo": {
+        "transacoes.nome_original": 0,
+        "transacoes.nome_normalizado": 0,
+        "transacoes.origem_detalhamento": 0,
+        "estabelecimentos.nome_original": 0,
+        "estabelecimentos.nome_normalizado": 0
+      },
+      "log_classificacoes": 0
+    }
+  },
+  "titulares": {
+    "colunas_usuarios": [
+      "id",
+      "ativo",
+      "criado_em",
+      "nome",
+      "email"
+    ],
+    "n_usuarios": 1,
+    "colunas_potencialmente_identificadoras": [
+      "nome",
+      "email"
+    ],
+    "nome_cpf_em_claro": 0,
+    "email_cpf_em_claro": 0
+  },
+  "log_classificacoes_colunas_texto": [
+    "nome_entrada",
+    "categoria_sugerida",
+    "subcategoria_sugerida",
+    "metodo",
+    "prompt_usado",
+    "resposta_llm"
+  ]
+}

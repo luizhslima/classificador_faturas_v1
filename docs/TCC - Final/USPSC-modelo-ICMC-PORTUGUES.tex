@@ -109,8 +109,9 @@ brazil				% o último idioma é o principal do documento
 \usepackage{seqsplit}
 % Nome longo do modelo de embeddings, com pontos de quebra de linha (sem inserir hifen)
 \newcommand{\modelemb}{\texttt{paraphrase-\discretionary{}{}{}multilingual-\discretionary{}{}{}MiniLM-\discretionary{}{}{}L12-v2}}
-% Permite quebra de linha em qualquer caractere dentro de trechos de codigo longos
-\newcommand{\codepath}[1]{\texttt{\expandafter\seqsplit\expandafter{\detokenize{#1}}}}
+% Caminhos e identificadores de codigo: quebra de linha apenas em separadores (/ _ . -), via pacote url
+\usepackage{url}
+\DeclareUrlCommand{\codepath}{\urlstyle{tt}}
 \usepackage{svg}
 \usepackage[left=3cm,right=2cm,top=3cm,bottom=2cm]{geometry}
 \usepackage{tikz}
@@ -222,7 +223,7 @@ brazil				% o último idioma é o principal do documento
 	pdfauthor={\@author},
 	pdfsubject={\imprimirpreambulo},
 	pdfcreator={LaTeX with abnTeX2},
-	pdfkeywords={Classificação de Transações Financeiras}{Processamento de Linguagem Natural}{Agentes Inteligentes}{Geração Aumentada por Recuperação (RAG)}{Reconhecimento Óptico de Caracteres}{MLOps},
+	pdfkeywords={Classificação de transações financeiras}{Processamento de linguagem natural}{Geração aumentada por recuperação}{Reconhecimento óptico de caracteres}{Agentes inteligentes},
 	colorlinks=true,       		% false: boxed links; true: colored links
 	linkcolor=black,          	% color of internal links
 	citecolor=black,        		% color of links to bibliography
@@ -365,7 +366,14 @@ brazil				% o último idioma é o principal do documento
 % ---
 % Epígrafe
 % ---
-\include{USPSC-TA-PreTextual/USPSC-Epigrafe}
+% SUPRIMIDA (2026-09-13): a citação atribuída a Satya Nadella não pôde ser
+% verificada contra uma fonte primária citável (busca não localizou o texto
+% original; circula apenas em paráfrases de conteúdo motivacional secundário)
+% e o modelo ICMC exige que a epígrafe conste na lista de referências.
+% Elemento pré-textual opcional -- suprimido em vez de mantida uma atribuição
+% não verificável. Conteúdo original preservado em USPSC-Epigrafe.tex caso
+% uma fonte primária seja localizada futuramente.
+%\include{USPSC-TA-PreTextual/USPSC-Epigrafe}
 % ---
 
 % A T E N Ç Ã O
@@ -468,11 +476,12 @@ brazil				% o último idioma é o principal do documento
 % ----------------------------------------------------------
 % Apêndices
 % ----------------------------------------------------------
-%\include{USPSC-TA-PosTextual/USPSC-Apendices}
+\include{USPSC-TA-PosTextual/USPSC-Apendices}
 
 % ----------------------------------------------------------
 % Anexos
 % ----------------------------------------------------------
+\include{USPSC-TA-PosTextual/USPSC-DeclaracaoIA}
 %\include{USPSC-TA-PosTextual/USPSC-Anexos}
 
 %---------------------------------------------------------------------

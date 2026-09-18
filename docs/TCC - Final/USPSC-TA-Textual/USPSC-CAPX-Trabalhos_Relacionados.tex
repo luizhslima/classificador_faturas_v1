@@ -1,54 +1,124 @@
 \chapter{Trabalhos Relacionados}
 \label{chp:trabalhos_relacionados}
 
-\section{Considerações Iniciais}
+\section{Considerações iniciais}
 \label{sec:rel_consideracoes_iniciais}
 
-A identificação das lacunas de pesquisa e o delineamento das escolhas arquiteturais deste trabalho exigem uma análise rigorosa do estado da arte. Este capítulo sintetiza a literatura recente referente à extração, saneamento de erros ópticos e classificação de documentos comerciais e textos informais. O protocolo metodológico completo do levantamento bibliográfico (strings de busca booleanas, bases científicas consultadas e critérios de triagem) encontra-se formalizado no Apêndice~\ref{apendice:protocolo_busca}. Nas seções seguintes, apresentam-se a discussão crítica dos estudos selecionados, o quadro comparativo e o posicionamento distintivo da presente monografia.
+A identificação das lacunas de pesquisa e o delineamento das escolhas arquiteturais deste trabalho exigem uma análise rigorosa do estado da arte. Este capítulo sintetiza a literatura recente referente à extração, saneamento de erros ópticos e classificação de documentos comerciais e textos informais, na forma de um \textbf{levantamento estruturado da literatura} (com elementos de revisão de escopo, \textit{scoping review}), e não de uma revisão sistemática em sentido estrito: adotam-se questões de pesquisa próprias da revisão (Seção~\ref{sec:rel_questoes_pesquisa}), um instrumento de extração de dados aplicado uniformemente a cada estudo (Seção~\ref{sec:rel_instrumento}) e uma avaliação de qualidade dos estudos incluídos (Seção~\ref{sec:rel_qualidade}). O protocolo metodológico completo do levantamento (strings de busca booleanas, bases científicas consultadas, critérios de triagem e o fluxo quantitativo de seleção) encontra-se formalizado no Apêndice~\ref{apendice:protocolo_busca}. Nas seções seguintes, apresentam-se a discussão crítica dos estudos selecionados, o quadro comparativo e o posicionamento distintivo da presente monografia. Ressalta-se que a seleção final dos estudos analisados em profundidade seguiu julgamento de centralidade em relação às questões da revisão, e não um funil formal de triagem em duas etapas com leitura integral registrada por estudo, conforme documentado com transparência no Apêndice~\ref{apendice:protocolo_busca}.
 
-\section{Levantamento Bibliográfico e Categorização dos Estudos}
-\label{sec:rel_levantamento}
+\section{Questões de pesquisa da revisão}
+\label{sec:rel_questoes_pesquisa}
 
-O levantamento bibliográfico foi conduzido nas principais bases indexadoras internacionais e nacionais (Scopus, IEEE Xplore, Web of Science e Google Scholar), cobrindo publicações entre 2016 e 2025. Os trabalhos recuperados dividem-se em duas categorias conceituais:
+Distintas das Questões de Pesquisa Q1--Q5 que orientam a avaliação experimental da solução proposta (Seção~\ref{sec:sol_questoes_pesquisa}), a revisão da literatura é guiada por questões de pesquisa próprias, voltadas a mapear o estado da arte:
 \begin{itemize}
-	\item \textbf{Trabalhos Fortemente Relacionados:} Pesquisas dedicadas especificamente ao processamento de notas fiscais, faturas comerciais e saneamento de textos financeiros curtos oriundos de OCR;
-	\item \textbf{Trabalhos Fracamente Relacionados:} Estudos focados em problemas afins, como mineração de textos informais em redes sociais, arquiteturas teóricas de autoatenção e classificação de layout baseada exclusivamente em visão computacional.
+	\item \textbf{QR-1:} Quais representações textuais e arquiteturas de aprendizado têm sido empregadas na literatura para classificar textos curtos, ruidosos e informais?
+	\item \textbf{QR-2:} Quais estratégias de correção pós-OCR e saneamento léxico são reportadas para textos ruidosos oriundos de reconhecimento óptico de caracteres?
+	\item \textbf{QR-3:} Quais abordagens de extração estruturada de documentos comerciais (notas fiscais, recibos e faturas) existem na literatura, e quais são suas limitações de generalização e de custo computacional?
+	\item \textbf{QR-4:} Em que medida os protocolos de validação empregados nesses estudos controlam o vazamento de informação entre treino e teste (por exemplo, sobreposição de estabelecimentos ou entidades entre as partições)?
 \end{itemize}
 
-\section{Análise Crítica dos Estudos Selecionados}
+A QR-4 tem papel central no posicionamento desta pesquisa: como discutido na Seção~\ref{sec:rel_conclusao}, nenhum dos estudos selecionados reporta um protocolo de particionamento por entidade comercial, o que motiva o teste cego por estabelecimento adotado no Capítulo~\ref{Cap:Ava_Exp} e a quantificação da diferença de aproximadamente 23 pontos percentuais frente à validação cruzada convencional.
+
+\section{Levantamento bibliográfico e categorização dos estudos}
+\label{sec:rel_levantamento}
+
+O levantamento bibliográfico foi conduzido nas principais bases indexadoras internacionais e nacionais (Scopus, IEEE Xplore e Google Scholar), cobrindo publicações entre 2015 e 2026, conforme o protocolo detalhado no Apêndice~\ref{apendice:protocolo_busca}. Os trabalhos recuperados dividem-se em duas categorias conceituais:
+\begin{itemize}
+	\item \textbf{Trabalhos Fortemente Relacionados:} Pesquisas dedicadas especificamente ao processamento de notas fiscais, faturas comerciais e saneamento de textos financeiros curtos oriundos de OCR;
+	\item \textbf{Trabalhos Fracamente Relacionados:} Estudos focados em problemas afins, como mineração de textos informais em redes sociais, arquiteturas teóricas de autoatenção e classificação de leiaute baseada exclusivamente em visão computacional.
+\end{itemize}
+
+\section{Instrumento de extração de dados}
+\label{sec:rel_instrumento}
+
+Para garantir a comparabilidade entre os estudos incluídos, definiu-se um instrumento de extração de dados aplicado uniformemente a cada um deles, com quatro campos fixos --- detalhados na análise crítica da Seção~\ref{sec:rel_analise_estudos} e sintetizados no quadro comparativo da Seção~\ref{sec:rel_quadro_comparativo}:
+\begin{enumerate}
+	\item \textbf{Objetivo:} o problema de pesquisa declarado pelo(s) autor(es) e o contexto de aplicação;
+	\item \textbf{Abordagem:} a técnica, arquitetura ou algoritmo empregado para resolver o problema;
+	\item \textbf{Validação e Resultados:} o protocolo experimental adotado, os conjuntos de dados utilizados e as métricas quantitativas reportadas;
+	\item \textbf{Relação com esta Pesquisa:} a lacuna ou limitação identificada no estudo e de que forma ela é endereçada pela solução proposta nesta monografia.
+\end{enumerate}
+
+\section{Avaliação de qualidade dos estudos incluídos}
+\label{sec:rel_qualidade}
+
+Complementarmente aos critérios de inclusão e exclusão (Apêndice~\ref{apendice:protocolo_busca}), aplicou-se aos dez estudos incluídos um critério de avaliação de qualidade (\textit{Quality Assessment}, QA) composto por quatro perguntas, cada uma respondida em escala ternária -- Sim (1 ponto), Parcial (0,5 ponto) ou Não (0 ponto):
+\begin{itemize}
+	\item \textbf{QA1:} O estudo foi publicado em periódico revisado por pares, evento indexado de relevância ou dissertação/tese de excelência?
+	\item \textbf{QA2:} O estudo apresenta validação empírica com métricas quantitativas formais (Acurácia, F1-Score, CER ou WER)?
+	\item \textbf{QA3:} O protocolo experimental (dados, particionamento, hiperparâmetros) é descrito com detalhe suficiente para reprodutibilidade?
+	\item \textbf{QA4:} O domínio de aplicação do estudo (textos curtos/ruidosos ou documentos comerciais) tem correspondência direta ou indireta com o problema desta pesquisa?
+\end{itemize}
+
+O Quadro~\ref{quadro:qualidade_estudos} sintetiza a pontuação de cada um dos dez estudos incluídos (0 a 4, soma dos pontos das quatro respostas). Nove dos dez estudos obtiveram pontuação igual ou superior a 3,5; a exceção é Santos (\citeyear{santos2023classificacao}), um trabalho de conclusão de curso de graduação que, por não se enquadrar em nenhum dos veículos previstos em QA1, recebe ``Não'' nesse critério e pontuação 2,5 -- ainda assim mantido no conjunto por sua pertinência temática direta (classificação de descrições curtas de documentos fiscais em português do Brasil), como registrado em nota ao quadro.
+
+\begin{quadro}[htb]
+\centering
+\caption{Avaliação de qualidade dos estudos incluídos na revisão.}
+\label{quadro:qualidade_estudos}
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Estudo} & \textbf{QA1} & \textbf{QA2} & \textbf{QA3} & \textbf{QA4} & \textbf{Pontuação} \\
+\midrule
+Zhang, Zhao e LeCun (\citeyear{zhang2015character}) & Sim & Sim & Sim & Parcial & 3,5 \\
+Dhingra et al. (\citeyear{dhingra2016tweet2vec}) & Sim & Sim & Sim & Parcial & 3,5 \\
+ICDAR 2019 (SROIE) & Sim & Sim & Sim & Sim & 4 \\
+Santos (\citeyear{santos2023classificacao})$^{*}$ & Não & Sim & Parcial & Sim & 2,5 \\
+Araújo, Bezerra e Souza Neto (\citeyear{araujo2024saneamento}) & Sim & Sim & Sim & Parcial & 3,5 \\
+Souza (\citeyear{souza2025extracao}) & Sim & Sim & Parcial & Sim & 3,5 \\
+Ta, Saad e Oh (\citeyear{ta2023specialized}) & Sim & Sim & Parcial & Sim & 3,5 \\
+Curcio, Galfré e Le Van (\citeyear{curcio2026safe}) & Sim & Sim & Parcial & Sim & 3,5 \\
+Gandikota et al. (\citeyear{gandikota2026spatial}) & Sim & Sim & Sim & Sim & 4 \\
+Farias, Mendes e Conceição (\citeyear{farias2025notaconforme}) & Sim & Sim & Parcial & Sim & 3,5 \\
+\bottomrule
+\end{tabular}
+\begin{flushleft}
+		\footnotesize Fonte: Elaborado pelo autor (\the\year). Escala ternária: Sim = 1, Parcial = 0,5, Não = 0. ``Parcial'' indica atendimento apenas indireto ao critério (ex.: domínio tecnicamente afim, mas não financeiro; ou dependência de dados/API proprietários que restringe a reprodutibilidade integral). $^{*}$Trabalho de conclusão de curso de graduação (não revisado por pares nem dissertação/tese), mantido no conjunto por pertinência temática direta ao problema desta pesquisa, apesar de não atender a QA1.
+\end{flushleft}
+\end{quadro}
+
+\section{Análise crítica dos estudos selecionados}
 \label{sec:rel_analise_estudos}
 
 A seguir, examinam-se individualmente os trabalhos que compõem o núcleo do estado da arte, padronizados conforme seus objetivos, abordagem metodológica, validação experimental e principais conclusões.
 
-\subsection{Zhang et al. (2015) e Dhingra et al. (2016)}
+\subsection{Zhang, Zhao e LeCun (\citeyear{zhang2015character}) e Dhingra et al. (\citeyear{dhingra2016tweet2vec})}
+\textbf{Grau de relação:} Fracamente relacionado (Seção~\ref{sec:rel_levantamento}). Ambos tratam de textos curtos e informais fora do domínio financeiro.
+
 \textbf{Objetivo:} Investigar métodos de representação vetorial e classificação profunda em textos curtos, informais e ruidosos, operando diretamente no nível de caractere para dispensar vocabulários fechados.
 
-\textbf{Abordagem:} Zhang, Zhao e LeCun \cite{zhang2015character} propuseram redes convolucionais profundas (\textit{character-level ConvNets}) que classificam texto lendo a sequência bruta de caracteres, comparando-as a \textit{bag-of-words}, \textit{n}-gramas, TF-IDF e modelos baseados em palavras. Dhingra et al. \cite{dhingra2016tweet2vec}, com o modelo \textit{tweet2vec}, adotaram uma Rede Neural Recorrente bidirecional (Bi-GRU) no nível de caractere para gerar \textit{embeddings} de mensagens curtas. Ambas as linhas constroem representações semânticas densas a partir de sequências de letras adjacentes.
+\textbf{Abordagem:} Zhang, Zhao e LeCun (\citeyear{zhang2015character}) propuseram redes convolucionais profundas (\textit{character-level ConvNets}) que classificam texto lendo a sequência bruta de caracteres, comparando-as a \textit{bag-of-words}, \textit{n}-gramas, TF-IDF e modelos baseados em palavras. Dhingra et al. (\citeyear{dhingra2016tweet2vec}), com o modelo \textit{tweet2vec}, adotaram uma Rede Neural Recorrente bidirecional (Bi-GRU) no nível de caractere para gerar \textit{embeddings} de mensagens curtas. Ambas as linhas constroem representações semânticas densas a partir de sequências de letras adjacentes.
 
-\textbf{Validação e Resultados:} A validação foi conduzida em grandes coleções de textos curtos (\textit{datasets} de classificação de Zhang et al. e \textit{tweets} anotados por \textit{hashtags} em Dhingra et al.). Os resultados demonstraram a competitividade da modelagem por caractere frente a métodos tradicionais, com ganho expressivo diante de palavras fora do vocabulário (\textit{Out-Of-Vocabulary}).
+\textbf{Validação e Resultados:} A validação foi conduzida em grandes coleções de textos curtos (conjuntos de dados de classificação de Zhang, Zhao e LeCun e \textit{tweets} anotados por \textit{hashtags} em Dhingra et al.). Os resultados demonstraram a competitividade da modelagem por caractere frente a métodos tradicionais, com ganho expressivo diante de palavras fora do vocabulário (\textit{Out-Of-Vocabulary}).
 
 \textbf{Relação com esta Pesquisa:} Fundamenta teoricamente a necessidade de decompor termos financeiros em subpalavras e caracteres para reconhecer descrições truncadas (ex.: ``IFD*RESTAUR'') que não constam em dicionários formais.
 
 \subsection{Competição ICDAR 2019 (SROIE)}
-\textbf{Objetivo:} Promover o avanço de técnicas automatizadas para localização de texto, reconhecimento óptico (OCR) e extração de informação-chave em recibos comerciais digitalizados (\textit{scanned receipts}), por meio de um conjunto de dados público com mil imagens anotadas \cite{icdar2019competition}.
+\textbf{Grau de relação:} Fortemente relacionado (Seção~\ref{sec:rel_levantamento}). Documentos comerciais (recibos) com extração de campos-chave.
+
+\textbf{Objetivo:} Promover o avanço de técnicas automatizadas para localização de texto, reconhecimento óptico (OCR) e extração de informação-chave em recibos comerciais digitalizados, por meio de um conjunto de dados público com mil imagens anotadas \cite{icdar2019competition}.
 
 \textbf{Abordagem:} A competição estruturou-se em três tarefas (localização de texto, OCR e extração de campos-chave). As equipes de melhor desempenho combinaram detecção de texto baseada em redes convolucionais com módulos de reconhecimento sequencial e, na etapa de extração, codificadores contextuais do tipo \textit{Transformer} \cite{devlin2019bert}.
 
 \textbf{Validação e Resultados:} A avaliação sobre recibos reais com distorções físicas evidenciou que abordagens neurais de ponta a ponta superam consistentemente heurísticas determinísticas de substituição, embora ao custo de maior demanda computacional.
 
-\textbf{Relação com esta Pesquisa:} Consolida o cupom/recibo como um problema de leitura estruturada em que a preservação do \textit{layout} tabular e a correção contextual são decisivas, motivando a extração híbrida e o saneamento adotados nesta monografia; a demanda de \textit{hardware} das arquiteturas vencedoras justifica a investigação de modelos compactos e locais.
+\textbf{Relação com esta Pesquisa:} Consolida o cupom/recibo como um problema de leitura estruturada em que a preservação do leiaute tabular e a correção contextual são decisivas, motivando a extração híbrida e o saneamento adotados nesta monografia; a demanda de hardware das arquiteturas vencedoras justifica a investigação de modelos compactos e locais.
 
-\subsection{Santos (2022)}
+\subsection{Santos (\citeyear{santos2023classificacao})}
+\textbf{Grau de relação:} Fortemente relacionado (Seção~\ref{sec:rel_levantamento}). Classificação de descrições curtas de documentos fiscais em português do Brasil.
+
 \textbf{Objetivo:} Avaliar a viabilidade de algoritmos de aprendizado de máquina para classificar produtos em Notas Fiscais Eletrônicas (NFE) a partir de descrições textuais desestruturadas e curtas \cite{santos2023classificacao}.
 
-\textbf{Abordagem:} O autor comparou um classificador clássico baseado em vetorização TF-IDF associada a algoritmos tradicionais contra uma Rede Neural Recorrente (LSTM) no nível de caracteres, treinadas para categorizar itens mercadológicos.
+\textbf{Abordagem:} A autora comparou um classificador clássico baseado em vetorização TF-IDF associada a algoritmos tradicionais contra uma Rede Neural Recorrente (LSTM) no nível de caracteres, treinadas para categorizar itens mercadológicos.
 
-\textbf{Validação e Resultados:} A validação em dados reais de notas fiscais confirmou que a abordagem no nível de caracteres obteve ganhos expressivos de acurácia sobre o baseline clássico. Todavia, o estudo reportou dificuldades computacionais no treinamento sequencial de RNNs em máquinas convencionais e severa degradação preditiva nas classes minoritárias devido ao desbalanceamento extremo da base.
+\textbf{Validação e Resultados:} A validação em dados reais de notas fiscais confirmou que a abordagem no nível de caracteres obteve ganhos expressivos de acurácia sobre a linha de base clássica. Todavia, o estudo reportou dificuldades computacionais no treinamento sequencial de RNNs em máquinas convencionais e severa degradação preditiva nas classes minoritárias devido ao desbalanceamento extremo da base.
 
-\textbf{Relação com esta Pesquisa:} Reforça a importância do processamento granular e demonstra a necessidade de adotar métricas robustas (como o F1-Score Macro) e arquiteturas baseadas em Transformers paralelizáveis e RAG para contornar o gargalo das classes desbalanceadas.
+\textbf{Relação com esta Pesquisa:} Reforça a importância do processamento granular e demonstra a necessidade de adotar métricas robustas (como o F1-Macro) e arquiteturas baseadas em Transformers paralelizáveis e RAG para contornar o gargalo das classes desbalanceadas.
 
-\subsection{Araújo et al. (2025)}
-\textbf{Objetivo:} Avaliar a eficácia de modelos de linguagem monolíngues no nível de \textit{byte} para a correção ortográfica Pós-OCR de textos ruidosos produzidos por sistemas de reconhecimento de escrita \cite{araujo2024saneamento}.
+\subsection{Araújo, Bezerra e Souza Neto (\citeyear{araujo2024saneamento})}
+\textbf{Grau de relação:} Fracamente relacionado (Seção~\ref{sec:rel_levantamento}). Correção pós-OCR de texto manuscrito genérico, não de documentos comerciais.
+
+\textbf{Objetivo:} Avaliar a eficácia de modelos de linguagem monolíngues no nível de \textit{byte} para a correção ortográfica pós-OCR de textos ruidosos produzidos por sistemas de reconhecimento de escrita \cite{araujo2024saneamento}.
 
 \textbf{Abordagem:} Os autores treinaram três modelos \textit{Monobyte} --- baseados no ByT5 do Google \cite{xue2021byt5} --- de forma independente para inglês, francês e português do Brasil, aplicando-os como etapa de pós-processamento sobre saídas de reconhecimento textual.
 
@@ -56,66 +126,117 @@ A seguir, examinam-se individualmente os trabalhos que compõem o núcleo do est
 
 \textbf{Relação com esta Pesquisa:} Sustenta a escolha de representações no nível de \textit{byte}/caractere para tratar descrições truncadas e aglutinadas de faturas, além de reforçar a viabilidade de modelos compactos e locais em vez de LLMs massivos na etapa de saneamento.
 
-\subsection{Souza (2025)}
+\subsection{Souza (\citeyear{souza2025extracao})}
+\textbf{Grau de relação:} Fortemente relacionado (Seção~\ref{sec:rel_levantamento}). Extração estruturada de faturas comerciais.
+
 \textbf{Objetivo:} Desenvolver um sistema automatizado para extração e estruturação de informações em imagens de faturas de energia elétrica e notas de serviços \cite{souza2025extracao}.
 
-\textbf{Abordagem:} O autor utilizou Redes Neurais Convolucionais profundas (família EfficientNet) para classificação visual de layout, seguidas pela invocação da API comercial em nuvem Amazon Textract para extração das tabelas de consumo.
+\textbf{Abordagem:} O autor utilizou Redes Neurais Convolucionais profundas (família EfficientNet) para classificação visual de leiaute, seguidas pela invocação da API comercial em nuvem Amazon Textract para extração das tabelas de consumo.
 
-\textbf{Validação e Resultados:} A solução demonstrou alta precisão em modelos de faturas conhecidos. No entanto, o sistema revelou-se incapaz de generalizar diante de novos layouts não catalogados, exigindo a reconstrução de adaptadores manuais a cada mudança estética promovida pelas concessionárias, além de depender de custos recorrentes de APIs externas.
+\textbf{Validação e Resultados:} A solução demonstrou alta precisão em modelos de faturas conhecidos. No entanto, o sistema revelou-se incapaz de generalizar diante de novos leiautes não catalogados, exigindo a reconstrução de adaptadores manuais a cada mudança estética promovida pelas concessionárias, além de depender de custos recorrentes de APIs externas.
 
-\textbf{Relação com esta Pesquisa:} Evidencia os riscos e limitações da dependência rígida de layouts visuais e APIs proprietárias em nuvem, justificando a opção do presente trabalho por uma arquitetura independente de layout visual estático, processada localmente e focada na semântica textual das transações.
+\textbf{Relação com esta Pesquisa:} Evidencia os riscos e limitações da dependência rígida de leiautes visuais e APIs proprietárias em nuvem, justificando a opção do presente trabalho por uma arquitetura independente de leiaute visual estático, processada localmente e focada na semântica textual das transações.
 
-\section{Quadro Comparativo e Posicionamento desta Pesquisa}
+\subsection{Ta, Saad e Oh (\citeyear{ta2023specialized})}
+\textbf{Grau de relação:} Fortemente relacionado (Seção~\ref{sec:rel_levantamento}). Classificação de descrições reais de transações bancárias -- o problema mais próximo ao desta pesquisa.
+
+\textbf{Objetivo:} Construir um sistema completo de classificação de transações bancárias obtidas por \textit{Open Banking} (diretiva PSD2) no mercado francês, cobrindo coleta, rotulagem, pré-processamento, modelagem e avaliação, com foco nas particularidades linguísticas e de domínio das descrições de transação em francês \cite{ta2023specialized}. É, de toda a bibliografia consultada, o trabalho que aborda o problema mais próximo ao desta pesquisa: classificação de texto curto de descrições reais de transações financeiras.
+
+\textbf{Abordagem:} Os autores definem uma etapa de pré-processamento específica do domínio -- remoção de datas, de números mascarados de cartão, de moedas e localidades, filtragem de \textit{stopwords} e de sinônimos redundantes (``cb'', ``carte bancaire''), e anonimização de nomes de pessoas por dicionário, presentes em mais de 10\% das transações -- seguida de deduplicação por similaridade de cosseno sobre vetores TF-IDF. A rotulagem é feita por regras de palavras-chave inclusivas e exclusivas por categoria, com validação manual posterior. Como classificadores, comparam Regressão Logística, Random Forest, SVM linear e Naive Bayes sobre $n$-gramas de palavra (TF-IDF) e, em um segundo experimento, sobre \textit{embeddings} Word2Vec reduzidos por PCA, optando por um único classificador multiclasse em vez de classificadores pareados.
+
+\textbf{Validação e Resultados:} O acervo compreende 94.356 transações de treino e 109.509 de teste, de clientes de grandes bancos franceses (dezembro de 2021 a janeiro de 2023), distribuídas em 84 categorias fortemente desbalanceadas. As métricas reportadas são precisão, revocação e F1 \textbf{ponderados} pelo suporte de cada classe: o SVM linear sobre TF-IDF atinge 94\% de F1 ponderado com 80\% do conjunto de treino, e o Random Forest sobre Word2Vec, 94--95\%. Os autores observam que o pior desempenho concentra-se nas categorias de menor suporte e que, em \textit{Groceries}, ``a classificação dependeu fortemente do nome do estabelecimento''. O particionamento treino/teste é aleatório por transação, sem controle de sobreposição de estabelecimentos entre as partições.
+
+\textbf{Relação com esta Pesquisa:} O estudo confirma, em outro idioma e em escala duas ordens de grandeza maior, três escolhas desta monografia: o pré-processamento léxico específico do domínio, a rotulagem semiautomática por regras com validação manual, e a competitividade de classificadores clássicos sobre representações esparsas (o TF-IDF + Random Forest desta pesquisa é diretamente comparável à sua configuração). Em contrapartida, expõe três lacunas que esta pesquisa endereça: (i) o uso exclusivo de métricas ponderadas, que mascaram o desempenho nas classes de cauda -- daí a adoção do F1-Macro como métrica primária aqui; (ii) a ausência de controle de vazamento de estabelecimentos entre treino e teste (QR-4), justamente quando os próprios autores reconhecem que a classificação ``dependeu fortemente do nome do estabelecimento'' -- o fenômeno que o teste cego por estabelecimento do Capítulo~\ref{Cap:Ava_Exp} quantifica; e (iii) a inexistência de mecanismos de recuperação vetorial, raciocínio com modelo de linguagem, intervenção humana no ciclo e monitoramento de desvio, tratados como componentes integrados nesta solução. O trabalho não aborda faturas de cartão de crédito brasileiras nem a extração a partir de documentos.
+
+\subsection{Curcio, Galfré e Le Van (\citeyear{curcio2026safe})}
+\textbf{Grau de relação:} Fortemente relacionado (Seção~\ref{sec:rel_levantamento}). Extração de campos de faturas comerciais com modelo de visão e linguagem e decisão explícita sobre quando encaminhar à revisão humana.
+
+\textbf{Objetivo:} Tornar segura a automação da extração de dados de faturas em ambiente corporativo, formalizando a decisão de dispensar a revisão humana como um problema de classificação seletiva sob restrição de taxa de falsos positivos (FPR) por campo -- uma vez que, em fluxos financeiros, um campo extraído incorretamente e não detectado pode disparar um pagamento errado e irreversível, ao passo que um falso negativo custa apenas uma revisão humana \cite{curcio2026safe}.
+
+\textbf{Abordagem:} Arquitetura em múltiplos estágios: extração de campos por OCR e PLN, rejeição por regras de negócio, correção por um modelo de visão e linguagem (VLM) e um módulo de pontuação por aprendizado de máquina tabular que decide, campo a campo, se a extração é confiável o bastante para dispensar revisão. Uma camada geométrica de segurança fornece um parâmetro ajustável que garante o limite de FPR entre partições dos dados, ao custo de cobertura. Os autores destacam que a contribuição mais relevante do VLM foi como \textit{denoiser} da extração -- corrigindo erros sistemáticos da cadeia OCR--PLN em campos não protegidos por regras.
+
+\textbf{Validação e Resultados:} Sobre 11.253 faturas corporativas reais, o sistema atinge 73\% de cobertura de validação automática (documentos que não exigem revisão humana) com FPR de 0,96\% por campo, superando linhas de base apoiadas apenas em pontuações de confiança. O trabalho recebeu o prêmio de melhor artigo do DocEng 2026. Os dados são proprietários da empresa dos autores, o que restringe a reprodutibilidade integral.
+
+\textbf{Relação com esta Pesquisa:} É o estudo recente mais próximo do mecanismo de confirmação humana desta monografia: ambos tratam a intervenção humana como decisão explícita e quantificada, e não como recurso residual. A diferença de enfoque é instrutiva -- ali o critério é uma garantia formal de FPR por campo com cobertura medida; aqui, limiares heurísticos de confiança não calibrados (Seção~\ref{sec:sol_agente_inteligente}), lacuna registrada na Seção~\ref{sec:concl_limitacoes}. O estudo também corrobora, em escala industrial, o uso de modelos de visão e linguagem como corretores de erros de extração, e sua observação de que o ruído de rótulo em dados de produção precisa ser mitigado dialoga diretamente com o risco de circularidade discutido na Seção~\ref{sec:val_circularidade}. Não aborda classificação semântica de despesas nem execução em infraestrutura local.
+
+\subsection{Gandikota et al. (\citeyear{gandikota2026spatial})}
+\textbf{Grau de relação:} Fortemente relacionado (Seção~\ref{sec:rel_levantamento}). Extração de pares chave--valor de documentos financeiros com OCR segmentado por região e modelo de linguagem compacto ajustado.
+
+\textbf{Objetivo:} Evitar a perda da informação espacial que ocorre quando esteiras OCR--LLM processam a página inteira como um fluxo de texto plano, propondo um arcabouço de compreensão de documentos financeiros (faturas, recibos e ordens de compra) consciente do leiaute \cite{gandikota2026spatial}.
+
+\textbf{Abordagem:} Renderização do PDF com PyMuPDF, segmentação da página em cinco zonas semânticas (cabeçalho, metadados, itens, totais e rodapé) por análise de contornos com OpenCV, Tesseract OCR aplicado independentemente a cada região e um modelo Gemma-2B ajustado que recebe a saída do OCR com marcações espaciais (\textit{layout-encoded prompting}) para extrair pares chave--valor estruturados.
+
+\textbf{Validação e Resultados:} Avaliação sobre três \textit{benchmarks} públicos (ICDAR 2019 SROIE, CORD e um subconjunto do RVL-CDIP): F1 de 94,2\% na extração de informação-chave do SROIE, 4,8 pontos acima de linhas de base OCR--LLM sobre texto plano; ablações indicam contribuições independentes e sinérgicas da segmentação por região e do \textit{prompt} com codificação de leiaute; latência média de 1,87 s por página em GPU de consumo.
+
+\textbf{Relação com esta Pesquisa:} Converge com duas decisões centrais desta monografia -- a preservação do leiaute como pré-condição da qualidade de extração (Seção~\ref{sec:val_resultados_ocr}) e o uso de um modelo de linguagem compacto da família Gemma executado em \textit{hardware} de consumo -- e diverge na forma de obter o leiaute: segmentação visual seguida de OCR por região, em vez de extração nativa do fluxo de texto do PDF (Seção~\ref{sec:fund_paradigmas_ingestao}). É, portanto, o contraponto natural para documentos genuinamente ópticos, regime que esta pesquisa não avaliou (Seção~\ref{sec:concl_limitacoes}). Não trata da classificação semântica das transações extraídas.
+
+\subsection{Farias, Mendes e Conceição (\citeyear{farias2025notaconforme})}
+\textbf{Grau de relação:} Fortemente relacionado (Seção~\ref{sec:rel_levantamento}). Classificação de descrições textuais curtas de documentos fiscais brasileiros, em português, com integração a sistemas de auditoria.
+
+\textbf{Objetivo:} Apoiar a fiscalização tributária da Prefeitura do Recife classificando automaticamente, a partir do campo de discriminação textual, os serviços descritos em Notas Fiscais de Serviços Eletrônicas (NFS-e) do setor de saúde, para identificar divergências entre o serviço declarado e a alíquota aplicada \cite{farias2025notaconforme}.
+
+\textbf{Abordagem:} Classificação multirrótulo de códigos de serviço com vetorização TF-IDF e sete algoritmos comparados (Random Forest, árvore de decisão, SVM linear, LightGBM, regressão logística, \textit{gradient boosting} e Naive Bayes multinomial), com seleção do Random Forest; exposição do modelo por uma API em Python/FastAPI com autenticação JWT e banco PostgreSQL, integrada ao \textit{data warehouse} municipal e a um módulo de notificação aos contribuintes.
+
+\textbf{Validação e Resultados:} Base de aproximadamente 5,69 milhões de NFS-e (2022--2024), rotuladas manualmente em 21 serviços mais uma classe residual para descrições genéricas, balanceada para 2,1 milhões de amostras; validação cruzada 5-fold com partição aleatória. O Random Forest obteve F1 de 0,9969 sob validação cruzada; em avaliação subsequente com dois auditores sobre 500 NFS-e sorteadas, o F1 foi de 0,945 -- uma queda de cerca de 5 pontos percentuais entre a validação cruzada e a verificação humana independente.
+
+\textbf{Relação com esta Pesquisa:} É o estudo brasileiro recente mais próximo do problema aqui tratado: descrições curtas e informais de documentos fiscais em português, TF-IDF com Random Forest como modelo vencedor entre clássicos (a mesma linha de base que lidera nesta pesquisa) e uma classe residual para descrições sem pista de categoria (análoga a \textit{Despesas Diversas / Outros}). Duas de suas características reforçam escolhas desta monografia: a classificação multirrótulo por códigos de serviço em vez de regras fiscais temporais, e a verificação por auditores como etapa distinta da validação cruzada -- cuja diferença de F1 (0,9969 contra 0,945) é um eco, em escala menor, do efeito de memorização quantificado no Capítulo~\ref{Cap:Ava_Exp}. Diferentemente desta pesquisa, o particionamento é aleatório por nota (QR-4), o F1 reportado não é discriminado por classe e não há mecanismos de recuperação vetorial, modelo de linguagem, intervenção humana no ciclo ou extração a partir de documentos; os autores apontam \textit{embeddings} como trabalho futuro. O domínio é o de notas de serviço para fiscalização, não o de faturas de cartão de crédito do consumidor.
+
+\section{Quadro comparativo e posicionamento desta pesquisa}
 \label{sec:rel_quadro_comparativo}
 
-A Tabela~\ref{tab:trabalhos_correlatos} confronta as características fundamentais dos estudos correlatos com a proposta desenvolvida nesta monografia.
+O Quadro~\ref{quadro:trabalhos_correlatos} registra o grau de relação de cada estudo com esta pesquisa (Seção~\ref{sec:rel_levantamento}) e confronta, em forma de matriz de características, quais das dez capacidades centrais da solução proposta são atendidas -- integral, parcial ou inexistentemente -- por cada um dos estudos correlatos, permitindo identificar de relance o que a proposta faz e os demais não fazem. A descrição narrativa de cada estudo, incluindo suas limitações específicas e a lacuna que motiva esta pesquisa, permanece detalhada na Seção~\ref{sec:rel_analise_estudos}. Por conter exclusivamente conteúdo qualitativo (sem dados estatísticos), o elemento é apresentado como Quadro, e não como Tabela, em conformidade com a distinção normativa da ABNT. Ressalta-se que essa comparação é necessariamente qualitativa: os estudos correlatos reportam suas métricas sobre conjuntos de dados distintos entre si e distintos do acervo desta pesquisa (IAM, RIMES e BRESSAY em Araújo, Bezerra e Souza Neto, o \textit{benchmark} SROIE na competição ICDAR, notas fiscais eletrônicas em Santos, faturas de energia em Souza, transações de \textit{Open Banking} francesas em 84 categorias com F1 ponderado em Ta, Saad e Oh, faturas corporativas proprietárias em Curcio, Galfré e Le Van, os \textit{benchmarks} SROIE/CORD/RVL-CDIP em Gandikota et al., notas fiscais de serviço municipais em Farias, Mendes e Conceição), de modo que não há base comum para contrapor numericamente o F1-Macro de 69,3\% obtido nesta pesquisa (Capítulo~\ref{Cap:Ava_Exp}) aos resultados desses trabalhos.
 
-\begingroup
-\small
-\setlength{\tabcolsep}{4pt}
-\renewcommand{\arraystretch}{1.15}
-\begin{xltabular}{\textwidth}{
-		>{\raggedright\arraybackslash}p{2.3cm}
-		>{\raggedright\arraybackslash}X
-		>{\raggedright\arraybackslash}X
-		>{\raggedright\arraybackslash}X
-		>{\raggedright\arraybackslash}X
-	}
-	\caption{Comparativo dos trabalhos relacionados frente à solução proposta.} \label{tab:trabalhos_correlatos} \\
-	\toprule
-	\textbf{Trabalho (Ref)} & \textbf{Objetivo} & \textbf{Abordagem} & \textbf{Limitações Identificadas} & \textbf{Lacuna Abordada nesta Pesquisa} \\
-	\midrule
-	\endfirsthead
+\begin{quadro}[htb]
+\centering
+\caption{Matriz de características: atendimento das capacidades centrais por trabalho correlato.}
+\label{quadro:trabalhos_correlatos}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|c|*{10}{c|}}
+	\hline
+	\textbf{Trabalho} &
+	\rotatebox{90}{\parbox{2.2cm}{\raggedright C0 Grau de relação}} &
+	\rotatebox{90}{\parbox{2.2cm}{\raggedright C1 Extração}} &
+	\rotatebox{90}{\parbox{2.2cm}{\raggedright C2 Saneamento}} &
+	\rotatebox{90}{\parbox{2.2cm}{\raggedright C3 Busca vetorial}} &
+	\rotatebox{90}{\parbox{2.2cm}{\raggedright C4 LLM}} &
+	\rotatebox{90}{\parbox{2.2cm}{\raggedright C5 HITL}} &
+	\rotatebox{90}{\parbox{2.2cm}{\raggedright C6 MLOps}} &
+	\rotatebox{90}{\parbox{2.2cm}{\raggedright C7 Local/LGPD}} &
+	\rotatebox{90}{\parbox{2.2cm}{\raggedright C8 Dados pt-BR}} &
+	\rotatebox{90}{\parbox{2.2cm}{\raggedright C9 \textit{Marketplaces}}} &
+	\rotatebox{90}{\parbox{2.2cm}{\raggedright C10 F1-Macro}} \\
+	\hline
+	Zhang, Zhao e LeCun (\citeyear{zhang2015character}) & Fraco & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+	\hline
+	Dhingra et al. (\citeyear{dhingra2016tweet2vec}) & Fraco & -- & -- & $\pm$ & -- & -- & -- & -- & -- & -- & -- \\
+	\hline
+	ICDAR 2019 (SROIE) & Forte & \checkmark & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+	\hline
+	Santos (\citeyear{santos2023classificacao}) & Forte & -- & -- & $\pm$ & -- & -- & -- & -- & \checkmark & -- & -- \\
+	\hline
+	Araújo, Bezerra e Souza Neto (\citeyear{araujo2024saneamento}) & Fraco & -- & \checkmark & -- & -- & -- & -- & -- & \checkmark & -- & -- \\
+	\hline
+	Souza (\citeyear{souza2025extracao}) & Forte & \checkmark & -- & -- & -- & -- & -- & -- & \checkmark & -- & -- \\
+	\hline
+Ta, Saad e Oh (\citeyear{ta2023specialized}) & Forte & -- & -- & $\pm$ & -- & -- & -- & $\pm$ & -- & -- & -- \\
+	\hline
+	Curcio, Galfré e Le Van (\citeyear{curcio2026safe}) & Forte & \checkmark & \checkmark & -- & \checkmark & \checkmark & -- & -- & -- & -- & -- \\
+	\hline
+	Gandikota et al. (\citeyear{gandikota2026spatial}) & Forte & \checkmark & -- & -- & \checkmark & -- & -- & $\pm$ & -- & -- & -- \\
+	\hline
+	Farias, Mendes e Conceição (\citeyear{farias2025notaconforme}) & Forte & -- & -- & -- & -- & $\pm$ & -- & -- & \checkmark & -- & $\pm$ \\
+	\hline
+	\textbf{Esta Pesquisa (Proposta)} & -- & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+	\hline
+\end{tabular}%
+}
+\begin{flushleft}
+	\footnotesize \checkmark\ Atende \quad $\pm$\ Atende parcialmente \quad --\ Não atende. Capacidades: C0 -- grau de relação com esta pesquisa (Seção~\ref{sec:rel_levantamento}); C1 -- extração de documentos com preservação de leiaute tabular; C2 -- saneamento léxico pós-OCR; C3 -- representação densa com recuperação vetorial; C4 -- raciocínio com modelo de linguagem e uso de ferramentas; C5 -- intervenção humana no ciclo (HITL); C6 -- monitoramento de desvio e práticas de MLOps; C7 -- execução em infraestrutura local com aderência à LGPD; C8 -- avaliação sobre dados reais em português do Brasil; C9 -- desambiguação de \textit{marketplaces}; C10 -- reporte de F1-Macro.
+\end{flushleft}
+\fonte{Elaborado pelo autor (\the\year), com base nas descrições da Seção~\ref{sec:rel_analise_estudos}.}
+\end{quadro}
 
-	\multicolumn{5}{c}{{\bfseries \tablename\ \thetable{} -- continuação da página anterior}} \\
-	\toprule
-	\textbf{Trabalho (Ref)} & \textbf{Objetivo} & \textbf{Abordagem} & \textbf{Limitações Identificadas} & \textbf{Lacuna Abordada nesta Pesquisa} \\
-	\midrule
-	\endhead
-
-	\midrule
-	\multicolumn{5}{r}{\footnotesize Continua na próxima página\ldots} \\
-	\endfoot
-
-	\bottomrule
-	\multicolumn{5}{l}{\footnotesize Fonte: Elaborado pelo autor (\the\year).} \\
-	\endlastfoot
-	
-	Araújo et al. (2025) & Correção Pós-OCR de textos ruidosos. & Modelos monolíngues no nível de \textit{byte} (\textit{Monobyte}/ByT5). & Foco estrito em correção ortográfica; não executa categorização semântica nem RAG. & Integração de busca vetorial (PGVector), inferência semântica e orquestração em grafo. \\
-	\addlinespace
-	Santos (2022) & Classificação de produtos em NFE. & TF-IDF vs. LSTM no nível de caracteres. & Treinamento lento de RNNs; alta degradação em classes minoritárias desbalanceadas. & Uso de embeddings densos multilíngues, aprendizado ativo e validação via F1-Score Macro. \\
-	\addlinespace
-	Souza (2025) & Extração em faturas de concessionárias. & CNNs (EfficientNet) + OCR Amazon Textract. & Dependência de layout rígido e custos com APIs pagas em nuvem. & Independência de layout geométrico; extração local híbrida (Docling/Tesseract) sem custo de API. \\
-	\addlinespace
-	Zhang et al. (2015); Dhingra et al. (2016) & Classificação e mineração de textos curtos e informais. & ConvNets e Bi-GRU no nível de caractere. & Não trata o ciclo de vida MLOps, Data Drift nem desambiguação de marketplaces. & Resolução de aliases, histórico de marketplaces por usuário e monitoramento via MLflow. \\
-	\addlinespace
-	Competição ICDAR 2019 (SROIE) & OCR e extração de campos em recibos digitalizados. & Detecção convolucional + reconhecimento sequencial + codificadores Transformer. & Custo de inferência elevado; sem mecanismos de Human-in-the-Loop. & Agente LangGraph com interrupções programadas e ferramentas autônomas de busca web. \\
-	\addlinespace
-	\textbf{Esta Pesquisa (Proposta)} & \textbf{Extração, saneamento e classificação de faturas de cartão de crédito.} & \textbf{Agente Reativo Híbrido: Docling/OCR + PGVector + LLM Dinâmico + LangGraph + MLOps.} & \textbf{Demanda bootstrap inicial de exemplos vetoriais e conectividade opcional para web search.} & \textbf{Solução de ponta a ponta local, aderente à LGPD, com esteira de Data Lakehouse e observabilidade total.} \\
-\end{xltabular}
-\endgroup
-
-\section{Conclusão do Capítulo}
+\section{Considerações finais do capítulo}
 \label{sec:rel_conclusao}
 
-A revisão da literatura demonstra que, embora existam contribuições expressivas em tarefas isoladas (correção pós-OCR com Transformers ou extração visual de notas fiscais), persiste uma lacuna quanto a soluções completas, locais e integradas para o tratamento de faturas de cartão de crédito. Ao combinar a extração tabular estruturada, normalização léxica, banco vetorial PGVector, agente inteligente em grafo (LangGraph) com suporte a Human-in-the-Loop e governança MLOps no Data Lakehouse, este trabalho posiciona-se de forma inovadora para oferecer alta assertividade e sustentabilidade operacional no controle financeiro pessoal.
+A revisão da literatura demonstra que, embora existam contribuições expressivas em tarefas isoladas (correção pós-OCR com Transformers, extração visual de notas fiscais ou classificação de transações de \textit{Open Banking} com classificadores clássicos, esta última a mais próxima do problema aqui tratado), persiste uma lacuna quanto a soluções completas, locais e integradas para o tratamento de faturas de cartão de crédito -- e, mesmo no trabalho mais próximo \cite{ta2023specialized}, o desempenho é reportado apenas em métricas ponderadas e sem controle de sobreposição de estabelecimentos entre treino e teste. A escassez de trabalhos fortemente relacionados constatada neste levantamento -- dos dez estudos incluídos, apenas um aborda a classificação de descrições reais de transações financeiras, e nenhum o faz sobre faturas de cartão de crédito brasileiras nem combina essa classificação com a extração a partir do documento -- constitui, ela própria, evidência da lacuna endereçada por esta pesquisa. Os estudos mais recentes (2025--2026) confirmam a direção do campo -- modelos de visão e linguagem e modelos de linguagem compactos na extração de documentos financeiros, com decisão explícita sobre a revisão humana -- mas permanecem em uma das duas metades do problema: extraem sem classificar despesas, ou classificam descrições fiscais sem partir do documento. Ao combinar a extração tabular estruturada, normalização léxica, banco vetorial pgvector, agente inteligente em grafo (LangGraph) com suporte a HITL e governança MLOps no \textit{Data Lakehouse}, este trabalho posiciona-se de forma distintiva frente ao estado da arte, ao integrar em um único sistema aspectos que a literatura consultada trata isoladamente -- sem, contudo, antecipar aqui o desempenho preditivo alcançável, cuja verificação empírica é o objeto do Capítulo~\ref{Cap:Ava_Exp}. As lacunas aqui identificadas são traduzidas em decisões arquiteturais concretas no capítulo seguinte, que detalha a solução proposta.

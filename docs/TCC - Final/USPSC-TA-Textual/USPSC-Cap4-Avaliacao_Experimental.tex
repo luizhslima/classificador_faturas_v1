@@ -2,32 +2,69 @@
 
 \label{chp:validacao}
 
-\section{Considerações Iniciais}
+\section{Considerações iniciais}
 \label{sec:val_consideracoes_iniciais}
 
-A validação empírica constitui a etapa decisiva para comprovar a eficácia prática da solução proposta e responder formalmente às questões de pesquisa estabelecidas. Este capítulo apresenta o ambiente computacional dos experimentos, a caracterização detalhada dos conjuntos de dados utilizados (com ênfase no acervo de faturas do C6 Bank e seus respectivos arquivos de \textit{Ground Truth}), o protocolo formal de mensuração adotado (incluindo as definições matemáticas da Distância de Edição de Levenshtein, CER e WER), os resultados comparativos detalhados de extração óptica entre o IBM Docling e o Tesseract OCR, o desempenho dos classificadores (baselines clássicos versus agente inteligente híbrido), a análise de ablações, a avaliação de MLOps e observabilidade, e a verificação conclusiva da hipótese central da monografia.
+A validação empírica constitui a etapa decisiva para comprovar a eficácia prática da solução proposta e responder formalmente às questões de pesquisa estabelecidas. Este capítulo apresenta o ambiente computacional dos experimentos (Seção~\ref{sec:val_ambiente}); a caracterização dos conjuntos de dados, com ênfase no acervo de faturas do C6 Bank e seus arquivos de verdade de referência (Seção~\ref{sec:val_datasets}); o protocolo de mensuração e as métricas adotadas (Seção~\ref{sec:val_protocolo}); os resultados da extração óptica, confrontando o IBM Docling V2 e o Tesseract OCR (Seção~\ref{sec:val_resultados_ocr}); os resultados comparativos da classificação, incluindo análise por emissor, por proveniência do rótulo, por categoria e o estudo de ablação (Seção~\ref{sec:val_resultados_classificacao}); a avaliação de MLOps, latência e observabilidade (Seção~\ref{sec:val_mlops}); e as respostas às questões de pesquisa com a verificação da hipótese central (Seção~\ref{sec:val_respostas_questoes}), seguidas das considerações finais (Seção~\ref{sec:val_consideracoes_finais}).
 
-\section{Ambiente Computacional e Configuração Experimental}
+\section{Ambiente computacional e configuração experimental}
 \label{sec:val_ambiente}
 
-Todos os experimentos foram conduzidos em um ambiente computacional controlado, representativo de estações de trabalho de desenvolvimento comuns, com as seguintes especificações de hardware e software:
+O ambiente computacional foi composto por duas máquinas físicas distintas na rede local, com papéis complementares: uma estação de trabalho principal, onde foram executados os experimentos de treinamento e inferência, e um servidor doméstico dedicado, que hospedou a infraestrutura conteinerizada de dados durante toda a pesquisa.
 \begin{itemize}
-	\item \textbf{Hardware:} Processador Intel Core i7 / AMD Ryzen de 8 núcleos e 16 threads, 32 GB de memória RAM DDR4, GPU dedicada NVIDIA GeForce RTX com 16 GB de VRAM (suporte a aceleração CUDA 12.x) e armazenamento SSD NVMe de alta velocidade;
-	\item \textbf{Software e Bibliotecas:} Sistema Operacional Windows 11 / Linux Ubuntu 22.04 LTS, Docker Engine v26.1, Python v3.11.15, PyTorch v2.3.1, Transformers v4.41, LangChain v0.2, LangGraph v0.1, Sentence-Transformers v3.0, Scikit-Learn v1.5, PostgreSQL v16.3 com extensão pgvector v0.7, MLflow v2.14, IBM Docling v2.0, PyTesseract v0.3.13 (motor Tesseract 5.3 com modelos em português), PyPDFium2 v4.30, RapidFuzz v3.14 e JiWER v4.0.
+	\item \textbf{Estação de Trabalho (treinamento e inferência):} Processador AMD Ryzen 7 5700G (8 núcleos / 16 \textit{threads}, 3,8~GHz base), 32 GB de memória RAM DDR4 2667~MHz, GPU dedicada NVIDIA GeForce RTX 3060 Ti com 8 GB de VRAM GDDR6 (suporte a aceleração CUDA 13.0), armazenamento SSD NVMe e Sistema Operacional Windows 11 Pro N. Nela rodaram o treinamento das linhas de base TF-IDF, o ajuste fino do ByT5, a geração de \textit{embeddings}, a extração via Docling V2/Tesseract e o modelo de raciocínio local (LM Studio);
+	\item \textbf{Servidor de Infraestrutura de Dados (\textit{Data Lakehouse} conteinerizado):} Mini computador Beelink Mini S (Intel Celeron N5095, 4 núcleos / 4 \textit{threads}, 8 GB de RAM DDR4, SSD de 256 GB), executando AlmaLinux 9.8, conectado à estação de trabalho por rede local (Ethernet Gigabit). Hospeda, via Docker, os contêineres de PostgreSQL 16 com extensão pgvector, MinIO e MLflow (Tabela~\ref{tab:tecnologias}), todos acessados pela estação de trabalho por IP fixo na rede local -- ou seja, as latências de consulta ao pgvector e de registro no MLflow reportadas neste capítulo incluem o tempo de rede LAN entre as duas máquinas, não apenas o tempo de processamento local. Um segundo mini computador idêntico (mesmo modelo, com Windows 11) compõe a mesma infraestrutura doméstica mas não foi utilizado diretamente na execução dos experimentos reportados neste capítulo;
+	\item \textbf{Software e Bibliotecas (estação de trabalho):} Python 3.11.15, PyTorch 2.12.1 (CUDA 13.0), Transformers 5.12.1, Sentence-Transformers 5.6.0, scikit-learn 1.7.2, LangChain 1.3.12, LangGraph 1.2.8, IBM Docling 2.112.0, PyTesseract 0.3.13 sobre o motor Tesseract 5.5.0 (modelos em português), PyPDFium2 5.9.0, RapidFuzz 3.14.5, JiWER 4.0.0 e cliente MLflow 3.14.0, sob Docker Engine 29.4.0 -- a relação completa por componente está na Tabela~\ref{tab:tecnologias};
+	\item \textbf{Modelo de \textit{Embeddings} (Sentence Transformers):} \texttt{sentence-transformers/\modelemb{}} \cite{reimers2019sentence}, executado localmente na estação de trabalho para gerar os vetores densos de 384 dimensões utilizados pelo ramo de busca vetorial (RAG) e indexados na extensão pgvector (Seção~\ref{sec:sol_arquitetura});
+	\item \textbf{Modelo de Raciocínio Local (LLM):} \texttt{google/gemma-4-e4b} \cite{gemmateam2026gemma4}, servido localmente pelo aplicativo LM Studio por meio de uma API compatível com o padrão OpenAI (\texttt{langchain.chat\_models.init\_chat\_model}), com \textbf{temperatura fixada em 0} (decodificação gulosa/determinística) e limite de \textbf{2.048 \textit{tokens}} de saída por chamada. A variante exata do \textit{checkpoint} (instruído ou base), o formato e o nível de quantização carregados no LM Studio, a janela de contexto efetiva, o valor de \textit{top-p} e uma semente explícita de amostragem \textbf{não foram registrados} no momento da execução dos experimentos e não puderam ser recuperados a posteriori;
+	\item \textbf{Ferramenta de busca na web (DuckDuckGo):} indisponível durante toda a avaliação, por ausência de conectividade externa no ambiente experimental. O nó correspondente do agente permaneceu implementado, mas não foi exercitado em nenhuma das 334 transações do teste cego; as demais menções a essa indisponibilidade neste trabalho remetem a este registro.
 \end{itemize}
 
-O código-fonte completo da solução e o \textit{pipeline} experimental reprodutível que gera os resultados apresentados neste capítulo estão disponíveis no repositório público descrito no Apêndice~\ref{apendice:repositorio}.
+O código-fonte completo da solução e a esteira experimental reprodutível que gera os resultados apresentados neste capítulo estão disponíveis no repositório público descrito no Apêndice~\ref{apendice:repositorio}.
 
-\section{Caracterização dos Conjuntos de Dados (Datasets)}
+\textbf{Limitação de reprodutibilidade do ramo LLM:} a temperatura zero direciona o modelo à decodificação gulosa, o que reduz -- mas não elimina por si só -- a variabilidade entre execuções, já que fatores do servidor de inferência (versão do \textit{backend}, quantização, paralelismo em lote) podem introduzir pequenas diferenças numéricas não controladas por este trabalho. Como o ramo LLM responde por 48\% das transações do teste cego (Seção~\ref{sec:val_resultados_classificacao}), a ausência do registro completo dos parâmetros de amostragem e da configuração exata do \textit{checkpoint} compromete a reprodutibilidade bit-a-bit dos resultados desse ramo; essa lacuna é registrada como limitação do trabalho (Seção~\ref{sec:concl_limitacoes}).
+
+\section{Caracterização dos conjuntos de dados (\textit{datasets})}
 \label{sec:val_datasets}
 
 A experimentação foi estruturada sobre conjuntos de dados complementares, abrangendo dados governamentais e faturas reais de instituições financeiras. O acervo governamental (mais de 470 mil transações) foi empregado para a \textbf{caracterização exploratória} do ruído textual; a \textbf{mensuração preditiva} da classificação apoiou-se em um subconjunto rotulado das faturas pessoais reais (detalhado ao final desta seção):
 
 \begin{enumerate}
-	\item \textbf{Dataset Governamental CPGF (Cartão de Pagamento do Governo Federal):} Acervo público oficial obtido no Portal da Transparência do Governo Federal \cite{brasilcpgf}. O conjunto reúne 44 arquivos CSV mensais consolidados, totalizando \textbf{477.740 transações financeiras reais} contendo campos como nome do favorecido comercial, CNPJ, órgão responsável, data e valor monetário transacionado;
-	\item \textbf{Acervo Real de Faturas Bancárias C6 Bank e Nubank:} Extratos de cartões de crédito pessoais obtidos junto a instituições financeiras brasileiras em formatos digitais nativos (CSV) e documentos ópticos protegidos (PDFs com layout tabular multicolunar). No caso do C6 Bank, reuniu-se um acervo abrangendo o período contínuo de janeiro de 2022 a agosto de 2026, composto por \textbf{49 faturas em PDF} (totalizando 357 páginas protegidas por senha) e os respectivos \textbf{49 arquivos CSV oficiais}, os quais foram utilizados como \textit{Ground Truth} de alta fidelidade para a mensuração de erros de OCR;
+	\item \textbf{Conjunto de Dados Governamental CPGF (Cartão de Pagamento do Governo Federal):} Acervo público oficial obtido no Portal da Transparência do Governo Federal \cite{brasilcpgf}. O conjunto reúne 44 arquivos CSV mensais consolidados, totalizando \textbf{477.740 transações financeiras reais} contendo campos como nome do favorecido comercial, CNPJ, órgão responsável, data e valor monetário transacionado;
+	\item \textbf{Acervo Real de Faturas Bancárias C6 Bank e Nubank:} Extratos de cartões de crédito pessoais obtidos junto a instituições financeiras brasileiras em formatos digitais nativos (CSV) e documentos ópticos protegidos (PDFs com leiaute tabular multicolunar). No caso do C6 Bank, reuniu-se um acervo abrangendo competências de janeiro de 2022 a agosto de 2026, com 49 das 56 competências efetivamente disponíveis (Tabela~\ref{tab:dataset_c6}), composto por \textbf{49 faturas em PDF} (totalizando 357 páginas protegidas por senha) e os respectivos \textbf{49 arquivos CSV oficiais}, os quais foram utilizados como verdade de referência de alta fidelidade para a mensuração de erros de OCR;
 	\item \textbf{Ruído Real de Intermediadores de Pagamento:} As próprias faturas do C6 Bank e do Nubank já contêm, de forma nativa, os fenômenos de ruído que se deseja estressar --- truncamentos de descrição, prefixos de adquirentes (``PAG*'', ``MP*'', ``IFD*''), sufixos numéricos de autorização e nomes informais aglutinados de pequenos negócios (ex.: ``jhoonymorango''). Optou-se por avaliar os modelos diretamente sobre esse ruído real, em vez de gerá-lo sinteticamente.
 \end{enumerate}
+
+\subsection{Caracterização textual do acervo governamental CPGF}
+\label{sec:val_caracterizacao_cpgf}
+
+O campo \texttt{NOME FAVORECIDO} das 477.740 transações do CPGF foi processado para caracterizar quantitativamente a natureza do ruído textual desse acervo, complementando a formulação do problema do Capítulo~\ref{Cap:Introdução}. A Tabela~\ref{tab:caracterizacao_cpgf} sintetiza os resultados.
+
+\begin{table}[htb]
+\centering
+\caption{Caracterização textual do campo \texttt{NOME FAVORECIDO} no acervo CPGF ($N=477.740$).}
+\label{tab:caracterizacao_cpgf}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{10.5cm} >{\raggedleft\arraybackslash}p{4.3cm}@{}}
+	\toprule
+	\textbf{Métrica} & \textbf{Valor} \\
+	\midrule
+	Comprimento (caracteres): média / mediana / desvio-padrão & 23,7 / 22 / 14,4 \\
+	Comprimento: percentis 10/25/75/90/99 & 8 / 12 / 34 / 44 / 64 \\
+	Registros com valor administrativo redigido ou ausente$^{\ast}$ & 37,6\% \\
+	Registros contendo sufixo de natureza jurídica (LTDA, S.A., EIRELI, ME, EPP) & 50,1\% \\
+	Registros contendo prefixo de \textit{gateway}/adquirente (asterisco ``\texttt{*}'') & 0,0\% \\
+	Registros contendo sequência numérica de 4 ou mais dígitos & 0,8\% \\
+	Entropia lexical, nível de caractere (49 símbolos distintos) & 4,13 bits/caractere \\
+	Entropia lexical, nível de \textit{token} (37.766 \textit{tokens} distintos) & 8,47 bits/\textit{token} \\
+	\bottomrule
+\end{tabular}
+\begin{flushleft}
+	\footnotesize $^{\ast}$ Valores como \textit{Sigiloso} (23,6\%), \textit{Não se Aplica} (9,3\%), \textit{Sem Informação} (4,5\%) e campo vazio (0,2\%).
+\end{flushleft}
+\fonte{Elaborada pelo autor (\the\year), a partir do processamento de \codepath{data/datasets/faturas_gov.csv}.}
+\end{table}
+
+A caracterização revela um perfil de ruído \textbf{qualitativamente distinto} do observado nas faturas de cartão de crédito pessoais (Quadro~\ref{quadro:fatura_exemplo}): o campo \texttt{NOME FAVORECIDO} do CPGF é preenchido a partir do cadastro de pessoa jurídica do favorecido, não da descrição livre impressa por um terminal de captura ou \textit{gateway} de pagamento. Em consequência, a incidência de prefixos de \textit{gateway} (asterisco) é \textbf{nula} neste acervo -- confirmando que esse fenômeno específico é característico do domínio de faturas de cartão de crédito ao consumidor (C6 Bank e Nubank, item 3 acima), e não do universo de pagamentos institucionais. Por outro lado, o CPGF exibe dois fenômenos de ruído próprios: (i) alta prevalência (50,1\%) de sufixos de natureza jurídica, o mesmo fenômeno que a rotina de normalização léxica desta pesquisa trata (Apêndice~\ref{apendice:normalizacao}), corroborando empiricamente a necessidade dessa etapa em escala; e (ii) uma parcela substancial (37,6\%) de registros com valores administrativos redigidos ou ausentes (\textit{Sigiloso}, \textit{Não se Aplica}, \textit{Sem Informação}), um tipo de ruído -- ausência sistemática de informação, não distorção textual -- não tratado pela esteira de saneamento léxico desta pesquisa e não caracterizado anteriormente na formulação do problema do Capítulo~\ref{Cap:Introdução}. O acervo CPGF cumpre, portanto, um papel de \textbf{diversidade e escala} (quase meio milhão de transações reais de centenas de órgãos públicos) e de caracterização exploratória de ruído institucional, distinto e complementar ao papel do acervo pessoal C6 Bank/Nubank na mensuração preditiva (Seção~\ref{sec:val_dataset_classificacao}).
 
 Para a avaliação de extração óptica, estabeleceu-se um procedimento determinístico de pareamento temporal entre os documentos em PDF e os arquivos CSV do C6 Bank. Por meio da leitura dos metadados das primeiras páginas dos PDFs, identificou-se a data de corte (fechamento por volta do dia 8 de cada mês) e o vencimento (fixado no dia 15), mapeando-se com exatidão $1:1$ cada uma das 49 faturas ao seu respectivo arquivo \texttt{Fatura\_AAAA-MM-15.csv}. A Tabela~\ref{tab:dataset_c6} resume a distribuição do acervo de faturas do C6 Bank por ano de competência.
 
@@ -37,7 +74,7 @@ Para a avaliação de extração óptica, estabeleceu-se um procedimento determi
 	\label{tab:dataset_c6}
 	\begin{tabular}{lccc}
 		\toprule
-		\textbf{Ano de Competência} & \textbf{Faturas (PDF)} & \textbf{CSVs (\textit{Ground Truth})} & \textbf{Páginas} \\
+		\textbf{Ano de Competência} & \textbf{Faturas (PDF)} & \textbf{CSVs (verdade de referência)} & \textbf{Páginas} \\
 		\midrule
 		2022 & 12 & 12 & 74 \\
 		2023 & 12 & 12 & 80 \\
@@ -48,68 +85,102 @@ Para a avaliação de extração óptica, estabeleceu-se um procedimento determi
 		\textbf{Total} & \textbf{49} & \textbf{49} & \textbf{357} \\
 		\bottomrule
 	\end{tabular}
-	\fonte{Elaborado pelo autor (\the\year).}
+	\fonte{Elaborada pelo autor (\the\year). O acervo não é contínuo: uma competência de 2024 não estava disponível e, em 2026, apenas duas das oito competências decorridas até a coleta estavam disponíveis.}
 \end{table}
 
 As transações foram rotuladas em uma taxonomia de \textbf{14 categorias canônicas de despesas}: Alimentação, Transporte, Moradia, Saúde, Educação, Vestuário, Lazer e Entretenimento, Tecnologia, Beleza e Cuidados Pessoais, Pets, Serviços Financeiros, Marketplace / E-commerce, Doações / Presentes e Despesas Diversas.
 
-\subsection{Conjunto Rotulado de Referência para a Classificação}
+\subsection{Conjunto rotulado de referência para a classificação}
 \label{sec:val_dataset_classificacao}
 
 Como as faturas do Nubank não trazem rótulo de categoria e a categorização nativa do emissor C6 Bank é derivada de códigos MCC --- frequentemente imprecisa (por exemplo, serviços de nuvem rotulados como ``Elétrico'' e plataformas de ingressos como ``Serviços Profissionais'') --- adotou-se um procedimento de rotulagem de referência em duas camadas: (i) um \textbf{dicionário léxico de alta precisão} com dezenas de padrões de estabelecimentos consolidados (``UBER''$\rightarrow$Transporte, ``IFD*''$\rightarrow$Alimentação, ``DROGA-''$\rightarrow$Saúde, ``NETFLIX/STEAM''$\rightarrow$Lazer etc.), validado manualmente sobre amostra; e (ii) o \textbf{mapeamento da categoria nativa do emissor} para a taxonomia canônica nos casos não cobertos pelo dicionário.
 
-Após deduplicação e limitação a no máximo 12 lançamentos por estabelecimento --- para que o \textit{benchmark} meça a amplitude de comércios e não a frequência de um único \textit{merchant} dominante (ex.: ``UBER* TRIP'') --- o conjunto totalizou \textbf{1.660 transações rotuladas}, das quais 74\% pelo dicionário léxico. As categorias \textit{Pets}, \textit{Serviços Financeiros} e \textit{Doações e Presentes} não apresentaram amostragem suficiente no acervo pessoal disponível e foram agregadas a \textit{Despesas Diversas / Outros}, restando \textbf{11 categorias efetivamente avaliadas}.
+Após deduplicação e limitação a no máximo 12 lançamentos por estabelecimento --- para que o conjunto de referência meça a amplitude de comércios e não a frequência de um único estabelecimento dominante (ex.: ``UBER* TRIP'') --- o conjunto totalizou \textbf{1.660 transações rotuladas}, das quais 74\% pelo dicionário léxico. As categorias \textit{Pets}, \textit{Serviços Financeiros} e \textit{Doações e Presentes} não apresentaram amostragem suficiente no acervo pessoal disponível e foram agregadas a \textit{Despesas Diversas / Outros}, restando \textbf{11 categorias efetivamente avaliadas}.
 
-O particionamento foi feito \textbf{por estabelecimento} (todas as ocorrências de uma mesma descrição pertencem a um único conjunto), impedindo o vazamento de comércios entre treino e teste: 1.150 transações para treino e povoamento vetorial, 176 para validação e \textbf{334 para o teste-cego congelado}. Esse protocolo é deliberadamente mais severo que o holdout aleatório: mede a capacidade de generalizar para \textit{estabelecimentos inéditos}, não a de reconhecer comércios já vistos. Ressalta-se que a rotulagem semiautomática e o porte reduzido do acervo constituem limitações discutidas no Capítulo~\ref{Cap:Conclusoes}.
+O particionamento foi feito \textbf{por estabelecimento} (todas as ocorrências de uma mesma descrição pertencem a um único conjunto), impedindo o vazamento de comércios entre treino e teste: 1.150 transações para treino, 176 para validação e \textbf{334 para o teste cego congelado}. Como detalhado na Seção~\ref{sec:val_protocolo}, os conjuntos de treino e validação foram unificados na implementação efetiva, de modo que o volume de treinamento (e de povoamento da base vetorial) foi de \textbf{1.326 transações} para todas as arquiteturas. Esse protocolo é deliberadamente mais severo que a partição aleatória: mede a capacidade de generalizar para \textit{estabelecimentos inéditos}, não a de reconhecer comércios já vistos. Ressalta-se que a rotulagem semiautomática e o porte reduzido do acervo constituem limitações discutidas no Capítulo~\ref{Cap:Conclusoes}. Como o dicionário léxico de alta precisão compartilha padrões de superfície (ex.: ``UBER'', ``IFD*'') com os próprios atributos que os classificadores esparsos aprendem, existe um \textbf{risco de circularidade} entre o método de rotulagem e o desempenho relativo dos modelos, quantificado na Seção~\ref{sec:val_circularidade}.
 
-\section{Protocolo Experimental e Métricas de Avaliação}
+Quanto à \textbf{composição por instituição emissora e à validade externa}, das 1.660 transações rotuladas, 1.388 (83,6\%) têm origem no C6 Bank e 272 (16,4\%) no Nubank, cobrindo 11 e 9 das 11 categorias canônicas, respectivamente. O acervo como um todo provém das faturas pessoais de apenas \textbf{dois portadores de cartão}, o que limita a diversidade de hábitos de consumo, estabelecimentos frequentados e faixas de renda representados na rotulagem -- uma limitação de validade externa detalhada na Seção~\ref{sec:concl_limitacoes}. No teste cego de 334 transações, resultante do particionamento aleatório por estabelecimento, a proporção por emissor desloca-se para 234 do C6 Bank (70,1\%) e 100 do Nubank (29,9\%); nesse recorte específico, o subconjunto do Nubank cobre apenas 5 categorias, concentradas em \textit{Alimentação} (53\%) e \textit{Saúde} (40\%) -- consequência do porte menor do acervo Nubank combinado ao particionamento por estabelecimento, que pode deixar de sortear nenhum comércio de uma categoria de cauda para o teste. O desempenho discriminado por emissor é reportado na Seção~\ref{sec:val_resultados_classificacao}.
+
+\section{Protocolo experimental e métricas de avaliação}
 \label{sec:val_protocolo}
 
 Para garantir rigor estatístico e reprodutibilidade, a avaliação foi dividida em duas frentes complementares: avaliação da extração de texto (OCR) e avaliação da classificação semântica.
 
-\subsection{Métricas para Extração Óptica e Reconhecimento de Texto}
-Para avaliar a qualidade da transcrição em relação ao \textit{Ground Truth} fornecido pelos CSVs bancários oficiais, adotaram-se as métricas fundamentadas na Distância de Edição de Levenshtein $L(s_1, s_2)$, definida como o número mínimo de operações de inserção, remoção ou substituição de caracteres necessárias para transformar a cadeia $s_1$ na cadeia $s_2$:
-
-\begin{enumerate}
-	\item \textbf{Character Error Rate (CER):} Proporção de caracteres incorretos em relação ao comprimento da cadeia de referência:
-	\begin{equation}
-		\text{CER} = \frac{\sum_{i=1}^{N} L(ref_i, hyp_i)}{\sum_{i=1}^{N} \text{len}(ref_i)}
-	\end{equation}
-	onde $ref_i$ representa o texto oficial no CSV (verdade-terrestre) e $hyp_i$ representa a transcrição obtida pelo motor de OCR;
-	\item \textbf{Word Error Rate (WER):} Taxa de erro calculada no nível de palavras tokenizadas, mensurando inserções, deleções e substituições de palavras completas:
-	\begin{equation}
-		\text{WER} = \frac{\sum_{i=1}^{N} L_{\text{palavras}}(ref_i, hyp_i)}{\sum_{i=1}^{N} \text{len}_{\text{palavras}}(ref_i)}
-	\end{equation}
-	\item \textbf{Taxa de Casamento Exato (\textit{Exact Match Rate}):} Fração percentual de transações transcritas com exatidão perfeita ($L(ref_i, hyp_i) = 0$):
-	\begin{equation}
-		\text{EMR} = \frac{1}{N} \sum_{i=1}^{N} \mathbb{I}[L(ref_i, hyp_i) = 0]
-	\end{equation}
-\end{enumerate}
-
-\subsection{Métricas para Classificação Semântica de Transações}
-Para a classificação de categorias, adotou-se o particionamento \textbf{por estabelecimento} (Seção~\ref{sec:val_dataset_classificacao}): 69\% para treinamento e povoamento da base de conhecimento vetorial, 11\% para validação e sintonia de hiperparâmetros, e 20\% (334 transações) mantidos estritamente congelados para teste-cego, com todas as ocorrências de um mesmo comércio confinadas a um único conjunto. Complementarmente, computou-se validação cruzada 5-fold (\textit{5-fold cross-validation}) sobre treino+validação, cuja comparação com o teste-cego quantifica o efeito de memorização de comércios.
-
-O desempenho preditivo foi mensurado através da Matriz de Confusão e das métricas clássicas de classificação multiclasse ponderadas: Acurácia Global, Precisão Macro, Recall Macro e F1-Score Macro:
+\subsection{Métricas para extração óptica e reconhecimento de texto}
+Para avaliar a qualidade da transcrição em relação à verdade de referência fornecida pelos CSVs bancários oficiais, adotaram-se o \textit{Character Error Rate} (CER) e o \textit{Word Error Rate} (WER), formalmente definidos na Seção~\ref{sec:fund_metricas_ocr} a partir da Distância de Edição de Levenshtein $L(\cdot, \cdot)$, aqui agregados sobre o corpus de $N$ transações auditadas ($ref_i$ denotando o texto oficial no CSV e $hyp_i$ a transcrição obtida pelo motor de OCR para a $i$-ésima transação). Complementarmente, define-se a \textbf{Taxa de Casamento Exato} (\textit{Exact Match Rate}) como a fração percentual de transações transcritas com exatidão perfeita ($L(ref_i, hyp_i) = 0$):
 \begin{equation}
-	\text{Acurácia} = \frac{\sum_{k=1}^{K} TP_k}{\text{Total de Amostras}}, \quad
-	\text{F1-Score Macro} = \frac{1}{K} \sum_{k=1}^{K} \frac{2 \cdot \text{Precisão}_k \cdot \text{Recall}_k}{\text{Precisão}_k + \text{Recall}_k}
+	\text{EMR} = \frac{1}{N} \sum_{i=1}^{N} \mathbb{I}[L(ref_i, hyp_i) = 0]
 \end{equation}
-onde $K$ representa o total de categorias efetivamente avaliadas ($K = 11$ no acervo disponível). A adoção primordial do F1-Score Macro justifica-se pela sua capacidade de avaliar a assertividade de forma equitativa em classes minoritárias desbalanceadas (como Educação e Moradia), impedindo que o modelo mascare erros através de acertos concentrados nas classes majoritárias (como Alimentação).
 
-\section{Resultados da Extração e Pré-Processamento Óptico}
+\subsection{Métricas para classificação semântica de transações}
+\label{sec:val_protocolo_classificacao}
+Para a classificação de categorias, adotou-se o particionamento \textbf{por estabelecimento} (Seção~\ref{sec:val_dataset_classificacao}): 69\% para treinamento, 11\% nominalmente reservados para validação, e 20\% (334 transações) mantidos estritamente congelados para teste cego, com todas as ocorrências de um mesmo comércio confinadas a um único conjunto. Na implementação efetiva da esteira experimental, o conjunto de validação foi incorporado ao conjunto de treinamento -- formando o conjunto ``treino+validação'', de 1.326 transações, sobre o qual se computaram a validação cruzada 5-fold (\textit{5-fold cross-validation}) e o ajuste final de cada arquitetura -- e não foi empregado para uma busca sistemática de hiperparâmetros: os valores adotados por cada modelo (Tabela~\ref{tab:hiperparametros}) foram fixados \textit{a priori}, não sintonizados empiricamente. Essa lacuna é registrada como limitação do trabalho (Seção~\ref{sec:concl_limitacoes}). A comparação entre a validação cruzada e o teste cego quantifica o efeito de memorização de comércios.
+
+\begin{table}[htb]
+\centering
+\caption{Hiperparâmetros efetivamente adotados por arquitetura (valores fixados \textit{a priori}).}
+\label{tab:hiperparametros}
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{3.2cm} >{\raggedright\arraybackslash}p{11.6cm}@{}}
+	\toprule
+	\textbf{Arquitetura} & \textbf{Hiperparâmetros} \\
+	\midrule
+	Vetorização TF-IDF & \texttt{ColumnTransformer} com dois vetorizadores concatenados: palavras (\textit{analyzer=word}, $n$-gramas (1,2), \textit{min\_df}=1, \textit{sublinear\_tf}=True) e caracteres (\textit{analyzer=char\_wb}, $n$-gramas (2,4), \textit{min\_df}=1); sem dimensão máxima de vocabulário \\
+	\addlinespace
+	TF-IDF + Naive Bayes & \texttt{MultinomialNB} nos valores padrão do \textit{scikit-learn} (suavização de Laplace $\alpha=1{,}0$) \\
+	\addlinespace
+	TF-IDF + Random Forest & \texttt{RandomForestClassifier}: 400 árvores, \texttt{class\_weight="balanced\_subsample"} (tratamento de desbalanceamento), profundidade máxima não limitada (padrão \textit{scikit-learn}) \\
+	\addlinespace
+	ByT5 com ajuste fino & \texttt{google/byt5-small}; taxa de aprendizado $5\times10^{-4}$; 12 épocas (sem parada antecipada -- critério de parada é o número fixo de épocas); lote de 16 amostras (sem acumulação de gradiente); proporção de aquecimento (\textit{warmup ratio}) 0,1; decaimento de pesos (\textit{weight decay}) 0,01; comprimento máximo de entrada/saída de 64/16 \textit{tokens} \\
+	\bottomrule
+\end{tabular}
+\fonte{Elaborada pelo autor (\the\year), a partir de \codepath{notebooks/experimentos/02_baselines.py} e \codepath{03_byt5.py}.}
+\end{table}
+
+O desempenho preditivo foi mensurado através da Matriz de Confusão e de quatro métricas clássicas de classificação multiclasse, a partir das contagens por categoria $TP_k$, $FP_k$ e $FN_k$ e das grandezas Precisão$_k$ e Revocação$_k$ já formalizadas na Seção~\ref{sec:fund_metricas_classificacao}: Acurácia Global (Equação~\ref{eq:acuracia}), Precisão Macro (Equação~\ref{eq:precisao_macro}), Revocação Macro (Equação~\ref{eq:recall_macro}) e F1-Macro (Equação~\ref{eq:f1_macro_cap4}).
+\begin{equation}
+	\label{eq:acuracia}
+	\text{Acurácia} = \frac{\sum_{k=1}^{K} TP_k}{\text{Total de Amostras}}
+\end{equation}
+\begin{equation}
+	\label{eq:precisao_macro}
+	\text{Precisão Macro} = \frac{1}{K} \sum_{k=1}^{K} \text{Precisão}_k
+\end{equation}
+\begin{equation}
+	\label{eq:recall_macro}
+	\text{Revocação Macro} = \frac{1}{K} \sum_{k=1}^{K} \text{Revocação}_k
+\end{equation}
+\begin{equation}
+	\label{eq:f1_macro_cap4}
+	\text{F1-Macro} = \frac{1}{K} \sum_{k=1}^{K} \frac{2 \cdot \text{Precisão}_k \cdot \text{Revocação}_k}{\text{Precisão}_k + \text{Revocação}_k}
+\end{equation}
+onde $K$ representa o total de categorias efetivamente avaliadas ($K = 11$ no acervo disponível). A adoção primordial do F1-Macro justifica-se pela sua capacidade de avaliar o desempenho preditivo de forma equitativa em classes minoritárias desbalanceadas (como Educação e Moradia), impedindo que o modelo mascare erros através de acertos concentrados nas classes majoritárias (como Alimentação).
+
+\subsection{Intervalos de confiança e teste de significância}
+\label{sec:val_significancia}
+Com apenas 334 transações no conjunto de teste cego, distribuídas de forma desbalanceada entre 11 categorias (algumas com 4 a 5 exemplos), diferenças pontuais de poucos pontos percentuais entre arquiteturas não são, por si só, evidência de superioridade real -- podem ser explicadas por ruído amostral. Para caracterizar essa incerteza, adotaram-se dois procedimentos:
+\begin{itemize}
+	\item \textbf{Intervalos de confiança por reamostragem \textit{bootstrap}} \cite{efron1979bootstrap}: para cada arquitetura, o conjunto de 334 predições pareadas ($y_{\text{verdadeiro}}, y_{\text{predito}}$) foi reamostrado com reposição 2.000 vezes: a cada reamostragem, recalculou-se o F1-Macro, obtendo-se uma distribuição empírica da métrica. O intervalo de confiança de 95\% corresponde aos percentis 2,5\% e 97,5\% dessa distribuição;
+	\item \textbf{Teste de McNemar pareado} \cite{mcnemar1947note}: entre as duas arquiteturas de maior F1-Macro, contabilizaram-se as transações em que apenas uma delas acertou a classificação, formando uma tabela de contingência $2\times2$. A estatística $\chi^2$ (com correção de continuidade) avalia se a discordância entre os dois classificadores é assimétrica o suficiente para rejeitar a hipótese nula de desempenho equivalente, ao nível de significância $\alpha = 0{,}05$.
+\end{itemize}
+Ambos os procedimentos foram aplicados sobre as predições brutas de cada arquitetura no mesmo conjunto de teste cego (Seção~\ref{sec:val_dataset_classificacao}), disponíveis em \codepath{notebooks/experimentos/resultados/predicoes__*.csv} no repositório do projeto (Apêndice~\ref{apendice:repositorio}).
+
+\section{Resultados da extração e pré-processamento óptico}
 \label{sec:val_resultados_ocr}
 
-A primeira bateria experimental comparou rigorosamente dois paradigmas de ingestão documental aplicados sobre o acervo de faturas do C6 Bank:
+A primeira bateria experimental comparou rigorosamente dois paradigmas de ingestão documental (Seção~\ref{sec:fund_paradigmas_ingestao}) aplicados sobre o acervo de faturas do C6 Bank:
 \begin{enumerate}
 	\item \textbf{Tesseract OCR (versão 5.3):} Paradigma convencional baseado em visão computacional e OCR óptico rasterizado, processando as páginas convertidas em imagens de alta resolução (300 DPI) com modelos de idioma para português (\texttt{por});
-	\item \textbf{IBM Docling V2:} Paradigma moderno de compreensão de leiaute de documentos (*Document Layout Analysis*), integrando o backend digital PyPdfium2 com modelos neurais de detecção e segmentação de tabelas (*Table Transformer*), gerando como saída texto estruturado em tabelas Markdown.
+	\item \textbf{IBM Docling V2:} Paradigma moderno de compreensão de leiaute de documentos (\textit{Document Layout Analysis}), integrando o \textit{backend} digital PyPdfium2 com modelos neurais de detecção e segmentação de tabelas (\textit{Table Transformer}), gerando como saída texto estruturado em tabelas Markdown.
 \end{enumerate}
 
-A avaliação englobou \textbf{1.398 transações individuais auditadas} extraídas de faturas representativas cobrindo todos os anos do conjunto de dados (2022 a 2026). Para cada transação da verdade-terrestre contida no arquivo CSV oficial da instituição financeira, avaliou-se tanto a cadeia completa da transação (\textit{Descrição do Estabelecimento + Valor Monetário}) quanto o campo isolado da descrição comercial.
+Cabe explicitar o desenho experimental: as faturas do C6 Bank utilizadas nesta bateria são \textbf{PDFs nativos digitais}, com camada de texto codificada (Seção~\ref{sec:fund_paradigmas_ingestao}) -- não documentos escaneados ou fotografados. O Docling V2 opera nesse regime em seu paradigma natural, extraindo o texto diretamente da codificação digital do arquivo. O Tesseract, por não realizar essa extração nativa, foi aplicado sobre a rasterização das mesmas páginas em imagens de 300 DPI, isto é, fora do cenário em que o reconhecimento óptico é estritamente necessário. A comparação a seguir mede, portanto, o \textbf{custo de descartar a camada de texto nativa} de um PDF já digital e submetê-lo a rasterização seguida de OCR -- não uma comparação entre dois motores de OCR sobre material genuinamente escaneado, cenário em que o Tesseract permanece a escolha pertinente e que não foi avaliado nesta pesquisa (Seção~\ref{sec:concl_limitacoes}).
 
-\subsection{Desempenho Quantitativo Global: Docling versus Tesseract}
+A avaliação englobou \textbf{14 das 49 faturas} pareadas do acervo C6 Bank (Seção~\ref{sec:val_datasets}), totalizando \textbf{699 transações auditadas}: duas a três competências por ano civil (2022--2026), escolhidas para cobrir a variação temporal do acervo. Não foi aplicado um procedimento de amostragem probabilística documentado; trata-se de uma amostra de conveniência, e os resultados desta seção devem ser lidos como um diagnóstico sobre essas 14 faturas, não uma estimativa com garantias estatísticas sobre as 49. Para cada transação da verdade de referência contida no arquivo CSV oficial da instituição financeira, avaliou-se tanto a cadeia completa da transação (\textit{Descrição do Estabelecimento + Valor Monetário}) quanto o campo isolado da descrição comercial, totalizando \textbf{1.398 comparações} entre predição e verdade de referência.
 
-Os resultados médios consolidados de todas as faturas avaliadas são apresentados na Tabela~\ref{tab:resultados_ocr_consolidados}.
+\subsection{Desempenho quantitativo global: Docling V2 versus Tesseract}
+
+Os resultados médios consolidados das 14 faturas avaliadas (de um total de 49 pareadas no acervo) são apresentados na Tabela~\ref{tab:resultados_ocr_consolidados}.
 
 \begin{table}[htb]
 	\centering
@@ -120,17 +191,17 @@ Os resultados médios consolidados de todas as faturas avaliadas são apresentad
 			\toprule
 			\textbf{Métrica de Avaliação} & \textbf{Docling V2} & \textbf{Tesseract OCR} & \textbf{Vantagem / Impacto} \\
 			\midrule
-			\textbf{CER (Transação Completa)} & \textbf{5,72\%} ($\pm$ 6,75\%) & 52,82\% ($\pm$ 9,84\%) & \textbf{Docling erra 9,2x menos caracteres} \\
-			\textbf{WER (Transação Completa)} & \textbf{10,14\%} ($\pm$ 12,47\%) & 85,36\% ($\pm$ 12,43\%) & \textbf{Docling erra 8,4x menos palavras} \\
-			\textbf{CER (Apenas Descrição)} & \textbf{6,42\%} ($\pm$ 8,20\%) & 54,60\% ($\pm$ 12,54\%) & \textbf{Docling erra 8,5x menos na descrição} \\
-			\textbf{WER (Apenas Descrição)} & \textbf{10,26\%} ($\pm$ 13,67\%) & 93,34\% ($\pm$ 14,67\%) & \textbf{Docling é 9,1x mais preciso} \\
+			\textbf{CER (Transação Completa)} & \textbf{5,72\%} ($\pm$ 6,75\%) & 52,82\% ($\pm$ 9,84\%) & \textbf{Docling V2 erra 9,2$\times$ menos caracteres} \\
+			\textbf{WER (Transação Completa)} & \textbf{10,14\%} ($\pm$ 12,47\%) & 85,36\% ($\pm$ 12,43\%) & \textbf{Docling V2 erra 8,4$\times$ menos palavras} \\
+			\textbf{CER (Apenas Descrição)} & \textbf{6,42\%} ($\pm$ 8,20\%) & 54,60\% ($\pm$ 12,54\%) & \textbf{Docling V2 erra 8,5$\times$ menos na descrição} \\
+			\textbf{WER (Apenas Descrição)} & \textbf{10,26\%} ($\pm$ 13,67\%) & 93,34\% ($\pm$ 14,67\%) & \textbf{Docling V2 é 9,1$\times$ mais preciso} \\
 			\textbf{Distância de Levenshtein Média} & \textbf{1,30 caracteres} & 10,72 caracteres & \textbf{Tesseract erra +9,4 caracteres por linha} \\
-			\textbf{Taxa de Casamento Exato (\textit{Exact Match})} & \textbf{86,2\%} & 3,3\% & \textbf{Docling acerta +82,9 pontos percentuais} \\
-			\textbf{Tempo Médio de Processamento / Fatura} & \textbf{5,56 segundos} & 8,76 segundos & \textbf{Docling é 1,6x mais rápido} \\
+			\textbf{Taxa de Casamento Exato (\textit{Exact Match})} & \textbf{86,2\%} & 3,3\% & \textbf{Docling V2 acerta +82,9 pontos percentuais} \\
+			\textbf{Tempo Médio de Processamento / Fatura} & \textbf{5,56 segundos} & 8,76 segundos & \textbf{Docling V2 é 1,6$\times$ mais rápido} \\
 			\bottomrule
 		\end{tabular}%
 	}
-	\fonte{Elaborado pelo autor (\the\year).}
+	\fonte{Elaborada pelo autor (\the\year).}
 \end{table}
 
 A Tabela~\ref{tab:resultados_ocr_detalhado} detalha o comportamento dos dois motores por competência mensal ao longo dos cinco anos do acervo histórico analisado.
@@ -144,10 +215,10 @@ A Tabela~\ref{tab:resultados_ocr_detalhado} detalha o comportamento dos dois mot
 			\toprule
 			\multirow{2}{*}{\textbf{Competência}} & \multirow{2}{*}{\textbf{Págs.}} & \multirow{2}{*}{\textbf{Qtd. GT}} & \multicolumn{2}{c}{\textbf{CER Completo (\%)}} & \multicolumn{2}{c}{\textbf{WER Completo (\%)}} & \multicolumn{2}{c}{\textbf{Casamento Exato (\%)}} & \multicolumn{2}{c}{\textbf{Tempo de Extração (s)}} \\
 			\cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9} \cmidrule(lr){10-11}
-			& & & \textbf{Docling} & \textbf{Tesseract} & \textbf{Docling} & \textbf{Tesseract} & \textbf{Docling} & \textbf{Tesseract} & \textbf{Docling} & \textbf{Tesseract} \\
+			& & & \textbf{Docling V2} & \textbf{Tesseract} & \textbf{Docling V2} & \textbf{Tesseract} & \textbf{Docling V2} & \textbf{Tesseract} & \textbf{Docling V2} & \textbf{Tesseract} \\
 			\midrule
 			2022-01 & 6 & 25 & 15,1\% & 60,9\% & 21,3\% & 89,0\% & 76,0\% & 0,0\% & 3,35 s & 6,80 s \\
-			2022-02 & 6 & 34 & 4,0\%  & 67,4\% & 7,6\%  & 106,3\%& 79,4\% & 0,0\% & 8,01 s & 6,91 s \\
+			2022-02 & 6 & 34 & 4,0\%  & 67,4\% & 7,6\%  & 106,3\%$^{\ast}$& 79,4\% & 0,0\% & 8,01 s & 6,91 s \\
 			2022-04 & 7 & 51 & 13,1\% & 63,5\% & 24,3\% & 90,1\% & 41,2\% & 0,0\% & 5,95 s & 7,93 s \\
 			2023-01 & 7 & 57 & 1,8\%  & 50,9\% & 4,8\%  & 79,8\% & 96,5\% & 1,8\% & 5,45 s & 8,24 s \\
 			2023-02 & 7 & 45 & 24,6\% & 39,1\% & 46,1\% & 63,3\% & 57,8\% & 33,3\%& 4,69 s & 8,06 s \\
@@ -161,64 +232,67 @@ A Tabela~\ref{tab:resultados_ocr_detalhado} detalha o comportamento dos dois mot
 			2026-02 & 9 & 43 & 2,3\%  & 41,0\% & 2,7\%  & 68,2\% & 95,3\% & 0,0\% & 5,51 s & 10,54 s \\
 			2026-08 & 9 & 56 & 2,0\%  & 38,1\% & 2,4\%  & 65,5\% & 94,6\% & 0,0\% & 5,57 s & 10,74 s \\
 			\midrule
-			\textbf{Média} & \textbf{7,5} & \textbf{49,9} & \textbf{5,7\%} & \textbf{52,8\%} & \textbf{10,1\%} & \textbf{85,4\%} & \textbf{86,2\%} & \textbf{3,3\%} & \textbf{5,56 s} & \textbf{8,76 s} \\
+			\textbf{Média} & \textbf{7,5} & \textbf{49,9} & \textbf{5,72\%} & \textbf{52,82\%} & \textbf{10,14\%} & \textbf{85,36\%} & \textbf{86,2\%} & \textbf{3,3\%} & \textbf{5,56 s} & \textbf{8,76 s} \\
 			\bottomrule
 		\end{tabular}%
 	}
-	\fonte{Elaborado pelo autor (\the\year).}
+	\begin{flushleft}
+		\footnotesize $^{\ast}$ Diferentemente do CER e da Taxa de Casamento Exato, o WER (Seção~\ref{sec:fund_metricas_ocr}) não é limitado superiormente a 100\%: como o termo de Inserção $I_w$ no numerador não guarda relação de tamanho com o total de palavras de referência $N_w$ no denominador, uma transcrição suficientemente fragmentada (por exemplo, quando o Tesseract quebra uma linha tabular em \textit{tokens} espúrios adicionais) pode inserir mais palavras espúrias do que a referência possui, produzindo WER $>100\%$ -- é o que ocorre em 2022-02.
+	\end{flushleft}
+	\fonte{Elaborada pelo autor (\the\year).}
 \end{table}
 
-\subsection{Análise Visual das Métricas e Dispersão de Erros}
+\subsection{Análise visual das métricas e dispersão de erros}
 
-A distribuição das taxas de erro de caracteres (CER) e de palavras (WER) é ilustrada no gráfico \textit{boxplot} da Figura~\ref{fig:distribuicao_cer_wer}. Observa-se que a distribuição do Docling se concentra quase na totalidade próxima de zero (mediana de CER inferior a 2,5\%), enquanto o Tesseract exibe dispersão ampla e média superior a 50\% de erro por transação.
+A distribuição das taxas de erro de caracteres (CER) e de palavras (WER) é ilustrada no diagrama de caixa da Figura~\ref{fig:distribuicao_cer_wer}. Observa-se que a distribuição do Docling V2 se concentra quase na totalidade próxima de zero (mediana de CER inferior a 2,5\%), enquanto o Tesseract exibe dispersão ampla e média superior a 50\% de erro por transação.
 
 \begin{figure}[htb]
 	\centering
 	\caption{Distribuição comparativa de CER e WER entre Docling V2 e Tesseract OCR.}
 	\label{fig:distribuicao_cer_wer}
 	\includegraphics[width=0.88\textwidth]{assets/grafico_distribuicao_cer_wer.png}
-	\fonte{Elaborado pelo autor (\the\year).}
+	\fonte{Elaborada pelo autor (\the\year).}
 \end{figure}
 
-A evolução temporal do CER ao longo das diferentes faturas bancárias é exibida na Figura~\ref{fig:evolucao_cer_faturas}. Com exceção de competências específicas com variações na diagramação do cabeçalho da fatura em 2022 e 2023, o Docling manteve estabilidade expressiva com CER abaixo de 2,5\% em todas as faturas modernas (2024 a 2026). Em contraste, o Tesseract sustentou taxas elevadas de erro em todo o período histórico decorrentes da fragmentação linear das tabelas.
+A evolução temporal do CER ao longo das diferentes faturas bancárias é exibida na Figura~\ref{fig:evolucao_cer_faturas}. Com exceção de competências específicas com variações na diagramação do cabeçalho da fatura em 2022 e 2023, o Docling V2 manteve estabilidade expressiva com CER abaixo de 2,5\% em todas as faturas modernas (2024 a 2026). Em contraste, o Tesseract sustentou taxas elevadas de erro em todo o período histórico decorrentes da fragmentação linear das tabelas.
 
 \begin{figure}[htb]
 	\centering
 	\caption{Taxa de Erro de Caracteres (CER \%) por competência de fatura (C6 Bank 2022--2026).}
 	\label{fig:evolucao_cer_faturas}
 	\includegraphics[width=0.95\textwidth]{assets/grafico_evolucao_cer_faturas.png}
-	\fonte{Elaborado pelo autor (\the\year).}
+	\fonte{Elaborada pelo autor (\the\year).}
 \end{figure}
 
-Na Figura~\ref{fig:exato_levenshtein_ocr}, analisa-se a Taxa de Casamento Exato (\textit{Exact Match Rate}) e a Distância Média de Levenshtein por fatura. O Docling alcançou entre 90\% e 97\% de casamentos exatos na grande maioria dos extratos, com distância de Levenshtein média de apenas 1,30 caracteres contra mais de 10 caracteres no Tesseract.
+Na Figura~\ref{fig:exato_levenshtein_ocr}, analisa-se a Taxa de Casamento Exato (\textit{Exact Match Rate}) e a Distância Média de Levenshtein por fatura. O Docling V2 alcançou entre 90\% e 97\% de casamentos exatos na grande maioria dos extratos, com distância de Levenshtein média de apenas 1,30 caracteres contra mais de 10 caracteres no Tesseract.
 
 \begin{figure}[htb]
 	\centering
 	\caption{Taxa de Casamento Exato (\%) e Distância Média de Levenshtein por fatura.}
 	\label{fig:exato_levenshtein_ocr}
 	\includegraphics[width=0.95\textwidth]{assets/grafico_exato_levenshtein_ocr.png}
-	\fonte{Elaborado pelo autor (\the\year).}
+	\fonte{Elaborada pelo autor (\the\year).}
 \end{figure}
 
-\subsection{Análise Qualitativa de Erros e Preservação Estrutural de Tabelas}
+\subsection{Análise qualitativa de erros e preservação estrutural de tabelas}
 
-A discrepância acentuada entre o Docling e o Tesseract decorre fundamentalmente da diferença arquitetural na forma de interpretar a informação presente nos documentos:
+A discrepância acentuada entre o Docling V2 e o Tesseract decorre fundamentalmente da diferença arquitetural na forma de interpretar a informação presente nos documentos:
 
 \begin{enumerate}
 	\item \textbf{Quebra do Leiaute Tabular pelo Tesseract OCR:} O Tesseract opera em nível puramente rasterizado, convertendo a imagem em linhas horizontais sequenciais de texto. Em faturas de cartão de crédito diagramadas em colunas paralelas (\texttt{Data | Descrição | Parcela | Valor}), o Tesseract frequentemente concatena colunas adjacentes (ex.: fundindo a descrição com a parcela em uma única string: ``CLUBE DO INGRESSO - PARCELA 1/2'' em vez de separar a parcela em atributo estruturado), ou salta colunas e captura elementos periféricos de cabeçalho e rodapé (como ilustrado no caso em que transcreveu erroneamente ``JUROS DE MORA'' no lugar de ``EBANX SPOTIFY'');
-	\item \textbf{Preservação da Topologia de Tabelas pelo Docling V2:} O Docling utiliza modelos de visão de documento (*Document Layout Analysis*) e redes neurais treinadas para identificação e reconstrução de tabelas (*Table Transformer*). Ao reconhecer a grade delimitadora da tabela de lançamentos do cartão, o Docling preserva o isolamento de cada célula em Markdown (\texttt{| Data | Estabelecimento | Valor |}), extraindo o texto nativo dos fluxos digitais do PDF sem sofrer distorções ópticas ou fusão de colunas.
+	\item \textbf{Preservação da Topologia de Tabelas pelo Docling V2:} O Docling V2 utiliza modelos de visão de documento (\textit{Document Layout Analysis}) e redes neurais treinadas para identificação e reconstrução de tabelas (\textit{Table Transformer}). Ao reconhecer a grade delimitadora da tabela de lançamentos do cartão, o Docling V2 preserva o isolamento de cada célula em Markdown (\texttt{| Data | Estabelecimento | Valor |}), extraindo o texto nativo dos fluxos digitais do PDF sem sofrer distorções ópticas ou fusão de colunas.
 \end{enumerate}
 
-O Quadro~\ref{quadro:amostras_ocr} apresenta uma amostra qualitativa de transações reais inspecionadas lado a lado, evidenciando as falhas de transcrição típicas de cada abordagem confrontadas com o \textit{Ground Truth} oficial.
+O Quadro~\ref{quadro:amostras_ocr} apresenta uma amostra qualitativa de transações reais inspecionadas lado a lado, evidenciando as falhas de transcrição típicas de cada abordagem confrontadas com a verdade de referência oficial.
 
 \begin{quadro}[htb]
 	\centering
-	\caption{Amostra comparativa de transações reais: \textit{Ground Truth} vs. Docling vs. Tesseract.}
+	\caption{Amostra comparativa de transações reais: verdade de referência vs. Docling V2 vs. Tesseract.}
 	\label{quadro:amostras_ocr}
 	\resizebox{\textwidth}{!}{%
 		\begin{tabular}{lccccc}
 			\toprule
-			\textbf{Fatura} & \textbf{\textit{Ground Truth} (CSV)} & \textbf{Predição Docling} & \textbf{Lev. Doc.} & \textbf{Predição Tesseract} & \textbf{Lev. Tess.} \\
+			\textbf{Fatura} & \textbf{Verdade de Referência (CSV)} & \textbf{Predição Docling V2} & \textbf{Lev. Doc.} & \textbf{Predição Tesseract} & \textbf{Lev. Tess.} \\
 			\midrule
 			2022-01 & ASSAI ATACADISTA 370,33 & ASSAI ATACADISTA 370,33 & 0 & ASSAI ATACADISTA 370,33 & 0 \\
 			2022-01 & CLUBE DO INGRESSO 106,94 & CLUBE DO INGRESSO 106,94 & 0 & CLUBE DO INGRESSO - PARCELA 1/2 106,94 & 14 \\
@@ -229,86 +303,140 @@ O Quadro~\ref{quadro:amostras_ocr} apresenta uma amostra qualitativa de transaç
 			\bottomrule
 		\end{tabular}%
 	}
-	\fonte{Elaborado pelo autor (\the\year).}
+	\fonte{Elaborado pelo autor (\the\year). Embora as colunas de distância de Levenshtein sejam numéricas, o elemento é apresentado como quadro, e não como tabela, porque seu conteúdo predominante é textual (amostras de transcrição lado a lado) e os números cumprem função ilustrativa, não estatística -- mesmo critério da Seção~\ref{sec:rel_quadro_comparativo}.}
 \end{quadro}
 
 Em suma, a escolha do Docling V2 para a etapa de ingestão de documentos mostrou-se determinante para o sucesso do classificador subsequente, pois reduziu o CER de 52,82\% para 5,72\% e elevou a taxa de casamento exato para 86,2\%, entregando descrições limpas e fidedignas para o agente inteligente.
 
-\section{Resultados Comparativos da Classificação de Transações}
+\section{Resultados comparativos da classificação de transações}
 \label{sec:val_resultados_classificacao}
 
 Para responder às questões de pesquisa Q1 e Q2, cinco arquiteturas foram implementadas e
-avaliadas sobre \textbf{o mesmo conjunto de teste-cego de 334 transações}, cujos
+avaliadas sobre \textbf{o mesmo conjunto de teste cego de 334 transações}, cujos
 estabelecimentos são \textbf{disjuntos} dos utilizados em treino e no povoamento da base
 vetorial (particionamento por estabelecimento; Seção~\ref{sec:val_datasets}). Todas as
 métricas e artefatos foram registrados no MLflow. A Tabela~\ref{tab:resultados_modelos}
-sumariza os resultados globais.
+sumariza os resultados globais; a Figura~\ref{fig:comparativo_modelos} ilustra o desempenho preditivo e a Figura~\ref{fig:latencia_modelos}, a latência de cada arquitetura.
 
 \begin{table}[htb]
 	\centering
-	\caption{Comparativo global de desempenho preditivo e tempo médio de inferência (teste-cego de 334 transações, estabelecimentos disjuntos).}
+	\caption{Comparativo global de desempenho preditivo e tempo médio de inferência (teste cego de 334 transações, estabelecimentos disjuntos).}
 	\label{tab:resultados_modelos}
 	\resizebox{\textwidth}{!}{%
-		\begin{tabular}{lccccc}
+		\begin{tabular}{lcccccc}
 			\toprule
-			\textbf{Modelo / Arquitetura} & \textbf{Acurácia} & \textbf{Precisão} & \textbf{Recall} & \textbf{F1-Macro} & \textbf{Latência} \\
+			\textbf{Modelo / Arquitetura} & \textbf{Norm. léxica} & \textbf{Acurácia} & \textbf{Precisão} & \textbf{Revocação} & \textbf{F1-Macro} & \textbf{Latência} \\
 			\midrule
-				Baseline 1: TF-IDF + Naive Bayes & 88,3\% & 69,8\% & 61,7\% & 63,6\% & 0,03 ms \\
-				Baseline 2: TF-IDF + Random Forest & 84,7\% & 74,2\% & 66,5\% & 69,3\% & 0,28 ms \\
-				SOTA Neural: ByT5 Fine-Tuning (byt5-small) & 65,9\% & 52,0\% & 53,0\% & 48,3\% & 65,5 ms \\
-				Busca Vetorial RAG: PGVector (MiniLM) & 82,6\% & 57,9\% & 55,4\% & 56,2\% & 1,42 ms \\
-				\textbf{Agente Híbrido Completo (LangGraph)} & \textbf{61,4\%} & \textbf{68,4\%} & \textbf{62,9\%} & \textbf{60,0\%} & \textbf{6,5 s} \\
+				Linha de Base 1: TF-IDF + Naive Bayes & não & 88,3\% & 69,8\% & 61,7\% & 63,6\% & 0,03 ms \\
+				Linha de Base 2: TF-IDF + Random Forest & não & 84,7\% & 74,1\% & 66,5\% & 69,3\% & 0,28 ms \\
+				Modelo neural em nível de byte: ByT5 (\texttt{byt5-small}) & não & 65,9\% & 52,0\% & 53,0\% & 48,3\% & 65,47 ms \\
+				Busca Vetorial RAG: pgvector (MiniLM) & não & 82,6\% & 57,9\% & 55,4\% & 56,2\% & 1,42 ms \\
+				\textbf{Agente Híbrido Completo (LangGraph)} & \textbf{sim} & \textbf{61,4\%} & \textbf{68,4\%} & \textbf{62,9\%} & \textbf{60,0\%} & \textbf{6.529,97 ms} \\
 			\bottomrule
 		\end{tabular}%
 	}
-	\fonte{Elaborado pelo autor (\the\year). Latência do agente: média por transação, dominada pelo ramo LLM (gemma-4-e4b local).}
+	\fonte{Elaborada pelo autor (\the\year). A coluna ``Norm. léxica'' indica se a arquitetura consumiu a descrição após a rotina de normalização léxica de \textit{gateways} (Apêndice~\ref{apendice:normalizacao}); as quatro primeiras operaram sobre a descrição bruta (a busca vetorial, sobre uma chave de casamento com apenas minúsculas e remoção de acentos), e somente o agente consumiu o texto integralmente normalizado. O efeito dessa etapa sobre cada família de representação é medido na Seção~\ref{sec:val_ablacao_discussao}. Latência em milissegundos para todas as arquiteturas, para comparação direta; a do agente equivale a $\approx$6,5~s e é dominada pelo ramo LLM (gemma-4-e4b local).}
 \end{table}
 
 
 \begin{figure}[htb]
 	\centering
-	\caption{Acurácia, F1-Macro e latência (escala logarítmica) por arquitetura no teste-cego.}
+	\caption{Acurácia e F1-Macro por arquitetura no teste cego (eixo vertical linear, em \%).}
 	\label{fig:comparativo_modelos}
-	\includegraphics[width=0.95\textwidth]{assets/grafico_comparativo_modelos.png}
-	\fonte{Elaborado pelo autor (\the\year).}
+	\includegraphics[width=0.8\textwidth]{assets/grafico_desempenho_modelos.png}
+	\fonte{Elaborada pelo autor (\the\year). A linha tracejada indica o limiar de 85\% da hipótese central.}
 \end{figure}
 
-A análise revela um quadro \textbf{distinto do relatado pela literatura apoiada em grandes
-corpora}, atribuível às características do acervo pessoal disponível (volume reduzido,
+\begin{figure}[htb]
+	\centering
+	\caption{Latência média de inferência por transação e por arquitetura no teste cego (eixo vertical em escala logarítmica, em ms).}
+	\label{fig:latencia_modelos}
+	\includegraphics[width=0.8\textwidth]{assets/grafico_latencia_modelos.png}
+	\fonte{Elaborada pelo autor (\the\year). As cores apenas distinguem as arquiteturas; o valor anotado sobre cada barra é a latência média em milissegundos. A latência do agente inclui o tempo de rede entre as duas máquinas (Seção~\ref{sec:val_ambiente}).}
+\end{figure}
+
+Aplicando o procedimento da Seção~\ref{sec:val_significancia}, a Tabela~\ref{tab:ic_bootstrap} apresenta os intervalos de confiança de 95\% do F1-Macro de cada arquitetura. A tabela inclui, além das cinco configurações da Tabela~\ref{tab:resultados_modelos}, a busca vetorial densa \textit{com} normalização léxica (66,8\%, Seção~\ref{sec:val_ablacao_discussao}): como a normalização tem efeito oposto sobre as duas famílias de representação, a comparação justa entre representação esparsa e densa exige confrontar cada uma em sua melhor configuração, e não a melhor de uma com a pior da outra.
+
+\begin{table}[htb]
+\centering
+\caption{Intervalos de confiança de 95\% (\textit{bootstrap}, $B=2.000$) para o F1-Macro.}
+\label{tab:ic_bootstrap}
+\small
+\begin{tabular}{lccc}
+	\toprule
+	\textbf{Modelo / Arquitetura} & \textbf{Norm. léxica} & \textbf{F1-Macro (pontual)} & \textbf{IC 95\%} \\
+	\midrule
+	TF-IDF + Random Forest & não & 69,3\% & [60,2\%; 73,1\%] \\
+	Busca Vetorial RAG (pgvector) & sim & 66,8\% & [58,6\%; 71,3\%] \\
+	TF-IDF + Naive Bayes & não & 63,6\% & [56,3\%; 67,0\%] \\
+	Agente Híbrido (LangGraph) & sim & 60,0\% & [50,8\%; 65,9\%] \\
+	Busca Vetorial RAG (pgvector) & não & 56,2\% & [51,2\%; 60,2\%] \\
+	ByT5 com ajuste fino & não & 48,3\% & [41,7\%; 53,4\%] \\
+	\bottomrule
+\end{tabular}
+\fonte{Elaborada pelo autor (\the\year), a partir de \codepath{notebooks/experimentos/09_rag_norm_significancia.py} (reamostragem com semente fixa sobre \codepath{resultados/predicoes__*.csv}).}
+\end{table}
+
+Os intervalos de confiança do TF-IDF com Random Forest e do TF-IDF com Naive Bayes -- as duas arquiteturas de maior F1-Macro pontual entre as configurações da Tabela~\ref{tab:resultados_modelos} -- sobrepõem-se substancialmente, sugerindo que a diferença entre elas pode não ser estatisticamente robusta. Aplicando o teste de McNemar pareado entre as duas: de 334 transações, ambas acertam em 272, ambas erram em 28, apenas o Random Forest acerta em 11, e apenas o Naive Bayes acerta em 23; a estatística resultante é $\chi^2 = 3{,}56$ (com correção de continuidade), correspondendo a $p = 0{,}059$ -- \textbf{não significativo} ao nível $\alpha = 0{,}05$. Não há, portanto, evidência estatística suficiente para afirmar que o Random Forest classifica de forma mais eficaz que o Naive Bayes neste acervo, apesar de seu F1-Macro pontual ser superior.
+
+O mesmo teste aplicado entre as melhores configurações de cada família de representação -- TF-IDF com Random Forest sem normalização (69,3\%) e busca vetorial densa com normalização (66,8\%) -- é ainda mais conclusivo quanto à equivalência: ambas acertam em 266 transações, ambas erram em 34, e cada uma acerta sozinha em exatamente 17 casos, resultando em $\chi^2 = 0{,}03$ e $p = 0{,}86$. As duas configurações têm, ainda, acurácia global idêntica (84,7\%). \textbf{Em sua melhor configuração, a representação densa não é estatisticamente distinguível da esparsa neste acervo}; a diferença de 13,1 pontos percentuais entre 69,3\% e 56,2\% que a Tabela~\ref{tab:resultados_modelos} exibe é, em sua maior parte, efeito da configuração de pré-processamento, e não da representação. O que separa as duas famílias, neste regime, é o custo: 0,28~ms de inferência sem dependência de modelo de \textit{embedding} nem de banco vetorial, contra 1,4~ms de consulta ao índice mais a geração do \textit{embedding} e a manutenção da base vetorial.
+
+A análise revela um quadro \textbf{distinto da expectativa corrente na literatura de PLN apoiada
+em grandes \textit{corpora}, segundo a qual representações densas e arquiteturas mais sofisticadas
+tendem a superar métodos esparsos clássicos} -- aqui, no máximo, os igualam --, atribuível às características do acervo pessoal disponível (volume reduzido,
 11 categorias efetivamente povoadas e forte
 desbalanceamento):
 
 \begin{enumerate}
-	\item \textbf{Os baselines esparsos foram os mais robustos.} O TF-IDF com Random Forest
-	obteve o melhor F1-Macro (\textbf{69,3\%}) e o TF-IDF com Naive
-	Bayes a melhor acurácia global (\textbf{88,3\%}), ambos com
-	latência inferior a 0,3~ms. A vetorização por $n$-gramas de caractere (\texttt{char\_wb},
+	\item \textbf{As linhas de base esparsas dominaram os resultados pontuais, sem diferença estatisticamente significativa entre si.} O TF-IDF com Random Forest
+	obteve o melhor F1-Macro (69,3\%) e o TF-IDF com Naive
+	Bayes a melhor acurácia global (88,3\%), ambos com
+	latência inferior a 0,3~ms -- embora, como discutido acima, o teste de McNemar não rejeite a hipótese de desempenho equivalente entre os dois ($p = 0{,}059$). A vetorização por $n$-gramas de caractere (\texttt{char\_wb},
 	2--4) capturou a morfologia recorrente das descrições brasileiras (``UBER'', ``IFD*'',
-	``DROGA-'') mesmo em estabelecimentos inéditos;
+	``DROGA-'') mesmo em estabelecimentos inéditos. Ressalva: esse F1-Macro de 69,3\% corresponde à configuração \textit{sem} a etapa de normalização léxica (coluna ``Norm. léxica'' da Tabela~\ref{tab:resultados_modelos}); o efeito dessa etapa, oposto entre as duas famílias de representação, é medido na Seção~\ref{sec:val_ablacao_discussao}. Pela mesma razão, a dominância das linhas de base esparsas vale para as configurações da Tabela~\ref{tab:resultados_modelos}, mas não se sustenta quando a busca vetorial densa é avaliada em sua melhor configuração (66,8\% com normalização; Tabela~\ref{tab:ic_bootstrap}), estatisticamente indistinguível do Random Forest ($p = 0{,}86$);
 
-	\item \textbf{A diferença entre validação cruzada e teste-cego foi acentuada.} Sob
+	\item \textbf{A diferença entre validação cruzada e teste cego foi acentuada.} Sob
 	validação cruzada 5-fold (com repetição de estabelecimentos entre folds), o Random Forest
-	atingiu F1-Macro de \textbf{92,7\%}; no teste-cego por estabelecimento o
-	valor caiu para \textbf{69,3\%}. Essa diferença de
-	$\approx$23~pontos percentuais quantifica o quanto o desempenho aparente de um
-	classificador de transações depende da \textbf{memorização de comércios já observados};
+	atingiu F1-Macro de 92,7\%; no teste cego por estabelecimento o
+	valor caiu para 69,3\% -- uma diferença de
+	$\approx$23~pontos percentuais. O mesmo padrão se repete no Naive Bayes (Tabela~\ref{tab:cv_vs_blindtest}):
+	88,5\% sob validação cruzada contra 63,6\% no teste cego, uma diferença de
+	$\approx$25~pontos percentuais. Essa queda consistente nas duas arquiteturas em que a
+	comparação foi medida quantifica o quanto o desempenho aparente de um
+	classificador de transações depende da memorização de comércios já observados, e não apenas de um efeito isolado do Random Forest;
 
-	\item \textbf{O ByT5 ajustado sofreu sobreajuste.} Com 1150 exemplos de treino, o
-	\texttt{byt5-small} convergiu a \textit{loss} de treino inferior a 0,02 mas
-	generalizou mal (F1-Macro \textbf{48,3\%}), colapsando a predição
+	\item \textbf{O ByT5 ajustado sofreu sobreajuste.} Com 1.326 exemplos de treino (conjuntos de treino e validação unificados, Seção~\ref{sec:val_protocolo}), o
+	\texttt{byt5-small} convergiu a uma função de perda no treinamento inferior a 0,02 mas
+	generalizou mal (F1-Macro 48,3\%), colapsando a predição
 	da classe majoritária \textit{Lazer e Entretenimento}. Modelos no nível de byte exigem
-	corpora de ordem de grandeza superior;
+	\textit{corpora} de ordem de grandeza superior;
 
-	\item \textbf{A busca vetorial densa (RAG) ficou limitada pela base fria.} Com
-	488 estabelecimentos vetorizados por
-	\modelemb{} (384-d), apenas
-	\textbf{57,5\%} das transações de teste
-	obtiveram vizinho com similaridade de cosseno $\ge$~0,85; nas demais o vizinho foi
-	semanticamente fraco, resultando em F1-Macro de \textbf{56,2\%}
-	(latência real de consulta no PGVector: \textbf{1,4~ms});
+	\item \textbf{A busca vetorial densa (RAG) ficou limitada pela base fria.} Com 488 estabelecimentos vetorizados por \modelemb{} (384-d), apenas 57,5\% das transações de teste obtiveram vizinho com similaridade de cosseno $\ge$~0,85; nas demais o vizinho foi semanticamente fraco, resultando em F1-Macro de 56,2\% sobre a descrição bruta -- e de 66,8\% quando a consulta e a base são normalizadas lexicalmente (Seção~\ref{sec:val_ablacao_discussao}), configuração em que a busca densa iguala o Random Forest. A latência real de consulta no pgvector foi de 1,4~ms\footnote{Tempo isolado da instrução SQL de busca por similaridade no índice, sem incluir a geração do \textit{embedding} da consulta, medida separadamente sobre um lote pré-codificado; a Seção~\ref{sec:val_mlops} esclarece a diferença frente à latência de ponta a ponta do agente.};
 
-	\item \textbf{O Agente Híbrido combinou os dois ramos, ao custo de latência.} O agente roteou 52\% das transações para a busca vetorial (mediana de 40~ms) e 48\% para o LLM local (dezenas de segundos), acionando confirmação humana em 4,5\% dos casos. Atingiu acurácia de 61,4\% e F1-Macro de 60,0\% (latência média ponderada de 6,5~s). O F1-Macro do agente supera o da busca vetorial isolada (56,2\%) --- o ramo LLM recupera parte das classes de cauda --- mas sua acurácia global é a mais baixa entre os modelos, porque o ramo LLM, sob a diretriz anti-alucinação, tende a rotular como \textit{Despesas Diversas} nomes cuja categoria era lexicalmente evidente (acurácia condicional do ramo LLM: apenas 21\%, contra 98\% do ramo vetorial).
+	\item \textbf{O Agente Híbrido combinou os dois ramos, ao custo de latência.} O agente roteou 52\% das transações para a busca vetorial (mediana de 40~ms de ponta a ponta\footnote{Latência do caminho vetorial completo dentro do grafo -- geração do \textit{embedding} da consulta, ida e volta assíncrona ao PostgreSQL e demais nós do LangGraph percorridos --, e não apenas a instrução SQL isolada de 1,4~ms do item anterior.}) e 48\% para o ramo LLM local (dezenas de segundos); as transações encaminhadas à confirmação humana (4,5\%) constituem um subconjunto desse ramo LLM, pois a interrupção ocorre após a inferência do modelo, e foram resolvidas nesta avaliação em lote por aceitação automática da própria sugestão do LLM (protocolo na Seção~\ref{sec:val_mlops}). A proporção de 52\% difere dos 57,5\% de cobertura de alta confiança do item anterior porque as duas medições usam pré-processamentos distintos da consulta\footnote{A cobertura do item anterior consulta a base com o texto levemente normalizado (\texttt{chave\_estabelecimento}, o mesmo usado para construí-la) via similaridade de cosseno bruta; o roteamento do agente consulta com o texto integralmente normalizado pela rotina léxica (\texttt{nome\_normalizado}, Apêndice~\ref{apendice:normalizacao}) via o invólucro (\textit{wrapper}) de relevância do LangChain. Essa diferença entre consulta e indexação também contribui para o ganho atribuído à normalização léxica na busca densa (Seção~\ref{sec:val_ablacao_discussao}).}. O agente atingiu acurácia de 61,4\% e F1-Macro de 60,0\% (latência média ponderada de 6,5~s). Seu F1-Macro supera o da busca vetorial isolada (56,2\%) -- o ramo LLM recupera parte das classes de cauda --, mas sua acurácia global é a mais baixa entre os modelos, pelo comportamento de abstenção do ramo LLM analisado na Seção~\ref{sec:val_ablacao_discussao}.
 \end{enumerate}
+
+A Tabela~\ref{tab:cv_vs_blindtest} torna explícito, lado a lado, o contraste entre validação cruzada 5-fold e teste cego por estabelecimento disjunto discutido acima.
+
+\begin{table}[htb]
+	\centering
+	\caption{Validação cruzada 5-fold versus teste cego por estabelecimento disjunto (F1-Macro).}
+	\label{tab:cv_vs_blindtest}
+	\begin{tabular}{lccc}
+		\toprule
+		\textbf{Modelo / Arquitetura} & \textbf{CV 5-fold (média $\pm$ dp)} & \textbf{Teste Cego} & \textbf{Diferença} \\
+		\midrule
+		TF-IDF + Random Forest & 92,7\% $\pm$ 2,6\% & 69,3\% & \textbf{--23,4 p.p.} \\
+		TF-IDF + Naive Bayes & 88,5\% $\pm$ 2,7\% & 63,6\% & \textbf{--24,9 p.p.} \\
+		ByT5 com ajuste fino & N/D & 48,3\% & N/D \\
+		Busca Vetorial RAG (pgvector) & N/D & 56,2\% & N/D \\
+		Agente Híbrido (LangGraph) & N/D & 60,0\% & N/D \\
+		\bottomrule
+	\end{tabular}
+	\fonte{Elaborada pelo autor (\the\year), a partir de \codepath{notebooks/experimentos/resultados/consolidado_modelos.csv}.}
+\end{table}
+
+Ressalva de escopo: a validação cruzada 5-fold (\texttt{StratifiedKFold}, \codepath{notebooks/experimentos/02_baselines.py}) foi implementada apenas para as duas linhas de base esparsas (TF-IDF); não há um procedimento de validação cruzada análogo para o ByT5, a busca vetorial RAG ou o agente híbrido nesta pesquisa (linhas ``N/D'' na tabela), o que é registrado como limitação na Seção~\ref{sec:concl_limitacoes}. O achado de $\approx$23--25~pontos percentuais de diferença está, portanto, empiricamente ancorado nas duas arquiteturas esparsas -- que coincidem com as de melhor desempenho pontual no teste cego --, e não foi verificado nas demais três.
 
 \subsection{Acurácia global versus F1-Macro}
 Todos os modelos apresentam acurácia global sensivelmente superior ao F1-Macro (o Naive
@@ -317,14 +445,102 @@ Bayes, por exemplo: 88,3\% de acurácia contra
 (i) o forte desbalanceamento --- \textit{Alimentação} e \textit{Lazer e
 Entretenimento} respondem por cerca de metade do teste; e (ii) o tamanho reduzido das
 classes de cauda --- \textit{Moradia}, \textit{Tecnologia}, \textit{Vestuário} e
-\textit{Educação} contam com 4 a 5 estabelecimentos distintos cada. As categorias
-\textit{Pets}, \textit{Serviços Financeiros} e \textit{Doações e Presentes} não
-tiveram amostragem suficiente e foram agregadas a \textit{Despesas Diversas / Outros}. O
-F1-Macro é adotado como métrica conservadora de referência; os resultados devem ser lidos
+\textit{Educação} contam com 4 a 5 estabelecimentos distintos cada, além das categorias
+agregadas por amostragem insuficiente (Seção~\ref{sec:val_dataset_classificacao}). Diante desse
+cenário, o F1-Macro (justificativa de adoção na Seção~\ref{sec:val_protocolo_classificacao})
+mostra-se conservador. O F1-Ponderado (Equação~\ref{eq:f1_ponderado}), que pesa cada categoria pelo seu suporte, situa-se sistematicamente entre as duas métricas e confirma empiricamente essa leitura: 86,2\% para o Naive Bayes, 83,8\% para o Random Forest, 83,9\% para a busca vetorial, 69,0\% para o agente híbrido e 63,3\% para o ByT5 (\codepath{notebooks/experimentos/resultados/consolidado_modelos.csv}) -- valores próximos da acurácia global, porque as categorias majoritárias dominam a ponderação, e distantes do F1-Macro, que atribui peso igual às classes de cauda. Os resultados devem ser lidos
 como \textbf{diagnóstico sobre um acervo pessoal real de porte reduzido}, não como
 estimativa de desempenho populacional.
 
-\subsection{Desempenho Detalhado por Categoria de Despesa}
+\subsection{Desempenho discriminado por instituição emissora}
+\label{sec:val_desempenho_emissor}
+
+O C6 Bank e o Nubank são citados ao longo deste trabalho como as duas fontes do acervo pessoal (Seção~\ref{sec:val_dataset_classificacao}), mas os resultados apresentados até aqui agregam as duas instituições. A Tabela~\ref{tab:desempenho_emissor} recalcula a acurácia e o F1-Macro de cada arquitetura separadamente sobre os dois subconjuntos do teste cego (234 transações do C6 Bank, 100 do Nubank).
+
+\begin{table}[htb]
+	\centering
+	\caption{Acurácia e F1-Macro por arquitetura, discriminados por instituição emissora (teste cego).}
+	\label{tab:desempenho_emissor}
+	\begin{tabular}{lcccc}
+		\toprule
+		\multirow{2}{*}{\textbf{Modelo / Arquitetura}} & \multicolumn{2}{c}{\textbf{C6 Bank ($n=234$)}} & \multicolumn{2}{c}{\textbf{Nubank ($n=100$)}} \\
+		\cmidrule(lr){2-3} \cmidrule(lr){4-5}
+		& \textbf{Acurácia} & \textbf{F1-Macro} & \textbf{Acurácia} & \textbf{F1-Macro} \\
+		\midrule
+		TF-IDF + Random Forest & 79,1\% & 66,8\% & 98,0\% & 36,2\% \\
+		TF-IDF + Naive Bayes & 84,2\% & 61,6\% & 98,0\% & 36,2\% \\
+		ByT5 com ajuste fino & 52,1\% & 45,7\% & 98,0\% & 36,2\% \\
+		Busca Vetorial RAG (pgvector) & 76,1\% & 54,7\% & 98,0\% & 36,2\% \\
+		Agente Híbrido (LangGraph) & 62,8\% & 60,5\% & 58,0\% & 31,3\% \\
+		\bottomrule
+	\end{tabular}
+	\fonte{Elaborada pelo autor (\the\year), a partir de \codepath{notebooks/experimentos/resultados/predicoes__*.csv} cruzados com a coluna \texttt{fonte\_dataset} de \codepath{data/processed/split_teste.csv}.}
+\end{table}
+
+A coincidência exata de acurácia e F1-Macro (98,0\% e 36,2\%) entre quatro arquiteturas de fundamentos matemáticos distintos no subconjunto do Nubank foi verificada diretamente nos arquivos de predição, transação a transação, para excluir a hipótese de erro de cruzamento entre os arquivos de predição e a coluna de origem. A coincidência é genuína e tem explicação simples, visível na Tabela~\ref{tab:confusao_nubank}: as quatro arquiteturas acertam as mesmas 98 transações e erram exatamente as mesmas 2 -- as duas ocorrências do estabelecimento ``Cinepolis Itaquaquecet'' (rótulo \textit{Lazer e Entretenimento}), ambas classificadas como \textit{Alimentação}, a classe majoritária do recorte. Trata-se de um estabelecimento não observado no treinamento (consequência do particionamento por estabelecimento), cuja descrição não contém nenhum indício léxico das categorias conhecidas; na ausência de evidência, todos os modelos convergem para a classe mais frequente. As demais 98 transações do recorte distribuem-se por poucas descrições recorrentes de \textit{Alimentação} e \textit{Saúde} com padrões léxicos fortes (``Ifd*'', ``Drogaria'', ``Supermercado'', ``Uber*''), que todas as arquiteturas resolvem sem dificuldade. Como o F1-Macro é uma função determinística da matriz de confusão, matrizes idênticas produzem métricas idênticas até a última casa decimal. O Agente Híbrido, único a não compartilhar essa matriz, é também o único com valores distintos.
+
+\begin{table}[htb]
+	\centering
+	\caption{Matriz de confusão do subconjunto do Nubank no teste cego ($n=100$), comum às quatro arquiteturas com métricas idênticas na Tabela~\ref{tab:desempenho_emissor}.}
+	\label{tab:confusao_nubank}
+	\begin{tabular}{lccc}
+		\toprule
+		\textbf{Categoria real} & \textbf{$n$} & \textbf{Acertos} & \textbf{Erros (predição atribuída)} \\
+		\midrule
+		Alimentação & 53 & 53 & -- \\
+		Saúde & 40 & 40 & -- \\
+		Transporte & 3 & 3 & -- \\
+		Lazer e Entretenimento & 2 & 0 & 2 (\textit{Alimentação}) \\
+		Marketplace / E-commerce & 2 & 2 & -- \\
+		\midrule
+		\textbf{Total} & \textbf{100} & \textbf{98} & \textbf{2} \\
+		\bottomrule
+	\end{tabular}
+	\fonte{Elaborada pelo autor (\the\year), a partir de \codepath{notebooks/experimentos/resultados/predicoes__*.csv}. Somente as 5 categorias presentes no recorte são listadas; as 6 ausentes entram com $F1=0$ na média macro sobre 11 categorias.}
+\end{table}
+
+Dois pontos exigem leitura cuidadosa, sob pena de conclusão equivocada:
+
+\begin{itemize}
+	\item \textbf{A acurácia do Nubank é sistematicamente alta (98,0\%) para quatro das cinco arquiteturas -- mas isso reflete a concentração de categorias do subconjunto, não superioridade de generalização.} Como reportado na Seção~\ref{sec:val_dataset_classificacao}, o recorte do Nubank no teste cego cobre apenas 5 das 11 categorias, com 93\% das transações concentradas em \textit{Alimentação} e \textit{Saúde} -- um problema de classificação bem mais fácil que o do C6 Bank, que cobre as 11 categorias em proporções mais equilibradas. O F1-Macro do Nubank, calculado sobre o mesmo universo de 11 categorias usado no restante do capítulo (para permitir comparação direta com as demais tabelas), penaliza estruturalmente esse recorte: as 6 categorias ausentes do subconjunto do Nubank contam como falha total ($F1=0$) na média macro, mesmo sem nenhuma transação desse rótulo para o modelo errar. Por isso o F1-Macro do Nubank (31--36\%) é inferior ao do C6 Bank (46--67\%) apesar da acurácia superior -- o par de métricas mede propriedades diferentes do mesmo recorte, e nenhuma das duas isoladamente permite concluir se a solução generaliza melhor para um leiaute de fatura que para o outro;
+	\item \textbf{O Agente Híbrido é a única arquitetura com desempenho pior no Nubank em ambas as métricas.} A proporção de roteamento entre os ramos vetorial e LLM é semelhante nos dois emissores (C6 Bank: 52,6\% vetorial / 41,5\% LLM / 6,0\% humano; Nubank: 52,0\% vetorial / 47,0\% LLM / 1,0\% humano); a diferença concentra-se no próprio ramo LLM, cuja acurácia condicional cai de 22,7\% no C6 Bank para 12,8\% no Nubank, enquanto o ramo vetorial se mantém equivalente ou superior (96,7\% e 100,0\%, respectivamente). Não foi possível, com os dados disponíveis, isolar se essa queda decorre de diferenças de leiaute textual entre os emissores ou da distribuição de categorias já discutida; fica como investigação futura.
+\end{itemize}
+
+Em suma, o acervo não permite concluir que a solução generaliza igualmente bem entre os dois leiautes de fatura: a comparação direta é confundida pela distribuição desigual de categorias entre os emissores no recorte de teste, um efeito do porte reduzido do subconjunto do Nubank (272 de 1.660 transações rotuladas) e não uma medição controlada de robustez entre instituições.
+
+\subsection{Risco de circularidade entre rotulagem e desempenho}
+\label{sec:val_circularidade}
+
+O conjunto de teste cego foi rotulado por dois métodos de proveniência distinta e conhecida transação a transação (Seção~\ref{sec:val_dataset_classificacao}): \textbf{regra\_lexical} (dicionário de alta precisão; 271 das 334 transações, 81,1\%) e \textbf{categoria\_emissor} (mapeamento da categoria nativa do C6 Bank; 63 transações, 18,9\%). Como o dicionário léxico reconhece exatamente os mesmos padrões de superfície (``UBER'', ``IFD*'', ``DROGA-'') que a vetorização por $n$-gramas de caractere explora, há risco de que os classificadores esparsos estejam, em parte, reaprendendo a regra de rotulagem em vez da semântica da categoria -- o que infla artificialmente seu desempenho relativo. Para investigar essa hipótese, a Tabela~\ref{tab:circularidade} recalcula o F1-Macro de cada arquitetura separadamente nos dois subconjuntos.
+
+\begin{table}[htb]
+\centering
+\caption{F1-Macro por arquitetura, segmentado pela proveniência do rótulo de referência.}
+\label{tab:circularidade}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lccc}
+	\toprule
+	\textbf{Arquitetura} & \textbf{Geral} & \textbf{regra\_lexical (n=271)} & \textbf{categoria\_emissor (n=63)} \\
+	\midrule
+	TF-IDF + Random Forest & 69,3\% & 82,4\% & 39,4\% \\
+	TF-IDF + Naive Bayes & 63,6\% & 85,6\% & 27,6\% \\
+	Busca Vetorial RAG (MiniLM) & 56,2\% & 63,7\% & 28,1\% \\
+	Agente Híbrido (LangGraph) & 60,0\% & 74,6\% & 11,1\% \\
+	ByT5 com ajuste fino & 48,3\% & 53,6\% & 16,5\% \\
+	\bottomrule
+\end{tabular}%
+}
+\fonte{Elaborada pelo autor (\the\year), a partir de \codepath{data/processed/split_teste.csv} (coluna \texttt{metodo\_rotulo}) cruzado com \codepath{notebooks/experimentos/resultados/predicoes__*.csv}.}
+\end{table}
+
+A queda é substancial e sistemática em \textbf{todas as cinco arquiteturas}, não apenas nas de vetorização esparsa: o agente híbrido -- que não emprega $n$-gramas de caractere, apoiando-se em busca vetorial densa e raciocínio via LLM -- sofre a maior queda relativa (de 74,6\% para 11,1\%). Esse padrão uniforme entre famílias de modelo tão distintas admite duas leituras não mutuamente excludentes, e esta monografia não dispõe de evidência suficiente para decidir entre elas:
+\begin{enumerate}
+	\item \textbf{Circularidade específica dos classificadores esparsos:} para o TF-IDF, a hipótese original permanece plausível -- os $n$-gramas de caractere podem estar parcialmente memorizando os mesmos padrões de superfície usados pelo dicionário de rotulagem, inflando seu desempenho no subconjunto \texttt{regra\_lexical};
+	\item \textbf{Dificuldade ou ruído intrínseco do subconjunto \texttt{categoria\_emissor}:} por definição, essas 63 transações são precisamente os casos que o dicionário de alta precisão \textbf{não conseguiu resolver}, herdando o rótulo do código MCC do emissor -- reconhecidamente impreciso (Seção~\ref{sec:val_dataset_classificacao}). A queda uniforme em modelos que não compartilham nenhuma característica com a regra de rotulagem (o agente híbrido, em especial) sugere que ao menos parte do efeito decorre de um \textbf{acervo mais difícil e de verdade de referência mais ruidosa} nesse subconjunto, não de circularidade propriamente dita.
+\end{enumerate}
+Em qualquer uma das leituras, a conclusão prática é a mesma: o F1-Macro de 69,3\% reportado como resultado principal desta pesquisa \textbf{não é uniformemente sustentado} através das fontes de rotulagem, e deve ser interpretado com essa ressalva. Reproduzir esta análise com um subconjunto adicional validado manualmente, independente de ambos os métodos de rotulagem, é indicado como trabalho futuro imediato (Seção~\ref{sec:concl_trabalhos_futuros}). Uma alternativa complementar, de menor custo, seria aplicar \textit{Confident Learning} \cite{northcutt2021aprendizagem} sobre a base rotulada: por estimar a distribuição conjunta entre rótulos observados e rótulos verdadeiros a partir das probabilidades preditas fora da amostra, o método permitiria identificar os lançamentos cujo rótulo semiautomático é provavelmente incorreto -- em especial no subconjunto \textbf{categoria\_emissor}, onde a categorização por código MCC do emissor é reconhecidamente imprecisa -- e priorizá-los para revisão humana, tratando o risco de circularidade como o problema de ruído de rótulo que ele de fato é.
+
+\subsection{Desempenho detalhado por categoria de despesa}
 A Tabela~\ref{tab:resultados_categorias} detalha o comportamento do TF-IDF + Random Forest nas
 categorias efetivamente avaliadas.
 
@@ -334,7 +550,7 @@ categorias efetivamente avaliadas.
 	\label{tab:resultados_categorias}
 	\begin{tabularx}{\textwidth}{X c c c c}
 		\toprule
-		\textbf{Categoria de Despesa} & \textbf{Precisão (\%)} & \textbf{Recall (\%)} & \textbf{F1-Score (\%)} & \textbf{Volume de Teste} \\
+		\textbf{Categoria de Despesa} & \textbf{Precisão (\%)} & \textbf{Revocação (\%)} & \textbf{F1-Score (\%)} & \textbf{Volume de Teste} \\
 		\midrule
 		Alimentação & 69,4\% & 100,0\% & 82,0\% & 100 \\
 		Transporte & 100,0\% & 61,5\% & 76,2\% & 39 \\
@@ -351,56 +567,64 @@ categorias efetivamente avaliadas.
 		\textbf{Média Macro} & \textbf{74,1\%} & \textbf{66,5\%} & \textbf{69,3\%} & \textbf{334} \\
 		\bottomrule
 	\end{tabularx}
-	\fonte{Elaborado pelo autor (\the\year).}
+	\fonte{Elaborada pelo autor (\the\year).}
 \end{table}
 
-
-\begin{figure}[htb]
-	\centering
-	\caption{Matriz de confusão do Agente Híbrido no teste-cego (334 transações).}
-	\label{fig:matriz_confusao_agente}
-	\includegraphics[width=0.92\textwidth]{assets/grafico_matriz_confusao_agente.png}
-	\fonte{Elaborado pelo autor (\the\year).}
-\end{figure}
 
 \begin{figure}[htb]
 	\centering
 	\caption{F1-Score por categoria de despesa (melhor modelo).}
 	\label{fig:f1_categorias}
 	\includegraphics[width=0.85\textwidth]{assets/grafico_f1_categorias.png}
-	\fonte{Elaborado pelo autor (\the\year).}
+	\fonte{Elaborada pelo autor (\the\year).}
 \end{figure}
 
-Categorias com padrões léxicos fortes e volume adequado --- \textit{Alimentação},
+\begin{figure}[htb]
+	\centering
+	\caption{Matriz de confusão do Agente Híbrido no teste cego (334 transações).}
+	\label{fig:matriz_confusao_agente}
+	\includegraphics[width=0.98\textwidth]{assets/grafico_matriz_confusao_agente.png}
+	\fonte{Elaborada pelo autor (\the\year).}
+\end{figure}
+
+A Figura~\ref{fig:f1_categorias} exibe, em ordem crescente, o F1-Score por categoria do TF-IDF + Random Forest da Tabela~\ref{tab:resultados_categorias}: categorias com padrões léxicos fortes e volume adequado --- \textit{Alimentação},
 \textit{Transporte}, \textit{Saúde} e \textit{Marketplace / E-commerce} ---
 alcançaram F1-Score entre 90\% e 100\%. As classes de cauda (\textit{Tecnologia},
 \textit{Vestuário}, \textit{Moradia}) obtiveram F1 nulo ou próximo de zero em quase
 todos os modelos: com 4 a 5 exemplos no teste, um único erro derruba a métrica. Esse é o
 principal fator limitante do F1-Macro.
 
-\subsection{Estudo de Ablação}
+A Figura~\ref{fig:matriz_confusao_agente} apresenta a matriz de confusão do Agente Híbrido e torna visível a natureza dos seus erros, que não se distribuem de forma difusa: concentram-se quase inteiramente na coluna \textit{Despesas Diversas / Outros}. Das 334 transações, 64 de \textit{Alimentação} (de 100), 32 de \textit{Lazer e Entretenimento} (de 67) e 10 de \textit{Saúde} (de 61) foram absorvidas por essa classe residual, além da totalidade das 5 transações de \textit{Vestuário}. Trata-se do padrão de abstenção do ramo LLM discutido na Seção~\ref{sec:val_ablacao_discussao}: diante de um nome que não reconhece, o modelo local prefere a classe ``sem categoria'' a inferir pela pista léxica. Fora dessa coluna, as confusões são raras e semanticamente plausíveis (5 transações de \textit{Transporte} atribuídas a \textit{Moradia}; 2 de \textit{Marketplace / E-commerce} a \textit{Tecnologia}), e a diagonal das classes com padrão léxico forte (\textit{Saúde}, \textit{Transporte}, \textit{Marketplace / E-commerce}) permanece dominante. A matriz sustenta, portanto, a Resposta a Q3 (Seção~\ref{sec:val_respostas_questoes}): o erro típico do agente não é a troca entre categorias afins, mas a recusa em classificar.
+
+\subsection{Estudo de ablação}
+\label{sec:val_ablacao_discussao}
 O estudo de ablação isolou os componentes mensuráveis sem novo custo de inferência do LLM
 (Tabela~\ref{tab:ablacao}). O ramo vetorial do agente respondeu por 52\% das transações (acurácia condicional 98\%) e o ramo LLM por 48\% (acurácia 21\%).
 
 \begin{table}[htb]
 	\centering
-	\caption{Ablação de componentes sobre o teste-cego (variação de F1-Macro).}
+	\caption{Ablação da normalização léxica sobre o teste cego (variação de F1-Macro) e desempenho por ramo do agente (acurácia condicional).}
 	\label{tab:ablacao}
 	\begin{tabularx}{\textwidth}{X c c c}
 		\toprule
-		\textbf{Componente} & \textbf{Com} & \textbf{Sem} & \textbf{$\Delta$ F1 (p.p.)} \\
+		\multicolumn{4}{l}{\textit{Ablação de componente -- F1-Macro no teste cego}} \\
+		\textbf{Componente removido} & \textbf{Com} & \textbf{Sem} & \textbf{$\Delta$ F1 (p.p.)} \\
 		\midrule
-		Normalização léxica (TF-IDF+RF) & 67,4\% & 69,3\% & +1,9 \\
-		Normalização léxica (RAG MiniLM) & 66,8\% & 56,2\% & -10,6 \\
-		Ramo vetorial (RAG) — acurácia condicional & 97,7\% & 21,4\% & +76,3 \\
+		Normalização léxica (TF-IDF + Random Forest) & 67,4\% & 69,3\% & -1,9 \\
+		Normalização léxica (busca vetorial RAG, MiniLM) & 66,8\% & 56,2\% & +10,6 \\
+		\midrule
+		\multicolumn{4}{l}{\textit{Desempenho por ramo do agente -- acurácia condicional (não é ablação)}} \\
+		\textbf{Ramo} & \textbf{Vetorial} & \textbf{LLM} & \textbf{Diferença (p.p.)} \\
+		\midrule
+		Acurácia condicional sobre as transações roteadas a cada ramo & 97,7\% & 21,4\% & +76,3 \\
 		\bottomrule
 	\end{tabularx}
-	\fonte{Elaborado pelo autor (\the\year).}
+	\fonte{Elaborada pelo autor (\the\year). O bloco inferior não é uma ablação: compara a acurácia condicional dos dois ramos do agente, ambos presentes na configuração avaliada; a diferença de 76,3 p.p. não corresponde a uma variação de F1-Macro.}
 \end{table}
 
 
 A ablação revela um efeito \textbf{dependente da representação}. Para os classificadores
-esparsos (TF-IDF + Random Forest), a normalização léxica agressiva de gateways foi
+esparsos (TF-IDF + Random Forest), a normalização léxica agressiva de \textit{gateways} foi
 neutra ou levemente prejudicial ($\Delta$ F1 $\approx -2$~p.p.): a vetorização por
 $n$-gramas de caractere já é robusta a prefixos como ``PAG*'' e ``MP*'', que por vezes
 carregam sinal útil. Para a busca vetorial densa, ao contrário, a normalização foi
@@ -412,22 +636,21 @@ transações que resolveu, enquanto o ramo LLM local (\texttt{gemma-4-e4b}) acer
 21\% ---
 tendendo, sob a diretriz anti-alucinação, a rotular como \textit{Despesas Diversas}
 nomes cuja categoria era lexicalmente evidente (``SAPPORO RESTAURANTE'', ``Drogaria
-Paulista''). A ferramenta de busca na web foi desativada por indisponibilidade de
-conectividade no ambiente experimental.
+Paulista''). A ferramenta de busca na web esteve indisponível durante a avaliação (Seção~\ref{sec:val_ambiente}).
 
-\section{Avaliação de MLOps, Latência e Observabilidade}
+\section{Avaliação de MLOps, latência e observabilidade}
 \label{sec:val_mlops}
 
-A infraestrutura de MLOps gerenciada pelo MLflow registrou integralmente os
+A infraestrutura de MLOps gerenciada pelo MLflow \cite{zaharia2018mlflow} registrou integralmente os
 5 experimentos de classificação
 (parâmetros, métricas, relatórios por categoria, predições e figuras) no experimento
 \texttt{experimento\_faturas}, garantindo reprodutibilidade:
 \begin{itemize}
-	\item \textbf{Human-in-the-Loop:} no teste-cego, 4,5\% das transações
+	\item \textbf{HITL:} no teste cego, 4,5\% das transações (aproximadamente 15, sobre 334)
 	acionaram a interrupção programada para confirmação humana (\texttt{requer\_confirmacao}),
-	correspondendo a nomes ambíguos roteados ao LLM com baixa confiança;
-	\item \textbf{Latência por arquitetura:} a consulta vetorial no PGVector custou
-	1,4~ms; o ramo LLM local (\texttt{gemma-4-e4b}, modelo de
+	correspondendo a nomes ambíguos roteados ao LLM com baixa confiança. \textbf{Protocolo de resolução:} por se tratar de uma execução em lote não assistida (sem operador humano disponível durante a avaliação), essas interrupções foram resolvidas \textbf{automaticamente aceitando a própria sugestão do LLM} como confirmada (\texttt{confirmado=True} programático na retomada do grafo, Seção~\ref{sec:sol_agente_inteligente}), sendo então contabilizadas na acurácia e no F1-Macro do agente exatamente como emitidas pelo ramo LLM -- sem qualquer correção ou informação adicional de um revisor humano real. A rotulagem interna dessas transações como \texttt{fonte="humano"} e confiança 1,0 reflete apenas o rótulo de status do mecanismo de \textit{checkpoint} do LangGraph, não uma validação humana efetiva; nenhuma das cinco arquiteturas recebeu, portanto, vantagem de revisão humana real nesta avaliação. Em produção (\codepath{notebooks/experimentos/05_agente.py}, função \texttt{rodar\_gravar}), o mesmo mecanismo aguarda de fato a confirmação de um usuário, marcando a transação como \texttt{sugerida} até a revisão;
+	\item \textbf{Latência por arquitetura:} a instrução SQL isolada de busca por similaridade no pgvector custou
+	1,4~ms (sem incluir a geração do \textit{embedding} da consulta); já a mediana de ponta a ponta do caminho vetorial completo do agente -- que inclui essa geração de \textit{embedding}, a ida e volta assíncrona ao banco e os demais nós do grafo percorridos -- foi de 40~ms (Seção~\ref{sec:val_resultados_classificacao}, item 5). O ramo LLM local (\texttt{gemma-4-e4b}, modelo de
 	raciocínio no LM Studio) custou 6,5~s por
 	transação, evidenciando o principal gargalo operacional para processamento em lote sem
 	GPU dedicada de maior porte;
@@ -436,60 +659,67 @@ A infraestrutura de MLOps gerenciada pelo MLflow registrou integralmente os
 	reduzindo progressivamente o acionamento do LLM em compras recorrentes.
 \end{itemize}
 
-\section{Respostas às Questões de Pesquisa e Verificação da Hipótese}
+\section{Respostas às questões de pesquisa e verificação da hipótese}
 \label{sec:val_respostas_questoes}
 
 \begin{itemize}
-	\item \textbf{Resposta a Q1:} sob teste-cego rigoroso com estabelecimentos disjuntos,
-	as representações \textbf{esparsas} (TF-IDF com $n$-gramas de caractere) foram mais
-	eficazes que as densas neste acervo de porte reduzido: o TF-IDF + Random Forest
-	(69,3\% de F1-Macro) superou a busca vetorial densa
-	(56,2\%) e o ByT5 ajustado (48,3\%). Modelos
-	densos e agentes LLM tendem a compensar essa diferença apenas com corpora maiores e bases
-	vetoriais já povoadas;
+	\item \textbf{Resposta a Q1:} sob teste cego rigoroso com estabelecimentos disjuntos, e
+	comparando cada família de representação em sua melhor configuração, as representações
+	\textbf{esparsas} (TF-IDF com $n$-gramas de caractere) e as \textbf{densas} (busca vetorial por
+	\textit{embeddings} multilíngues) mostraram-se \textbf{estatisticamente equivalentes} neste acervo de
+	porte reduzido: o TF-IDF + Random Forest (69,3\% de F1-Macro, sem normalização) e a busca vetorial
+	densa com normalização léxica (66,8\%) têm intervalos de confiança sobrepostos, acurácia global
+	idêntica (84,7\%) e discordância perfeitamente simétrica no teste de McNemar ($p = 0{,}86$;
+	Tabela~\ref{tab:ic_bootstrap}). Ambas superaram com folga o ajuste fino do ByT5 (48,3\%) e o
+	agente com LLM local (60,0\%). A diferença de 13,1 pontos percentuais entre 69,3\% e 56,2\%
+	visível na Tabela~\ref{tab:resultados_modelos} decorre de as duas famílias exigirem
+	pré-processamentos opostos (Q4), não de superioridade intrínseca da representação esparsa. O que
+	distingue as duas famílias neste regime é o custo: a representação esparsa entrega o mesmo
+	desempenho a uma fração do custo computacional e sem dependência de modelo de \textit{embedding}
+	nem de base vetorial povoada;
 
 	\item \textbf{Resposta a Q2:} o melhor F1-Macro alcançado foi de
-	69,3\% (acurácia global de até 88,3\%) sobre 11
-	categorias efetivamente povoadas. O limiar de 85\% de F1-Macro \textbf{não foi
+	69,3\% (acurácia global de até 88,3\%) sobre as 11
+	categorias efetivamente povoadas -- recorte estritamente mais favorável que as 14 da taxonomia original (ressalva da Seção~\ref{sec:val_dataset_classificacao}), o que reforça o veredito de não confirmação a seguir. O limiar de 85\% de F1-Macro \textbf{não foi
 	atingido} por nenhuma arquitetura neste protocolo, embora a acurácia global o supere;
 
 	\item \textbf{Resposta a Q3:} os erros concentraram-se em (i) categorias de cauda com
 	4--5 exemplos de teste (F1 nulo para quase todos os modelos) e (ii) nomes opacos de
-	intermediadores (``PAYPAL~*BOSS~LIFE'', ``DIVIPAYPAYMENTS''). O ramo LLM local, sob
+	intermediadores (``PAYPAL~*BOSS~LIFE'', ``DIVIPAYPAYMENTS''). No agente, a matriz de confusão (Figura~\ref{fig:matriz_confusao_agente}) mostra que o erro dominante não é a troca entre categorias afins, mas a absorção de transações com pista léxica clara pela classe residual \textit{Despesas Diversas / Outros}. O ramo LLM local, sob
 	diretriz anti-alucinação, mostrou-se \textbf{contraproducente}, rotulando como
 	\textit{Despesas Diversas} até nomes com pista de categoria explícita; a busca na web
 	que mitigaria nomes informais esteve indisponível no ambiente;
 
 	\item \textbf{Resposta a Q4:} a contribuição da normalização léxica é \textbf{dependente
-	da representação}: neutra/levemente negativa para o TF-IDF ($\Delta$ F1 $\approx -2$~p.p.),
-	mas decisiva para a busca vetorial densa ($\Delta$ F1 $\approx +11$~p.p.). O histórico de
-	marketplace do usuário não pôde ser avaliado por ausência de compras confirmadas na base;
+	da representação}: neutra a levemente negativa para o TF-IDF e decisiva para a busca vetorial densa (Tabela~\ref{tab:ablacao}). O histórico de
+	\textit{marketplace} do usuário não pôde ser avaliado por ausência de compras confirmadas na base;
 
 	\item \textbf{Resposta a Q5:} o ciclo de MLOps com MLflow e aprendizado ativo mostrou-se
 	viável e auditável; as limitações práticas são a \textbf{latência} e a \textbf{baixa
-	acurácia} do LLM local roteado (6,5~s por
-	transação; acurácia condicional de apenas 21\%), que tornam o ramo LLM,
-	neste acervo, menos eficaz que a busca vetorial isolada.
+	acurácia} do ramo LLM local (Seções~\ref{sec:val_ablacao_discussao} e~\ref{sec:val_mlops}), que o tornam,
+	neste acervo, menos eficaz que a busca vetorial isolada. A caracterização empírica de
+	\textit{Data Drift} e \textit{Concept Drift} ao longo do tempo não foi conduzida, embora o
+	acervo do C6 Bank, temporalmente ordenado, o permitisse (Seção~\ref{sec:concl_limitacoes}).
 \end{itemize}
 
-\textbf{Veredito sobre a Hipótese Central:} a hipótese \textbf{não se confirma} na
-métrica primária (F1-Score Macro $>$ 85\%) sob avaliação por estabelecimento: o melhor
-resultado foi 69,3\%. Ela é \textbf{parcialmente sustentada} quando
-o critério é a acurácia global (o Naive Bayes atinge 88,3\%) e quando
-se admite a repetição de estabelecimentos entre treino e teste (validação cruzada:
-92,7\% de F1-Macro). As causas da não confirmação são discutidas na
+\textbf{Veredito sobre as Subhipóteses e a Hipótese Central:} conforme a decomposição formalizada na Seção~\ref{sec:sol_questoes_pesquisa}, cada subhipótese é verificada de forma independente sob o protocolo de teste cego por estabelecimento, adotado como avaliação primária desta pesquisa:
+\begin{itemize}
+	\item \textbf{H1a (Acurácia $>$ 85\%): SUSTENTADA.} O melhor resultado (TF-IDF com Naive Bayes) atinge 88,3\% de acurácia global, superando o limiar;
+	\item \textbf{H1b (F1-Macro $>$ 85\%): REFUTADA.} O melhor resultado (TF-IDF com Random Forest) atinge 69,3\% de F1-Macro, não superando o limiar. Sob validação cruzada convencional -- que admite a repetição de estabelecimentos entre treino e teste, e não corresponde ao protocolo primário desta pesquisa -- o F1-Macro chega a 92,7\%; esse resultado é reportado para evidenciar o efeito de memorização de comércios (Seção~\ref{sec:val_resultados_classificacao}), mas não sustenta H1b nas condições rigorosas adotadas como critério de verificação.
+\end{itemize}
+Como a formulação original da hipótese central é \textbf{conjuntiva} (H1a \textit{e} H1b simultaneamente), a refutação de H1b é suficiente para que a hipótese central, em sua totalidade, seja considerada \textbf{refutada} -- independentemente da sustentação de H1a. As causas da refutação de H1b são discutidas na
 Seção~\ref{sec:concl_limitacoes}: porte e cobertura do acervo rotulado, cauda longa de
-categorias com pouquíssimos exemplos, e rotulagem de referência semiautomática. O pipeline
-técnico (extração, normalização, RAG, agente em grafo, HITL, MLOps) foi integralmente
-implementado e validado do ponto de vista funcional.
+categorias com pouquíssimos exemplos, e rotulagem de referência semiautomática. A esteira
+técnica (extração, normalização, RAG, agente em grafo, HITL, MLOps) foi integralmente
+implementada e validada do ponto de vista funcional.
 
-\section{Considerações Finais do Capítulo}
+\section{Considerações finais do capítulo}
 \label{sec:val_consideracoes_finais}
 
 Este capítulo apresentou a avaliação experimental rigorosa e multidimensional da solução proposta, cobrindo desde a camada primária de ingestão óptica até a tomada de decisão semântica e observabilidade contínua em MLOps. 
 
-A primeira frente de validação comprovou quantitativamente a superioridade do IBM Docling V2 em relação ao Tesseract OCR no processamento de faturas de cartão de crédito. Com base em 1.398 transações auditadas confrontadas com o \textit{Ground Truth} oficial de faturas do C6 Bank entre 2022 e 2026, o Docling reduziu o CER de 52,82\% para 5,72\% e elevou a taxa de casamento exato de 3,3\% para 86,2\%. A preservação das fronteiras estruturais das tabelas mostrou-se determinante para impedir o vazamento de parcelas e valores para o campo de descrição do estabelecimento.
+A primeira frente de validação comprovou quantitativamente que, \textbf{em faturas nativas digitais, a extração com preservação de leiaute supera a rasterização seguida de OCR} no processamento de faturas de cartão de crédito (com a ressalva de escopo da Seção~\ref{sec:val_resultados_ocr}). A redução do CER e o ganho na taxa de casamento exato, quantificados na Seção~\ref{sec:val_resultados_ocr} (Tabela~\ref{tab:resultados_ocr_consolidados}), confirmam que a preservação das fronteiras estruturais das tabelas foi determinante para impedir o vazamento de parcelas e valores para o campo de descrição do estabelecimento.
 
-Na etapa subsequente de classificação semântica, cinco arquiteturas foram avaliadas sobre um conjunto rotulado de 1.660 transações reais em teste-cego por estabelecimento. Os classificadores esparsos clássicos (TF-IDF + Random Forest) mostraram-se os mais robustos (69,3\% de F1-Macro; 84,7\% de acurácia), à frente da busca vetorial densa (56,2\%), do agente híbrido (60,0\% de F1-Macro / 61,4\% de acurácia) e do ByT5 ajustado (48,3\%). Nenhum modelo atingiu o limiar de 85\% de F1-Macro sob esse protocolo, ainda que a acurácia global o supere (Naive Bayes: 88,3\%). A ablação evidenciou que a busca vetorial é o componente determinante do agente (acurácia condicional de 98\% no ramo vetorial contra 21\% no ramo LLM local), e que a normalização léxica é decisiva para os \textit{embeddings} densos ($+11$~p.p.) mas não para os modelos esparsos. O \textit{Human-in-the-Loop} foi acionado em apenas 4,5\% das transações.
+Na etapa subsequente de classificação semântica, cinco arquiteturas foram avaliadas sobre um conjunto rotulado de 1.660 transações reais em teste cego por estabelecimento (Tabela~\ref{tab:resultados_modelos}). O classificador esparso clássico (TF-IDF + Random Forest) obteve o maior F1-Macro do protocolo (\textbf{69,3\%}), estatisticamente indistinguível da busca vetorial densa em sua melhor configuração (66,8\%, com normalização léxica; $p = 0{,}86$) e a uma fração do custo computacional desta -- limiar de 85\% não atingido por nenhum modelo, ainda que a acurácia global o supere (Naive Bayes: 88,3\%). A ablação (Seção~\ref{sec:val_ablacao_discussao}) evidenciou que a busca vetorial é o componente determinante do agente e que o efeito da normalização léxica depende da representação -- razão pela qual a comparação entre as duas famílias de representação só é justa quando cada uma é tomada em sua melhor configuração. O HITL foi acionado em 4,5\% das transações, com a ressalva de simulação da Seção~\ref{sec:val_mlops}.
 
-Tais constatações confirmam a viabilidade funcional integral do pipeline (extração, normalização, RAG, agente em grafo, HITL e MLOps auditável), mas \textbf{não sustentam} a hipótese central na métrica primária (F1-Macro $>$ 85\%) sob avaliação por estabelecimento. As causas --- porte e cobertura do acervo rotulado, cauda longa de categorias com pouquíssimos exemplos, rotulagem semiautomática e capacidade limitada do LLM local --- bem como as perspectivas de superação são discutidas no Capítulo~\ref{Cap:Conclusoes}.
+Tais constatações confirmam a viabilidade funcional integral da esteira (extração, normalização, RAG, agente em grafo, HITL e MLOps auditável). Da hipótese central conjuntiva, a subhipótese de F1-Macro ($>$ 85\%) é \textbf{refutada} sob avaliação por estabelecimento, o que basta para refutar a hipótese central em sua totalidade, ainda que a subhipótese de acurácia global seja sustentada (Seção~\ref{sec:val_respostas_questoes}). As causas da refutação --- porte e cobertura do acervo rotulado, cauda longa de categorias com pouquíssimos exemplos, rotulagem semiautomática e capacidade limitada do LLM local --- bem como as perspectivas de superação são discutidas no Capítulo~\ref{Cap:Conclusoes}.

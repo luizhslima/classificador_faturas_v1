@@ -11,8 +11,6 @@ Reallocating 'name_of_file' (item size: 1) to 42 items.
 A level-1 auxiliary file: USPSC-TA-PreTextual/USPSC-Dedicatoria.aux
 Reallocating 'name_of_file' (item size: 1) to 45 items.
 A level-1 auxiliary file: USPSC-TA-PreTextual/USPSC-Agradecimentos.aux
-Reallocating 'name_of_file' (item size: 1) to 39 items.
-A level-1 auxiliary file: USPSC-TA-PreTextual/USPSC-Epigrafe.aux
 Reallocating 'name_of_file' (item size: 1) to 37 items.
 A level-1 auxiliary file: USPSC-TA-PreTextual/USPSC-Resumo.aux
 Reallocating 'name_of_file' (item size: 1) to 39 items.
@@ -33,6 +31,10 @@ Reallocating 'name_of_file' (item size: 1) to 42 items.
 A level-1 auxiliary file: USPSC-TA-Textual/USPSC-Cap5-Conclusao.aux
 Reallocating 'name_of_file' (item size: 1) to 16 items.
 Reallocating 'name_of_file' (item size: 1) to 34 items.
+Reallocating 'name_of_file' (item size: 1) to 40 items.
+A level-1 auxiliary file: USPSC-TA-PosTextual/USPSC-Apendices.aux
+Reallocating 'name_of_file' (item size: 1) to 43 items.
+A level-1 auxiliary file: USPSC-TA-PosTextual/USPSC-DeclaracaoIA.aux
 Reallocating 'name_of_file' (item size: 1) to 48 items.
 A level-1 auxiliary file: USPSC-TA-PosTextual/USPSC-IndicesRemissivos.aux
 Reallocating 'singl_function' (item size: 4) to 100 items.
@@ -55,44 +57,44 @@ Reallocating 'global_strs' (item size: 1) to 4000000 items.
 | Em caso de dúvidas ou problemas com este estilo procure |
 | http://www.abntex.net.br/                               |
 +---------------------------------------------------------+
-You've used 45 entries,
+You've used 68 entries,
             6728 wiz_defined-function locations,
-            1461 strings with 18741 characters,
-and the built_in function-call counts, 50243 in all, are:
-= -- 5421
-> -- 1088
-< -- 983
-+ -- 1400
-- -- 328
-* -- 3235
-:= -- 6142
-add.period$ -- 159
-call.type$ -- 48
-change.case$ -- 342
-chr.to.int$ -- 82
-cite$ -- 33
-duplicate$ -- 4187
-empty$ -- 2732
-format.name$ -- 1565
-if$ -- 10808
+            1636 strings with 24885 characters,
+and the built_in function-call counts, 70372 in all, are:
+= -- 6903
+> -- 1831
+< -- 952
++ -- 1591
+- -- 549
+* -- 4791
+:= -- 8741
+add.period$ -- 289
+call.type$ -- 71
+change.case$ -- 558
+chr.to.int$ -- 141
+cite$ -- 56
+duplicate$ -- 5004
+empty$ -- 4505
+format.name$ -- 2634
+if$ -- 15900
 int.to.chr$ -- 11
 int.to.str$ -- 3
-missing$ -- 726
-newline$ -- 184
-num.names$ -- 165
-pop$ -- 872
+missing$ -- 1137
+newline$ -- 300
+num.names$ -- 280
+pop$ -- 1360
 preamble$ -- 1
-purify$ -- 173
+purify$ -- 268
 quote$ -- 0
-skip$ -- 4887
+skip$ -- 5768
 stack$ -- 1
-substring$ -- 2197
-swap$ -- 1591
-text.length$ -- 46
+substring$ -- 3084
+swap$ -- 2106
+text.length$ -- 84
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 12
+type$ -- 29
 warning$ -- 0
-while$ -- 264
+while$ -- 459
 width$ -- 0
-write$ -- 557
+write$ -- 965

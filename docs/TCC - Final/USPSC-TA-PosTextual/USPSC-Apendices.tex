@@ -6,58 +6,368 @@
 \begin{apendicesenv}
 % Imprime uma página indicando o início dos apêndices
 \partapendices
-\chapter{apêndice(s)}
-Elemento opcional, que consiste em texto ou documento elaborado pelo autor, a fim de complementar sua argumentação, conforme a ABNT NBR 14724 \cite{nbr14724}.
 
-Os apêndices devem ser identificados por letras maiúsculas consecutivas, seguidas de hífen e pelos respectivos títulos. Excepcionalmente, utilizam-se letras maiúsculas dobradas na identificação dos apêndices, quando esgotadas as 26 letras do alfabeto. A paginação deve ser contínua, dando seguimento ao texto principal. \cite{aguia2020}
 % ----------------------------------------------------------
-\chapter{Exemplo de tabela centralizada verticalmente e horizontalmente}
-\index{tabelas}A \autoref{tab-centralizada} exemplifica como proceder para obter uma tabela centralizada verticalmente e horizontalmente.
-% utilize \usepackage{array} no PREAMBULO (ver em USPSC-modelo.tex) obter uma tabela centralizada verticalmente e horizontalmente
-\begin{table}[htb]
-\ABNTEXfontereduzida
-\caption[Exemplo de tabela centralizada verticalmente e horizontalmente]{Exemplo de tabela centralizada verticalmente e horizontalmente}
-\label{tab-centralizada}
+\chapter{Protocolo do Levantamento Bibliográfico}
+\label{apendice:protocolo_busca}
 
-\begin{tabular}{ >{\centering\arraybackslash}m{6cm}  >{\centering\arraybackslash}m{6cm} }
+Este apêndice documenta formalmente o protocolo do levantamento estruturado da literatura adotado no Capítulo~\ref{chp:trabalhos_relacionados}, garantindo a reprodutibilidade metodológica do levantamento bibliográfico.
+
+\section{Bases de dados consultadas}
+\label{sec:bases_dados}
+As consultas foram executadas entre janeiro e maio de 2026 nas seguintes bases de dados indexadas de relevância internacional e nacional:
+\begin{itemize}
+	\item \textbf{Scopus} (Elsevier);
+	\item \textbf{IEEE Xplore Digital Library};
+	\item \textbf{Google Scholar} e repositórios institucionais (para literatura cinzenta e teses nacionais).
+\end{itemize}
+
+\section{Strings de busca aplicadas}
+\label{sec:strings_busca}
+As sintaxes de busca foram construídas com operadores booleanos AND e OR em múltiplos níveis de especificidade:
+
+\begin{itemize}
+	\item \textbf{String Primária (Intersecção Central do Tema):}
+	\begin{searchquery}
+		("financial transaction*" OR "credit card" OR invoice* OR receipt* OR "nota fiscal") AND (classification OR categorization) AND (OCR) AND ("natural language processing" OR transformer* OR LLM*)
+	\end{searchquery}
+	\vspace{4pt}
+
+	\item \textbf{String Secundária (Saneamento e Correção Pós-OCR):}
+	\begin{searchquery}
+		("post-OCR" OR "OCR error correction") AND ("language model*" OR transformer* OR LLM* OR "byte-level")
+	\end{searchquery}
+	\vspace{4pt}
+
+	\item \textbf{String Terciária (Mineração em Textos Curtos Ruidosos):}
+	\begin{searchquery}
+		("short text*" OR "noisy text*" OR "noisy short text*") AND (classification OR categorization) AND (embeddings OR transformer* OR "deep learning")
+	\end{searchquery}
+\end{itemize}
+
+A String Primária e a String Secundária, por delimitarem de forma mais restrita a interseção com o domínio de aplicação (faturas/transações financeiras e correção pós-OCR, respectivamente), retornaram um volume de registros compatível com triagem manual integral em todas as bases consultadas. A String Terciária, por abranger o campo mais amplo de classificação de textos curtos/ruidosos em geral -- sem o recorte de domínio financeiro --, retornou um volume de registros (centenas a milhares por base) inviável de ser triado exaustivamente dentro do prazo do trabalho. Para essa string, adotou-se um critério de corte explícito: os \textbf{50 registros mais citados} (ordenação por número de citações, decrescente) de cada base foram selecionados para a etapa de triagem por título/resumo, descartando-se os demais. Esse critério prioriza os estudos de maior influência e consolidação na área, à custa de uma cobertura mais rasa da literatura mais recente ainda pouco citada -- limitação reconhecida explicitamente na Seção~\ref{sec:concl_limitacoes} do Capítulo~\ref{chp:conclusao}.
+
+\section{Critérios de inclusão e exclusão}
+\label{sec:criterios_inclusao}
+\begin{itemize}
+	\item \textbf{Critérios de Inclusão (CI):}
+	\begin{enumerate}
+		\item Artigos publicados em periódicos científicos revisados por pares, anais de conferências internacionais indexadas (ICDAR, ACL, EMNLP, NeurIPS) ou dissertações/teses de excelência;
+		\item Estudos que apresentam métricas quantitativas formais de avaliação (Acurácia, F1-Score, CER, WER);
+		\item Trabalhos que detalham o tratamento de textos informais, abreviações, saneamento de OCR ou limitações de infraestrutura de hardware.
+	\end{enumerate}
+	\item \textbf{Critérios de Exclusão (CE):}
+	\begin{enumerate}
+		\item Trabalhos que utilizam LLMs generativos de forma puramente teórica sem mensuração empírica de custos e latência;
+		\item Artigos focados exclusivamente em reconhecimento de caracteres em placas veiculares ou caligrafia manuscrita sem relação com documentos comerciais;
+		\item Cursos \textit{online}, postagens informais de blogs ou documentos sem afiliação institucional verificável.
+	\end{enumerate}
+\end{itemize}
+
+\section{Técnica de snowballing (citação em cascata)}
+\label{sec:snowballing}
+
+Complementarmente à busca direta nas três bases de dados listadas na Seção~\ref{sec:bases_dados} com as strings da Seção~\ref{sec:strings_busca}, adotou-se também a técnica de \textit{snowballing} (citação em cascata) descrita por \citeonline{wohlin2014guidelines}: a partir dos estudos já recuperados pela busca formal, as listas de referências desses trabalhos foram inspecionadas em busca de estudos adicionais pertinentes não capturados pelas strings de busca, mas relevantes ao escopo do levantamento.
+
+Foi por meio dessa técnica -- e não da busca direta nas bases -- que três dos dez estudos incluídos no levantamento (Seção~\ref{sec:rel_analise_estudos}) foram identificados: Zhang, Zhao e LeCun (\citeyear{zhang2015character}), citados em trabalhos de revisão sobre redes neurais convolucionais em nível de caractere; Dhingra et al. (\citeyear{dhingra2016tweet2vec}), citados nas referências bibliográficas de \citeonline{santos2023classificacao}; e a competição ICDAR2019/SROIE de \citeonline{icdar2019competition}, referenciada em trabalhos correlatos de extração de dados de faturas. Três estudos -- \citeonline{araujo2024saneamento}, \citeonline{curcio2026safe} e \citeonline{gandikota2026spatial} -- foram recuperados pela busca direta nas bases (String Primária e Secundária); três -- \citeonline{santos2023classificacao}, \citeonline{souza2025extracao} e \citeonline{farias2025notaconforme} -- em repositórios institucionais nacionais e na biblioteca digital da SBC; e o décimo, \citeonline{ta2023specialized}, por busca direcionada complementar (Seção~\ref{sec:fluxo_selecao}).
+
+\section{Registros recuperados e seleção dos estudos}
+\label{sec:fluxo_selecao}
+
+A Tabela~\ref{tab-fluxo-selecao} apresenta o número de registros recuperados por string e por base na busca direta em Scopus e IEEE Xplore, reconstruído retrospectivamente em setembro de 2026 a partir de reexecução ao vivo das três strings da Seção~\ref{sec:strings_busca} (contagens conferidas contra o contador oficial de resultados de cada base; para a String Terciária, aplicou-se o corte de relevância descrito na mesma seção). Após a remoção de 25 duplicados (na mesma base e entre bases), os 205 registros únicos foram triados por título e resumo, com decisões e justificativas individuais registradas em \texttt{docs/RSL/TRIAGEM\_DECISOES.csv} no repositório do projeto.
+
+\begin{table}[htb]
+\caption{Registros recuperados por busca direta, por string de busca e base (Scopus e IEEE Xplore).}
+\label{tab-fluxo-selecao}
+\centering
+\small
+\begin{tabular}{lrrr}
 \hline
- \centering \textbf{Coluna A} & \textbf{Coluna B}\\
+\textbf{String de busca} & \textbf{Scopus} & \textbf{IEEE Xplore} & \textbf{Total} \\
 \hline
-  Coluna A, Linha 1 & Este é um texto bem maior para exemplificar como é centralizado verticalmente e horizontalmente na tabela. Segundo parágrafo para verificar como fica na tabela\\
-  Quando o texto da coluna A, linha 2 é bem maior do que o das demais colunas  & Coluna B, linha 2\\
+Primária (interseção central do tema)            & 26  & 18 & 44  \\
+Secundária (saneamento e correção pós-OCR)       & 61  & 25 & 86  \\
+Terciária (textos curtos ruidosos; corte por citação) & 50 & 50 & 100 \\
+\hline
+\textbf{Total recuperado}                         & \textbf{137} & \textbf{93} & \textbf{230} \\
+Duplicados removidos (na mesma base e entre bases) &  &  & 25 \\
+\textbf{Registros únicos triados por título/resumo} &  &  & \textbf{205} \\
 \hline
 \end{tabular}
 \begin{flushleft}
-		Fonte: Elaborada pelos autores.\
+\footnotesize Fonte: Elaborada pelo autor (\the\year). Google Scholar não está contemplada nesta tabela por ter sido empregada como busca direcionada a repositórios institucionais e teses nacionais (Seção~\ref{sec:bases_dados}), não como aplicação literal das três strings.
 \end{flushleft}
 \end{table}
+
+Deve-se declarar com clareza o que este levantamento é e o que não é. \textbf{Não se trata de uma revisão sistemática em sentido estrito}: não houve triagem em duas etapas com leitura integral registrada e decisão de inclusão documentada estudo a estudo sobre a totalidade dos candidatos aprovados por título e resumo. A triagem por título e resumo foi, na prática, pouco seletiva (a maior parte dos 205 registros atende aos critérios de inclusão da Seção~\ref{sec:criterios_inclusao}, que são amplos), e reportar a partir dela um funil com ``candidatos aptos'' e ``excluídos após leitura integral'' equivaleria a estimar uma etapa que não foi de fato conduzida. O que se realizou foi um \textbf{levantamento estruturado da literatura}: as strings, bases e critérios acima delimitaram o universo de candidatos, e a seleção dos estudos efetivamente analisados em profundidade na Seção~\ref{sec:rel_analise_estudos} do Capítulo~\ref{chp:trabalhos_relacionados} seguiu um julgamento de \textbf{centralidade em relação às questões da revisão} (QR-1 a QR-4, Seção~\ref{sec:rel_questoes_pesquisa}), prática usual em revisões de escopo quando o volume de literatura correlata é amplo. Os dez estudos incluídos originam-se de quatro canais distintos e complementares, já documentados nas seções anteriores deste apêndice:
+
+\begin{itemize}
+	\item \textbf{Busca direta nas bases} (dentre os 205 registros da Tabela~\ref{tab-fluxo-selecao}): Araújo, Bezerra e Souza Neto (\citeyear{araujo2024saneamento}), pela String Secundária; Curcio, Galfré e Le Van (\citeyear{curcio2026safe}) e Gandikota et al. (\citeyear{gandikota2026spatial}), pela String Primária (Scopus e IEEE Xplore, respectivamente);
+	\item \textbf{Busca direcionada a repositórios institucionais/teses nacionais e à biblioteca digital da SBC} (Seção~\ref{sec:bases_dados}): Santos (\citeyear{santos2023classificacao}), Souza (\citeyear{souza2025extracao}) e Farias, Mendes e Conceição (\citeyear{farias2025notaconforme});
+	\item \textbf{\textit{Snowballing}} (Seção~\ref{sec:snowballing}): Zhang, Zhao e LeCun (\citeyear{zhang2015character}), Dhingra et al. (\citeyear{dhingra2016tweet2vec}) e a competição ICDAR2019/SROIE (\citeyear{icdar2019competition});
+	\item \textbf{Busca direcionada complementar sobre classificação de transações bancárias}, fora das três strings formais -- a String Primária exige o termo OCR e, por isso, não captura trabalhos que classificam descrições de transação já digitais: Ta, Saad e Oh (\citeyear{ta2023specialized}), localizado por busca direcionada ao longo da redação do trabalho, sem registro do canal exato de recuperação, e incorporado ao levantamento por ser o estudo de problema mais próximo ao desta pesquisa.
+\end{itemize}
 
 % ----------------------------------------------------------
-\chapter{Exemplo de tabela com grade}
-\index{tabelas}A \autoref{tab-grade} exemplifica a inclusão de traços estruturadores de conteúdo para melhor compreensão do conteúdo da tabela, em conformidade com as normas de apresentação tabular do IBGE.
-% utilize \usepackage{array} no PREAMBULO (ver em USPSC-modelo.tex) obter uma tabela centralizada verticalmente e horizontalmente
-\begin{table}[htb]
-\ABNTEXfontereduzida
-\caption[Exemplo de tabelas com grade]{Exemplo de tabelas com grade}
-\label{tab-grade}
-\begin{tabular}{ >{\centering\arraybackslash}m{8cm} | >{\centering\arraybackslash}m{6cm} }
-\hline
- \centering \textbf{Coluna A} & \textbf{Coluna B}\\
-\hline
-  A1 & B1\\
-\hline
-  A2 & B2\\
-\hline
-  A3 & B3\\
-\hline
-  A4 & B4\\
-\hline
-\end{tabular}
-\begin{flushleft}
-		Fonte: Elaborada pelos autores.\
-\end{flushleft}
-\end{table}
+\chapter{Esquema do Banco de Dados Relacional e Vetorial}
+\label{apendice:esquema_banco}
 
+Este apêndice apresenta o esquema físico relacional e vetorial implementado no PostgreSQL 16 com a extensão pgvector, correspondente aos modelos ORM declarados na arquitetura da solução.
+
+\section{Tabela de estabelecimentos (base de conhecimento e \textit{embeddings})}
+{\footnotesize
+\begin{verbatim}
+	CREATE TABLE estabelecimentos (
+		id SERIAL PRIMARY KEY,
+		nome_original TEXT NOT NULL,
+		nome_normalizado TEXT NOT NULL,
+		categoria_id INTEGER REFERENCES categorias(id),
+		subcategoria_id INTEGER REFERENCES subcategorias(id),
+		tipo_estabelecimento_id INTEGER REFERENCES tipos_estabelecimento(id),
+		eh_marketplace BOOLEAN NOT NULL DEFAULT FALSE,
+		confianca NUMERIC(4, 3) DEFAULT 0.000,
+		fonte TEXT,
+		metadados JSONB DEFAULT '{}'::jsonb,
+		embedding VECTOR(384),
+		qtd_transacoes INTEGER DEFAULT 1,
+		ultima_atualizacao TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+		criado_em TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+	);
+
+	CREATE INDEX idx_estabelecimentos_embedding ON estabelecimentos
+	USING ivfflat (embedding vector_cosine_ops) WITH (lists = 100);
+\end{verbatim}
+}
+
+\section{Tabela de transações financeiras}
+{\footnotesize
+\begin{verbatim}
+	CREATE TABLE transacoes (
+		id SERIAL PRIMARY KEY,
+		fatura_id INTEGER NOT NULL REFERENCES faturas(id) ON DELETE CASCADE,
+		nome_original TEXT NOT NULL,
+		nome_normalizado TEXT,
+		valor NUMERIC(12, 2) NOT NULL,
+		data_transacao DATE NOT NULL,
+		categoria_id INTEGER REFERENCES categorias(id),
+		subcategoria_id INTEGER REFERENCES subcategorias(id),
+		estabelecimento_id INTEGER REFERENCES estabelecimentos(id),
+		confianca NUMERIC(4, 3) CHECK (confianca BETWEEN 0 AND 1),
+		metodo_classificacao TEXT,
+		categoria_sugerida_id INTEGER REFERENCES categorias(id),
+		subcategoria_sugerida_id INTEGER REFERENCES subcategorias(id),
+		confianca_sugestao NUMERIC(4, 3) CHECK (confianca_sugestao BETWEEN 0 AND 1),
+		origem_detalhamento TEXT,
+		requer_confirmacao BOOLEAN NOT NULL DEFAULT FALSE,
+		status_classificacao TEXT NOT NULL DEFAULT 'pendente',
+		revisado_usuario BOOLEAN DEFAULT FALSE,
+		criado_em TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+	);
+\end{verbatim}
+}
+
+% ----------------------------------------------------------
+\chapter{Repositório de Código-Fonte e Reprodutibilidade}
+\label{apendice:repositorio}
+
+Todo o código-fonte desenvolvido nesta monografia --- microsserviços, processos trabalhadores assíncronos, \textit{notebooks} de experimentação, definições de infraestrutura e \textit{scripts} de banco de dados --- está publicado, sob controle de versão, no seguinte repositório público:
+
+\begin{center}
+	\url{https://github.com/luizhslima/classificador_faturas_v1}
+\end{center}
+
+O repositório é obtido com os submódulos por meio do comando \texttt{git clone -{}-recurse-submodules}. Sua organização de diretórios é resumida a seguir:
+
+\begin{itemize}
+	\item \codepath{infra/} --- arquivos Docker Compose e \textit{scripts} de inicialização (\texttt{setup\_minio.sh}, \texttt{base.sql}, \texttt{basev2.sql}) que provisionam o MinIO, o Apache Kafka e o PostgreSQL~16 com a extensão pgvector;
+	\item \codepath{service-ingestao/} --- API reativa de ingestão em Java (Spring WebFlux), organizada em arquitetura hexagonal, responsável por persistir os arquivos brutos no MinIO e publicar os eventos de ingestão no barramento Kafka;
+	\item \codepath{worker-prata/} --- serviço consumidor de extração em Python que consome os eventos do Kafka e executa a esteira híbrida de conversão documental (IBM Docling V2 e Tesseract OCR);
+	\item \codepath{notebooks/modules/} --- implementação do agente de classificação em grafo de estados (LangGraph): nós, roteadores, contratos Pydantic, serviços de banco de dados e integração com o \textit{vector store};
+	\item \codepath{notebooks/experimentos/} --- \textbf{esteira experimental reprodutível} (\texttt{common.py} e as etapas \texttt{01} a \texttt{08}) que gera integralmente os resultados do Capítulo~\ref{Cap:Ava_Exp}: avaliação de OCR, treino e teste cego das linhas de base clássicas, ajuste do ByT5, busca vetorial densa, execução do agente híbrido, estudo de ablação e consolidação das tabelas e figuras em \LaTeX;
+	\item \codepath{service-classification/} --- API de exposição do serviço de classificação;
+	\item \codepath{web/} --- aplicação \textit{web} de visualização orçamentária e confirmação humana (HITL) (submódulo);
+	\item \codepath{requirements*.txt} --- conjuntos de dependências Python (núcleo da solução, agentes e ambiente de redação da monografia).
+\end{itemize}
+
+Os experimentos de classificação foram rastreados em um servidor MLflow sob o experimento \texttt{experimento\_faturas}, registrando parâmetros, métricas, relatórios por categoria, predições e artefatos gráficos. Em razão do caráter estritamente pessoal e sensível dos dados financeiros utilizados (Seção~\ref{sec:sol_lgpd}), o acervo de faturas reais e os respectivos arquivos de verdade de referência não são distribuídos no repositório.
+
+% ----------------------------------------------------------
+\chapter{\textit{System Prompt} e Contrato Pydantic do Ramo LLM}
+\label{apendice:system_prompt}
+
+Este apêndice reproduz, na íntegra e sem correções editoriais, o \textit{System Prompt} dinâmico efetivamente enviado ao modelo de linguagem no nó \texttt{classificar\_com\_llm} do agente (Seção~\ref{sec:sol_agente_inteligente}), extraído diretamente do código-fonte (\codepath{notebooks/modules/nodes.py}), e o esquema Pydantic \texttt{ClassificacaoLLM} (\codepath{notebooks/modules/structures.py}) que valida a saída estruturada correspondente, tornando o experimento auditável.
+
+\section{\textit{System prompt} dinâmico}
+
+Os trechos entre chaves (\texttt{\{\}}) são preenchidos em tempo de execução: \texttt{dtlk.get('source')} e \texttt{dtlk['extensao']} vêm dos metadados do caminho do arquivo no Data Lakehouse; a regra de origem do dado alterna entre uma instrução de saneamento de OCR ou uma instrução de não presumir erros ópticos, conforme o arquivo seja nativo digital ou óptico; e a lista de categorias permitidas é montada dinamicamente a partir da tabela \texttt{categorias} do banco de dados. A numeração das regras (1 a 4, seguida de 6 a 9, sem a regra 5) é reproduzida exatamente como consta no código-fonte.
+
+{\footnotesize
+\begin{verbatim}
+Você é um assistente financeiro especialista em classificar transações de
+faturas de cartão de crédito no Brasil.
+CONTEXTO DA EXTRAÇÃO:
+- Banco Origem: {dtlk.get('source')}
+- Formato do Dado: {dtlk['extensao']}
+Você tem acesso a ferramentas. Sempre que usar uma ferramenta, certifique-se
+de preencher os parâmetros com um JSON estrito, utilizando os tipos
+corretos (ex: booleanos não devem ter aspas).
+REGRAS DE ANÁLISE:
+1. PROCESSADORES DE PAGAMENTO: Prefixos como "PG*", "PAG*", "MP*", "ZOOP*",
+   "SUMUP*", "IFD*", "EBN*", "HNA*" indicam apenas a maquininha/gateway.
+   Descodifique siglas comuns (IFD/IFOOD=comida, UBR/UBER=transporte,
+   AMZN=marketplace, DROGA=farmácia).
+2. SUA TAREFA É A CATEGORIA, NÃO A MARCA: mesmo sem reconhecer o
+   estabelecimento específico, use pistas genéricas do texto para inferir
+   a categoria. Palavras como "RESTAURANTE", "LANCHONETE", "PIZZA", "ACAI",
+   "PADARIA", "MERCADO", "HORTIFRUTI" => Alimentação; "DROGARIA", "DROGA",
+   "FARMACIA", "OTICA", "CLINICA" => Saúde; "POSTO", "AUTO POSTO", "UBER",
+   "99" => Transporte; "INGRESSE", "INGRESSO", "CINEMA", "STEAM",
+   "PLAYSTATION", "JOGOS", "GAMES" => Lazer e Entretenimento;
+   "MERCADOLIVRE", "AMAZON", "SHOPEE", "MAGALU" => Marketplace /
+   E-commerce. Só use "Despesas Diversas / Outros" quando NENHUMA pista de
+   categoria estiver presente.
+3. COMBATE A ALUCINAÇÕES: não invente a identidade da marca; mas inferir a
+   categoria a partir de pistas genéricas NÃO é alucinação.
+4. REGRA DE ORIGEM DO DADO: {instrucao_ocr}
+6. ESTABELECIMENTOS TOTALMENTE OPACOS: apenas quando o nome for um gateway
+   genérico sem pista (ex.: "DIVIPAYPAYMENTS", "PAYPAL *XXXX") ou um nome
+   próprio informal sem contexto, defina 'requer_confirmacao=true' e
+   confiança <= 0.70.
+7. CADEIA DE PENSAMENTO: Pense passo a passo (raciocínio curto) ANTES de
+   decidir a categoria.
+8. Se houver a ferramenta 'duckduckgo_search', use-a no máximo UMA vez,
+   sem aspas na busca, para nomes obscuros.
+9. SAÍDA FINAL: termine sua resposta com um bloco JSON em uma única linha,
+   no formato exato:
+{"categoria": "<um rótulo EXATO da lista abaixo>", "subcategoria": null,
+ "confianca": <0..1>, "requer_confirmacao": <true|false>,
+ "justificativa": "<curta>", "possiveis_categorias": ["...","...","..."],
+ "raciocinio": "<resumo>"}
+
+CATEGORIAS PERMITIDAS (Você DEVE escolher apenas uma desta lista):
+{';'.join([f'Nome:{tipo.nome} - descrição: {tipo.descricao}' for tipo in tipos])}
+\end{verbatim}
+}
+
+\section{Contrato Pydantic \texttt{ClassificacaoLLM}}
+
+O esquema a seguir valida e tipa a saída estruturada do ramo LLM, empregado pelo nó \texttt{estruturar\_saida\_llm} (Seção~\ref{sec:sol_agente_inteligente}):
+
+{\scriptsize
+\begin{verbatim}
+class ClassificacaoLLM(BaseModel):
+    categoria: str = Field(
+        description="Categoria principal sugerida para a transação."
+    )
+    subcategoria: str | None = Field(
+        default=None,
+        description="Subcategoria sugerida, caso seja possível identificar.",
+    )
+    confianca: float = Field(
+        ge=0.0,
+        le=1.0,
+        description="Confiança da classificação, entre 0 e 1.",
+    )
+    justificativa: str = Field(
+        description="Justificativa curta baseada exclusivamente no nome da transação."
+    )
+    requer_confirmacao: bool = Field(
+        description="True quando a evidência for insuficiente ou houver ambiguidade."
+    )
+    possiveis_categorias: list[str] = Field(
+        default=[],
+        description="Lista de categoria sugeridas de possiveis categorias no minimo 3"
+    )
+    raciocinio: str = Field(
+        description="Raciocionio usado para categorizar a transação"
+    )
+\end{verbatim}
+}
+
+\section{Análise crítica do artefato}
+\label{sec:apendice_prompt_critica}
+
+A reprodução literal acima expõe três defeitos do artefato efetivamente avaliado, que não foram corrigidos antes da execução dos experimentos e que, portanto, integram a configuração cujos resultados o Capítulo~\ref{Cap:Ava_Exp} reporta:
+\begin{enumerate}
+	\item \textbf{Regra ausente:} a numeração salta da regra 4 para a regra 6. A regra 5 foi removida em alguma iteração do desenvolvimento sem renumeração das demais; não há registro do seu conteúdo. Para o modelo, o efeito prático é apenas uma numeração inconsistente, mas o fato revela que o \textit{prompt} não passou por revisão sistemática antes do experimento;
+	\item \textbf{Erros ortográficos nos campos de saída:} as descrições dos campos \texttt{possiveis\_categorias} (``Lista de categoria sugeridas de possiveis categorias no minimo 3'') e \texttt{raciocinio} (``Raciocionio usado para categorizar a transação'') contêm erros de ortografia e de concordância. Como essas descrições são expostas ao modelo pelo mecanismo de saída estruturada, podem degradar marginalmente a compreensão do contrato de saída;
+	\item \textbf{Tensão entre as regras 2 e 3:} a regra 2 instrui a inferir a categoria por pistas genéricas mesmo sem reconhecer o estabelecimento, ao passo que a regra 3 combate alucinações; a ressalva ``inferir a categoria a partir de pistas genéricas NÃO é alucinação'' é uma tentativa, dentro do próprio \textit{prompt}, de resolver essa tensão. O comportamento observado no experimento -- o ramo LLM rotulou como \textit{Despesas Diversas} nomes com pista de categoria explícita, como ``SAPPORO RESTAURANTE'' e ``Drogaria Paulista'' (Seção~\ref{sec:val_ablacao_discussao}) -- é compatível com a hipótese de que o modelo compacto resolveu a tensão em favor da regra 3.
+\end{enumerate}
+
+Esses defeitos importam para a leitura dos resultados: a acurácia condicional de apenas 21\% do ramo LLM foi atribuída, no Capítulo~\ref{Cap:Ava_Exp}, à capacidade do modelo local compacto. Essa atribuição pode estar correta, mas a evidência disponível não a isola de uma explicação concorrente e mais simples -- um \textit{prompt} com regra faltante, instruções em tensão e campos de saída descritos com erro. A separação entre limitação do modelo e limitação do \textit{prompt} não foi verificada experimentalmente; o experimento de baixo custo que a isolaria (reexecutar o ramo LLM sobre as mesmas transações com o \textit{prompt} corrigido) é indicado como trabalho futuro na Seção~\ref{sec:concl_trabalhos_futuros}. A correção da numeração e da ortografia no código-fonte é recomendada independentemente da reexecução dos experimentos.
+
+% ----------------------------------------------------------
+\chapter{Regras de Normalização Léxica e Listas de Marketplaces}
+\label{apendice:normalizacao}
+
+Este apêndice reproduz, na íntegra e sem correções editoriais, a rotina de normalização léxica executada pelo nó \texttt{normalizar} do agente (Seção~\ref{sec:sol_agente_inteligente}): as expressões regulares de saneamento (\codepath{notebooks/modules/utils.py}), a lista de \textit{marketplaces} ambíguos e o dicionário de aliases de estabelecimento (ambos em \codepath{notebooks/modules/nodes.py}).
+
+\section{Expressões regulares de saneamento}
+
+A função \texttt{normalizar\_nome} aplica, em sequência, as cinco transformações a seguir sobre a descrição em caixa baixa:
+
+{\footnotesize
+\begin{verbatim}
+# 1. Remove repetições exatas em volta de um asterisco (ex: "tim*tim" -> "tim")
+texto = re.sub(r"\b([a-z]+)\*\1\b", r"\1", texto)
+
+# 2. Remove termos comuns de pagamentos e naturezas jurídicas
+texto = re.sub(r"\b(pag|pix|compra|debito|credito)\b\*?", "", texto)
+texto = re.sub(r"\b(ltda|me|epp|sa|s/a|eireli)\b", " ", texto)
+
+# 3. Mantém apenas letras, números e espaços (o * que sobrou vira espaço)
+texto = re.sub(r"[^a-z0-9\s]", " ", texto)
+
+# 4. Remove números com 4 ou mais dígitos (ex.: códigos de autorização)
+texto = re.sub(r"\b\d{4,}\b", " ", texto)
+
+# 5. Remove espaços extras
+texto = re.sub(r"\s+", " ", texto).strip()
+\end{verbatim}
+}
+
+\section{Lista de \textit{marketplaces} ambíguos}
+\label{sec:apendice_marketplaces}
+
+O dicionário \texttt{MARKETPLACES\_AMBIGUOS} reúne os padrões, como aparecem na fatura em caixa alta (sufixo \texttt{*} indica correspondência por prefixo), usados pela função \texttt{detectar\_marketplace} para sinalizar transações cuja categoria depende do histórico de compras do usuário (\texttt{eh\_marketplace}, Seção~\ref{sec:sol_agente_inteligente}):
+
+{\footnotesize
+\begin{verbatim}
+MARKETPLACES_AMBIGUOS = {
+    "mercado_livre": ["MERCADOLIVRE", "MERCADO LIVRE", "ML*", "MELI*",
+                       "MERCADOPAGO", "MERCADO PAGO"],
+    "amazon":        ["AMAZON", "AMZN", "AMZN MKTPLACE", "AMZ*",
+                       "AMAZON MKTPLACE"],
+    "shopee":        ["SHOPEE", "SHOPEE*", "SPE*"],
+    "magalu":        ["MAGALU", "MAGAZINE LUIZA", "MAG*", "MAGALUETC"],
+    "americanas":    ["AMERICANAS", "LOJAS AMERICANAS", "AMER*", "B2W"],
+    "aliexpress":    ["ALIEXPRESS", "ALI*", "ALIBABA"],
+    "shein":         ["SHEIN", "SHEIN*"],
+    "ifood":         ["IFOOD", "IFOOD*", "IF*"],
+    "rappi":         ["RAPPI", "RAPPI*", "RPP*"],
+}
+\end{verbatim}
+}
+
+\section{Dicionário de aliases de estabelecimento}
+
+Independentemente da lista de \textit{marketplaces} acima, a função \texttt{detectar\_estabelecimento} resolve aliases sobre a descrição já normalizada (caixa baixa), canonicalizando o nome do estabelecimento antes da busca vetorial:
+
+{\footnotesize
+\begin{verbatim}
+aliases = {
+    "mercado livre": ["mercado livre", "mercadolivre", "mercado pago", "mlb"],
+    "amazon":        ["amazon", "amzn", "amzn mktplace"],
+    "shopee":        ["shopee"],
+    "magalu":        ["magalu", "magazine luiza"],
+    "americanas":    ["americanas", "americanas com"],
+    "aliexpress":    ["aliexpress", "ali express"],
+    "shein":         ["shein"],
+}
+\end{verbatim}
+}
+
+Observa-se que este dicionário de aliases cobre um subconjunto dos \textit{marketplaces} da Seção~\ref{sec:apendice_marketplaces} (não inclui \textit{ifood} nem \textit{rappi}), refletindo fielmente o estado atual do código-fonte.
 
 \end{apendicesenv}
 % ---

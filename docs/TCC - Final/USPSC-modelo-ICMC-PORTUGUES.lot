@@ -1,9 +1,17 @@
 \babel@toc {brazil}{}\relax 
 \babel@toc {brazil}{}\relax 
-\contentsline {table}{\numberline {1}{\ignorespaces Comparativo dos trabalhos relacionados frente à solução proposta.}}{44}{table.3.1}%
-\contentsline {table}{\numberline {2}{\ignorespaces Distribuição do acervo de faturas do C6 Bank com pareamento PDF e CSV.}}{57}{table.caption.21}%
-\contentsline {table}{\numberline {3}{\ignorespaces Desempenho comparativo global entre Docling V2 e Tesseract OCR.}}{60}{table.caption.22}%
-\contentsline {table}{\numberline {4}{\ignorespaces Detalhamento de CER, WER, Casamento Exato e Latência por fatura do C6 Bank.}}{60}{table.caption.23}%
-\contentsline {table}{\numberline {5}{\ignorespaces Comparativo global de desempenho preditivo e tempo médio de inferência (teste-cego de 334 transações, estabelecimentos disjuntos).}}{63}{table.caption.28}%
-\contentsline {table}{\numberline {6}{\ignorespaces Desempenho do TF-IDF + Random Forest discriminado por categoria de despesa efetivamente avaliada.}}{65}{table.caption.30}%
-\contentsline {table}{\numberline {7}{\ignorespaces Ablação de componentes sobre o teste-cego (variação de F1-Macro).}}{66}{table.caption.33}%
+\contentsline {table}{\numberline {1}{\ignorespaces Componentes da solução: linguagem, arcabouço principal e versão efetivamente utilizada.}}{62}{table.caption.21}%
+\contentsline {table}{\numberline {2}{\ignorespaces Caracterização textual do campo \texttt {NOME FAVORECIDO} no acervo CPGF ($N=477.740$).}}{74}{table.caption.24}%
+\contentsline {table}{\numberline {3}{\ignorespaces Distribuição do acervo de faturas do C6 Bank com pareamento PDF e CSV.}}{75}{table.caption.25}%
+\contentsline {table}{\numberline {4}{\ignorespaces Hiperparâmetros efetivamente adotados por arquitetura (valores fixados \textit {a priori}).}}{77}{table.caption.26}%
+\contentsline {table}{\numberline {5}{\ignorespaces Desempenho comparativo global entre Docling V2 e Tesseract OCR.}}{80}{table.caption.27}%
+\contentsline {table}{\numberline {6}{\ignorespaces Detalhamento de CER, WER, Casamento Exato e Latência por fatura do C6 Bank.}}{80}{table.caption.28}%
+\contentsline {table}{\numberline {7}{\ignorespaces Comparativo global de desempenho preditivo e tempo médio de inferência (teste cego de 334 transações, estabelecimentos disjuntos).}}{83}{table.caption.33}%
+\contentsline {table}{\numberline {8}{\ignorespaces Intervalos de confiança de 95\% (\textit {bootstrap}, $B=2.000$) para o F1-Macro.}}{85}{table.caption.36}%
+\contentsline {table}{\numberline {9}{\ignorespaces Validação cruzada 5-fold versus teste cego por estabelecimento disjunto (F1-Macro).}}{87}{table.caption.37}%
+\contentsline {table}{\numberline {10}{\ignorespaces Acurácia e F1-Macro por arquitetura, discriminados por instituição emissora (teste cego).}}{89}{table.caption.38}%
+\contentsline {table}{\numberline {11}{\ignorespaces Matriz de confusão do subconjunto do Nubank no teste cego ($n=100$), comum às quatro arquiteturas com métricas idênticas na Tabela~\ref {tab:desempenho_emissor}.}}{89}{table.caption.39}%
+\contentsline {table}{\numberline {12}{\ignorespaces F1-Macro por arquitetura, segmentado pela proveniência do rótulo de referência.}}{91}{table.caption.40}%
+\contentsline {table}{\numberline {13}{\ignorespaces Desempenho do TF-IDF + Random Forest discriminado por categoria de despesa efetivamente avaliada.}}{92}{table.caption.41}%
+\contentsline {table}{\numberline {14}{\ignorespaces Ablação da normalização léxica sobre o teste cego (variação de F1-Macro) e desempenho por ramo do agente (acurácia condicional).}}{95}{table.caption.44}%
+\contentsline {table}{\numberline {15}{\ignorespaces Registros recuperados por busca direta, por string de busca e base (Scopus e IEEE Xplore).}}{119}{table.caption.50}%

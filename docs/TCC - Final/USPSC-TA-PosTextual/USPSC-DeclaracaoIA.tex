@@ -1,4 +1,32 @@
+%% USPSC-DeclaracaoIA.tex
+% ---
+% Declaração de uso de Inteligência Artificial, cuidados éticos e adequação à
+% LGPD -- formulário fornecido pelo programa (MBA em Inteligência Artificial e
+% Big Data -- ICMC/USP), reproduzido como Anexo (documento não elaborado pelo
+% autor, conforme a ABNT NBR 14724).
+%
+% Preenchido em 2026-09 com base no histórico real de uso de IA (Claude Code)
+% ao longo da elaboração e revisão desta monografia. Os campos de Data e
+% Assinatura do(a) aluno(a), por serem declaração pessoal, permanecem em
+% branco para preenchimento manual antes do depósito.
+% ---
+
+% Macros de formulário -- não fornecidas pela classe USPSC/abntex2; definidas
+% aqui porque este é o único arquivo do documento que reproduz um formulário
+% com campos de preenchimento e caixas de marcação.
+\newcommand{\formline}[1]{\makebox[#1][l]{\hrulefill}}
+\newcommand{\filledline}[2]{\makebox[#2][l]{#1\dotfill}}
+\newcommand{\checkbox}{$\square$}
+\newcommand{\checkedbox}{$\boxtimes$}
+\newcommand{\choice}[1]{\checkbox\ #1}
+\newcommand{\choicechecked}[1]{\checkedbox\ #1}
+
 \begin{anexosenv}
+% Imprime uma página indicando o início dos anexos
+\partanexos
+
+\chapter{Declaração de Uso de Inteligência Artificial}
+\label{anexo:declaracao_ia}
 
 \vspace*{0.22cm}
 \begin{center}
@@ -11,10 +39,10 @@ LGPD no TCC\par}
 \end{center}
 
 \vspace{0.25cm}
-\textbf{Aluno(a):} \formline{12.6cm}
+\textbf{Aluno(a):} \imprimirautor
 
 \vspace{0.48cm}
-\textbf{Título do TCC:} \formline{11.55cm}
+\textbf{Título do TCC:} \imprimirtitulo
 
 \vspace{1.0cm}
 Declaro que, na elaboração deste Trabalho de Conclusão de Curso:
@@ -23,7 +51,7 @@ Declaro que, na elaboração deste Trabalho de Conclusão de Curso:
 \choice{\textbf{Não utilizei ferramentas de Inteligência Artificial Generativa como apoio à elaboração do TCC.}}
 
 \vspace{0.35cm}
-\noindent\checkbox\hspace{0.12cm}\textbf{Utilizei ferramentas de Inteligência Artificial Generativa como apoio à elaboração do TCC,}\\
+\noindent\checkedbox\hspace{0.12cm}\textbf{Utilizei ferramentas de Inteligência Artificial Generativa como apoio à elaboração do TCC,}\\
 \hspace*{0.35cm}conforme indicado abaixo.
 
 
@@ -31,22 +59,22 @@ Declaro que, na elaboração deste Trabalho de Conclusão de Curso:
 \item \textbf{Como utilizei IA}: Marque as opções aplicáveis:
 
 \vspace{0.32cm}
-\choice{Revisão, aprimoramento ou tradução de textos}
+\choicechecked{Revisão, aprimoramento ou tradução de textos}
 \vspace{0.24cm}
-\choice{Busca, síntese ou organização de informações e literatura}
+\choicechecked{Busca, síntese ou organização de informações e literatura}
 \vspace{0.24cm}
-\choice{Geração, revisão ou depuração de código}
+\choicechecked{Geração, revisão ou depuração de código}
 \vspace{0.24cm}
-\choice{Análise, tratamento ou interpretação de dados}
+\choicechecked{Análise, tratamento ou interpretação de dados}
 \vspace{0.24cm}
-\choice{Apoio à estruturação de ideias, metodologia ou solução}
+\choicechecked{Apoio à estruturação de ideias, metodologia ou solução}
 \vspace{0.24cm}
-\choice{Geração ou aprimoramento de imagens, gráficos ou outros conteúdos}
+\choicechecked{Geração ou aprimoramento de imagens, gráficos ou outros conteúdos}
 \vspace{0.24cm}
 \noindent\checkbox\hspace{0.12cm}Outro: \formline{10.95cm}
 
 \vspace{0.42cm}
-\textbf{Ferramenta utilizadas:} \formline{10.55cm}
+\textbf{Ferramenta utilizada:} \filledline{Claude (Anthropic), via Claude Code}{10.55cm}
 
 \vspace{0.48cm}
 \formline{15.25cm}
@@ -65,7 +93,7 @@ Uso em atividades específicas, como revisão de texto, tradução, esclarecimen
 Uso recorrente em algumas etapas, como estruturação de conteúdo, programação, análise de dados ou desenvolvimento da solução.
 
 \vspace{0.38cm}
-\choice{\textbf{Nível 3 -- Apoio substancial}}
+\choicechecked{\textbf{Nível 3 -- Apoio substancial}}
 Uso relevante na geração ou desenvolvimento de conteúdos, códigos, análises ou outros elementos que integram o TCC.
 
 \vspace{0.72cm}
@@ -73,7 +101,7 @@ Uso relevante na geração ou desenvolvimento de conteúdos, códigos, análises
 \textbf{Cuidados éticos:} quais foram os procedimentos éticos adotados em pesquisas envolvendo seres humanos, conforme as Normas e Diretrizes Regulamentadoras da Pesquisa Envolvendo Seres Humanos -- Resolução C N S N$^\circ$ 466/2012, Norma Operacional 001/2013, Resolução C N S N$^\circ$ 510/2016 e Resolução C N S N$^\circ$ 674/2022 (para pesquisas nacionais). Em trabalhos nos quais pesquisas com seres humanos não foram realizadas, a seção deve ser preenchida com ``Não se aplica'' ou ``Atende à Resolução C N S N$^\circ$ 510/2016''.
 
 \vspace{0.4cm}
-\choice{Não se aplica}
+\choicechecked{Não se aplica}
 \vspace{0.12cm}
 \noindent\checkbox\hspace{0.12cm}Cuidados adotados: \formline{10.7cm}
 
@@ -86,10 +114,7 @@ Quando o estudo envolver \textbf{coleta, uso ou análise de dados pessoais}, ain
 \vspace{0.38cm}
 \choice{Não se aplica}
 \vspace{0.12cm}
-\noindent\checkbox\hspace{0.12cm}Medidas adotadas: \formline{10.65cm}
-
-\vspace{0.42cm}
-\formline{15.25cm}
+\noindent\checkedbox\hspace{0.12cm}\textbf{Medidas adotadas:} minimização de dados sensíveis (números completos de cartão, CVV e senhas expurgados na ingestão), ausência de CPF ou documento do titular na base (verificada empiricamente por consulta à base de produção) e processamento integralmente local, sem envio a APIs de terceiros (Seção~\ref{sec:sol_lgpd}); o acervo de faturas reais e os respectivos arquivos de verdade de referência foram deliberadamente excluídos da distribuição pública do repositório (Apêndice~\ref{apendice:repositorio}).
 
 \vspace*{0.45cm}
 \item \textbf{Declaração de responsabilidade}\\

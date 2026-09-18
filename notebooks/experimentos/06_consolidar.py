@@ -145,6 +145,35 @@ def graficos(g: pd.DataFrame):
         plt.savefig(d / "grafico_comparativo_modelos.png", dpi=200)
     plt.close()
 
+    # Versões separadas dos dois painéis (figuras distintas na monografia: desempenho
+    # preditivo em escala linear e latência em escala logarítmica não compartilham eixo).
+    fig, ax0 = plt.subplots(figsize=(8, 5))
+    ax0.bar(x - 0.2, g["Acurácia"], 0.4, label="Acurácia (%)", color="#3b82f6")
+    ax0.bar(x + 0.2, g["F1-Macro"], 0.4, label="F1-Macro (%)", color="#10b981")
+    ax0.axhline(85, color="#ef4444", ls="--", label="Meta TCC (85%)")
+    ax0.set_xticks(x); ax0.set_xticklabels(curtos, rotation=15)
+    ax0.set_ylabel("Percentual (%)"); ax0.set_title("Acurácia e F1-Macro por Modelo")
+    ax0.set_ylim(0, 100); ax0.legend(); ax0.grid(axis="y", ls=":", alpha=.7)
+    plt.tight_layout()
+    for d in (C.RESULTS, ASSETS):
+        plt.savefig(d / "grafico_desempenho_modelos.png", dpi=200)
+    plt.close()
+
+    fig, ax1 = plt.subplots(figsize=(8, 5))
+    bars = ax1.bar(curtos, g["Latência (ms)"],
+                   color=["#94a3b8", "#94a3b8", "#f87171", "#34d399", "#60a5fa"][: len(g)])
+    ax1.set_yscale("log"); ax1.set_ylabel("Latência (ms) – escala log")
+    ax1.set_title("Tempo médio de inferência por transação (ms)")
+    ax1.set_xticks(x); ax1.set_xticklabels(curtos, rotation=15)
+    for b in bars:
+        ax1.text(b.get_x() + b.get_width() / 2, b.get_height() * 1.15,
+                 f"{b.get_height():.2f}", ha="center", fontsize=9)
+    ax1.grid(axis="y", ls=":", alpha=.7)
+    plt.tight_layout()
+    for d in (C.RESULTS, ASSETS):
+        plt.savefig(d / "grafico_latencia_modelos.png", dpi=200)
+    plt.close()
+
     rot = {"tfidf_random_forest": "TF-IDF + Random Forest", "tfidf_naive_bayes": "TF-IDF + Naive Bayes",
            "rag_pgvector_minilm": "RAG PGVector", "byt5_finetuning": "ByT5", "agente_hibrido_langgraph": "Agente Híbrido"}
     nm = rot.get(_melhor_modelo_key(), _melhor_modelo_key())
@@ -166,10 +195,18 @@ def graficos(g: pd.DataFrame):
     pr = pd.read_csv(pred_file)
     labs = [c for c in C.CATEGORIAS if c in set(pr["y_true"]) | set(pr["y_pred"])]
     cm = confusion_matrix(pr["y_true"], pr["y_pred"], labels=labs)
-    plt.figure(figsize=(9, 7))
-    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues",
-                xticklabels=labs, yticklabels=labs)
-    plt.xlabel("Predito"); plt.ylabel("Real"); plt.title("Matriz de Confusão – Agente Híbrido")
+    plt.figure(figsize=(10, 8))
+    ax = sns.heatmap(cm, annot=True, fmt="d", cmap="Blues",
+                      xticklabels=labs, yticklabels=labs,
+                      annot_kws={"size": 13})
+    ax.set_xlabel("Predito", fontsize=14)
+    ax.set_ylabel("Real", fontsize=14)
+    ax.set_title("Matriz de Confusão – Agente Híbrido", fontsize=15)
+    ax.tick_params(axis="both", labelsize=12)
+    plt.setp(ax.get_xticklabels(), rotation=45, ha="right")
+    plt.setp(ax.get_yticklabels(), rotation=0)
+    cbar = ax.collections[0].colorbar
+    cbar.ax.tick_params(labelsize=12)
     plt.tight_layout()
     for d in (C.RESULTS, ASSETS):
         plt.savefig(d / "grafico_matriz_confusao_agente.png", dpi=200)

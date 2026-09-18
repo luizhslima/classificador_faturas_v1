@@ -1,0 +1,51 @@
+﻿Document Title,Authors,Publication Title,Publication Year,Article Citation Count
+"Short Text Topic Modeling Techniques, Applications, and Performance: A Survey",Jipeng Qiang; Zhenyu Qian; Yun Li; Yunhao Yuan; Xindong Wu,IEEE Transactions on Knowledge and Data Engineering,2022,240
+Semantic-Emotion Neural Network for Emotion Recognition From Text,Erdenebileg Batbaatar; Meijing Li; Keun Ho Ryu,IEEE Access,2019,216
+Light Gradient Boosting Machine for General Sentiment Classification on Short Texts: A Comparative Evaluation,Fatimah Alzamzami; Mohamad Hoda; Abdulmotaleb El Saddik,IEEE Access,2020,165
+A Long-Text Classification Method of Chinese News Based on BERT and CNN,Xinying Chen; Peimin Cong; Shuo Lv,IEEE Access,2022,139
+Deep Learning approach for sentiment analysis of short texts,Abdalraouf Hassan; Ausif Mahmood,"2017 3rd International Conference on Control, Automation and Robotics (ICCAR)",2017,137
+Deep Multimodal Learning for Affective Analysis and Retrieval,Lei Pang; Shiai Zhu; Chong-Wah Ngo,IEEE Transactions on Multimedia,2015,136
+DEA-RNN: A Hybrid Deep Learning Approach for Cyberbullying Detection in Twitter Social Media Platform,Belal Abdullah Hezam Murshed; Jemal Abawajy; Suresha Mallappa; Mufeed Ahmed Naji Saif; Hasib Daowd Esmail Al-Ariki,IEEE Access,2022,119
+Document-Level Text Classification Using Single-Layer Multisize Filters Convolutional Neural Network,Muhammad Pervez Akhter; Zheng Jiangbin; Irfan Raza Naqvi; Mohammed Abdelmajeed; Atif Mehmood; Muhammad Tariq Sadiq,IEEE Access,2020,92
+Detecting Traffic Information From Social Media Texts With Deep Learning Approaches,Yuanyuan Chen; Yisheng Lv; Xiao Wang; Lingxi Li; Fei-Yue Wang,IEEE Transactions on Intelligent Transportation Systems,2019,91
+A Comparison of Semantic Similarity Methods for Maximum Human Interpretability,Pinky Sitikhu; Kritish Pahi; Pujan Thapa; Subarna Shakya,2019 Artificial Intelligence for Transforming Business and Society (AITB),2019,87
+Who Am I? Personality Detection Based on Deep Learning for Texts,Xiangguo Sun; Bo Liu; Jiuxin Cao; Junzhou Luo; Xiaojun Shen,2018 IEEE International Conference on Communications (ICC),2018,85
+Aspect-Level Drug Reviews Sentiment Analysis Based on Double BiGRU and Knowledge Transfer,Yue Han; Meiling Liu; Weipeng Jing,IEEE Access,2020,74
+Application of Deep Learning to Sentiment Analysis for recommender system on cloud,G. Preethi; P. Venkata Krishna; Mohammad S. Obaidat; V. Saritha; Sumanth Yenduri,"2017 International Conference on Computer, Information and Telecommunication Systems (CITS)",2017,63
+Text Sentiment Analysis of Douban Film Short Comments Based on BERT-CNN-BiLSTM-Att Model,Aixiang He; Mideth Abisado,IEEE Access,2024,63
+A Novel Capsule Based Hybrid Neural Network for Sentiment Classification,Yongping Du; Xiaozheng Zhao; Meng He; Wenyang Guo,IEEE Access,2019,49
+An Intelligent Hybrid Neural Collaborative Filtering Approach for True Recommendations,Muhammad Ibrahim; Imran Sarwar Bajwa; Nadeem Sarwar; Fahima Hajjej; Hesham A. Sakr,IEEE Access,2023,49
+Multi-Label Classification of Microblogging Texts Using Convolution Neural Network,Md. Aslam Parwez; Muhammad Abulaish; Jahiruddin,IEEE Access,2019,49
+Analysis of Railway Accidents' Narratives Using Deep Learning,Mojtaba Heidarysafa; Kamran Kowsari; Laura Barnes; Donald Brown,2018 17th IEEE International Conference on Machine Learning and Applications (ICMLA),2018,48
+Compositional Recurrent Neural Networks for Chinese Short Text Classification,Yujun Zhou; Bo Xu; Jiaming Xu; Lei Yang; Changliang Li; Bo Xu,2016 IEEE/WIC/ACM International Conference on Web Intelligence (WI),2016,47
+Review of Graph Neural Network in Text Classification,Masoud Malekzadeh; Parisa Hajibabaee; Maryam Heidari; Samira Zad; Ozlem Uzuner; James H Jones,"2021 IEEE 12th Annual Ubiquitous Computing, Electronics & Mobile Communication Conference (UEMCON)",2021,47
+Smart Contract Classification With a Bi-LSTM Based Approach,Gang Tian; Qibo Wang; Yi Zhao; Lantian Guo; Zhonglin Sun; Liangyu Lv,IEEE Access,2020,44
+Understanding Short Texts through Semantic Enrichment and Hashing,Zheng Yu; Haixun Wang; Xuemin Lin; Min Wang,IEEE Transactions on Knowledge and Data Engineering,2016,44
+Topic Modeling for Short Texts via Word Embedding and Document Correlation,Feng Yi; Bo Jiang; Jianjun Wu,IEEE Access,2020,41
+A Comparative Study on Embedding Models for Keyword Extraction Using KeyBERT Method,Bayan Issa; Muhammed Basheer Jasser; Hui Na Chua; Muzaffar Hamzah,2023 IEEE 13th International Conference on System Engineering and Technology (ICSET),2023,38
+Improving Term Weighting Schemes for Short Text Classification in Vector Space Model,Surender Singh Samant; N. L. Bhanu Murthy; Aruna Malapati,IEEE Access,2019,35
+SAKG-BERT: Enabling Language Representation With Knowledge Graphs for Chinese Sentiment Analysis,Xiaoyan Yan; Fanghong Jian; Bo Sun,IEEE Access,2021,32
+Leveraging Conceptualization for Short-Text Embedding,Heyan Huang; Yashen Wang; Chong Feng; Zhirun Liu; Qiang Zhou,IEEE Transactions on Knowledge and Data Engineering,2018,31
+Research on Text Classification Method Based on LSTM Neural Network Model,Yanbo Zhang,"2021 IEEE Asia-Pacific Conference on Image Processing, Electronics and Computers (IPEC)",2021,29
+Emotion Classification in Texts Over Graph Neural Networks: Semantic Representation is Better Than Syntactic,Iqra Ameer; Necva Bölücü; Grigori Sidorov; Burcu Can,IEEE Access,2023,28
+Exploring Consumption Intent in Live E-Commerce Barrage: A Text Feature-Based Approach Using BERT-BiLSTM Model,Yan Xiong; Naiqi Wei; Kai Qiao; Zhenyu Li; Zongwei Li,IEEE Access,2024,28
+From Bag-of-Words to Transformers: A Comparative Study for Text Classification in Healthcare Discussions in Social Media,Enrico De Santis; Alessio Martino; Francesca Ronci; Antonello Rizzi,IEEE Transactions on Emerging Topics in Computational Intelligence,2025,28
+UESTS: An Unsupervised Ensemble Semantic Textual Similarity Method,Basma Hassan; Samir E. Abdelrahman; Reem Bahgat; Ibrahim Farag,IEEE Access,2019,27
+BiLSTM Model With Attention Mechanism for Sentiment Classification on Chinese Mixed Text Comments,Li Xiaoyan; Rodolfo C. Raga,IEEE Access,2023,26
+Sentiment Classification for Chinese Text Based on Interactive Multitask Learning,Han Zhang; Shaoqi Sun; Yongjin Hu; Junxiu Liu; Yuanbo Guo,IEEE Access,2020,26
+An Automatic Sentiment Analysis Method for Short Texts Based on Transformer-BERT Hybrid Model,Haiyan Xiao; Linghua Luo,IEEE Access,2024,25
+Graph Convolutional Network Based on Multi-Head Pooling for Short Text Classification,Hongyu Zhao; Jiazhi Xie; Hongbin Wang,IEEE Access,2022,25
+Stress Detection from Social Media Articles: New Dataset Benchmark and Analytical Study,Aryan Rastogi; Qian Liu; Erik Cambria,2022 International Joint Conference on Neural Networks (IJCNN),2022,25
+Text Classification Research Based on Bert Model and Bayesian Network,Songsong Liu; Haijun Tao; Shiling Feng,2019 Chinese Automation Congress (CAC),2019,25
+Topic Modeling of Short Texts: A Pseudo-Document View With Word Embedding Enhancement,Yuan Zuo; Congrui Li; Hao Lin; Junjie Wu,IEEE Transactions on Knowledge and Data Engineering,2023,25
+Adaptive Dense Ensemble Model for Text Classification,Yuhong Xu; Zhiwen Yu; Wenming Cao; C. L. Philip Chen,IEEE Transactions on Cybernetics,2022,24
+Using Convolutional Neural Network with BERT for Intent Determination,Changai He; Sibao Chen; Shilei Huang; Jian Zhang; Xiao Song,2019 International Conference on Asian Language Processing (IALP),2019,24
+A BERT Based Approach to Measure Web Services Policies Compliance With GDPR,Lavanya Elluri; Sai Sree Laya Chukkapalli; Karuna Pande Joshi; Tim Finin; Anupam Joshi,IEEE Access,2021,23
+An Effective Spam Message Detection Model using Feature Engineering and Bi-LSTM,Antony L Rosewelt; Naveen D Raju; Sannasi Ganapathy,"2022 International Conference on Advances in Computing, Communication and Applied Informatics (ACCAI)",2022,20
+DICE: Deep Intelligent Contextual Embedding for Twitter Sentiment Analysis,Usman Naseem; Katarzyna Musial,2019 International Conference on Document Analysis and Recognition (ICDAR),2019,20
+Feature-Enhanced Nonequilibrium Bidirectional Long Short-Term Memory Model for Chinese Text Classification,Hai Huan; Jiayu Yan; Yaqin Xie; Yifei Chen; Pengcheng Li; Rongrong Zhu,IEEE Access,2020,20
+Language Independent Sentiment Analysis,Muhammad Haroon Shakeel; Safi Faizullah; Turki Alghamidi; Imdadullah Khan,2019 International Conference on Advances in the Emerging Computing Technologies (AECT),2020,20
+Long Document Classification From Local Word Glimpses via Recurrent Attention Learning,Jun He; Liqun Wang; Liu Liu; Jiao Feng; Hao Wu,IEEE Access,2019,20
+Research on Short Text Classification Based on RoBERTa-TextRCNN,Zixian Guo; Ligu Zhu; Lu Han,2021 International Conference on Computer Information Science and Artificial Intelligence (CISAI),2021,20
+Enhancing User Experience on Q&A Platforms: Measuring Text Similarity Based on Hybrid CNN-LSTM Model for Efficient Duplicate Question Detection,Muhammad Faseeh; Murad Ali Khan; Naeem Iqbal; Faiza Qayyum; Asif Mehmood; Jungsuk Kim,IEEE Access,2024,19
+Generating Semantically Similar and Human-Readable Summaries With Generative Adversarial Networks,Haojie Zhuang; Weibin Zhang,IEEE Access,2019,19
