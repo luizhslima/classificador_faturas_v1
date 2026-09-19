@@ -5,12 +5,12 @@
 \section{Considerações iniciais}
 \label{sec:val_consideracoes_iniciais}
 
-A validação empírica constitui a etapa decisiva para comprovar a eficácia prática da solução proposta e responder formalmente às questões de pesquisa estabelecidas. Este capítulo apresenta o ambiente computacional dos experimentos (Seção~\ref{sec:val_ambiente}); a caracterização dos conjuntos de dados, com ênfase no acervo de faturas do C6 Bank e seus arquivos de verdade de referência (Seção~\ref{sec:val_datasets}); o protocolo de mensuração e as métricas adotadas (Seção~\ref{sec:val_protocolo}); os resultados da extração óptica, confrontando o IBM Docling V2 e o Tesseract OCR (Seção~\ref{sec:val_resultados_ocr}); os resultados comparativos da classificação, incluindo análise por emissor, por proveniência do rótulo, por categoria e o estudo de ablação (Seção~\ref{sec:val_resultados_classificacao}); a avaliação de MLOps, latência e observabilidade (Seção~\ref{sec:val_mlops}); e as respostas às questões de pesquisa com a verificação da hipótese central (Seção~\ref{sec:val_respostas_questoes}), seguidas das considerações finais (Seção~\ref{sec:val_consideracoes_finais}).
+A validação empírica constitui a etapa decisiva para verificar a eficácia prática da solução proposta e responder formalmente às questões de pesquisa estabelecidas. Este capítulo apresenta o ambiente computacional dos experimentos (Seção~\ref{sec:val_ambiente}); a caracterização dos conjuntos de dados, com ênfase no acervo de faturas do C6 Bank e seus arquivos de verdade de referência (Seção~\ref{sec:val_datasets}); o protocolo de mensuração e as métricas adotadas (Seção~\ref{sec:val_protocolo}); os resultados da extração óptica, confrontando o IBM Docling V2 e o Tesseract OCR (Seção~\ref{sec:val_resultados_ocr}); os resultados comparativos da classificação, incluindo análise por emissor, por proveniência do rótulo, por categoria e o estudo de ablação (Seção~\ref{sec:val_resultados_classificacao}); a avaliação de MLOps, latência e observabilidade (Seção~\ref{sec:val_mlops}); e as respostas às questões de pesquisa com a verificação da hipótese central (Seção~\ref{sec:val_respostas_questoes}), seguidas das considerações finais (Seção~\ref{sec:val_consideracoes_finais}).
 
 \section{Ambiente computacional e configuração experimental}
 \label{sec:val_ambiente}
 
-O ambiente computacional foi composto por duas máquinas físicas distintas na rede local, com papéis complementares: uma estação de trabalho principal, onde foram executados os experimentos de treinamento e inferência, e um servidor doméstico dedicado, que hospedou a infraestrutura conteinerizada de dados durante toda a pesquisa.
+O ambiente computacional foi composto por duas máquinas físicas distintas na rede local, com papéis complementares: uma estação de trabalho principal, na qual foram executados os experimentos de treinamento e inferência, e um servidor doméstico dedicado, que hospedou a infraestrutura conteinerizada de dados durante toda a pesquisa.
 \begin{itemize}
 	\item \textbf{Estação de Trabalho (treinamento e inferência):} Processador AMD Ryzen 7 5700G (8 núcleos / 16 \textit{threads}, 3,8~GHz base), 32 GB de memória RAM DDR4 2667~MHz, GPU dedicada NVIDIA GeForce RTX 3060 Ti com 8 GB de VRAM GDDR6 (suporte a aceleração CUDA 13.0), armazenamento SSD NVMe e Sistema Operacional Windows 11 Pro N. Nela rodaram o treinamento das linhas de base TF-IDF, o ajuste fino do ByT5, a geração de \textit{embeddings}, a extração via Docling V2/Tesseract e o modelo de raciocínio local (LM Studio);
 	\item \textbf{Servidor de Infraestrutura de Dados (\textit{Data Lakehouse} conteinerizado):} Mini computador Beelink Mini S (Intel Celeron N5095, 4 núcleos / 4 \textit{threads}, 8 GB de RAM DDR4, SSD de 256 GB), executando AlmaLinux 9.8, conectado à estação de trabalho por rede local (Ethernet Gigabit). Hospeda, via Docker, os contêineres de PostgreSQL 16 com extensão pgvector, MinIO e MLflow (Tabela~\ref{tab:tecnologias}), todos acessados pela estação de trabalho por IP fixo na rede local -- ou seja, as latências de consulta ao pgvector e de registro no MLflow reportadas neste capítulo incluem o tempo de rede LAN entre as duas máquinas, não apenas o tempo de processamento local. Um segundo mini computador idêntico (mesmo modelo, com Windows 11) compõe a mesma infraestrutura doméstica mas não foi utilizado diretamente na execução dos experimentos reportados neste capítulo;
@@ -22,7 +22,7 @@ O ambiente computacional foi composto por duas máquinas físicas distintas na r
 
 O código-fonte completo da solução e a esteira experimental reprodutível que gera os resultados apresentados neste capítulo estão disponíveis no repositório público descrito no Apêndice~\ref{apendice:repositorio}.
 
-\textbf{Limitação de reprodutibilidade do ramo LLM:} a temperatura zero direciona o modelo à decodificação gulosa, o que reduz -- mas não elimina por si só -- a variabilidade entre execuções, já que fatores do servidor de inferência (versão do \textit{backend}, quantização, paralelismo em lote) podem introduzir pequenas diferenças numéricas não controladas por este trabalho. Como o ramo LLM responde por 48\% das transações do teste cego (Seção~\ref{sec:val_resultados_classificacao}), a ausência do registro completo dos parâmetros de amostragem e da configuração exata do \textit{checkpoint} compromete a reprodutibilidade bit-a-bit dos resultados desse ramo; essa lacuna é registrada como limitação do trabalho (Seção~\ref{sec:concl_limitacoes}).
+\textbf{Limitação de reprodutibilidade do ramo LLM:} a temperatura zero direciona o modelo à decodificação gulosa, o que reduz -- mas não elimina por si só -- a variabilidade entre execuções, já que fatores do servidor de inferência (versão do \textit{backend}, quantização, paralelismo em lote) podem introduzir pequenas diferenças numéricas não controladas por este trabalho. Como o ramo LLM responde por 48\% das transações do teste cego (Seção~\ref{sec:val_resultados_classificacao}), a ausência do registro completo dos parâmetros de amostragem e da configuração exata do \textit{checkpoint} compromete a reprodutibilidade bit a bit dos resultados desse ramo; essa lacuna é registrada como limitação do trabalho (Seção~\ref{sec:concl_limitacoes}).
 
 \section{Caracterização dos conjuntos de dados (\textit{datasets})}
 \label{sec:val_datasets}
@@ -31,7 +31,7 @@ A experimentação foi estruturada sobre conjuntos de dados complementares, abra
 
 \begin{enumerate}
 	\item \textbf{Conjunto de Dados Governamental CPGF (Cartão de Pagamento do Governo Federal):} Acervo público oficial obtido no Portal da Transparência do Governo Federal \cite{brasilcpgf}. O conjunto reúne 44 arquivos CSV mensais consolidados, totalizando \textbf{477.740 transações financeiras reais} contendo campos como nome do favorecido comercial, CNPJ, órgão responsável, data e valor monetário transacionado;
-	\item \textbf{Acervo Real de Faturas Bancárias C6 Bank e Nubank:} Extratos de cartões de crédito pessoais obtidos junto a instituições financeiras brasileiras em formatos digitais nativos (CSV) e documentos ópticos protegidos (PDFs com leiaute tabular multicolunar). No caso do C6 Bank, reuniu-se um acervo abrangendo competências de janeiro de 2022 a agosto de 2026, com 49 das 56 competências efetivamente disponíveis (Tabela~\ref{tab:dataset_c6}), composto por \textbf{49 faturas em PDF} (totalizando 357 páginas protegidas por senha) e os respectivos \textbf{49 arquivos CSV oficiais}, os quais foram utilizados como verdade de referência de alta fidelidade para a mensuração de erros de OCR;
+	\item \textbf{Acervo Real de Faturas Bancárias C6 Bank e Nubank:} Extratos de cartões de crédito pessoais obtidos junto a instituições financeiras brasileiras em formatos digitais nativos (CSV) e em documentos PDF nativos digitais protegidos por senha (leiaute tabular multicolunar). No caso do C6 Bank, reuniu-se um acervo abrangendo competências de janeiro de 2022 a agosto de 2026, com 49 das 56 competências efetivamente disponíveis (Tabela~\ref{tab:dataset_c6}), composto por \textbf{49 faturas em PDF} (totalizando 357 páginas protegidas por senha) e os respectivos \textbf{49 arquivos CSV oficiais}, os quais foram utilizados como verdade de referência de alta fidelidade para a mensuração de erros de OCR;
 	\item \textbf{Ruído Real de Intermediadores de Pagamento:} As próprias faturas do C6 Bank e do Nubank já contêm, de forma nativa, os fenômenos de ruído que se deseja estressar --- truncamentos de descrição, prefixos de adquirentes (``PAG*'', ``MP*'', ``IFD*''), sufixos numéricos de autorização e nomes informais aglutinados de pequenos negócios (ex.: ``jhoonymorango''). Optou-se por avaliar os modelos diretamente sobre esse ruído real, em vez de gerá-lo sinteticamente.
 \end{enumerate}
 
@@ -99,7 +99,7 @@ Após deduplicação e limitação a no máximo 12 lançamentos por estabelecime
 
 O particionamento foi feito \textbf{por estabelecimento} (todas as ocorrências de uma mesma descrição pertencem a um único conjunto), impedindo o vazamento de comércios entre treino e teste: 1.150 transações para treino, 176 para validação e \textbf{334 para o teste cego congelado}. Como detalhado na Seção~\ref{sec:val_protocolo}, os conjuntos de treino e validação foram unificados na implementação efetiva, de modo que o volume de treinamento (e de povoamento da base vetorial) foi de \textbf{1.326 transações} para todas as arquiteturas. Esse protocolo é deliberadamente mais severo que a partição aleatória: mede a capacidade de generalizar para \textit{estabelecimentos inéditos}, não a de reconhecer comércios já vistos. Ressalta-se que a rotulagem semiautomática e o porte reduzido do acervo constituem limitações discutidas no Capítulo~\ref{Cap:Conclusoes}. Como o dicionário léxico de alta precisão compartilha padrões de superfície (ex.: ``UBER'', ``IFD*'') com os próprios atributos que os classificadores esparsos aprendem, existe um \textbf{risco de circularidade} entre o método de rotulagem e o desempenho relativo dos modelos, quantificado na Seção~\ref{sec:val_circularidade}.
 
-Quanto à \textbf{composição por instituição emissora e à validade externa}, das 1.660 transações rotuladas, 1.388 (83,6\%) têm origem no C6 Bank e 272 (16,4\%) no Nubank, cobrindo 11 e 9 das 11 categorias canônicas, respectivamente. O acervo como um todo provém das faturas pessoais de apenas \textbf{dois portadores de cartão}, o que limita a diversidade de hábitos de consumo, estabelecimentos frequentados e faixas de renda representados na rotulagem -- uma limitação de validade externa detalhada na Seção~\ref{sec:concl_limitacoes}. No teste cego de 334 transações, resultante do particionamento aleatório por estabelecimento, a proporção por emissor desloca-se para 234 do C6 Bank (70,1\%) e 100 do Nubank (29,9\%); nesse recorte específico, o subconjunto do Nubank cobre apenas 5 categorias, concentradas em \textit{Alimentação} (53\%) e \textit{Saúde} (40\%) -- consequência do porte menor do acervo Nubank combinado ao particionamento por estabelecimento, que pode deixar de sortear nenhum comércio de uma categoria de cauda para o teste. O desempenho discriminado por emissor é reportado na Seção~\ref{sec:val_resultados_classificacao}.
+Quanto à \textbf{composição por instituição emissora e à validade externa}, das 1.660 transações rotuladas, 1.388 (83,6\%) têm origem no C6 Bank e 272 (16,4\%) no Nubank, cobrindo 11 e 9 das 11 categorias canônicas, respectivamente. O acervo como um todo provém das faturas pessoais de apenas \textbf{dois portadores de cartão}, o que limita a diversidade de hábitos de consumo, estabelecimentos frequentados e faixas de renda representados na rotulagem -- uma limitação de validade externa detalhada na Seção~\ref{sec:concl_limitacoes}. No teste cego de 334 transações, resultante do particionamento aleatório por estabelecimento, a proporção por emissor desloca-se para 234 do C6 Bank (70,1\%) e 100 do Nubank (29,9\%); nesse recorte específico, o subconjunto do Nubank cobre apenas 5 categorias, concentradas em \textit{Alimentação} (53\%) e \textit{Saúde} (40\%) -- consequência do porte menor do acervo Nubank combinado ao particionamento por estabelecimento, que pode não sortear comércio algum de uma categoria de cauda para o teste. O desempenho discriminado por emissor é reportado na Seção~\ref{sec:val_resultados_classificacao}.
 
 \section{Protocolo experimental e métricas de avaliação}
 \label{sec:val_protocolo}
@@ -137,7 +137,7 @@ Para a classificação de categorias, adotou-se o particionamento \textbf{por es
 \fonte{Elaborada pelo autor (\the\year), a partir de \codepath{notebooks/experimentos/02_baselines.py} e \codepath{03_byt5.py}.}
 \end{table}
 
-O desempenho preditivo foi mensurado através da Matriz de Confusão e de quatro métricas clássicas de classificação multiclasse, a partir das contagens por categoria $TP_k$, $FP_k$ e $FN_k$ e das grandezas Precisão$_k$ e Revocação$_k$ já formalizadas na Seção~\ref{sec:fund_metricas_classificacao}: Acurácia Global (Equação~\ref{eq:acuracia}), Precisão Macro (Equação~\ref{eq:precisao_macro}), Revocação Macro (Equação~\ref{eq:recall_macro}) e F1-Macro (Equação~\ref{eq:f1_macro_cap4}).
+O desempenho preditivo foi mensurado por meio da Matriz de Confusão e de quatro métricas clássicas de classificação multiclasse, a partir das contagens por categoria $TP_k$, $FP_k$ e $FN_k$ e das grandezas Precisão$_k$ e Revocação$_k$ já formalizadas na Seção~\ref{sec:fund_metricas_classificacao}: Acurácia Global (Equação~\ref{eq:acuracia}), Precisão Macro (Equação~\ref{eq:precisao_macro}), Revocação Macro (Equação~\ref{eq:recall_macro}) e F1-Macro (Equação~\ref{eq:f1_macro_cap4}).
 \begin{equation}
 	\label{eq:acuracia}
 	\text{Acurácia} = \frac{\sum_{k=1}^{K} TP_k}{\text{Total de Amostras}}
@@ -154,7 +154,7 @@ O desempenho preditivo foi mensurado através da Matriz de Confusão e de quatro
 	\label{eq:f1_macro_cap4}
 	\text{F1-Macro} = \frac{1}{K} \sum_{k=1}^{K} \frac{2 \cdot \text{Precisão}_k \cdot \text{Revocação}_k}{\text{Precisão}_k + \text{Revocação}_k}
 \end{equation}
-onde $K$ representa o total de categorias efetivamente avaliadas ($K = 11$ no acervo disponível). A adoção primordial do F1-Macro justifica-se pela sua capacidade de avaliar o desempenho preditivo de forma equitativa em classes minoritárias desbalanceadas (como Educação e Moradia), impedindo que o modelo mascare erros através de acertos concentrados nas classes majoritárias (como Alimentação).
+em que $K$ representa o total de categorias efetivamente avaliadas ($K = 11$ no acervo disponível). A adoção primordial do F1-Macro justifica-se pela sua capacidade de avaliar o desempenho preditivo de forma equitativa em classes minoritárias desbalanceadas (como Educação e Moradia), impedindo que o modelo mascare erros por meio de acertos concentrados nas classes majoritárias (como Alimentação).
 
 \subsection{Intervalos de confiança e teste de significância}
 \label{sec:val_significancia}
@@ -168,10 +168,10 @@ Ambos os procedimentos foram aplicados sobre as predições brutas de cada arqui
 \section{Resultados da extração e pré-processamento óptico}
 \label{sec:val_resultados_ocr}
 
-A primeira bateria experimental comparou rigorosamente dois paradigmas de ingestão documental (Seção~\ref{sec:fund_paradigmas_ingestao}) aplicados sobre o acervo de faturas do C6 Bank:
+A primeira bateria experimental comparou dois paradigmas de ingestão documental (Seção~\ref{sec:fund_paradigmas_ingestao}) aplicados sobre o acervo de faturas do C6 Bank:
 \begin{enumerate}
-	\item \textbf{Tesseract OCR (versão 5.3):} Paradigma convencional baseado em visão computacional e OCR óptico rasterizado, processando as páginas convertidas em imagens de alta resolução (300 DPI) com modelos de idioma para português (\texttt{por});
-	\item \textbf{IBM Docling V2:} Paradigma moderno de compreensão de leiaute de documentos (\textit{Document Layout Analysis}), integrando o \textit{backend} digital PyPdfium2 com modelos neurais de detecção e segmentação de tabelas (\textit{Table Transformer}), gerando como saída texto estruturado em tabelas Markdown.
+	\item \textbf{Tesseract OCR (versão 5.5):} Paradigma convencional baseado em visão computacional e OCR óptico rasterizado, processando as páginas convertidas em imagens de alta resolução (300 DPI) com modelos de idioma para português (\texttt{por});
+	\item \textbf{IBM Docling V2:} Paradigma de compreensão de leiaute de documentos (\textit{Document Layout Analysis}), integrando o \textit{backend} digital PyPdfium2 com modelos neurais de detecção e segmentação de tabelas (\textit{Table Transformer}), gerando como saída texto estruturado em tabelas Markdown.
 \end{enumerate}
 
 Cabe explicitar o desenho experimental: as faturas do C6 Bank utilizadas nesta bateria são \textbf{PDFs nativos digitais}, com camada de texto codificada (Seção~\ref{sec:fund_paradigmas_ingestao}) -- não documentos escaneados ou fotografados. O Docling V2 opera nesse regime em seu paradigma natural, extraindo o texto diretamente da codificação digital do arquivo. O Tesseract, por não realizar essa extração nativa, foi aplicado sobre a rasterização das mesmas páginas em imagens de 300 DPI, isto é, fora do cenário em que o reconhecimento óptico é estritamente necessário. A comparação a seguir mede, portanto, o \textbf{custo de descartar a camada de texto nativa} de um PDF já digital e submetê-lo a rasterização seguida de OCR -- não uma comparação entre dois motores de OCR sobre material genuinamente escaneado, cenário em que o Tesseract permanece a escolha pertinente e que não foi avaliado nesta pesquisa (Seção~\ref{sec:concl_limitacoes}).
@@ -244,7 +244,7 @@ A Tabela~\ref{tab:resultados_ocr_detalhado} detalha o comportamento dos dois mot
 
 \subsection{Análise visual das métricas e dispersão de erros}
 
-A distribuição das taxas de erro de caracteres (CER) e de palavras (WER) é ilustrada no diagrama de caixa da Figura~\ref{fig:distribuicao_cer_wer}. Observa-se que a distribuição do Docling V2 se concentra quase na totalidade próxima de zero (mediana de CER inferior a 2,5\%), enquanto o Tesseract exibe dispersão ampla e média superior a 50\% de erro por transação.
+A distribuição das taxas de erro de caracteres (CER) e de palavras (WER) é ilustrada no diagrama de caixa da Figura~\ref{fig:distribuicao_cer_wer}. Observa-se que a distribuição do Docling V2 concentra-se quase integralmente próxima de zero (mediana de CER inferior a 2,5\%), enquanto o Tesseract exibe dispersão ampla e média superior a 50\% de erro por transação.
 
 \begin{figure}[htb]
 	\centering
@@ -254,7 +254,7 @@ A distribuição das taxas de erro de caracteres (CER) e de palavras (WER) é il
 	\fonte{Elaborada pelo autor (\the\year).}
 \end{figure}
 
-A evolução temporal do CER ao longo das diferentes faturas bancárias é exibida na Figura~\ref{fig:evolucao_cer_faturas}. Com exceção de competências específicas com variações na diagramação do cabeçalho da fatura em 2022 e 2023, o Docling V2 manteve estabilidade expressiva com CER abaixo de 2,5\% em todas as faturas modernas (2024 a 2026). Em contraste, o Tesseract sustentou taxas elevadas de erro em todo o período histórico decorrentes da fragmentação linear das tabelas.
+A evolução temporal do CER ao longo das diferentes faturas bancárias é exibida na Figura~\ref{fig:evolucao_cer_faturas}. Com exceção de competências específicas com variações na diagramação do cabeçalho da fatura em 2022 e 2023, o Docling V2 manteve estabilidade expressiva com CER abaixo de 2,5\% em todas as faturas recentes (2024 a 2026). Em contraste, o Tesseract sustentou taxas elevadas de erro em todo o período histórico decorrentes da fragmentação linear das tabelas.
 
 \begin{figure}[htb]
 	\centering
@@ -287,7 +287,7 @@ O Quadro~\ref{quadro:amostras_ocr} apresenta uma amostra qualitativa de transaç
 
 \begin{quadro}[htb]
 	\centering
-	\caption{Amostra comparativa de transações reais: verdade de referência vs. Docling V2 vs. Tesseract.}
+	\caption{Amostra comparativa de transações reais: verdade de referência versus Docling V2 versus Tesseract.}
 	\label{quadro:amostras_ocr}
 	\resizebox{\textwidth}{!}{%
 		\begin{tabular}{lccccc}
@@ -306,7 +306,7 @@ O Quadro~\ref{quadro:amostras_ocr} apresenta uma amostra qualitativa de transaç
 	\fonte{Elaborado pelo autor (\the\year). Embora as colunas de distância de Levenshtein sejam numéricas, o elemento é apresentado como quadro, e não como tabela, porque seu conteúdo predominante é textual (amostras de transcrição lado a lado) e os números cumprem função ilustrativa, não estatística -- mesmo critério da Seção~\ref{sec:rel_quadro_comparativo}.}
 \end{quadro}
 
-Em suma, a escolha do Docling V2 para a etapa de ingestão de documentos mostrou-se determinante para o sucesso do classificador subsequente, pois reduziu o CER de 52,82\% para 5,72\% e elevou a taxa de casamento exato para 86,2\%, entregando descrições limpas e fidedignas para o agente inteligente.
+Em suma, a escolha do Docling V2 para a etapa de ingestão de documentos mostrou-se determinante para a qualidade da entrada do classificador subsequente, pois reduziu o CER de 52,82\% para 5,72\% e elevou a taxa de casamento exato para 86,2\%, entregando descrições limpas e fidedignas para o agente inteligente.
 
 \section{Resultados comparativos da classificação de transações}
 \label{sec:val_resultados_classificacao}
@@ -439,7 +439,7 @@ A Tabela~\ref{tab:cv_vs_blindtest} torna explícito, lado a lado, o contraste en
 Ressalva de escopo: a validação cruzada 5-fold (\texttt{StratifiedKFold}, \codepath{notebooks/experimentos/02_baselines.py}) foi implementada apenas para as duas linhas de base esparsas (TF-IDF); não há um procedimento de validação cruzada análogo para o ByT5, a busca vetorial RAG ou o agente híbrido nesta pesquisa (linhas ``N/D'' na tabela), o que é registrado como limitação na Seção~\ref{sec:concl_limitacoes}. O achado de $\approx$23--25~pontos percentuais de diferença está, portanto, empiricamente ancorado nas duas arquiteturas esparsas -- que coincidem com as de melhor desempenho pontual no teste cego --, e não foi verificado nas demais três.
 
 \subsection{Acurácia global versus F1-Macro}
-Todos os modelos apresentam acurácia global sensivelmente superior ao F1-Macro (o Naive
+Todos os modelos apresentam acurácia global consideravelmente superior ao F1-Macro (o Naive
 Bayes, por exemplo: 88,3\% de acurácia contra
 63,6\% de F1-Macro). Isso decorre de dois fatores do acervo pessoal:
 (i) o forte desbalanceamento --- \textit{Alimentação} e \textit{Lazer e
@@ -538,7 +538,7 @@ A queda é substancial e sistemática em \textbf{todas as cinco arquiteturas}, n
 	\item \textbf{Circularidade específica dos classificadores esparsos:} para o TF-IDF, a hipótese original permanece plausível -- os $n$-gramas de caractere podem estar parcialmente memorizando os mesmos padrões de superfície usados pelo dicionário de rotulagem, inflando seu desempenho no subconjunto \texttt{regra\_lexical};
 	\item \textbf{Dificuldade ou ruído intrínseco do subconjunto \texttt{categoria\_emissor}:} por definição, essas 63 transações são precisamente os casos que o dicionário de alta precisão \textbf{não conseguiu resolver}, herdando o rótulo do código MCC do emissor -- reconhecidamente impreciso (Seção~\ref{sec:val_dataset_classificacao}). A queda uniforme em modelos que não compartilham nenhuma característica com a regra de rotulagem (o agente híbrido, em especial) sugere que ao menos parte do efeito decorre de um \textbf{acervo mais difícil e de verdade de referência mais ruidosa} nesse subconjunto, não de circularidade propriamente dita.
 \end{enumerate}
-Em qualquer uma das leituras, a conclusão prática é a mesma: o F1-Macro de 69,3\% reportado como resultado principal desta pesquisa \textbf{não é uniformemente sustentado} através das fontes de rotulagem, e deve ser interpretado com essa ressalva. Reproduzir esta análise com um subconjunto adicional validado manualmente, independente de ambos os métodos de rotulagem, é indicado como trabalho futuro imediato (Seção~\ref{sec:concl_trabalhos_futuros}). Uma alternativa complementar, de menor custo, seria aplicar \textit{Confident Learning} \cite{northcutt2021aprendizagem} sobre a base rotulada: por estimar a distribuição conjunta entre rótulos observados e rótulos verdadeiros a partir das probabilidades preditas fora da amostra, o método permitiria identificar os lançamentos cujo rótulo semiautomático é provavelmente incorreto -- em especial no subconjunto \textbf{categoria\_emissor}, onde a categorização por código MCC do emissor é reconhecidamente imprecisa -- e priorizá-los para revisão humana, tratando o risco de circularidade como o problema de ruído de rótulo que ele de fato é.
+Em qualquer uma das leituras, a conclusão prática é a mesma: o F1-Macro de 69,3\% reportado como resultado principal desta pesquisa \textbf{não é uniformemente sustentado} entre as fontes de rotulagem, e deve ser interpretado com essa ressalva. Reproduzir esta análise com um subconjunto adicional validado manualmente, independente de ambos os métodos de rotulagem, é indicado como trabalho futuro imediato (Seção~\ref{sec:concl_trabalhos_futuros}). Uma alternativa complementar, de menor custo, seria aplicar \textit{Confident Learning} \cite{northcutt2021aprendizagem} sobre a base rotulada: por estimar a distribuição conjunta entre rótulos observados e rótulos verdadeiros a partir das probabilidades preditas fora da amostra, o método permitiria identificar os lançamentos cujo rótulo semiautomático é provavelmente incorreto -- em especial no subconjunto \textbf{categoria\_emissor}, em que a categorização por código MCC do emissor é reconhecidamente imprecisa -- e priorizá-los para revisão humana, tratando o risco de circularidade como o problema de ruído de rótulo que ele de fato é.
 
 \subsection{Desempenho detalhado por categoria de despesa}
 A Tabela~\ref{tab:resultados_categorias} detalha o comportamento do TF-IDF + Random Forest nas
@@ -634,7 +634,7 @@ desempenho do agente é a \textbf{busca vetorial}: seu ramo respondeu corretamen
 98\% das
 transações que resolveu, enquanto o ramo LLM local (\texttt{gemma-4-e4b}) acertou apenas
 21\% ---
-tendendo, sob a diretriz anti-alucinação, a rotular como \textit{Despesas Diversas}
+tendendo, sob a diretriz antialucinação, a rotular como \textit{Despesas Diversas}
 nomes cuja categoria era lexicalmente evidente (``SAPPORO RESTAURANTE'', ``Drogaria
 Paulista''). A ferramenta de busca na web esteve indisponível durante a avaliação (Seção~\ref{sec:val_ambiente}).
 
@@ -644,7 +644,7 @@ Paulista''). A ferramenta de busca na web esteve indisponível durante a avalia�
 A infraestrutura de MLOps gerenciada pelo MLflow \cite{zaharia2018mlflow} registrou integralmente os
 5 experimentos de classificação
 (parâmetros, métricas, relatórios por categoria, predições e figuras) no experimento
-\texttt{experimento\_faturas}, garantindo reprodutibilidade:
+\texttt{experimento\_faturas}, assegurando a rastreabilidade dos resultados:
 \begin{itemize}
 	\item \textbf{HITL:} no teste cego, 4,5\% das transações (aproximadamente 15, sobre 334)
 	acionaram a interrupção programada para confirmação humana (\texttt{requer\_confirmacao}),
@@ -663,7 +663,7 @@ A infraestrutura de MLOps gerenciada pelo MLflow \cite{zaharia2018mlflow} regist
 \label{sec:val_respostas_questoes}
 
 \begin{itemize}
-	\item \textbf{Resposta a Q1:} sob teste cego rigoroso com estabelecimentos disjuntos, e
+	\item \textbf{Resposta a Q1:} sob teste cego com estabelecimentos disjuntos, e
 	comparando cada família de representação em sua melhor configuração, as representações
 	\textbf{esparsas} (TF-IDF com $n$-gramas de caractere) e as \textbf{densas} (busca vetorial por
 	\textit{embeddings} multilíngues) mostraram-se \textbf{estatisticamente equivalentes} neste acervo de
@@ -686,7 +686,7 @@ A infraestrutura de MLOps gerenciada pelo MLflow \cite{zaharia2018mlflow} regist
 	\item \textbf{Resposta a Q3:} os erros concentraram-se em (i) categorias de cauda com
 	4--5 exemplos de teste (F1 nulo para quase todos os modelos) e (ii) nomes opacos de
 	intermediadores (``PAYPAL~*BOSS~LIFE'', ``DIVIPAYPAYMENTS''). No agente, a matriz de confusão (Figura~\ref{fig:matriz_confusao_agente}) mostra que o erro dominante não é a troca entre categorias afins, mas a absorção de transações com pista léxica clara pela classe residual \textit{Despesas Diversas / Outros}. O ramo LLM local, sob
-	diretriz anti-alucinação, mostrou-se \textbf{contraproducente}, rotulando como
+	diretriz antialucinação, mostrou-se \textbf{contraproducente}, rotulando como
 	\textit{Despesas Diversas} até nomes com pista de categoria explícita; a busca na web
 	que mitigaria nomes informais esteve indisponível no ambiente;
 
@@ -716,10 +716,10 @@ implementada e validada do ponto de vista funcional.
 \section{Considerações finais do capítulo}
 \label{sec:val_consideracoes_finais}
 
-Este capítulo apresentou a avaliação experimental rigorosa e multidimensional da solução proposta, cobrindo desde a camada primária de ingestão óptica até a tomada de decisão semântica e observabilidade contínua em MLOps. 
+Este capítulo apresentou a avaliação experimental da solução proposta, cobrindo desde a camada primária de ingestão óptica até a tomada de decisão semântica e observabilidade contínua em MLOps. 
 
-A primeira frente de validação comprovou quantitativamente que, \textbf{em faturas nativas digitais, a extração com preservação de leiaute supera a rasterização seguida de OCR} no processamento de faturas de cartão de crédito (com a ressalva de escopo da Seção~\ref{sec:val_resultados_ocr}). A redução do CER e o ganho na taxa de casamento exato, quantificados na Seção~\ref{sec:val_resultados_ocr} (Tabela~\ref{tab:resultados_ocr_consolidados}), confirmam que a preservação das fronteiras estruturais das tabelas foi determinante para impedir o vazamento de parcelas e valores para o campo de descrição do estabelecimento.
+A primeira frente de validação mostrou quantitativamente que, \textbf{em faturas nativas digitais, a extração com preservação de leiaute supera a rasterização seguida de OCR} no processamento de faturas de cartão de crédito (com a ressalva de escopo da Seção~\ref{sec:val_resultados_ocr}). A redução do CER e o ganho na taxa de casamento exato, quantificados na Seção~\ref{sec:val_resultados_ocr} (Tabela~\ref{tab:resultados_ocr_consolidados}), confirmam que a preservação das fronteiras estruturais das tabelas foi determinante para impedir o vazamento de parcelas e valores para o campo de descrição do estabelecimento.
 
 Na etapa subsequente de classificação semântica, cinco arquiteturas foram avaliadas sobre um conjunto rotulado de 1.660 transações reais em teste cego por estabelecimento (Tabela~\ref{tab:resultados_modelos}). O classificador esparso clássico (TF-IDF + Random Forest) obteve o maior F1-Macro do protocolo (\textbf{69,3\%}), estatisticamente indistinguível da busca vetorial densa em sua melhor configuração (66,8\%, com normalização léxica; $p = 0{,}86$) e a uma fração do custo computacional desta -- limiar de 85\% não atingido por nenhum modelo, ainda que a acurácia global o supere (Naive Bayes: 88,3\%). A ablação (Seção~\ref{sec:val_ablacao_discussao}) evidenciou que a busca vetorial é o componente determinante do agente e que o efeito da normalização léxica depende da representação -- razão pela qual a comparação entre as duas famílias de representação só é justa quando cada uma é tomada em sua melhor configuração. O HITL foi acionado em 4,5\% das transações, com a ressalva de simulação da Seção~\ref{sec:val_mlops}.
 
-Tais constatações confirmam a viabilidade funcional integral da esteira (extração, normalização, RAG, agente em grafo, HITL e MLOps auditável). Da hipótese central conjuntiva, a subhipótese de F1-Macro ($>$ 85\%) é \textbf{refutada} sob avaliação por estabelecimento, o que basta para refutar a hipótese central em sua totalidade, ainda que a subhipótese de acurácia global seja sustentada (Seção~\ref{sec:val_respostas_questoes}). As causas da refutação --- porte e cobertura do acervo rotulado, cauda longa de categorias com pouquíssimos exemplos, rotulagem semiautomática e capacidade limitada do LLM local --- bem como as perspectivas de superação são discutidas no Capítulo~\ref{Cap:Conclusoes}.
+Tais constatações sustentam a viabilidade funcional da esteira (extração, normalização, RAG, agente em grafo, HITL e MLOps auditável). Da hipótese central conjuntiva, a subhipótese de F1-Macro ($>$ 85\%) é \textbf{refutada} sob avaliação por estabelecimento, o que basta para refutar a hipótese central em sua totalidade, ainda que a subhipótese de acurácia global seja sustentada (Seção~\ref{sec:val_respostas_questoes}). As causas da refutação --- porte e cobertura do acervo rotulado, cauda longa de categorias com pouquíssimos exemplos, rotulagem semiautomática e capacidade limitada do LLM local --- bem como as perspectivas de superação são discutidas no Capítulo~\ref{Cap:Conclusoes}.
