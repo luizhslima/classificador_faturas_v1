@@ -15,7 +15,7 @@ Este apêndice documenta formalmente o protocolo do levantamento estruturado da 
 
 \section{Bases de dados consultadas}
 \label{sec:bases_dados}
-As consultas foram executadas entre janeiro e maio de 2026 nas seguintes bases de dados indexadas de relevância internacional e nacional:
+As consultas foram executadas entre janeiro e maio de 2026, com reexecução das três strings em setembro de 2026 para reconstrução das contagens e incorporação de trabalhos publicados no intervalo (Seção~\ref{sec:fluxo_selecao}), nas seguintes bases de dados indexadas de relevância internacional e nacional:
 \begin{itemize}
 	\item \textbf{Scopus} (Elsevier);
 	\item \textbf{IEEE Xplore Digital Library};
@@ -112,9 +112,9 @@ Deve-se declarar com clareza o que este levantamento é e o que não é. \textbf
 \chapter{Esquema do Banco de Dados Relacional e Vetorial}
 \label{apendice:esquema_banco}
 
-Este apêndice apresenta o esquema físico relacional e vetorial implementado no PostgreSQL 16 com a extensão pgvector, correspondente aos modelos ORM declarados na arquitetura da solução.
+Este apêndice apresenta o esquema físico relacional e vetorial implementado no PostgreSQL 16 com a extensão pgvector, tal como criado pelos \textit{scripts} \codepath{infra/scripts/base.sql} (esquema inicial) e \codepath{basev2.sql} (extensões para \textit{marketplaces}, sugestões, alocações e aliases). O mapeamento objeto-relacional (\codepath{notebooks/modules/model.py}) declara as mesmas tabelas com tipos ligeiramente mais estritos (\texttt{NUMERIC(4,3)} em vez de \texttt{REAL} para confianças), sem efeito sobre os resultados.
 
-\section{Tabela de estabelecimentos (base de conhecimento e \textit{embeddings})}
+\section{Tabela de estabelecimentos (base de conhecimento relacional)}
 {\footnotesize
 \begin{verbatim}
 	CREATE TABLE estabelecimentos (
@@ -123,21 +123,39 @@ Este apêndice apresenta o esquema físico relacional e vetorial implementado no
 		nome_normalizado TEXT NOT NULL,
 		categoria_id INTEGER REFERENCES categorias(id),
 		subcategoria_id INTEGER REFERENCES subcategorias(id),
-		tipo_estabelecimento_id INTEGER REFERENCES tipos_estabelecimento(id),
-		eh_marketplace BOOLEAN NOT NULL DEFAULT FALSE,
-		confianca NUMERIC(4, 3) DEFAULT 0.000,
-		fonte TEXT,
-		metadados JSONB DEFAULT '{}'::jsonb,
-		embedding VECTOR(384),
+		tipo_estabelecimento_id INTEGER REFERENCES tipos_estabelecimento(id),  -- basev2
+		eh_marketplace BOOLEAN NOT NULL DEFAULT FALSE,                          -- basev2
+		confianca REAL DEFAULT 0.0 CHECK (confianca BETWEEN 0 AND 1),
+		fonte TEXT,               -- 'llm', 'manual', 'usuario', 'importacao'
+		metadados JSONB DEFAULT '{}',
+		embedding VECTOR(384),    -- embedding semantico do nome normalizado
 		qtd_transacoes INTEGER DEFAULT 1,
-		ultima_atualizacao TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-		criado_em TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+		ultima_atualizacao TIMESTAMP DEFAULT NOW(),
+		criado_em TIMESTAMP DEFAULT NOW()
 	);
 
-	CREATE INDEX idx_estabelecimentos_embedding ON estabelecimentos
-	USING ivfflat (embedding vector_cosine_ops) WITH (lists = 100);
+	CREATE INDEX idx_estab_nome_trgm ON estabelecimentos
+	    USING GIN (nome_normalizado gin_trgm_ops);
+	CREATE INDEX idx_estab_embedding_hnsw ON estabelecimentos
+	    USING hnsw (embedding vector_cosine_ops)
+	    WITH (m = 16, ef_construction = 64);
 \end{verbatim}
 }
+
+\section{Coleção vetorial consultada pelo agente}
+
+A busca por similaridade do agente (nó \texttt{buscar\_por\_similaridade}) e a retroalimentação da base (nó \texttt{salvar\_vectorstore}) operam sobre a coleção \texttt{baseconhecimento}, mantida pela integração \texttt{langchain-postgres} em duas tabelas próprias, criadas pela biblioteca e povoadas pela etapa \codepath{04_rag_pgvector.py} com um documento por estabelecimento único do conjunto de treino (texto: chave do estabelecimento; metadados: categoria e identificador da categoria):
+
+{\footnotesize
+\begin{verbatim}
+	langchain_pg_collection (uuid UUID PRIMARY KEY, name VARCHAR, cmetadata JSON)
+	langchain_pg_embedding  (id VARCHAR PRIMARY KEY, collection_id UUID REFERENCES
+	                         langchain_pg_collection(uuid), embedding VECTOR,
+	                         document VARCHAR, cmetadata JSONB)
+\end{verbatim}
+}
+
+Essa coleção não recebe índice aproximado de vizinhos mais próximos: a busca é exaustiva, adequada à escala do acervo (488 vetores) e responsável pela latência de 1,4~ms medida na Seção~\ref{sec:val_mlops}. A tabela \texttt{estabelecimentos} guarda cópia do mesmo \textit{embedding} e da categoria para consulta relacional e para o \textit{cache} por nome exato, mas não é a fonte da busca vetorial do agente.
 
 \section{Tabela de transações financeiras}
 {\footnotesize
@@ -152,19 +170,24 @@ Este apêndice apresenta o esquema físico relacional e vetorial implementado no
 		categoria_id INTEGER REFERENCES categorias(id),
 		subcategoria_id INTEGER REFERENCES subcategorias(id),
 		estabelecimento_id INTEGER REFERENCES estabelecimentos(id),
-		confianca NUMERIC(4, 3) CHECK (confianca BETWEEN 0 AND 1),
-		metodo_classificacao TEXT,
+		confianca REAL CHECK (confianca BETWEEN 0 AND 1),
+		metodo_classificacao TEXT,          -- 'vetorial', 'llm', 'humano'
+		revisado_usuario BOOLEAN DEFAULT FALSE,
+		criado_em TIMESTAMP DEFAULT NOW(),
+		-- colunas acrescentadas por basev2.sql:
 		categoria_sugerida_id INTEGER REFERENCES categorias(id),
 		subcategoria_sugerida_id INTEGER REFERENCES subcategorias(id),
-		confianca_sugestao NUMERIC(4, 3) CHECK (confianca_sugestao BETWEEN 0 AND 1),
-		origem_detalhamento TEXT,
+		confianca_sugestao REAL CHECK (confianca_sugestao BETWEEN 0 AND 1),
 		requer_confirmacao BOOLEAN NOT NULL DEFAULT FALSE,
-		status_classificacao TEXT NOT NULL DEFAULT 'pendente',
-		revisado_usuario BOOLEAN DEFAULT FALSE,
-		criado_em TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+		status_classificacao TEXT NOT NULL DEFAULT 'pendente'
+		    CHECK (status_classificacao IN ('pendente','classificada','sugerida',
+		           'confirmada_usuario','rejeitada_usuario','sem_evidencia')),
+		origem_detalhamento TEXT
 	);
 \end{verbatim}
 }
+
+A tabela \texttt{log\_classificacoes} (\texttt{nome\_entrada}, \texttt{categoria\_sugerida}, \texttt{confianca}, \texttt{metodo}, \texttt{prompt\_usado}, \texttt{resposta\_llm}, \texttt{similaridade}, \texttt{tempo\_ms}) e as tabelas \texttt{feedbacks}, \texttt{transacao\_alocacoes\_categoria} e \texttt{confirmacoes\_categoria\_marketplace} constam do esquema, mas não são alimentadas pela versão do agente avaliada nesta monografia (Seção~\ref{sec:sol_agente_inteligente}). Observa-se ainda que o \textit{script} inicial semeia a tabela \texttt{categorias} com nove categorias de uma taxonomia anterior; a taxonomia canônica de 14 categorias empregada pelo agente e pela esteira experimental (lista em \codepath{notebooks/experimentos/common.py}) deve ser carregada nessa tabela antes da execução, passo documentado no Apêndice~\ref{apendice:repositorio}.
 
 % ----------------------------------------------------------
 \chapter{Repositório de Código-Fonte e Reprodutibilidade}
@@ -176,30 +199,30 @@ Todo o código-fonte desenvolvido nesta monografia --- microsserviços, processo
 	\url{https://github.com/luizhslima/classificador_faturas_v1}
 \end{center}
 
-O repositório é obtido com os submódulos por meio do comando \texttt{git clone -{}-recurse-submodules}. Sua organização de diretórios é resumida a seguir:
+A aplicação \textit{web} (protótipo, Seção~\ref{sec:sol_arquitetura}) é referenciada pelo repositório como submódulo Git, mas seu repositório próprio não foi publicado; o diretório \codepath{web/} aparece vazio após a clonagem e a aplicação está disponível apenas na cópia local do autor. Sua publicação, junto com o registro do arquivo \texttt{.gitmodules}, fica como pendência de depósito. A organização de diretórios é resumida a seguir:
 
 \begin{itemize}
-	\item \codepath{infra/} --- arquivos Docker Compose e \textit{scripts} de inicialização (\texttt{setup\_minio.sh}, \texttt{base.sql}, \texttt{basev2.sql}) que provisionam o MinIO, o Apache Kafka e o PostgreSQL~16 com a extensão pgvector;
+	\item \codepath{infra/} --- arquivos Docker Compose (\codepath{docker-compose-externalinfra.yml} é o utilizado nesta pesquisa) e \textit{scripts} de inicialização (\texttt{setup\_minio.sh}, \texttt{init.py}, \texttt{base.sql}, \texttt{basev2.sql}) que provisionam o MinIO, o Apache Kafka, o MLflow, o Logto e o PostgreSQL~16 com a extensão pgvector. Antes de executar o agente, a tabela \texttt{categorias} deve ser carregada com as 14 categorias canônicas listadas em \codepath{notebooks/experimentos/common.py}, e o \textit{bucket} \texttt{mlflow-artifacts} deve ser criado (Apêndice~\ref{apendice:esquema_banco});
 	\item \codepath{service-ingestao/} --- API reativa de ingestão em Java (Spring WebFlux), organizada em arquitetura hexagonal, responsável por persistir os arquivos brutos no MinIO e publicar os eventos de ingestão no barramento Kafka;
-	\item \codepath{worker-prata/} --- serviço consumidor de extração em Python que consome os eventos do Kafka e executa a esteira híbrida de conversão documental (IBM Docling V2 e Tesseract OCR);
-	\item \codepath{notebooks/modules/} --- implementação do agente de classificação em grafo de estados (LangGraph): nós, roteadores, contratos Pydantic, serviços de banco de dados e integração com o \textit{vector store};
-	\item \codepath{notebooks/experimentos/} --- \textbf{esteira experimental reprodutível} (\texttt{common.py} e as etapas \texttt{01} a \texttt{10}) que gera integralmente os resultados do Capítulo~\ref{Cap:Ava_Exp}: avaliação de OCR, treino e teste cego das linhas de base clássicas, ajuste do ByT5, busca vetorial densa, execução do agente híbrido, estudo de ablação, consolidação das tabelas e figuras em \LaTeX, intervalos de confiança e testes de significância, e verificação empírica de conformidade com a LGPD;
-	\item \codepath{service-classification/} --- API de exposição do serviço de classificação;
-	\item \codepath{web/} --- aplicação \textit{web} de visualização orçamentária e confirmação humana (HITL) (submódulo);
+	\item \codepath{worker-prata/} --- serviço consumidor de extração em Python que consome os eventos do Kafka, executa a conversão documental com IBM Docling V2 e persiste faturas e transações no PostgreSQL;
+	\item \codepath{notebooks/modules/} --- implementação do agente de classificação em grafo de estados (LangGraph): nós, roteadores, contratos Pydantic, serviços de banco de dados, integração com o \textit{vector store} e a rotina autônoma de OCR com Tesseract (\codepath{utils.py});
+	\item \codepath{notebooks/experimentos/} --- \textbf{esteira experimental reprodutível} (\texttt{common.py} e as etapas \texttt{01} a \texttt{11}) que gera os resultados de classificação do Capítulo~\ref{Cap:Ava_Exp}: construção da base rotulada e dos conjuntos, treino e teste cego das linhas de base clássicas, ajuste do ByT5, busca vetorial densa, execução do agente híbrido, estudo de ablação, consolidação das tabelas e figuras em \LaTeX, intervalos de confiança e testes de significância para o F1-Macro (etapa 09) e para a acurácia (etapa 11), e verificação empírica de conformidade com a LGPD (etapa 10). A bateria comparativa de extração (Docling V2 versus Tesseract, Seção~\ref{sec:val_resultados_ocr}) é gerada pelo \textit{notebook} \codepath{notebooks/data_analysis.ipynb};
+	\item \codepath{service-classification/} --- protótipo de API de classificação \textit{zero-shot} por similaridade de \textit{embeddings}, não integrado ao agente nem avaliado nesta monografia;
+	\item \codepath{web/} --- protótipo de aplicação \textit{web} (Next.js) com autenticação via Logto e interface de envio de faturas; a visualização orçamentária e a tela de confirmação humana (HITL) são trabalho futuro (submódulo);
 	\item \codepath{requirements*.txt} --- conjuntos de dependências Python (núcleo da solução, agentes e ambiente de redação da monografia).
 \end{itemize}
 
-Os experimentos de classificação foram rastreados em um servidor MLflow sob o experimento \texttt{experimento\_faturas}, registrando parâmetros, métricas, relatórios por categoria, predições e artefatos gráficos. Em razão do caráter estritamente pessoal e sensível dos dados financeiros utilizados (Seção~\ref{sec:sol_lgpd}), o acervo de faturas reais e os respectivos arquivos de verdade de referência não são distribuídos no repositório.
+Os experimentos de classificação foram rastreados em um servidor MLflow sob o experimento \texttt{experimento\_faturas}, registrando parâmetros, métricas, relatórios por categoria, predições e artefatos gráficos. Em razão do caráter estritamente pessoal e sensível dos dados financeiros utilizados (Seção~\ref{sec:sol_lgpd}), o acervo de faturas reais e os respectivos arquivos de verdade de referência não são distribuídos no repositório. As credenciais de serviço da infraestrutura local constam em claro nos arquivos de configuração e devem ser substituídas em qualquer implantação fora do ambiente experimental.
 
 % ----------------------------------------------------------
 \chapter{\textit{System Prompt} e Contrato Pydantic do Ramo LLM}
 \label{apendice:system_prompt}
 
-Este apêndice reproduz, na íntegra e sem correções editoriais, o \textit{System Prompt} dinâmico efetivamente enviado ao modelo de linguagem no nó \texttt{classificar\_com\_llm} do agente (Seção~\ref{sec:sol_agente_inteligente}), extraído diretamente do código-fonte (\codepath{notebooks/modules/nodes.py}), e o esquema Pydantic \texttt{ClassificacaoLLM} (\codepath{notebooks/modules/structures.py}) que valida a saída estruturada correspondente, tornando o experimento auditável.
+Este apêndice reproduz, na íntegra e sem correções editoriais, o \textit{System Prompt} dinâmico efetivamente enviado ao modelo de linguagem no nó \texttt{classificar\_com\_llm} do agente (Seção~\ref{sec:sol_agente_inteligente}), extraído diretamente do código-fonte (\codepath{notebooks/modules/nodes.py}), e o esquema Pydantic \texttt{ClassificacaoLLM} (\codepath{notebooks/modules/structures.py}) que valida a saída estruturada correspondente, tornando o experimento auditável. Os dois artefatos são reproduzidos \textbf{na versão que gerou os resultados do Capítulo~\ref{Cap:Ava_Exp}}; após os experimentos, a versão publicada no repositório recebeu as correções editoriais recomendadas na Seção~\ref{sec:apendice_prompt_critica} (renumeração sequencial das regras e ortografia das descrições dos campos), sem alteração de conteúdo, de modo que o código-fonte atual difere do texto abaixo apenas nesses pontos.
 
 \section{\textit{System prompt} dinâmico}
 
-Os trechos entre chaves (\texttt{\{\}}) são preenchidos em tempo de execução: \texttt{dtlk.get('source')} e \texttt{dtlk['extensao']} vêm dos metadados do caminho do arquivo no Data Lakehouse; a regra de origem do dado alterna entre uma instrução de saneamento de OCR ou uma instrução de não presumir erros ópticos, conforme o arquivo seja nativo digital ou óptico; e a lista de categorias permitidas é montada dinamicamente a partir da tabela \texttt{categorias} do banco de dados. A numeração das regras (1 a 4, seguida de 6 a 9, sem a regra 5) é reproduzida exatamente como consta no código-fonte.
+Os trechos entre chaves (\texttt{\{\}}) são preenchidos em tempo de execução: \texttt{dtlk.get('source')} e \texttt{dtlk['extensao']} vêm dos metadados do caminho do arquivo no \textit{data lakehouse}; a regra de origem do dado alterna entre uma instrução de saneamento de OCR ou uma instrução de não presumir erros ópticos, conforme o arquivo seja nativo digital ou óptico; e a lista de categorias permitidas é montada dinamicamente a partir da tabela \texttt{categorias} do banco de dados. A numeração das regras (1 a 4, seguida de 6 a 9, sem a regra 5) é reproduzida exatamente como consta no código-fonte.
 
 {\footnotesize
 \begin{verbatim}
@@ -289,12 +312,12 @@ class ClassificacaoLLM(BaseModel):
 
 A reprodução literal acima expõe três defeitos do artefato efetivamente avaliado, que não foram corrigidos antes da execução dos experimentos e que, portanto, integram a configuração cujos resultados o Capítulo~\ref{Cap:Ava_Exp} reporta:
 \begin{enumerate}
-	\item \textbf{Regra ausente:} a numeração salta da regra 4 para a regra 6. A regra 5 foi removida em alguma iteração do desenvolvimento sem renumeração das demais; não há registro do seu conteúdo. Para o modelo, o efeito prático é apenas uma numeração inconsistente, mas o fato revela que o \textit{prompt} não passou por revisão sistemática antes do experimento;
+	\item \textbf{Regra ausente:} a numeração salta da regra 4 para a regra 6. As versões anteriores do \textit{prompt}, preservadas em \codepath{specs/prompts.md}, indicam que a lacuna decorre de renumeração incompleta ao longo da evolução do artefato (a cadeia de pensamento, regra 5 na primeira versão, tornou-se a regra 7 na versão final). Para o modelo, o efeito prático é apenas uma numeração inconsistente, mas o fato revela que o \textit{prompt} não passou por revisão sistemática antes do experimento;
 	\item \textbf{Erros ortográficos nos campos de saída:} as descrições dos campos \texttt{possiveis\_categorias} (``Lista de categoria sugeridas de possiveis categorias no minimo 3'') e \texttt{raciocinio} (``Raciocionio usado para categorizar a transação'') contêm erros de ortografia e de concordância. Como essas descrições são expostas ao modelo pelo mecanismo de saída estruturada, podem degradar marginalmente a compreensão do contrato de saída;
 	\item \textbf{Tensão entre as regras 2 e 3:} a regra 2 instrui a inferir a categoria por pistas genéricas mesmo sem reconhecer o estabelecimento, ao passo que a regra 3 combate alucinações; a ressalva ``inferir a categoria a partir de pistas genéricas NÃO é alucinação'' é uma tentativa, dentro do próprio \textit{prompt}, de resolver essa tensão. O comportamento observado no experimento -- o ramo LLM rotulou como \textit{Despesas Diversas} nomes com pista de categoria explícita, como ``SAPPORO RESTAURANTE'' e ``Drogaria Paulista'' (Seção~\ref{sec:val_ablacao_discussao}) -- é compatível com a hipótese de que o modelo compacto resolveu a tensão em favor da regra 3.
 \end{enumerate}
 
-Esses defeitos importam para a leitura dos resultados: a acurácia condicional de apenas 21\% do ramo LLM foi atribuída, no Capítulo~\ref{Cap:Ava_Exp}, à capacidade do modelo local compacto. Essa atribuição pode estar correta, mas a evidência disponível não a isola de uma explicação concorrente e mais simples -- um \textit{prompt} com regra faltante, instruções em tensão e campos de saída descritos com erro. A separação entre limitação do modelo e limitação do \textit{prompt} não foi verificada experimentalmente; o experimento de baixo custo que a isolaria (reexecutar o ramo LLM sobre as mesmas transações com o \textit{prompt} corrigido) é indicado como trabalho futuro na Seção~\ref{sec:concl_trabalhos_futuros}. A correção da numeração e da ortografia no código-fonte é recomendada independentemente da reexecução dos experimentos.
+Esses defeitos importam para a leitura dos resultados: a acurácia condicional de apenas 21\% do ramo LLM foi atribuída, no Capítulo~\ref{Cap:Ava_Exp}, à capacidade do modelo local compacto. Essa atribuição pode estar correta, mas a evidência disponível não a isola de explicações concorrentes e mais simples -- um \textit{prompt} com regra faltante, instruções em tensão e campos de saída descritos com erro; e um \textit{prompt} que não apresenta ao modelo os vizinhos rotulados que o ramo vetorial já recuperou, deixando-o decidir em \textit{zero-shot} (Seção~\ref{sec:sol_agente_inteligente}). A separação entre limitação do modelo e limitação do \textit{prompt} não foi verificada experimentalmente; o experimento de baixo custo que a isolaria (reexecutar o ramo LLM sobre as mesmas transações com o \textit{prompt} corrigido) é indicado como trabalho futuro na Seção~\ref{sec:concl_trabalhos_futuros}. A correção da numeração e da ortografia foi aplicada ao código-fonte do repositório após os experimentos, independentemente da reexecução; a reprodução acima preserva a versão avaliada.
 
 % ----------------------------------------------------------
 \chapter{Regras de Normalização Léxica e Listas de Marketplaces}
@@ -329,7 +352,7 @@ texto = re.sub(r"\s+", " ", texto).strip()
 \section{Lista de \textit{marketplaces} ambíguos}
 \label{sec:apendice_marketplaces}
 
-O dicionário \texttt{MARKETPLACES\_AMBIGUOS} reúne os padrões, como aparecem na fatura em caixa alta (sufixo \texttt{*} indica correspondência por prefixo), usados pela função \texttt{detectar\_marketplace} para sinalizar transações cuja categoria depende do histórico de compras do usuário (\texttt{eh\_marketplace}, Seção~\ref{sec:sol_agente_inteligente}):
+O dicionário \texttt{MARKETPLACES\_AMBIGUOS} reúne os padrões, como aparecem na fatura em caixa alta (sufixo \texttt{*} indica correspondência por prefixo), destinados a sinalizar transações cuja categoria depende do histórico de compras do usuário (\texttt{eh\_marketplace}, Seção~\ref{sec:sol_agente_inteligente}). A função \texttt{detectar\_marketplace}, que percorre esses padrões, está implementada mas não é invocada pelo grafo: o nó \texttt{normalizar} decide \texttt{eh\_marketplace} testando se o nome canônico devolvido pela resolução de aliases (Seção seguinte) é uma \textbf{chave} deste dicionário (ver Seção~\ref{sec:apendice_normalizacao_critica}):
 
 {\footnotesize
 \begin{verbatim}
@@ -368,6 +391,19 @@ aliases = {
 }
 
 Observa-se que este dicionário de aliases cobre um subconjunto dos \textit{marketplaces} da Seção~\ref{sec:apendice_marketplaces} (não inclui \textit{ifood} nem \textit{rappi}), refletindo fielmente o estado atual do código-fonte.
+
+\section{Análise crítica do artefato}
+\label{sec:apendice_normalizacao_critica}
+
+A reprodução literal acima, confrontada com o uso que o grafo faz de cada função, expõe quatro defeitos do artefato efetivamente avaliado, identificados na revisão final do código e não corrigidos antes da execução dos experimentos:
+\begin{enumerate}
+	\item \textbf{Chave de \textit{marketplace} não casada:} o nó \texttt{normalizar} define \texttt{eh\_marketplace} verificando se o nome canônico devolvido por \texttt{detectar\_estabelecimento} pertence às chaves de \texttt{MARKETPLACES\_AMBIGUOS}. Para Amazon, Shopee, Magalu, Americanas, AliExpress e Shein os dois identificadores coincidem; para o Mercado Livre, o alias canônico é \texttt{"mercado livre"} (com espaço) e a chave é \texttt{"mercado\_livre"} (com sublinhado). Transações do Mercado Livre e do Mercado Pago -- o \textit{marketplace} mais frequente do acervo -- nunca foram, portanto, roteadas pelo ramo de histórico;
+	\item \textbf{Função de detecção não utilizada:} \texttt{detectar\_marketplace}, que aplica os padrões com curinga (\texttt{ML*}, \texttt{MELI*}, \texttt{AMZ*} etc.) sobre a descrição original em caixa alta, não é invocada em nenhum nó. Os padrões com curinga do dicionário são, na prática, inertes; só os nomes presentes no dicionário de aliases (sobre a descrição já normalizada) surtem efeito;
+	\item \textbf{Histórico recuperado e não consumido:} o nó \texttt{buscar\_historico\_marketplace} grava o histórico na chave \texttt{historico\_marketplace} do estado, mas a função que o consumiria (\texttt{classificar\_marketplace\_por\_historico}) lê a chave \texttt{historico\_marketplaces} (com ``s'') e não está ligada ao grafo; o nó \texttt{classificar\_com\_llm} tampouco injeta o histórico no \textit{prompt}. O efeito líquido é que o ramo de histórico, quando acionado, não altera a decisão;
+	\item \textbf{Duas rotinas de normalização:} o serviço de extração (\codepath{worker-prata/modules/parsers.py}) preenche \texttt{transacoes.nome\_normalizado} com uma versão da rotina que não contém a regra 1 (repetições em torno de asterisco); o agente recomputa a normalização com a rotina completa (\codepath{notebooks/modules/utils.py}); e a base de conhecimento indexa os estabelecimentos por uma terceira chave (apenas caixa baixa e remoção de acentos). A coexistência de três chaves para o mesmo estabelecimento explica por que a consulta por nome exato à tabela \texttt{estabelecimentos} raramente resolve o identificador do estabelecimento ao salvar o resultado, e contribui para a diferença entre consulta e indexação discutida na Seção~\ref{sec:val_resultados_classificacao}.
+\end{enumerate}
+
+Esses defeitos não afetam as linhas de base nem a busca vetorial isolada, e afetam o agente apenas no ramo de histórico de \textit{marketplace}, que -- por não influenciar a decisão -- não altera as métricas reportadas. Eles importam para a resposta à Q4 (Seção~\ref{sec:val_respostas_questoes}), que fica parcial, e são corrigíveis com poucas linhas de código, o que se recomenda antes de qualquer reexecução (Seção~\ref{sec:concl_trabalhos_futuros}).
 
 \end{apendicesenv}
 % ---

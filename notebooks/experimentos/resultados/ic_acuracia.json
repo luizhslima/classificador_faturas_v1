@@ -1,0 +1,95 @@
+{
+  "limiar": 0.85,
+  "acuracia_por_arquitetura": {
+    "agente_hibrido_langgraph": {
+      "acertos": 205,
+      "n": 334,
+      "acuracia": 0.6137724550898204,
+      "ic95_wilson": [
+        0.5605448006269733,
+        0.6644127882126587
+      ],
+      "p_binomial_unilateral_h0_menor_igual_85": 1.0
+    },
+    "byt5_finetuning": {
+      "acertos": 220,
+      "n": 334,
+      "acuracia": 0.6586826347305389,
+      "ic95_wilson": [
+        0.6062859177928851,
+        0.7074707192729172
+      ],
+      "p_binomial_unilateral_h0_menor_igual_85": 1.0
+    },
+    "rag_pgvector_minilm": {
+      "acertos": 276,
+      "n": 334,
+      "acuracia": 0.8263473053892215,
+      "ic95_wilson": [
+        0.7820727501504555,
+        0.8632003336263833
+      ],
+      "p_binomial_unilateral_h0_menor_igual_85": 0.8991760535727803
+    },
+    "rag_pgvector_minilm_norm": {
+      "acertos": 283,
+      "n": 334,
+      "acuracia": 0.8473053892215568,
+      "ic95_wilson": [
+        0.8047984261507564,
+        0.881914213464962
+      ],
+      "p_binomial_unilateral_h0_menor_igual_85": 0.5915472141501946
+    },
+    "tfidf_naive_bayes": {
+      "acertos": 295,
+      "n": 334,
+      "acuracia": 0.8832335329341318,
+      "ic95_wilson": [
+        0.8443554865074935,
+        0.9133963916891615
+      ],
+      "p_binomial_unilateral_h0_menor_igual_85": 0.04869352472412536
+    },
+    "tfidf_random_forest": {
+      "acertos": 283,
+      "n": 334,
+      "acuracia": 0.8473053892215568,
+      "ic95_wilson": [
+        0.8047984261507564,
+        0.881914213464962
+      ],
+      "p_binomial_unilateral_h0_menor_igual_85": 0.5915472141501946
+    }
+  },
+  "agente_residual": {
+    "n_pred_residual": 132,
+    "n_ja_residual_no_rotulo_do_grafo": 132,
+    "n_atribuidas_pelo_ancoramento_externo": 0,
+    "por_fonte": {
+      "llm": 113,
+      "humano": 13,
+      "vetorial": 6
+    }
+  },
+  "agente_latencia_condicional_ms": {
+    "ramo_llm_media": 13678.943981138298,
+    "ramo_llm_mediana": 12772.507200017571,
+    "ramo_vetorial_media": 34.613425716358634,
+    "global_media": 6529.968390722612
+  },
+  "agente_com_busca_web": {
+    "n": 334,
+    "acuracia": 0.5718562874251497,
+    "f1_macro": 0.537928324668206,
+    "erros_execucao": 48,
+    "por_fonte": {
+      "vetorial": 175,
+      "llm": 107,
+      "nan": 48,
+      "humano": 4
+    },
+    "hitl": 4,
+    "latencia_ms_media": 8944.582705991412
+  }
+}

@@ -22,8 +22,8 @@ class ClassificacaoLLM(BaseModel):
     )
     possiveis_categorias: list[str] = Field(
         default=[],
-        description="Lista de categoria sugeridas de possiveis categorias no minimo 3"
+        description="Lista de pelo menos três categorias alternativas possíveis para a transação."
     )
     raciocinio: str = Field(
-        description="Raciocionio usado para categorizar a transação"
+        description="Raciocínio usado para categorizar a transação."
     )

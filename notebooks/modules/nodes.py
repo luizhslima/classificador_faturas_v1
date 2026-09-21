@@ -168,10 +168,10 @@ def make_nodes(services: AsyncService):
                         2. SUA TAREFA É A CATEGORIA, NÃO A MARCA: mesmo sem reconhecer o estabelecimento específico, use pistas genéricas do texto para inferir a categoria. Palavras como "RESTAURANTE", "LANCHONETE", "PIZZA", "ACAI", "PADARIA", "MERCADO", "HORTIFRUTI" => Alimentação; "DROGARIA", "DROGA", "FARMACIA", "OTICA", "CLINICA" => Saúde; "POSTO", "AUTO POSTO", "UBER", "99" => Transporte; "INGRESSE", "INGRESSO", "CINEMA", "STEAM", "PLAYSTATION", "JOGOS", "GAMES" => Lazer e Entretenimento; "MERCADOLIVRE", "AMAZON", "SHOPEE", "MAGALU" => Marketplace / E-commerce. Só use "Despesas Diversas / Outros" quando NENHUMA pista de categoria estiver presente.
                         3. COMBATE A ALUCINAÇÕES: não invente a identidade da marca; mas inferir a categoria a partir de pistas genéricas NÃO é alucinação.
                         4. REGRA DE ORIGEM DO DADO: {instrucao_ocr}
-                        6. ESTABELECIMENTOS TOTALMENTE OPACOS: apenas quando o nome for um gateway genérico sem pista (ex.: "DIVIPAYPAYMENTS", "PAYPAL *XXXX") ou um nome próprio informal sem contexto, defina 'requer_confirmacao=true' e confiança <= 0.70.
-                        7. CADEIA DE PENSAMENTO: Pense passo a passo (raciocínio curto) ANTES de decidir a categoria.
-                        8. Se houver a ferramenta 'duckduckgo_search', use-a no máximo UMA vez, sem aspas na busca, para nomes obscuros.
-                        9. SAÍDA FINAL: termine sua resposta com um bloco JSON em uma única linha, no formato exato:
+                        5. ESTABELECIMENTOS TOTALMENTE OPACOS: apenas quando o nome for um gateway genérico sem pista (ex.: "DIVIPAYPAYMENTS", "PAYPAL *XXXX") ou um nome próprio informal sem contexto, defina 'requer_confirmacao=true' e confiança <= 0.70.
+                        6. CADEIA DE PENSAMENTO: Pense passo a passo (raciocínio curto) ANTES de decidir a categoria.
+                        7. Se houver a ferramenta 'duckduckgo_search', use-a no máximo UMA vez, sem aspas na busca, para nomes obscuros.
+                        8. SAÍDA FINAL: termine sua resposta com um bloco JSON em uma única linha, no formato exato:
                         {{"categoria": "<um rótulo EXATO da lista abaixo>", "subcategoria": null, "confianca": <0..1>, "requer_confirmacao": <true|false>, "justificativa": "<curta>", "possiveis_categorias": ["...","...","..."], "raciocinio": "<resumo>"}}
 
                         CATEGORIAS PERMITIDAS (Você DEVE escolher apenas uma desta lista ):

@@ -46,6 +46,7 @@ Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'wiz_functions' (item size: 4) to 9000 items.
+Reallocating 'field_info' (item size: 4) to 10180 items.
 Database file #1: abntex2-options.bib
 Database file #2: USPSC-bib/USPSC-modelo-references.bib
 Reallocating 'singl_function' (item size: 4) to 100 items.
@@ -57,44 +58,44 @@ Reallocating 'global_strs' (item size: 1) to 4000000 items.
 | Em caso de dúvidas ou problemas com este estilo procure |
 | http://www.abntex.net.br/                               |
 +---------------------------------------------------------+
-You've used 68 entries,
+You've used 74 entries,
             6728 wiz_defined-function locations,
-            1636 strings with 24885 characters,
-and the built_in function-call counts, 70372 in all, are:
-= -- 6903
-> -- 1831
-< -- 952
-+ -- 1591
-- -- 549
-* -- 4791
-:= -- 8741
-add.period$ -- 289
-call.type$ -- 71
-change.case$ -- 558
-chr.to.int$ -- 141
-cite$ -- 56
-duplicate$ -- 5004
-empty$ -- 4505
-format.name$ -- 2634
-if$ -- 15900
+            1689 strings with 26715 characters,
+and the built_in function-call counts, 84760 in all, are:
+= -- 8797
+> -- 2027
+< -- 1384
++ -- 2086
+- -- 608
+* -- 5735
+:= -- 10430
+add.period$ -- 373
+call.type$ -- 77
+change.case$ -- 615
+chr.to.int$ -- 156
+cite$ -- 62
+duplicate$ -- 6560
+empty$ -- 4987
+format.name$ -- 2920
+if$ -- 18801
 int.to.chr$ -- 11
 int.to.str$ -- 3
-missing$ -- 1137
-newline$ -- 300
-num.names$ -- 280
-pop$ -- 1360
+missing$ -- 1244
+newline$ -- 333
+num.names$ -- 310
+pop$ -- 1409
 preamble$ -- 1
-purify$ -- 268
+purify$ -- 293
 quote$ -- 0
-skip$ -- 5768
+skip$ -- 7257
 stack$ -- 1
-substring$ -- 3084
-swap$ -- 2106
-text.length$ -- 84
+substring$ -- 3762
+swap$ -- 2751
+text.length$ -- 100
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 29
+type$ -- 32
 warning$ -- 0
-while$ -- 459
+while$ -- 514
 width$ -- 0
-write$ -- 965
+write$ -- 1121

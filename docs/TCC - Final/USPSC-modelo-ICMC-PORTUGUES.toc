@@ -14,137 +14,137 @@
 \contentsline {section}{\numberline {2.1}Considerações iniciais}{35}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Mineração de textos e processamento de linguagem natural}{35}{section.2.2}%
 \contentsline {subsection}{\numberline {2.2.1}Pré-processamento léxico e morfológico}{35}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2}Estratégias de tokenização: da palavra ao nível de byte}{36}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.2}Estratégias de tokenização: da palavra ao nível de byte}{35}{subsection.2.2.2}%
 \contentsline {subsection}{\numberline {2.2.3}Vetorização estatística versus representações densas (\textit {embeddings})}{36}{subsection.2.2.3}%
 \contentsline {subsubsection}{\numberline {2.2.3.1}TF-IDF (Term Frequency-Inverse Document Frequency)}{36}{subsubsection.2.2.3.1}%
 \contentsline {subsubsection}{\numberline {2.2.3.2}Embeddings densos e bancos de dados vetoriais}{37}{subsubsection.2.2.3.2}%
 \contentsline {subsection}{\numberline {2.2.4}Classificadores estatísticos clássicos para vetores esparsos}{38}{subsection.2.2.4}%
 \contentsline {subsubsection}{\numberline {2.2.4.1}Naive Bayes multinomial e complementar}{38}{subsubsection.2.2.4.1}%
-\contentsline {subsubsection}{\numberline {2.2.4.2}Florestas aleatórias (Random Forest)}{38}{subsubsection.2.2.4.2}%
+\contentsline {subsubsection}{\numberline {2.2.4.2}Florestas aleatórias (Random Forest)}{39}{subsubsection.2.2.4.2}%
 \contentsline {subsection}{\numberline {2.2.5}Métricas de avaliação para classificação multiclasse}{39}{subsection.2.2.5}%
-\contentsline {section}{\numberline {2.3}Visão computacional e inteligência de documentos}{39}{section.2.3}%
+\contentsline {section}{\numberline {2.3}Visão computacional e inteligência de documentos}{40}{section.2.3}%
 \contentsline {subsection}{\numberline {2.3.1}Análise de leiaute de documentos (DLA) e caixas delimitadoras}{40}{subsection.2.3.1}%
 \contentsline {subsection}{\numberline {2.3.2}Paradigmas de ingestão documental: reconhecimento óptico versus extração de fluxo nativo}{40}{subsection.2.3.2}%
 \contentsline {subsection}{\numberline {2.3.3}Métricas formais de avaliação de OCR: CER e WER}{41}{subsection.2.3.3}%
 \contentsline {section}{\numberline {2.4}Arquiteturas neurais e agentes inteligentes}{41}{section.2.4}%
 \contentsline {subsection}{\numberline {2.4.1}Mecanismos de autoatenção e arquiteturas Transformer}{41}{subsection.2.4.1}%
-\contentsline {subsection}{\numberline {2.4.2}Grandes modelos de linguagem (LLMs) e raciocínio estruturado}{41}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.2}Grandes modelos de linguagem (LLMs) e raciocínio estruturado}{42}{subsection.2.4.2}%
 \contentsline {subsection}{\numberline {2.4.3}Orquestração baseada em grafos de estado: LangGraph}{42}{subsection.2.4.3}%
-\contentsline {section}{\numberline {2.5}Engenharia de dados, MLOps e sustentabilidade de modelos}{42}{section.2.5}%
-\contentsline {subsection}{\numberline {2.5.1}Desvios estatísticos: \textit {Data Drift} e \textit {Concept Drift}}{42}{subsection.2.5.1}%
-\contentsline {subsection}{\numberline {2.5.2}Aprendizado ativo (Active Learning) por amostragem de incerteza}{43}{subsection.2.5.2}%
-\contentsline {subsection}{\numberline {2.5.3}Arquitetura de Data Lakehouse e rastreamento com MLflow}{43}{subsection.2.5.3}%
+\contentsline {section}{\numberline {2.5}Engenharia de dados, MLOps e sustentabilidade de modelos}{43}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Desvios estatísticos: \textit {data drift} e \textit {concept drift}}{43}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.5.2}Aprendizado ativo (\textit {active learning}) por amostragem de incerteza}{43}{subsection.2.5.2}%
+\contentsline {subsection}{\numberline {2.5.3}Arquitetura de \textit {data lakehouse} e rastreamento com MLflow}{44}{subsection.2.5.3}%
 \contentsline {section}{\numberline {2.6}Considerações finais do capítulo}{44}{section.2.6}%
 \setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
-\contentsline {chapter}{\chapternumberline {3}\MakeTextUppercase []{Trabalhos Relacionados}}{45}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Considerações iniciais}{45}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Questões de pesquisa da revisão}{45}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Levantamento bibliográfico e categorização dos estudos}{46}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Instrumento de extração de dados}{46}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Avaliação de qualidade dos estudos incluídos}{47}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Análise crítica dos estudos selecionados}{47}{section.3.6}%
-\contentsline {subsection}{\numberline {3.6.1}Zhang, Zhao e LeCun (\citeyear {zhang2015character}) e Dhingra et al. (\citeyear {dhingra2016tweet2vec})}{47}{subsection.3.6.1}%
-\contentsline {subsection}{\numberline {3.6.2}Competição ICDAR 2019 (SROIE)}{48}{subsection.3.6.2}%
-\contentsline {subsection}{\numberline {3.6.3}Santos (\citeyear {santos2023classificacao})}{49}{subsection.3.6.3}%
-\contentsline {subsection}{\numberline {3.6.4}Araújo, Bezerra e Souza Neto (\citeyear {araujo2024saneamento})}{49}{subsection.3.6.4}%
-\contentsline {subsection}{\numberline {3.6.5}Souza (\citeyear {souza2025extracao})}{50}{subsection.3.6.5}%
-\contentsline {subsection}{\numberline {3.6.6}Ta, Saad e Oh (\citeyear {ta2023specialized})}{51}{subsection.3.6.6}%
-\contentsline {subsection}{\numberline {3.6.7}Curcio, Galfré e Le Van (\citeyear {curcio2026safe})}{52}{subsection.3.6.7}%
-\contentsline {subsection}{\numberline {3.6.8}Gandikota et al. (\citeyear {gandikota2026spatial})}{53}{subsection.3.6.8}%
-\contentsline {subsection}{\numberline {3.6.9}Farias, Mendes e Conceição (\citeyear {farias2025notaconforme})}{53}{subsection.3.6.9}%
-\contentsline {section}{\numberline {3.7}Quadro comparativo e posicionamento desta pesquisa}{54}{section.3.7}%
-\contentsline {section}{\numberline {3.8}Considerações finais do capítulo}{55}{section.3.8}%
+\contentsline {chapter}{\chapternumberline {3}\MakeTextUppercase []{Trabalhos Relacionados}}{47}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Considerações iniciais}{47}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Questões de pesquisa da revisão}{47}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Levantamento bibliográfico e categorização dos estudos}{48}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Instrumento de extração de dados}{48}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Avaliação de qualidade dos estudos incluídos}{49}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Análise crítica dos estudos selecionados}{49}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}Zhang, Zhao e LeCun (\citeyear {zhang2015character}) e Dhingra et al. (\citeyear {dhingra2016tweet2vec})}{49}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}Huang et al. (\citeyear {icdar2019competition}) -- competição SROIE}{51}{subsection.3.6.2}%
+\contentsline {subsection}{\numberline {3.6.3}Santos (\citeyear {santos2023classificacao})}{51}{subsection.3.6.3}%
+\contentsline {subsection}{\numberline {3.6.4}Araújo, Bezerra e Souza Neto (\citeyear {araujo2024saneamento})}{52}{subsection.3.6.4}%
+\contentsline {subsection}{\numberline {3.6.5}Souza (\citeyear {souza2025extracao})}{53}{subsection.3.6.5}%
+\contentsline {subsection}{\numberline {3.6.6}Ta, Saad e Oh (\citeyear {ta2023specialized})}{53}{subsection.3.6.6}%
+\contentsline {subsection}{\numberline {3.6.7}Curcio, Galfré e Le Van (\citeyear {curcio2026safe})}{54}{subsection.3.6.7}%
+\contentsline {subsection}{\numberline {3.6.8}Gandikota et al. (\citeyear {gandikota2026spatial})}{55}{subsection.3.6.8}%
+\contentsline {subsection}{\numberline {3.6.9}Farias, Mendes e Conceição (\citeyear {farias2025notaconforme})}{56}{subsection.3.6.9}%
+\contentsline {section}{\numberline {3.7}Quadro comparativo e posicionamento desta pesquisa}{57}{section.3.7}%
+\contentsline {section}{\numberline {3.8}Considerações finais do capítulo}{58}{section.3.8}%
 \setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
-\contentsline {chapter}{\chapternumberline {4}\MakeTextUppercase []{Solução Proposta}}{57}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Considerações iniciais}{57}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Questões de pesquisa e hipótese central}{57}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Metodologia da pesquisa e arcabouço CRISP-DM adaptado}{58}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Fonte de dados, amostragem e natureza dos dados}{59}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Arquitetura geral da solução e ecossistema Data Lakehouse}{60}{section.4.5}%
-\contentsline {section}{\numberline {4.6}Esteira de ingestão e extração híbrida de documentos}{61}{section.4.6}%
-\contentsline {section}{\numberline {4.7}Engenharia do agente de classificação inteligente}{63}{section.4.7}%
-\contentsline {section}{\numberline {4.8}Conformidade com a LGPD e segurança da informação financeira}{65}{section.4.8}%
-\contentsline {section}{\numberline {4.9}Estratégia de garantia de qualidade e testes}{67}{section.4.9}%
-\contentsline {section}{\numberline {4.10}Considerações finais do capítulo}{68}{section.4.10}%
+\contentsline {chapter}{\chapternumberline {4}\MakeTextUppercase []{Solução Proposta}}{61}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Considerações iniciais}{61}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Questões de pesquisa e hipótese central}{61}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Metodologia da pesquisa e arcabouço CRISP-DM adaptado}{63}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Fonte de dados, amostragem e natureza dos dados}{63}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Arquitetura geral da solução e ecossistema de dados em camadas}{64}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Esteira de ingestão e extração híbrida de documentos}{67}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Engenharia do agente de classificação inteligente}{69}{section.4.7}%
+\contentsline {section}{\numberline {4.8}Conformidade com a LGPD e segurança da informação financeira}{72}{section.4.8}%
+\contentsline {section}{\numberline {4.9}Estratégia de garantia de qualidade e testes}{74}{section.4.9}%
+\contentsline {section}{\numberline {4.10}Considerações finais do capítulo}{75}{section.4.10}%
 \setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
-\contentsline {chapter}{\chapternumberline {5}\MakeTextUppercase []{Validação Experimental e Resultados}}{71}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Considerações iniciais}{71}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Ambiente computacional e configuração experimental}{71}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Caracterização dos conjuntos de dados (\textit {datasets})}{73}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Caracterização textual do acervo governamental CPGF}{73}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}Conjunto rotulado de referência para a classificação}{75}{subsection.5.3.2}%
-\contentsline {section}{\numberline {5.4}Protocolo experimental e métricas de avaliação}{76}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}Métricas para extração óptica e reconhecimento de texto}{76}{subsection.5.4.1}%
-\contentsline {subsection}{\numberline {5.4.2}Métricas para classificação semântica de transações}{77}{subsection.5.4.2}%
-\contentsline {subsection}{\numberline {5.4.3}Intervalos de confiança e teste de significância}{78}{subsection.5.4.3}%
-\contentsline {section}{\numberline {5.5}Resultados da extração e pré-processamento óptico}{79}{section.5.5}%
-\contentsline {subsection}{\numberline {5.5.1}Desempenho quantitativo global: Docling V2 versus Tesseract}{79}{subsection.5.5.1}%
-\contentsline {subsection}{\numberline {5.5.2}Análise visual das métricas e dispersão de erros}{80}{subsection.5.5.2}%
-\contentsline {subsection}{\numberline {5.5.3}Análise qualitativa de erros e preservação estrutural de tabelas}{82}{subsection.5.5.3}%
-\contentsline {section}{\numberline {5.6}Resultados comparativos da classificação de transações}{83}{section.5.6}%
-\contentsline {subsection}{\numberline {5.6.1}Acurácia global versus F1-Macro}{88}{subsection.5.6.1}%
-\contentsline {subsection}{\numberline {5.6.2}Desempenho discriminado por instituição emissora}{88}{subsection.5.6.2}%
-\contentsline {subsection}{\numberline {5.6.3}Risco de circularidade entre rotulagem e desempenho}{90}{subsection.5.6.3}%
-\contentsline {subsection}{\numberline {5.6.4}Desempenho detalhado por categoria de despesa}{92}{subsection.5.6.4}%
-\contentsline {subsection}{\numberline {5.6.5}Estudo de ablação}{93}{subsection.5.6.5}%
-\contentsline {section}{\numberline {5.7}Avaliação de MLOps, latência e observabilidade}{94}{section.5.7}%
-\contentsline {section}{\numberline {5.8}Respostas às questões de pesquisa e verificação da hipótese}{96}{section.5.8}%
-\contentsline {section}{\numberline {5.9}Considerações finais do capítulo}{97}{section.5.9}%
+\contentsline {chapter}{\chapternumberline {5}\MakeTextUppercase []{Validação Experimental e Resultados}}{77}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Considerações iniciais}{77}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Ambiente computacional e configuração experimental}{77}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Caracterização dos conjuntos de dados (\textit {datasets})}{79}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Caracterização textual do acervo governamental CPGF}{80}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Conjunto rotulado de referência para a classificação}{82}{subsection.5.3.2}%
+\contentsline {section}{\numberline {5.4}Protocolo experimental e métricas de avaliação}{83}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Métricas para extração óptica e reconhecimento de texto}{83}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Métricas para classificação semântica de transações}{84}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}Intervalos de confiança e teste de significância}{85}{subsection.5.4.3}%
+\contentsline {section}{\numberline {5.5}Resultados da extração e pré-processamento óptico}{86}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Desempenho quantitativo global: Docling V2 versus Tesseract}{87}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}Análise visual das métricas e dispersão de erros}{87}{subsection.5.5.2}%
+\contentsline {subsection}{\numberline {5.5.3}Análise qualitativa de erros e preservação estrutural de tabelas}{88}{subsection.5.5.3}%
+\contentsline {section}{\numberline {5.6}Resultados comparativos da classificação de transações}{91}{section.5.6}%
+\contentsline {subsection}{\numberline {5.6.1}Acurácia global versus F1-Macro}{96}{subsection.5.6.1}%
+\contentsline {subsection}{\numberline {5.6.2}Desempenho discriminado por instituição emissora}{96}{subsection.5.6.2}%
+\contentsline {subsection}{\numberline {5.6.3}Risco de circularidade entre rotulagem e desempenho}{98}{subsection.5.6.3}%
+\contentsline {subsection}{\numberline {5.6.4}Desempenho detalhado por categoria de despesa}{100}{subsection.5.6.4}%
+\contentsline {subsection}{\numberline {5.6.5}Estudo de ablação}{102}{subsection.5.6.5}%
+\contentsline {section}{\numberline {5.7}Avaliação de MLOps, latência e observabilidade}{103}{section.5.7}%
+\contentsline {section}{\numberline {5.8}Respostas às questões de pesquisa e verificação da hipótese}{105}{section.5.8}%
+\contentsline {section}{\numberline {5.9}Considerações finais do capítulo}{107}{section.5.9}%
 \setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
-\contentsline {chapter}{\chapternumberline {6}\MakeTextUppercase []{Conclusões e Trabalhos Futuros}}{99}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Considerações iniciais}{99}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Síntese do trabalho e principais contribuições}{99}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Avaliação dos objetivos atingidos}{100}{section.6.3}%
-\contentsline {section}{\numberline {6.4}Principais conclusões da pesquisa}{101}{section.6.4}%
-\contentsline {section}{\numberline {6.5}Limitações do trabalho}{103}{section.6.5}%
-\contentsline {section}{\numberline {6.6}Trabalhos futuros}{106}{section.6.6}%
-\contentsline {section}{\numberline {6.7}Considerações finais}{107}{section.6.7}%
+\contentsline {chapter}{\chapternumberline {6}\MakeTextUppercase []{Conclusões e Trabalhos Futuros}}{109}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Considerações iniciais}{109}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Síntese do trabalho, contribuições e objetivos atingidos}{109}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Principais conclusões da pesquisa}{110}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Limitações do trabalho}{112}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Trabalhos futuros}{114}{section.6.5}%
 \vspace {\cftbeforechapterskip }
 \setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
-\contentsline {chapter}{\uppercase {Refer\^encias}}{109}{section*.48}%
+\contentsline {chapter}{\uppercase {Refer\^encias}}{117}{section*.49}%
 \renewcommand *{\cftappendixname }{AP\^ENDICE \space }
 \setlength {\cftpartindent }{\cftlastnumwidth } \setlength {\cftpartnumwidth }{2em}
 \cftinsert {A}
-\contentsline {part}{\uppercase {AP\^ENDICES}}{115}{section*.49}%
+\contentsline {part}{\uppercase {AP\^ENDICES}}{123}{section*.50}%
 \setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
 \setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
 \cftinsert {A}
-\contentsline {appendix}{\chapternumberline {A}\MakeTextUppercase []{Protocolo do Levantamento Bibliográfico}}{117}{chapter.A}%
-\contentsline {section}{\numberline {A.1}Bases de dados consultadas}{117}{section.A.1}%
-\contentsline {section}{\numberline {A.2}Strings de busca aplicadas}{117}{section.A.2}%
-\contentsline {section}{\numberline {A.3}Critérios de inclusão e exclusão}{118}{section.A.3}%
-\contentsline {section}{\numberline {A.4}Técnica de snowballing (citação em cascata)}{118}{section.A.4}%
-\contentsline {section}{\numberline {A.5}Registros recuperados e seleção dos estudos}{119}{section.A.5}%
+\contentsline {appendix}{\chapternumberline {A}\MakeTextUppercase []{Protocolo do Levantamento Bibliográfico}}{125}{chapter.A}%
+\contentsline {section}{\numberline {A.1}Bases de dados consultadas}{125}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Strings de busca aplicadas}{125}{section.A.2}%
+\contentsline {section}{\numberline {A.3}Critérios de inclusão e exclusão}{126}{section.A.3}%
+\contentsline {section}{\numberline {A.4}Técnica de snowballing (citação em cascata)}{126}{section.A.4}%
+\contentsline {section}{\numberline {A.5}Registros recuperados e seleção dos estudos}{127}{section.A.5}%
 \setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
 \setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
 \cftinsert {A}
-\contentsline {appendix}{\chapternumberline {B}\MakeTextUppercase []{Esquema do Banco de Dados Relacional e Vetorial}}{121}{chapter.B}%
-\contentsline {section}{\numberline {B.1}Tabela de estabelecimentos (base de conhecimento e \textit {embeddings})}{121}{section.B.1}%
-\contentsline {section}{\numberline {B.2}Tabela de transações financeiras}{121}{section.B.2}%
+\contentsline {appendix}{\chapternumberline {B}\MakeTextUppercase []{Esquema do Banco de Dados Relacional e Vetorial}}{129}{chapter.B}%
+\contentsline {section}{\numberline {B.1}Tabela de estabelecimentos (base de conhecimento relacional)}{129}{section.B.1}%
+\contentsline {section}{\numberline {B.2}Coleção vetorial consultada pelo agente}{129}{section.B.2}%
+\contentsline {section}{\numberline {B.3}Tabela de transações financeiras}{130}{section.B.3}%
 \setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
 \setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
 \cftinsert {A}
-\contentsline {appendix}{\chapternumberline {C}\MakeTextUppercase []{Repositório de Código-Fonte e Reprodutibilidade}}{123}{chapter.C}%
+\contentsline {appendix}{\chapternumberline {C}\MakeTextUppercase []{Repositório de Código-Fonte e Reprodutibilidade}}{133}{chapter.C}%
 \setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
 \setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
 \cftinsert {A}
-\contentsline {appendix}{\chapternumberline {D}\MakeTextUppercase []{\textit {System Prompt} e Contrato Pydantic do Ramo LLM}}{125}{chapter.D}%
-\contentsline {section}{\numberline {D.1}\textit {System prompt} dinâmico}{125}{section.D.1}%
-\contentsline {section}{\numberline {D.2}Contrato Pydantic \texttt {ClassificacaoLLM}}{126}{section.D.2}%
-\contentsline {section}{\numberline {D.3}Análise crítica do artefato}{127}{section.D.3}%
+\contentsline {appendix}{\chapternumberline {D}\MakeTextUppercase []{\textit {System Prompt} e Contrato Pydantic do Ramo LLM}}{135}{chapter.D}%
+\contentsline {section}{\numberline {D.1}\textit {System prompt} dinâmico}{135}{section.D.1}%
+\contentsline {section}{\numberline {D.2}Contrato Pydantic \texttt {ClassificacaoLLM}}{136}{section.D.2}%
+\contentsline {section}{\numberline {D.3}Análise crítica do artefato}{137}{section.D.3}%
 \setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
 \setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
 \cftinsert {A}
-\contentsline {appendix}{\chapternumberline {E}\MakeTextUppercase []{Regras de Normalização Léxica e Listas de Marketplaces}}{129}{chapter.E}%
-\contentsline {section}{\numberline {E.1}Expressões regulares de saneamento}{129}{section.E.1}%
-\contentsline {section}{\numberline {E.2}Lista de \textit {marketplaces} ambíguos}{129}{section.E.2}%
-\contentsline {section}{\numberline {E.3}Dicionário de aliases de estabelecimento}{130}{section.E.3}%
+\contentsline {appendix}{\chapternumberline {E}\MakeTextUppercase []{Regras de Normalização Léxica e Listas de Marketplaces}}{139}{chapter.E}%
+\contentsline {section}{\numberline {E.1}Expressões regulares de saneamento}{139}{section.E.1}%
+\contentsline {section}{\numberline {E.2}Lista de \textit {marketplaces} ambíguos}{139}{section.E.2}%
+\contentsline {section}{\numberline {E.3}Dicionário de aliases de estabelecimento}{140}{section.E.3}%
+\contentsline {section}{\numberline {E.4}Análise crítica do artefato}{140}{section.E.4}%
 \cftinsert {AAA}
 \renewcommand *{\cftappendixname }{ANEXO \space }
 \setlength {\cftpartindent }{\cftlastnumwidth } \setlength {\cftpartnumwidth }{2em}
 \cftinsert {A}
-\contentsline {part}{\uppercase {ANEXOS}}{131}{section*.51}%
+\contentsline {part}{\uppercase {ANEXOS}}{143}{section*.52}%
 \setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
 \setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
 \cftinsert {A}
-\contentsline {appendix}{\chapternumberline {A}\MakeTextUppercase []{Declaração de Uso de Inteligência Artificial}}{133}{chapter.anexochapback.1}%
+\contentsline {appendix}{\chapternumberline {A}\MakeTextUppercase []{Declaração de Uso de Inteligência Artificial}}{145}{chapter.anexochapback.1}%
