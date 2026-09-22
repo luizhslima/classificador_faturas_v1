@@ -35,6 +35,13 @@ RESULTS.mkdir(parents=True, exist_ok=True)
 
 sys.path.insert(0, str(REPO / "notebooks" / "modules"))
 
+try:  # credenciais locais em REPO/.env (fora do versionamento; modelo em .env.example)
+    from dotenv import load_dotenv
+
+    load_dotenv(REPO / ".env")
+except ImportError:
+    pass
+
 RANDOM_STATE = 42
 
 # ---------------------------------------------------------------------------
@@ -358,11 +365,19 @@ MLFLOW_URI = os.getenv("MLFLOW_TRACKING_URI", "http://192.168.15.18:5000")
 EXPERIMENT_NAME = "experimento_faturas"
 
 
+def exigir_env(nome: str) -> str:
+    """Lê uma credencial do ambiente; não há valor padrão (ver .env.example)."""
+    valor = os.getenv(nome)
+    if not valor:
+        raise RuntimeError(f"Variável de ambiente {nome} não definida (ver .env.example).")
+    return valor
+
+
 def init_mlflow():
     import mlflow
 
-    os.environ.setdefault("AWS_ACCESS_KEY_ID", "admin_tcc")
-    os.environ.setdefault("AWS_SECRET_ACCESS_KEY", "senha_super_segura")
+    exigir_env("AWS_ACCESS_KEY_ID")
+    exigir_env("AWS_SECRET_ACCESS_KEY")
     os.environ.setdefault("MLFLOW_S3_ENDPOINT_URL", "http://192.168.15.18:9000")
     os.environ.setdefault("AWS_DEFAULT_REGION", "us-east-1")
     mlflow.set_tracking_uri(MLFLOW_URI)
@@ -370,18 +385,10 @@ def init_mlflow():
     return mlflow
 
 
-DB_SYNC = os.getenv(
-    "SYNC_DATABASE_URL", "postgresql+psycopg2://n8n:n8n_dev_password@192.168.15.18:5433/agent"
-)
-DB_ASYNC = os.getenv(
-    "DATABASE_URL", "postgresql+asyncpg://n8n:n8n_dev_password@192.168.15.18:5433/agent"
-)
-
-
 def engine_sync():
     from sqlalchemy import create_engine
 
-    return create_engine(DB_SYNC, connect_args={"connect_timeout": 10})
+    return create_engine(exigir_env("SYNC_DATABASE_URL"), connect_args={"connect_timeout": 10})
 
 
 def carregar_splits():

@@ -18,10 +18,10 @@ public class MinioConfig {
     @Value("${datalake.minio.endpoint}")
     private String endpoint;
 
-    @Value("${datalake.minio.access-key:admin_tcc}")
+    @Value("${datalake.minio.access-key}")
     private String accessKey;
 
-    @Value("${datalake.minio.secret-key:senha_super_segura}")
+    @Value("${datalake.minio.secret-key}")
     private String secretKey;
 
     @Bean

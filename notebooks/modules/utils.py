@@ -192,19 +192,23 @@ def normalizar_nome(nome: str) -> str:
 
 def conectar_minio(
     endpoint="192.168.15.18:9000",
-    access_key="admin_tcc",
-    secret_key="senha_super_segura",
+    access_key=None,
+    secret_key=None,
     secure=False,
 ):
     """
     Cria e retorna um cliente conectado ao MinIO.
 
     :param endpoint: host:porta do servidor MinIO (sem http/https)
-    :param access_key: chave de acesso
-    :param secret_key: chave secreta
+    :param access_key: chave de acesso (padrão: variável MINIO_ACCESS_KEY)
+    :param secret_key: chave secreta (padrão: variável MINIO_SECRET_KEY)
     :param secure: True para HTTPS, False para HTTP
     :return: instância de Minio ou None em caso de erro
     """
+    access_key = access_key or os.getenv("MINIO_ACCESS_KEY")
+    secret_key = secret_key or os.getenv("MINIO_SECRET_KEY")
+    if not access_key or not secret_key:
+        raise ValueError("Defina MINIO_ACCESS_KEY e MINIO_SECRET_KEY no ambiente (ver .env.example).")
     try:
         client = Minio(
             endpoint,

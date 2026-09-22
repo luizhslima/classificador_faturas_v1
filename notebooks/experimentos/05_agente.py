@@ -49,7 +49,7 @@ def build_graph(active_learning: bool = True):
             description="Pesquisa de estabelecimentos na web para obter o ramo de atuação.",
         ))
     services = AsyncService(
-        db_url=C.DB_ASYNC,
+        db_url=C.exigir_env("DATABASE_URL"),
         llm_model=LLM_MODEL,
         api_key=os.getenv("LLM_API_KEY", "lm-studio"),
         llm_provider="openai",
