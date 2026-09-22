@@ -1,0 +1,3 @@
+[submodule "web"]
+	path = web
+	url = https://github.com/luizhslima/classificador_faturas_v1_web.git
