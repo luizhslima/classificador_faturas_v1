@@ -15,37 +15,38 @@ Este apêndice documenta formalmente o protocolo do levantamento estruturado da 
 
 \section{Bases de dados consultadas}
 \label{sec:bases_dados}
-As consultas foram executadas entre janeiro e maio de 2026, com reexecução das três strings em setembro de 2026 para reconstrução das contagens e incorporação de trabalhos publicados no intervalo (Seção~\ref{sec:fluxo_selecao}), nas seguintes bases de dados indexadas de relevância internacional e nacional:
+As consultas foram executadas entre janeiro e maio de 2026, com reexecução das três expressões de busca em setembro de 2026 para reconstrução das contagens e incorporação de trabalhos publicados no intervalo (Seção~\ref{sec:fluxo_selecao}), nas seguintes bases de dados indexadas de relevância internacional e nacional:
 \begin{itemize}
-	\item \textbf{Scopus} (Elsevier);
-	\item \textbf{IEEE Xplore Digital Library};
-	\item \textbf{Google Scholar} e repositórios institucionais (para literatura cinzenta e teses nacionais).
+	\item \textbf{Scopus} (Elsevier) e \textbf{IEEE Xplore Digital Library}, nas quais as três expressões de busca da Seção~\ref{sec:strings_busca} foram aplicadas literalmente (Tabela~\ref{tab-fluxo-selecao});
+	\item \textbf{Google Scholar}, repositórios institucionais de universidades brasileiras e a \textbf{biblioteca digital da Sociedade Brasileira de Computação (SBC OpenLib)}, empregados como busca direcionada a literatura cinzenta, teses e trabalhos nacionais (Seções~\ref{sec:snowballing} e~\ref{sec:fluxo_selecao}), sem aplicação literal das strings.
 \end{itemize}
 
-\section{Strings de busca aplicadas}
+A ACM Digital Library não foi consultada diretamente, embora dois dos estudos incluídos tenham sido publicados no DocEng (ACM) e recuperados via Scopus. Registra-se ainda uma limitação da Expressão Primária: por exigir o termo OCR, ela não recupera trabalhos que classificam descrições de transações já digitais -- o que explica que o estudo mais próximo desta pesquisa, Ta, Saad e Oh (\citeyear{ta2023specialized}), tenha sido localizado fora do protocolo. Uma expressão específica para o núcleo do problema, sem o termo OCR -- por exemplo, \texttt{("transaction categorization" OR "transaction classification" OR "merchant name") AND (bank* OR "credit card" OR "open banking")} --, executada também na ACM Digital Library e na SBC OpenLib, é a extensão recomendada do levantamento (Seção~\ref{sec:concl_limitacoes}).
+
+\section{Expressões de busca aplicadas}
 \label{sec:strings_busca}
 As sintaxes de busca foram construídas com operadores booleanos AND e OR em múltiplos níveis de especificidade:
 
 \begin{itemize}
-	\item \textbf{String Primária (Intersecção Central do Tema):}
+	\item \textbf{Expressão primária (interseção central do tema):}
 	\begin{searchquery}
 		("financial transaction*" OR "credit card" OR invoice* OR receipt* OR "nota fiscal") AND (classification OR categorization) AND (OCR) AND ("natural language processing" OR transformer* OR LLM*)
 	\end{searchquery}
 	\vspace{4pt}
 
-	\item \textbf{String Secundária (Saneamento e Correção Pós-OCR):}
+	\item \textbf{Expressão secundária (saneamento e correção pós-OCR):}
 	\begin{searchquery}
 		("post-OCR" OR "OCR error correction") AND ("language model*" OR transformer* OR LLM* OR "byte-level")
 	\end{searchquery}
 	\vspace{4pt}
 
-	\item \textbf{String Terciária (Mineração em Textos Curtos Ruidosos):}
+	\item \textbf{Expressão terciária (mineração em textos curtos ruidosos):}
 	\begin{searchquery}
 		("short text*" OR "noisy text*" OR "noisy short text*") AND (classification OR categorization) AND (embeddings OR transformer* OR "deep learning")
 	\end{searchquery}
 \end{itemize}
 
-A String Primária e a String Secundária, por delimitarem de forma mais restrita a interseção com o domínio de aplicação (faturas/transações financeiras e correção pós-OCR, respectivamente), retornaram um volume de registros compatível com triagem manual integral em todas as bases consultadas. A String Terciária, por abranger o campo mais amplo de classificação de textos curtos/ruidosos em geral -- sem o recorte de domínio financeiro --, retornou um volume de registros (centenas a milhares por base) inviável de ser triado exaustivamente dentro do prazo do trabalho. Para essa string, adotou-se um critério de corte explícito: os \textbf{50 registros mais citados} (ordenação por número de citações, decrescente) de cada base foram selecionados para a etapa de triagem por título/resumo, descartando-se os demais. Esse critério prioriza os estudos de maior influência e consolidação na área, à custa de uma cobertura mais rasa da literatura mais recente ainda pouco citada -- limitação reconhecida explicitamente na Seção~\ref{sec:concl_limitacoes} do Capítulo~\ref{chp:conclusao}.
+A Expressão Primária e a Expressão Secundária, por delimitarem de forma mais restrita a interseção com o domínio de aplicação (faturas/transações financeiras e correção pós-OCR, respectivamente), retornaram um volume de registros compatível com triagem manual integral em todas as bases consultadas. A Expressão Terciária, por abranger o campo mais amplo de classificação de textos curtos/ruidosos em geral -- sem o recorte de domínio financeiro --, retornou um volume de registros (centenas a milhares por base) inviável de ser triado exaustivamente dentro do prazo do trabalho. Para essa string, adotou-se um critério de corte explícito: os \textbf{50 registros mais citados} (ordenação por número de citações, decrescente) de cada base foram selecionados para a etapa de triagem por título/resumo, descartando-se os demais. Esse critério prioriza os estudos de maior influência e consolidação na área, à custa de uma cobertura mais rasa da literatura mais recente ainda pouco citada -- limitação reconhecida explicitamente na Seção~\ref{sec:concl_limitacoes} do Capítulo~\ref{chp:conclusao}.
 
 \section{Critérios de inclusão e exclusão}
 \label{sec:criterios_inclusao}
@@ -53,7 +54,7 @@ A String Primária e a String Secundária, por delimitarem de forma mais restrit
 	\item \textbf{Critérios de Inclusão (CI):}
 	\begin{enumerate}
 		\item Artigos publicados em periódicos científicos revisados por pares, anais de conferências internacionais indexadas (ICDAR, ACL, EMNLP, NeurIPS) ou dissertações/teses de excelência;
-		\item Estudos que apresentam métricas quantitativas formais de avaliação (Acurácia, F1-Score, CER, WER);
+		\item Estudos que apresentam métricas quantitativas formais de avaliação (Acurácia, F1, CER, WER);
 		\item Trabalhos que detalham o tratamento de textos informais, abreviações, saneamento de OCR ou limitações de infraestrutura de hardware.
 	\end{enumerate}
 	\item \textbf{Critérios de Exclusão (CE):}
@@ -67,23 +68,23 @@ A String Primária e a String Secundária, por delimitarem de forma mais restrit
 \section{Técnica de snowballing (citação em cascata)}
 \label{sec:snowballing}
 
-Complementarmente à busca direta nas três bases de dados listadas na Seção~\ref{sec:bases_dados} com as strings da Seção~\ref{sec:strings_busca}, adotou-se também a técnica de \textit{snowballing} (citação em cascata) descrita por \citeonline{wohlin2014guidelines}: a partir dos estudos já recuperados pela busca formal, as listas de referências desses trabalhos foram inspecionadas em busca de estudos adicionais pertinentes não capturados pelas strings de busca, mas relevantes ao escopo do levantamento.
+Complementarmente à busca direta nas três bases de dados listadas na Seção~\ref{sec:bases_dados} com as expressões de busca da Seção~\ref{sec:strings_busca}, adotou-se também a técnica de \textit{snowballing} (citação em cascata) descrita por \citeonline{wohlin2014guidelines}: a partir dos estudos já recuperados pela busca formal, as listas de referências desses trabalhos foram inspecionadas em busca de estudos adicionais pertinentes não capturados pelas expressões de busca, mas relevantes ao escopo do levantamento.
 
-Foi por meio dessa técnica -- e não da busca direta nas bases -- que três dos dez estudos incluídos no levantamento (Seção~\ref{sec:rel_analise_estudos}) foram identificados: Zhang, Zhao e LeCun (\citeyear{zhang2015character}), citados em trabalhos de revisão sobre redes neurais convolucionais em nível de caractere; Dhingra et al. (\citeyear{dhingra2016tweet2vec}), citados nas referências bibliográficas de \citeonline{santos2023classificacao}; e a competição ICDAR2019/SROIE de \citeonline{icdar2019competition}, referenciada em trabalhos correlatos de extração de dados de faturas. Três estudos -- \citeonline{araujo2024saneamento}, \citeonline{curcio2026safe} e \citeonline{gandikota2026spatial} -- foram recuperados pela busca direta nas bases (String Primária e Secundária); três -- \citeonline{santos2023classificacao}, \citeonline{souza2025extracao} e \citeonline{farias2025notaconforme} -- em repositórios institucionais nacionais e na biblioteca digital da SBC; e o décimo, \citeonline{ta2023specialized}, por busca direcionada complementar (Seção~\ref{sec:fluxo_selecao}).
+Foi por meio dessa técnica -- e não da busca direta nas bases -- que três dos dez estudos incluídos no levantamento (Seção~\ref{sec:rel_analise_estudos}) foram identificados: Zhang, Zhao e LeCun (\citeyear{zhang2015character}), citados em trabalhos de revisão sobre redes neurais convolucionais em nível de caractere; Dhingra et al. (\citeyear{dhingra2016tweet2vec}), citados nas referências bibliográficas de \citeonline{santos2023classificacao}; e a competição ICDAR2019/SROIE de \citeonline{icdar2019competition}, referenciada em trabalhos correlatos de extração de dados de faturas. Três estudos -- \citeonline{araujo2024saneamento}, \citeonline{curcio2026safe} e \citeonline{gandikota2026spatial} -- foram recuperados pela busca direta nas bases (Expressão Primária e Secundária); três -- \citeonline{santos2023classificacao}, \citeonline{souza2025extracao} e \citeonline{farias2025notaconforme} -- em repositórios institucionais nacionais e na biblioteca digital da SBC; e o décimo, \citeonline{ta2023specialized}, por busca direcionada complementar (Seção~\ref{sec:fluxo_selecao}).
 
 \section{Registros recuperados e seleção dos estudos}
 \label{sec:fluxo_selecao}
 
-A Tabela~\ref{tab-fluxo-selecao} apresenta o número de registros recuperados por string e por base na busca direta em Scopus e IEEE Xplore, reconstruído retrospectivamente em setembro de 2026 a partir de reexecução ao vivo das três strings da Seção~\ref{sec:strings_busca} (contagens conferidas contra o contador oficial de resultados de cada base; para a String Terciária, aplicou-se o corte de relevância descrito na mesma seção). Após a remoção de 25 duplicados (na mesma base e entre bases), os 205 registros únicos foram triados por título e resumo, com decisões e justificativas individuais registradas em \texttt{docs/RSL/TRIAGEM\_DECISOES.csv} no repositório do projeto.
+A Tabela~\ref{tab-fluxo-selecao} apresenta o número de registros recuperados por expressão de busca e por base na busca direta em Scopus e IEEE Xplore, reconstruído retrospectivamente em setembro de 2026 a partir de reexecução ao vivo das três expressões de busca da Seção~\ref{sec:strings_busca} (contagens conferidas contra o contador oficial de resultados de cada base; para a Expressão Terciária, aplicou-se o corte de relevância descrito na mesma seção). Após a remoção de 25 duplicados (na mesma base e entre bases), os 205 registros únicos foram triados por título e resumo, com decisões e justificativas individuais registradas em \texttt{docs/RSL/TRIAGEM\_DECISOES.csv} no repositório do projeto.
 
 \begin{table}[htb]
-\caption{Registros recuperados por busca direta, por string de busca e base (Scopus e IEEE Xplore).}
+\caption{Registros recuperados por busca direta, por expressão de busca e base (Scopus e IEEE Xplore).}
 \label{tab-fluxo-selecao}
 \centering
 \small
 \begin{tabular}{lrrr}
 \hline
-\textbf{String de busca} & \textbf{Scopus} & \textbf{IEEE Xplore} & \textbf{Total} \\
+\textbf{Expressão de busca} & \textbf{Scopus} & \textbf{IEEE Xplore} & \textbf{Total} \\
 \hline
 Primária (interseção central do tema)            & 26  & 18 & 44  \\
 Secundária (saneamento e correção pós-OCR)       & 61  & 25 & 86  \\
@@ -95,17 +96,17 @@ Duplicados removidos (na mesma base e entre bases) &  &  & 25 \\
 \hline
 \end{tabular}
 \begin{flushleft}
-\footnotesize Fonte: Elaborada pelo autor (\the\year). Google Scholar não está contemplada nesta tabela por ter sido empregada como busca direcionada a repositórios institucionais e teses nacionais (Seção~\ref{sec:bases_dados}), não como aplicação literal das três strings.
+\footnotesize Fonte: Elaborada pelo autor (\the\year). Google Scholar não está contemplada nesta tabela por ter sido empregada como busca direcionada a repositórios institucionais e teses nacionais (Seção~\ref{sec:bases_dados}), não como aplicação literal das três expressões de busca.
 \end{flushleft}
 \end{table}
 
-Deve-se declarar com clareza o que este levantamento é e o que não é. \textbf{Não se trata de uma revisão sistemática em sentido estrito}: não houve triagem em duas etapas com leitura integral registrada e decisão de inclusão documentada estudo a estudo sobre a totalidade dos candidatos aprovados por título e resumo. A triagem por título e resumo foi, na prática, pouco seletiva (a maior parte dos 205 registros atende aos critérios de inclusão da Seção~\ref{sec:criterios_inclusao}, que são amplos), e reportar a partir dela um funil com ``candidatos aptos'' e ``excluídos após leitura integral'' equivaleria a estimar uma etapa que não foi de fato conduzida. O que se realizou foi um \textbf{levantamento estruturado da literatura}: as strings, bases e critérios acima delimitaram o universo de candidatos, e a seleção dos estudos efetivamente analisados em profundidade na Seção~\ref{sec:rel_analise_estudos} do Capítulo~\ref{chp:trabalhos_relacionados} seguiu um julgamento de \textbf{centralidade em relação às questões da revisão} (QR-1 a QR-4, Seção~\ref{sec:rel_questoes_pesquisa}), prática usual em revisões de escopo quando o volume de literatura correlata é amplo. Os dez estudos incluídos originam-se de quatro canais distintos e complementares, já documentados nas seções anteriores deste apêndice:
+Deve-se declarar com clareza o que este levantamento é e o que não é. \textbf{Não se trata de uma revisão sistemática em sentido estrito}: não houve triagem em duas etapas com leitura integral registrada e decisão de inclusão documentada estudo a estudo sobre a totalidade dos candidatos aprovados por título e resumo. A triagem por título e resumo foi, na prática, pouco seletiva (a maior parte dos 205 registros atende aos critérios de inclusão da Seção~\ref{sec:criterios_inclusao}, que são amplos), e reportar a partir dela um funil com ``candidatos aptos'' e ``excluídos após leitura integral'' equivaleria a estimar uma etapa que não foi de fato conduzida. O que se realizou foi um \textbf{levantamento estruturado da literatura}: as expressões de busca, bases e critérios acima delimitaram o universo de candidatos, e a seleção dos estudos efetivamente analisados em profundidade na Seção~\ref{sec:rel_analise_estudos} do Capítulo~\ref{chp:trabalhos_relacionados} seguiu um julgamento de \textbf{centralidade em relação às questões da revisão} (QR-1 a QR-4, Seção~\ref{sec:rel_questoes_pesquisa}), prática usual em revisões de escopo quando o volume de literatura correlata é amplo. Os dez estudos incluídos originam-se de quatro canais distintos e complementares, já documentados nas seções anteriores deste apêndice:
 
 \begin{itemize}
-	\item \textbf{Busca direta nas bases} (dentre os 205 registros da Tabela~\ref{tab-fluxo-selecao}): Araújo, Bezerra e Souza Neto (\citeyear{araujo2024saneamento}), pela String Secundária; Curcio, Galfré e Le Van (\citeyear{curcio2026safe}) e Gandikota et al. (\citeyear{gandikota2026spatial}), pela String Primária (Scopus e IEEE Xplore, respectivamente);
+	\item \textbf{Busca direta nas bases} (dentre os 205 registros da Tabela~\ref{tab-fluxo-selecao}): Araújo, Bezerra e Souza Neto (\citeyear{araujo2024saneamento}), pela Expressão Secundária; Curcio, Galfré e Le Van (\citeyear{curcio2026safe}) e Gandikota et al. (\citeyear{gandikota2026spatial}), pela Expressão Primária (Scopus e IEEE Xplore, respectivamente);
 	\item \textbf{Busca direcionada a repositórios institucionais/teses nacionais e à biblioteca digital da SBC} (Seção~\ref{sec:bases_dados}): Santos (\citeyear{santos2023classificacao}), Souza (\citeyear{souza2025extracao}) e Farias, Mendes e Conceição (\citeyear{farias2025notaconforme});
 	\item \textbf{\textit{Snowballing}} (Seção~\ref{sec:snowballing}): Zhang, Zhao e LeCun (\citeyear{zhang2015character}), Dhingra et al. (\citeyear{dhingra2016tweet2vec}) e a competição ICDAR2019/SROIE (\citeyear{icdar2019competition});
-	\item \textbf{Busca direcionada complementar sobre classificação de transações bancárias}, fora das três strings formais -- a String Primária exige o termo OCR e, por isso, não captura trabalhos que classificam descrições de transação já digitais: Ta, Saad e Oh (\citeyear{ta2023specialized}), localizado por busca direcionada ao longo da redação do trabalho, sem registro do canal exato de recuperação, e incorporado ao levantamento por ser o estudo de problema mais próximo ao desta pesquisa.
+	\item \textbf{Busca direcionada complementar sobre classificação de transações bancárias}, fora das três expressões de busca formais -- a Expressão Primária exige o termo OCR e, por isso, não captura trabalhos que classificam descrições de transação já digitais: Ta, Saad e Oh (\citeyear{ta2023specialized}), localizado por busca direcionada ao longo da redação do trabalho, sem registro do canal exato de recuperação, e incorporado ao levantamento por ser o estudo de problema mais próximo ao desta pesquisa.
 \end{itemize}
 
 % ----------------------------------------------------------
@@ -123,8 +124,9 @@ Este apêndice apresenta o esquema físico relacional e vetorial implementado no
 		nome_normalizado TEXT NOT NULL,
 		categoria_id INTEGER REFERENCES categorias(id),
 		subcategoria_id INTEGER REFERENCES subcategorias(id),
-		tipo_estabelecimento_id INTEGER REFERENCES tipos_estabelecimento(id),  -- basev2
-		eh_marketplace BOOLEAN NOT NULL DEFAULT FALSE,                          -- basev2
+		tipo_estabelecimento_id INTEGER
+		    REFERENCES tipos_estabelecimento(id),                -- basev2
+		eh_marketplace BOOLEAN NOT NULL DEFAULT FALSE,       -- basev2
 		confianca REAL DEFAULT 0.0 CHECK (confianca BETWEEN 0 AND 1),
 		fonte TEXT,               -- 'llm', 'manual', 'usuario', 'importacao'
 		metadados JSONB DEFAULT '{}',
@@ -144,7 +146,7 @@ Este apêndice apresenta o esquema físico relacional e vetorial implementado no
 
 \section{Coleção vetorial consultada pelo agente}
 
-A busca por similaridade do agente (nó \texttt{buscar\_por\_similaridade}) e a retroalimentação da base (nó \texttt{salvar\_vectorstore}) operam sobre a coleção \texttt{baseconhecimento}, mantida pela integração \texttt{langchain-postgres} em duas tabelas próprias, criadas pela biblioteca e povoadas pela etapa \codepath{04_rag_pgvector.py} com um documento por estabelecimento único do conjunto de treino (texto: chave do estabelecimento; metadados: categoria e identificador da categoria):
+A busca por similaridade do agente (nó \texttt{buscar\_por\_similaridade}) e a retroalimentação da base (nó \texttt{salvar\_vectorstore}) operam sobre a coleção \texttt{baseconhecimento}, mantida pela integração \texttt{langchain-postgres} em duas tabelas próprias, criadas pela biblioteca e povoadas pela etapa \codepath{04_rag_pgvector.py} com um documento por estabelecimento único do conjunto treino+validação, 488 estabelecimentos (texto: chave do estabelecimento; metadados: categoria e identificador da categoria):
 
 {\footnotesize
 \begin{verbatim}
@@ -199,7 +201,7 @@ Todo o código-fonte desenvolvido nesta monografia --- microsserviços, processo
 	\url{https://github.com/luizhslima/classificador_faturas_v1}
 \end{center}
 
-A aplicação \textit{web} (protótipo, Seção~\ref{sec:sol_arquitetura}) é referenciada pelo repositório como submódulo Git, mas seu repositório próprio não foi publicado; o diretório \codepath{web/} aparece vazio após a clonagem e a aplicação está disponível apenas na cópia local do autor. Sua publicação, junto com o registro do arquivo \texttt{.gitmodules}, fica como pendência de depósito. A organização de diretórios é resumida a seguir:
+A versão do código que gerou os resultados do Capítulo~\ref{Cap:Ava_Exp} corresponde ao estado do repositório em setembro de 2026; após os experimentos, o código recebeu apenas as correções editoriais do \textit{prompt} e das descrições de campos registradas no Apêndice~\ref{apendice:system_prompt}. A criação de uma etiqueta de versão (\textit{release}) apontando para o commit avaliado, seu arquivamento com identificador persistente (por exemplo, no Zenodo), a inclusão desta monografia em PDF no repositório e a disponibilização de uma amostra de dados sintética com o mesmo esquema das faturas reais ficam como pendências de depósito, junto com a publicação do submódulo \textit{web}: a aplicação \textit{web} (protótipo, Seção~\ref{sec:sol_arquitetura}) é referenciada como submódulo Git, mas seu repositório próprio não foi publicado, de modo que o diretório \codepath{web/} aparece vazio após a clonagem. O acervo governamental CPGF, público, pode ser obtido no Portal da Transparência \cite{brasilcpgf} e processado pela etapa de caracterização. A organização de diretórios é resumida a seguir:
 
 \begin{itemize}
 	\item \codepath{infra/} --- arquivos Docker Compose (\codepath{docker-compose-externalinfra.yml} é o utilizado nesta pesquisa) e \textit{scripts} de inicialização (\texttt{setup\_minio.sh}, \texttt{init.py}, \texttt{base.sql}, \texttt{basev2.sql}) que provisionam o MinIO, o Apache Kafka, o MLflow, o Logto e o PostgreSQL~16 com a extensão pgvector. Antes de executar o agente, a tabela \texttt{categorias} deve ser carregada com as 14 categorias canônicas listadas em \codepath{notebooks/experimentos/common.py}, e o \textit{bucket} \texttt{mlflow-artifacts} deve ser criado (Apêndice~\ref{apendice:esquema_banco});
@@ -212,7 +214,9 @@ A aplicação \textit{web} (protótipo, Seção~\ref{sec:sol_arquitetura}) é re
 	\item \codepath{requirements*.txt} --- conjuntos de dependências Python (núcleo da solução, agentes e ambiente de redação da monografia).
 \end{itemize}
 
-Os experimentos de classificação foram rastreados em um servidor MLflow sob o experimento \texttt{experimento\_faturas}, registrando parâmetros, métricas, relatórios por categoria, predições e artefatos gráficos. Em razão do caráter estritamente pessoal e sensível dos dados financeiros utilizados (Seção~\ref{sec:sol_lgpd}), o acervo de faturas reais e os respectivos arquivos de verdade de referência não são distribuídos no repositório. As credenciais de serviço da infraestrutura local constam em claro nos arquivos de configuração e devem ser substituídas em qualquer implantação fora do ambiente experimental.
+Cabe registrar duas lacunas de reprodutibilidade, identificadas em conferência do texto contra o código-fonte. A primeira é que a esteira reprodutível descrita acima cobre a \textbf{bateria de classificação}, mas não a \textbf{bateria de extração} da Seção~\ref{sec:val_resultados_ocr}: o repositório distribui os artefatos consolidados dessa bateria (\codepath{data/c6_ocr_benchmark_summary.csv} e \codepath{data/c6_ocr_benchmark_transactions.csv}, dos quais derivam as Tabelas~\ref{tab:resultados_ocr_consolidados} e~\ref{tab:resultados_ocr_detalhado} e as Figuras~\ref{fig:distribuicao_cer_wer} e~\ref{fig:evolucao_cer_faturas}), mas não o \textit{script} que os produziu --- o caderno \codepath{notebooks/data_analysis.ipynb} apenas os carrega e analisa. Reconstituir esse \textit{script} e depositá-lo, de modo que a comparação entre Docling V2 e Tesseract possa ser reexecutada a partir dos PDFs, é uma pendência de depósito. A segunda é que, no registro do MLflow do ajuste fino do ByT5, dois parâmetros foram anotados incorretamente (\texttt{epochs}~=~18 e \texttt{lr}~=~3$\times$10$^{-4}$): os valores efetivamente executados são os do código --- 12 épocas e taxa de aprendizado de 5$\times$10$^{-4}$ (\codepath{notebooks/experimentos/03_byt5.py}) ---, e são esses os reportados na Tabela~\ref{tab:hiperparametros}. A correção do dicionário de parâmetros e a reexecução do registro ficam como pendência.
+
+Os experimentos de classificação foram rastreados em um servidor MLflow sob o experimento \texttt{experimento\_faturas}, registrando parâmetros, métricas, relatórios por categoria, predições e artefatos gráficos. Em razão do caráter estritamente pessoal e sensível dos dados financeiros utilizados (Seção~\ref{sec:sol_lgpd}), o acervo de faturas reais e os respectivos arquivos de verdade de referência não são distribuídos no repositório. As credenciais de serviço da infraestrutura local (banco de dados, armazenamento de objetos e servidor de identidade) constam em claro nos arquivos de configuração e no histórico do repositório; são credenciais de um ambiente doméstico isolado, sem exposição à internet, mas sua remoção do repositório, rotação e externalização para variáveis de ambiente são uma correção de segurança pendente (Seção~\ref{sec:concl_trabalhos_futuros}) e obrigatória em qualquer implantação fora do ambiente experimental.
 
 % ----------------------------------------------------------
 \chapter{\textit{System Prompt} e Contrato Pydantic do Ramo LLM}
@@ -222,7 +226,7 @@ Este apêndice reproduz, na íntegra e sem correções editoriais, o \textit{Sys
 
 \section{\textit{System prompt} dinâmico}
 
-Os trechos entre chaves (\texttt{\{\}}) são preenchidos em tempo de execução: \texttt{dtlk.get('source')} e \texttt{dtlk['extensao']} vêm dos metadados do caminho do arquivo no \textit{data lakehouse}; a regra de origem do dado alterna entre uma instrução de saneamento de OCR ou uma instrução de não presumir erros ópticos, conforme o arquivo seja nativo digital ou óptico; e a lista de categorias permitidas é montada dinamicamente a partir da tabela \texttt{categorias} do banco de dados. A numeração das regras (1 a 4, seguida de 6 a 9, sem a regra 5) é reproduzida exatamente como consta no código-fonte.
+Os trechos entre chaves (\texttt{\{\}}) são preenchidos em tempo de execução: os campos \texttt{source} e \texttt{extensao} do dicionário \texttt{dtlk} vêm dos metadados do caminho do arquivo no \textit{data lakehouse}; a regra de origem do dado alterna entre uma instrução de saneamento de OCR ou uma instrução de não presumir erros ópticos, conforme o arquivo seja nativo digital ou óptico; e a lista de categorias permitidas é montada dinamicamente a partir da tabela \texttt{categorias} do banco de dados. A numeração das regras (1 a 4, seguida de 6 a 9, sem a regra 5) é reproduzida exatamente como consta no código-fonte.
 
 {\footnotesize
 \begin{verbatim}
@@ -307,14 +311,19 @@ class ClassificacaoLLM(BaseModel):
 \end{verbatim}
 }
 
+\section{Configuração do servidor de inferência}
+\label{sec:apendice_lmstudio}
+
+A configuração do servidor de inferência local não foi registrada pela esteira experimental no momento da execução e foi documentada retroativamente a partir do registro de execução do próprio LM Studio (versão 0.4.23) referente ao dia dos experimentos (08/09/2026): \textit{checkpoint} instruído \texttt{gemma-4-E4B-it}, no formato GGUF com quantização Q4\_K\_M (distribuição \texttt{lmstudio-community}, com projetor multimodal em BF16 carregado mas não utilizado), servido pelo motor \texttt{llama.cpp} para CUDA 12 (extensão 2.33.0), com janela de contexto de 8.192 \textit{tokens} (\texttt{n\_ctx\_slot = 8192}) em quatro \textit{slots} paralelos (posições de atendimento). Todas as requisições de conclusão registradas nesse dia (509, abrangendo as duas execuções do teste cego) enviaram apenas \texttt{temperature = 0} e \texttt{max\_completion\_tokens = 2048}; os demais parâmetros de amostragem permaneceram nos valores configurados no servidor, conferidos na configuração de carregamento do modelo: \textit{top-k} $= 40$, \textit{top-p} $= 0{,}95$ e semente aleatória ($-1$, isto é, sorteada a cada requisição). Com temperatura 0 a decodificação é gulosa, de modo que \textit{top-k}, \textit{top-p} e semente não afetam a escolha do \textit{token}; a variabilidade residual entre execuções decorre apenas de efeitos numéricos do motor de inferência (quantização e paralelismo em lote), não de amostragem (Seção~\ref{sec:val_ambiente}).
+
 \section{Análise crítica do artefato}
 \label{sec:apendice_prompt_critica}
 
-A reprodução literal acima expõe três defeitos do artefato efetivamente avaliado, que não foram corrigidos antes da execução dos experimentos e que, portanto, integram a configuração cujos resultados o Capítulo~\ref{Cap:Ava_Exp} reporta:
+A reprodução literal acima expõe três defeitos do artefato efetivamente avaliado, que integram a configuração cujos resultados o Capítulo~\ref{Cap:Ava_Exp} reporta (Seção~\ref{sec:val_config_agente}):
 \begin{enumerate}
 	\item \textbf{Regra ausente:} a numeração salta da regra 4 para a regra 6. As versões anteriores do \textit{prompt}, preservadas em \codepath{specs/prompts.md}, indicam que a lacuna decorre de renumeração incompleta ao longo da evolução do artefato (a cadeia de pensamento, regra 5 na primeira versão, tornou-se a regra 7 na versão final). Para o modelo, o efeito prático é apenas uma numeração inconsistente, mas o fato revela que o \textit{prompt} não passou por revisão sistemática antes do experimento;
 	\item \textbf{Erros ortográficos nos campos de saída:} as descrições dos campos \texttt{possiveis\_categorias} (``Lista de categoria sugeridas de possiveis categorias no minimo 3'') e \texttt{raciocinio} (``Raciocionio usado para categorizar a transação'') contêm erros de ortografia e de concordância. Como essas descrições são expostas ao modelo pelo mecanismo de saída estruturada, podem degradar marginalmente a compreensão do contrato de saída;
-	\item \textbf{Tensão entre as regras 2 e 3:} a regra 2 instrui a inferir a categoria por pistas genéricas mesmo sem reconhecer o estabelecimento, ao passo que a regra 3 combate alucinações; a ressalva ``inferir a categoria a partir de pistas genéricas NÃO é alucinação'' é uma tentativa, dentro do próprio \textit{prompt}, de resolver essa tensão. O comportamento observado no experimento -- o ramo LLM rotulou como \textit{Despesas Diversas} nomes com pista de categoria explícita, como ``SAPPORO RESTAURANTE'' e ``Drogaria Paulista'' (Seção~\ref{sec:val_ablacao_discussao}) -- é compatível com a hipótese de que o modelo compacto resolveu a tensão em favor da regra 3.
+	\item \textbf{Tensão entre as regras 2 e 3:} a regra 2 instrui a inferir a categoria por pistas genéricas mesmo sem reconhecer o estabelecimento, ao passo que a regra 3 combate alucinações; a ressalva ``inferir a categoria a partir de pistas genéricas NÃO é alucinação'' é uma tentativa, dentro do próprio \textit{prompt}, de resolver essa tensão. O comportamento observado no experimento -- o ramo LLM rotulou como Despesas Diversas / Outros nomes com pista de categoria explícita, como ``SAPPORO RESTAURANTE'' e ``Drogaria Paulista'' (Seção~\ref{sec:val_ablacao_discussao}) -- é compatível com a hipótese de que o modelo compacto resolveu a tensão em favor da regra 3.
 \end{enumerate}
 
 Esses defeitos importam para a leitura dos resultados: a acurácia condicional de apenas 21\% do ramo LLM foi atribuída, no Capítulo~\ref{Cap:Ava_Exp}, à capacidade do modelo local compacto. Essa atribuição pode estar correta, mas a evidência disponível não a isola de explicações concorrentes e mais simples -- um \textit{prompt} com regra faltante, instruções em tensão e campos de saída descritos com erro; e um \textit{prompt} que não apresenta ao modelo os vizinhos rotulados que o ramo vetorial já recuperou, deixando-o decidir em \textit{zero-shot} (Seção~\ref{sec:sol_agente_inteligente}). A separação entre limitação do modelo e limitação do \textit{prompt} não foi verificada experimentalmente; o experimento de baixo custo que a isolaria (reexecutar o ramo LLM sobre as mesmas transações com o \textit{prompt} corrigido) é indicado como trabalho futuro na Seção~\ref{sec:concl_trabalhos_futuros}. A correção da numeração e da ortografia foi aplicada ao código-fonte do repositório após os experimentos, independentemente da reexecução; a reprodução acima preserva a versão avaliada.
@@ -374,7 +383,7 @@ MARKETPLACES_AMBIGUOS = {
 
 \section{Dicionário de aliases de estabelecimento}
 
-Independentemente da lista de \textit{marketplaces} acima, a função \texttt{detectar\_estabelecimento} resolve aliases sobre a descrição já normalizada (caixa baixa), canonicalizando o nome do estabelecimento antes da busca vetorial:
+Independentemente da lista de \textit{marketplaces} acima, a função de resolução de aliases (\texttt{detectar\_\allowbreak estabelecimento}) canonicaliza o nome do estabelecimento: resolve aliases sobre a descrição já normalizada (caixa baixa), canonicalizando o nome do estabelecimento antes da busca vetorial:
 
 {\footnotesize
 \begin{verbatim}
@@ -395,7 +404,7 @@ Observa-se que este dicionário de aliases cobre um subconjunto dos \textit{mark
 \section{Análise crítica do artefato}
 \label{sec:apendice_normalizacao_critica}
 
-A reprodução literal acima, confrontada com o uso que o grafo faz de cada função, expõe quatro defeitos do artefato efetivamente avaliado, identificados na revisão final do código e não corrigidos antes da execução dos experimentos:
+A reprodução literal acima, confrontada com o uso que o grafo faz de cada função, expõe quatro defeitos do artefato efetivamente avaliado, não detectados antes da execução dos experimentos:
 \begin{enumerate}
 	\item \textbf{Chave de \textit{marketplace} não casada:} o nó \texttt{normalizar} define \texttt{eh\_marketplace} verificando se o nome canônico devolvido por \texttt{detectar\_estabelecimento} pertence às chaves de \texttt{MARKETPLACES\_AMBIGUOS}. Para Amazon, Shopee, Magalu, Americanas, AliExpress e Shein os dois identificadores coincidem; para o Mercado Livre, o alias canônico é \texttt{"mercado livre"} (com espaço) e a chave é \texttt{"mercado\_livre"} (com sublinhado). Transações do Mercado Livre e do Mercado Pago -- o \textit{marketplace} mais frequente do acervo -- nunca foram, portanto, roteadas pelo ramo de histórico;
 	\item \textbf{Função de detecção não utilizada:} \texttt{detectar\_marketplace}, que aplica os padrões com curinga (\texttt{ML*}, \texttt{MELI*}, \texttt{AMZ*} etc.) sobre a descrição original em caixa alta, não é invocada em nenhum nó. Os padrões com curinga do dicionário são, na prática, inertes; só os nomes presentes no dicionário de aliases (sobre a descrição já normalizada) surtem efeito;
@@ -404,6 +413,142 @@ A reprodução literal acima, confrontada com o uso que o grafo faz de cada fun�
 \end{enumerate}
 
 Esses defeitos não afetam as linhas de base nem a busca vetorial isolada, e afetam o agente apenas no ramo de histórico de \textit{marketplace}, que -- por não influenciar a decisão -- não altera as métricas reportadas. Eles importam para a resposta à Q4 (Seção~\ref{sec:val_respostas_questoes}), que fica parcial, e são corrigíveis com poucas linhas de código, o que se recomenda antes de qualquer reexecução (Seção~\ref{sec:concl_trabalhos_futuros}).
+
+
+% ----------------------------------------------------------
+\chapter{Dicionário de Rotulagem de Referência e Mapeamento das Categorias do Emissor}
+\label{apendice:rotulagem}
+
+Este apêndice reproduz os dois artefatos que compõem a rotulagem semiautomática de referência do conjunto de classificação (Seção~\ref{sec:val_dataset_classificacao}), tal como codificados em \codepath{notebooks/experimentos/common.py}: o dicionário léxico de alta precisão, aplicado com precedência sobre a categoria nativa do emissor, e o mapeamento da categoria nativa do C6 Bank (derivada do código MCC do estabelecimento) para a taxonomia canônica de 14 categorias, usado nos lançamentos não cobertos pelo dicionário. Lançamentos do Nubank, que não trazem categoria nativa, só entram no conjunto rotulado quando cobertos pelo dicionário.
+
+\section{Dicionário léxico}
+
+Cada grupo da Tabela~\ref{tab:dicionario_lexico} é uma expressão regular aplicada, sem distinção de maiúsculas, sobre a descrição com acentos removidos; os grupos são testados na ordem listada e o primeiro que casa determina a categoria (padrões específicos antes dos genéricos; \textit{marketplaces} por último). A tabela apresenta os termos-chave de cada grupo em forma legível: o til (\texttt{\textasciitilde}) indica espaço opcional entre duas partes, as reticências indicam qualquer sequência de caracteres e os parênteses com ``ou'' indicam alternativas obrigatórias; delimitadores de palavra e demais metacaracteres foram omitidos. As categorias Pets, Serviços Financeiros e Doações e Presentes, embora cobertas pelo dicionário, não atingiram amostragem mínima no acervo e foram agregadas a Despesas Diversas / Outros na etapa de preparação (Seção~\ref{sec:val_dataset_classificacao}).
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{3.1cm} >{\raggedright\arraybackslash}p{11.6cm}}
+\caption{Dicionário léxico de rotulagem: grupos de padrões por categoria, na ordem de precedência em que são aplicados.}\label{tab:dicionario_lexico}\\
+\toprule
+\textbf{Categoria} & \textbf{Padrões (termos-chave do grupo, na ordem do código-fonte)} \\
+\midrule
+\endfirsthead
+\caption[]{Dicionário léxico de rotulagem (continuação).}\\
+\toprule
+\textbf{Categoria} & \textbf{Padrões (termos-chave do grupo)} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+1. Transporte & \texttt{uber}; \texttt{99app}; \texttt{99~pop}; \texttt{cabify}; \texttt{indriver}; \texttt{blablacar} \\
+\addlinespace[2pt]
+2. Transporte & \texttt{posto}; \texttt{ipiranga}; \texttt{shell}; \texttt{petrobras}; \texttt{br distribuidora}; \texttt{ale combust}; \texttt{gasolina}; \texttt{combust} \\
+\addlinespace[2pt]
+3. Transporte & \texttt{estacionament}; \texttt{zul}; \texttt{zona azul}; \texttt{sem parar}; \texttt{conectcar}; \texttt{veloe}; \texttt{pedagio} \\
+\addlinespace[2pt]
+4. Transporte & \texttt{latam}; \texttt{gol}; \texttt{gol transp}; \texttt{azul linhas}; \texttt{azul via}; \texttt{passagem aere}; \texttt{companhia aerea}; \texttt{emirates air}; \texttt{tam} \\
+\addlinespace[2pt]
+5. Transporte & \texttt{cptm}; \texttt{metro}; \texttt{bilhete unico}; \texttt{riocard}; \texttt{bom} \\
+\addlinespace[2pt]
+6. Alimentação & \texttt{ifood}; \texttt{ifd}; \texttt{ifd*}; \texttt{rappi}; \texttt{zé delivery}; \texttt{ze delivery}; \texttt{aiqfome} \\
+\addlinespace[2pt]
+7. Alimentação & \texttt{mc~donald}; \texttt{arcos dourados}; \texttt{burger king}; \texttt{bk}; \texttt{habibs}; \texttt{subway}; \texttt{giraffas}; \texttt{bobs}; \texttt{spoleto}; \texttt{outback} \\
+\addlinespace[2pt]
+8. Alimentação & \texttt{pizzaria}; \texttt{pizza}; \texttt{restaurante}; \texttt{lanchonete}; \texttt{churrascar}; \texttt{hamburgu}; \texttt{bar}; \texttt{boteco}; \texttt{cafeteria}; \texttt{cafe}; \texttt{padaria}; \texttt{confeitaria}; \texttt{doceria}; \texttt{sorvete}; \texttt{acai}; \texttt{gelateria} \\
+\addlinespace[2pt]
+9. Alimentação & \texttt{supermerc}; \texttt{atacadist}; \texttt{assai}; \texttt{assaí}; \texttt{carrefour}; \texttt{pao de acucar}; \texttt{pão de açúcar}; \texttt{extra}; \texttt{big bompreco}; \texttt{nagumo}; \texttt{dia}; \texttt{hortifruti}; \texttt{hortigranj}; \texttt{quitanda}; \texttt{mercearia}; \texttt{sacolao}; \texttt{takahashi}; \texttt{comercial piracicaba}; \texttt{cacau show}; \texttt{kopenhagen}; \texttt{casa pao}; \texttt{casa de carnes}; \texttt{acougue}; \texttt{açougue}; \texttt{avicola}; \texttt{frango} \\
+\addlinespace[2pt]
+10. Saúde & \texttt{drogari}; \texttt{droga}; \texttt{drogal}; \texttt{farmacia}; \texttt{farmácia}; \texttt{drogasil}; \texttt{pacheco}; \texttt{pague menos}; \texttt{panvel}; \texttt{raia}; \texttt{ultrafarma}; \texttt{nissei}; \texttt{sp drogar} \\
+\addlinespace[2pt]
+11. Saúde & \texttt{otica}; \texttt{ótica}; \texttt{oculos}; \texttt{hospital}; \texttt{clinica}; \texttt{clínica}; \texttt{laborator}; \texttt{lab}; \texttt{odonto}; \texttt{dentist}; \texttt{medic}; \texttt{fisioterap}; \texttt{psicolog}; \texttt{exame}; \texttt{vacina}; \texttt{orthofen}; \texttt{unimed}; \texttt{hapvida}; \texttt{amil}; \texttt{porto seg saude} \\
+\addlinespace[2pt]
+12. Pets & \texttt{petz}; \texttt{cobasi}; \texttt{petlove}; \texttt{pet~shop}; \texttt{petshop}; \texttt{veterinar}; \texttt{vet}; \texttt{agropet}; \texttt{racao}; \texttt{ração}; \texttt{petcenter}; \texttt{petland} \\
+\addlinespace[2pt]
+13. Beleza e Cuidados Pessoais & \texttt{o~boticario}; \texttt{o~boticário}; \texttt{natura}; \texttt{avon}; \texttt{eudora}; \texttt{sephora}; \texttt{quem disse berenice}; \texttt{qdb}; \texttt{barbear}; \texttt{salao}; \texttt{salão}; \texttt{cabelele}; \texttt{manicure}; \texttt{esmalteria}; \texttt{perfum}; \texttt{the beauty box}; \texttt{mac} \\
+\addlinespace[2pt]
+14. Educação & \texttt{alura}; \texttt{udemy}; \texttt{coursera}; \texttt{ebac}; \texttt{fiap}; \texttt{dio}; \texttt{origamid}; \texttt{rocketseat}; \texttt{kulti}; \texttt{duolingo}; \texttt{babbel}; \texttt{open english}; \texttt{cultura ing}; \texttt{escola}; \texttt{colegio}; \texttt{colégio}; \texttt{faculdade}; \texttt{universidad}; \texttt{univ}; \texttt{pos}; \texttt{mba}; \texttt{curso}; \texttt{kindle}; \texttt{amazon kindle}; \texttt{livraria}; \texttt{livro}; \texttt{sebo} \\
+\addlinespace[2pt]
+15. Lazer e Entretenimento & \texttt{netflix}; \texttt{spotify}; \texttt{disney}; \texttt{hbo}; \texttt{max}; \texttt{help~hbo}; \texttt{help~max}; \texttt{prime video}; \texttt{globoplay}; \texttt{deezer}; \texttt{paramount}; \texttt{star+}; \texttt{mubi}; \texttt{crunchyroll}; \texttt{youtube~premium}; \texttt{apple.com/bill}; \texttt{apple tv}; \texttt{appletv} \\
+\addlinespace[2pt]
+16. Lazer e Entretenimento & \texttt{steam}; \texttt{playstat}; \texttt{xbox}; \texttt{nintendo}; \texttt{xsolla}; \texttt{nuuvem}; \texttt{epicgames}; \texttt{epic games}; \texttt{riot}; \texttt{blizzard}; \texttt{garena}; \texttt{gog}; \texttt{twitch}; \texttt{kick}; \texttt{discord}; \texttt{psn}; \texttt{game~pass}; \texttt{mojang} \\
+\addlinespace[2pt]
+17. Lazer e Entretenimento & \texttt{cinema}; \texttt{cinemark}; \texttt{cinepolis}; \texttt{uci}; \texttt{kinoplex}; \texttt{ingresse}; \texttt{ingresso}; \texttt{sympla}; \texttt{eventim}; \texttt{ticketm}; \texttt{tomorrowland}; \texttt{show}; \texttt{teatro}; \texttt{parque}; \texttt{hopi hari}; \texttt{beto carrero}; \texttt{zoo}; \texttt{aquario}; \texttt{museu}; \texttt{baladas?}; \texttt{boliche}; \texttt{bowling}; \texttt{paintball}; \texttt{kart}; \texttt{mergulho}; \texttt{canoa} \\
+\addlinespace[2pt]
+18. Tecnologia & \texttt{abacus.ai}; \texttt{openrouter}; \texttt{openai}; \texttt{anthropic}; \texttt{claude}; \texttt{cursor}; \texttt{github}; \texttt{railway}; \texttt{digitalocea}; \texttt{vercel}; \texttt{netlify}; \texttt{heroku}; \texttt{aws}; \texttt{amazon web}; \texttt{google cloud}; \texttt{gcp}; \texttt{azure}; \texttt{cloudflare}; \texttt{umbler}; \texttt{hostgator}; \texttt{hostinger}; \texttt{kinghost}; \texttt{fl cloud}; \texttt{vps}; \texttt{hosting} \\
+\addlinespace[2pt]
+19. Tecnologia & \texttt{canva}; \texttt{adobe}; \texttt{figma}; \texttt{notion}; \texttt{slack}; \texttt{zoom}; \texttt{jetbrains}; \texttt{microsoft}; \texttt{office 365}; \texttt{microsoft 365}; \texttt{google one}; \texttt{icloud}; \texttt{dropbox}; \texttt{mega}; \texttt{evernote}; \texttt{1password}; \texttt{nordvpn}; \texttt{expressvpn}; \texttt{grammarly}; \texttt{midjourney}; \texttt{replit}; \texttt{wix}; \texttt{godaddy}; \texttt{namecheap}; \texttt{mercado livre…produto…eletr} \\
+\addlinespace[2pt]
+20. Tecnologia & \texttt{kabum}; \texttt{pichau}; \texttt{terabyte}; \texttt{gigantec}; \texttt{casas bahia…(celular}; \texttt{notebook)}; \texttt{magazine…(celular}; \texttt{notebook)}; \texttt{apple store}; \texttt{iplace}; \texttt{samsung} \\
+\addlinespace[2pt]
+21. Vestuário & \texttt{lojas renner}; \texttt{renner}; \texttt{riachuelo}; \texttt{c\&a}; \texttt{cea}; \texttt{hering}; \texttt{lacoste}; \texttt{zara}; \texttt{nike}; \texttt{adidas}; \texttt{puma}; \texttt{centauro}; \texttt{netshoes}; \texttt{decathlon}; \texttt{pernambucana}; \texttt{marisa}; \texttt{martan}; \texttt{malwee}; \texttt{calvin klein}; \texttt{colcci}; \texttt{osklen}; \texttt{reserva}; \texttt{animale}; \texttt{calcados}; \texttt{calçados}; \texttt{sapataria}; \texttt{pompeia}; \texttt{havaianas}; \texttt{mizuno}; \texttt{fila}; \texttt{keds}; \texttt{track·field}; \texttt{futfanat}; \texttt{camisa} \\
+\addlinespace[2pt]
+22. Moradia & \texttt{enel}; \texttt{cpfl}; \texttt{elektro}; \texttt{light}; \texttt{cemig}; \texttt{copel}; \texttt{celesc}; \texttt{energia elet}; \texttt{sabesp}; \texttt{cedae}; \texttt{copasa}; \texttt{sanepar}; \texttt{comgas}; \texttt{comgás}; \texttt{ultragaz}; \texttt{naturgy}; \texttt{liquigas}; \texttt{gas}; \texttt{gás}; \texttt{condominio}; \texttt{condomínio}; \texttt{aluguel}; \texttt{iptu}; \texttt{imobiliaria}; \texttt{imobiliária} \\
+\addlinespace[2pt]
+23. Moradia & \texttt{claro}; \texttt{vivo}; \texttt{tim}; \texttt{oi}; \texttt{net}; \texttt{sky}; \texttt{america net}; \texttt{americanet}; \texttt{nextel}; \texttt{gvt}; \texttt{telecom}; \texttt{internet}; \texttt{banda larga}; \texttt{fibra} \\
+\addlinespace[2pt]
+24. Moradia & \texttt{leroy merlin}; \texttt{c\&c}; \texttt{telhanorte}; \texttt{dicico}; \texttt{obramax}; \texttt{casa tokio}; \texttt{tok~stok}; \texttt{madeira madeira}; \texttt{mobly}; \texttt{etna}; \texttt{materiais de constru}; \texttt{ferragens?}; \texttt{marcenaria}; \texttt{vidracaria} \\
+\addlinespace[2pt]
+25. Doações e Presentes & \texttt{doacao}; \texttt{doação}; \texttt{vakinha}; \texttt{apae}; \texttt{gofundme}; \texttt{catarse}; \texttt{benfeitoria}; \texttt{cruz vermelha}; \texttt{unicef}; \texttt{teleton}; \texttt{dizimo}; \texttt{dízimo}; \texttt{oferta igreja}; \texttt{igreja}; \texttt{pastoral}; \texttt{caritas}; \texttt{cáritas} \\
+\addlinespace[2pt]
+26. Serviços Financeiros & \texttt{tarifa}; \texttt{anuidade}; \texttt{iof}; \texttt{juros}; \texttt{saque}; \texttt{cambio}; \texttt{câmbio}; \texttt{corretora}; \texttt{xp inv}; \texttt{rico}; \texttt{clear}; \texttt{nuinvest}; \texttt{binance}; \texttt{mercado bitcoin}; \texttt{foxbit}; \texttt{seguro}; \texttt{previdencia}; \texttt{consorcio}; \texttt{consórcio}; \texttt{emprestimo}; \texttt{empréstimo}; \texttt{fatura}; \texttt{boleto} \\
+\addlinespace[2pt]
+27. Marketplace / E-commerce & \texttt{mercadolivre}; \texttt{mercado livre}; \texttt{mercadopago}; \texttt{mercado pago}; \texttt{mercpag}; \texttt{meli}; \texttt{melimais}; \texttt{ml*}; \texttt{mlp*} \\
+\addlinespace[2pt]
+28. Marketplace / E-commerce & \texttt{amazon}; \texttt{amzn}; \texttt{amazonmktplc}; \texttt{amazon mktp}; \texttt{amazon marketplace}; \texttt{amazon br} \\
+\addlinespace[2pt]
+29. Marketplace / E-commerce & \texttt{shopee}; \texttt{shein}; \texttt{aliexpress}; \texttt{ali*}; \texttt{alibaba}; \texttt{wish}; \texttt{temu} \\
+\addlinespace[2pt]
+30. Marketplace / E-commerce & \texttt{magazine~luiza}; \texttt{magalu}; \texttt{americanas}; \texttt{submarino}; \texttt{casas~bahia}; \texttt{ponto frio}; \texttt{extra.com}; \texttt{shoptime}; \texttt{dafiti}; \texttt{enjoei}; \texttt{olx}; \texttt{elo7}; \texttt{mercado~shops} \\
+\addlinespace[2pt]
+\end{longtable}
+
+\section{Mapeamento da categoria nativa do emissor}
+
+As categorias nativas do C6 Bank correspondentes a pagamentos de fatura, estornos e tarifas são descartadas na preparação e não constam da Tabela~\ref{tab:mapa_mcc}. O mapeamento é uma decisão do autor, não uma tabela oficial do emissor; a imprecisão da categoria nativa (por exemplo, serviços de nuvem sob ``Elétrico'') é discutida na Seção~\ref{sec:val_circularidade}.
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{8.2cm} >{\raggedright\arraybackslash}p{6.5cm}}
+\caption{Mapeamento da categoria nativa do emissor C6 Bank (derivada do código MCC) para a taxonomia canônica.}\label{tab:mapa_mcc}\\
+\toprule
+\textbf{Categoria nativa do emissor} & \textbf{Categoria canônica} \\
+\midrule
+\endfirsthead
+\caption[]{Mapeamento da categoria nativa do emissor para a taxonomia canônica (continuação).}\\
+\toprule
+\textbf{Categoria nativa do emissor} & \textbf{Categoria canônica} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+Transporte & Transporte \\
+T\&E & Transporte \\
+T\&E Companhia aérea & Transporte \\
+T\&E Hotel & Transporte \\
+Automotivo & Transporte \\
+Relacionados a Automotivo & Transporte \\
+Restaurante / Lanchonete / Bar & Alimentação \\
+Supermercados / Mercearia / Padarias / Lojas de Conveniência & Alimentação \\
+Entretenimento & Lazer e Entretenimento \\
+Recreativo & Lazer e Entretenimento \\
+TV por assinatura / Serviços de rádio & Lazer e Entretenimento \\
+Assistência médica e odontológica & Saúde \\
+Aparelhos auditivos & Saúde \\
+Serviços pessoais & Beleza e Cuidados Pessoais \\
+Vestuário / Roupas & Vestuário \\
+Departamento / Desconto & Marketplace / E-commerce \\
+Especialidade varejo & Marketplace / E-commerce \\
+Marketing Direto & Marketplace / E-commerce \\
+Representantes e Galerias de Arte & Marketplace / E-commerce \\
+Serviços de telecomunicações & Moradia \\
+Casa / Escritório Mobiliário & Moradia \\
+Materiais de construção para casa & Moradia \\
+Elétrico & Tecnologia \\
+Educacional & Educação \\
+Serviços financeiros & Serviços Financeiros \\
+Serviços Profissionais & Despesas Diversas / Outros \\
+Empresa para empresa & Despesas Diversas / Outros \\
+Empresa serviços & Despesas Diversas / Outros \\
+Associação & Despesas Diversas / Outros \\
+Consertos em Geral & Despesas Diversas / Outros \\
+\end{longtable}
+
 
 \end{apendicesenv}
 % ---

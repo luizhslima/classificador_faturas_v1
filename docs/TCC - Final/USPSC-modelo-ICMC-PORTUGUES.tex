@@ -38,6 +38,9 @@
 %%
 %----------------------------------------------------------------
 
+% Permite quebra de linha em hifens dentro de URLs (referencias com localizadores longos)
+\PassOptionsToPackage{hyphens}{url}
+
 \documentclass[
 % -- opções da classe memoir --
 12pt,		% tamanho da fonte
@@ -223,7 +226,7 @@ brazil				% o último idioma é o principal do documento
 	pdfauthor={\@author},
 	pdfsubject={\imprimirpreambulo},
 	pdfcreator={LaTeX with abnTeX2},
-	pdfkeywords={Classificação de transações financeiras}{Processamento de linguagem natural}{Busca vetorial por similaridade}{Reconhecimento óptico de caracteres}{Agentes inteligentes},
+	pdfkeywords={Classificação de transações financeiras}{Processamento de linguagem natural}{Busca vetorial por similaridade}{Extração de documentos com preservação de leiaute}{Agentes inteligentes},
 	colorlinks=true,       		% false: boxed links; true: colored links
 	linkcolor=black,          	% color of internal links
 	citecolor=black,        		% color of links to bibliography

@@ -5,15 +5,6 @@
 \providecommand{\abntbstabout}[1]{}
 \abntbstabout{v-1.9.7 }
 
-\bibitem[{ABECS} 2024]{abecs2024panorama}
-\abntrefinfo{{ABECS}}{{ABECS}}{2024}
-{{ABECS}. \textbf{Panorama do Setor de Meios Eletrônicos de Pagamento:
-  Balanço Anual 2024}. São Paulo: Associação Brasileira das Empresas de
-  Cartões de Crédito e Serviços, 2024. Relatório institucional.
-Dispon{\'\i}vel em:
-  \url{https://abecs.org.br/balanco-do-setor-de-meios-de-pagamento}. Acesso em:
-  15 jan. 2026.}
-
 \bibitem[Ara{\'u}jo, Bezerra e Souza Neto 2025]{araujo2024saneamento}
 \abntrefinfo{Ara{\'u}jo, Bezerra e Souza Neto}{Ara{\'u}jo; Bezerra; Souza
   Neto}{2025}
@@ -33,6 +24,19 @@ DOI: \url{https://doi.org/10.1145/3704268.3748673}. Acesso em: 08 set. 2026.}
   \url{https://www.cidrdb.org/cidr2021/papers/cidr2021\_paper17.pdf}. Acesso
   em: 21 set. 2026.}
 
+\bibitem[Associa{\c{c}}{\~a}o Brasileira das Empresas de Cart{\~o}es de
+  Cr{\'e}dito e Servi{\c{c}}os -- ABECS 2025]{abecs2025panorama}
+\abntrefinfo{Associa{\c{c}}{\~a}o Brasileira das Empresas de Cart{\~o}es de
+  Cr{\'e}dito e Servi{\c{c}}os -- ABECS}{Associa{\c{c}}{\~a}o Brasileira das
+  Empresas de Cart{\~o}es de Cr{\'e}dito e Servi{\c{c}}os -- ABECS}{2025}
+{ASSOCIA{\c{C}}{\~A}O BRASILEIRA DAS EMPRESAS DE CART{\~O}ES DE CR{\'E}DITO E
+  SERVI{\c{C}}OS -- ABECS. \textbf{Pela primeira vez, uso de cartões supera
+  R\$ 4 trilhões em um ano: balanço do setor de meios eletrônicos de
+  pagamento 2024}. São Paulo, 2025. Portal Panorama Abecs.
+Dispon{\'\i}vel em:
+  \url{https://panoramaabecs.com.br/uso-de-cartoes-supera-4-trilhoes-de-reais-em-2024/}.
+  Acesso em: 21 set. 2026.}
+
 \bibitem[Auer, Dolfi e Staar 2024]{docling2024}
 \abntrefinfo{Auer, Dolfi e Staar}{Auer; Dolfi; Staar}{2024}
 {AUER, C.; DOLFI, M.; STAAR, P. W.~J. Docling: A fast, modular document parsing
@@ -47,18 +51,18 @@ DOI: \url{https://doi.org/10.48550/arXiv.2408.09869}. Acesso em: 11 set. 2026.}
 \textbf{ACM Computing Surveys}, v.~52, n.~6, p. 109:1--109:36, 2019.
 DOI: \url{https://doi.org/10.1145/3355610}. Acesso em: 08 set. 2026.}
 
-\bibitem[{BRASIL} 2018]{brasil2018lgpd}
-\abntrefinfo{{BRASIL}}{{BRASIL}}{2018}
-{{BRASIL}. \textbf{Lei nº 13.709, de 14 de agosto de 2018. Lei Geral de
+\bibitem[Brasil 2018]{brasil2018lgpd}
+\abntrefinfo{Brasil}{Brasil}{2018}
+{BRASIL. \textbf{Lei nº 13.709, de 14 de agosto de 2018. Lei Geral de
   Proteção de Dados Pessoais (LGPD)}. Brasília, DF: Diário Oficial da
   União, 2018. Legislação Federal.
 Dispon{\'\i}vel em:
   \url{http://www.planalto.gov.br/ccivil\_03/\_ato2015-2018/2018/lei/l13709.htm}.
   Acesso em: 18 set. 2026.}
 
-\bibitem[{BRASIL} 2024]{brasilcpgf}
-\abntrefinfo{{BRASIL}}{{BRASIL}}{2024}
-{{BRASIL}. \textbf{Controladoria-Geral da Uni\~ao. Portal da Transpar\^encia:
+\bibitem[Brasil 2024]{brasilcpgf}
+\abntrefinfo{Brasil}{Brasil}{2024}
+{BRASIL. \textbf{Controladoria-Geral da Uni\~ao. Portal da Transpar\^encia:
   gastos por meio do Cart\~ao de Pagamento do Governo Federal (CPGF)}. 2024.
   Conjunto de dados abertos governamentais.
 Dispon{\'\i}vel em:
@@ -75,8 +79,18 @@ DOI: \url{https://doi.org/10.1023/A:1010933404324}. Acesso em: 15 set. 2026.}
 \abntrefinfo{Brown \textit{et al.}}{Brown \textit{et al.}}{2020}
 {BROWN, T.~B. \textit{et al.} Language models are few-shot learners.
   \textit{In}:  \textbf{Advances in Neural Information Processing Systems
-  (NeurIPS)}. [\textit{S.l.: s.n.}], 2020. v.~33, p. 1877--1901.
-DOI: \url{https://doi.org/10.48550/arXiv.2005.14165}. Acesso em: 20 set. 2026.}
+  (NeurIPS)}. Red Hook, NY: Curran Associates, 2020. v.~33, p. 1877--1901.
+  Dispon{\'\i}vel em:
+  \url{https://proceedings.neurips.cc/paper/2020/hash/1457c0d6bfcb4967418bfb8ac142f64a-Abstract.html}.
+  Acesso em: 20 set. 2026.}
+
+\bibitem[CartaCapital 2025]{cartacapital2025cartoes}
+\abntrefinfo{CartaCapital}{CartaCapital}{2025}
+{CARTACAPITAL. \textbf{Brasil ultrapassa 200 milhões de cartões de crédito e
+  movimenta R\$ 2,8 trilhões em 2024}. 2025.
+Dispon{\'\i}vel em:
+  \url{https://www.cartacapital.com.br/do-micro-ao-macro/brasil-ultrapassa-200-milhoes-de-cartoes-de-credito-e-movimenta-r-28-trilhoes-em-2024/}.
+  Acesso em: 21 set. 2026.}
 
 \bibitem[Caseli e Nunes 2024]{BPLN_livro:2024}
 \abntrefinfo{Caseli e Nunes}{Caseli; Nunes}{2024}
@@ -91,7 +105,7 @@ ISBN 978-65-00-95750-1. Dispon{\'\i}vel em:
 \abntrefinfo{Chapman \textit{et al.}}{Chapman \textit{et al.}}{2000}
 {CHAPMAN, P. \textit{et al.} \textbf{{CRISP-DM} 1.0: Step-by-Step Data Mining
   Guide}.
-[\textit{S.l.}], 2000. Dispon{\'\i}vel em:
+Chicago, 2000. Dispon{\'\i}vel em:
   \url{https://public.dhe.ibm.com/software/analytics/spss/documentation/modeler/14.2/es/CRISP-DM.pdf}.
   Acesso em: 21 set. 2026.}
 
@@ -100,7 +114,7 @@ ISBN 978-65-00-95750-1. Dispon{\'\i}vel em:
 {CHO, K. \textit{et al.} Learning phrase representations using {RNN}
   encoder--decoder for statistical machine translation. \textit{In}:
   \textbf{Proceedings of the 2014 Conference on Empirical Methods in Natural
-  Language Processing (EMNLP)}. Doha, Catar: Association for Computational
+  Language Processing (EMNLP)}. Doha: Association for Computational
   Linguistics, 2014. p. 1724--1734.
 DOI: \url{https://doi.org/10.3115/v1/D14-1179}. Acesso em: 09 set. 2026.}
 
@@ -119,6 +133,14 @@ DOI: \url{https://doi.org/10.1002/aris.1440370103}. Acesso em: 16 set. 2026.}
   '26)}. Fribourg: Association for Computing Machinery, 2026. p. 1--10.
 DOI: \url{https://doi.org/10.1145/3820755.3821480}. Acesso em: 16 set. 2026.}
 
+\bibitem[Databricks 2026]{databricks2026medallion}
+\abntrefinfo{Databricks}{Databricks}{2026}
+{DATABRICKS. \textbf{What is the medallion lakehouse architecture?} 2026.
+  Documentação técnica da plataforma Databricks.
+Dispon{\'\i}vel em:
+  \url{https://docs.databricks.com/aws/en/lakehouse/medallion}. Acesso em: 21
+  set. 2026.}
+
 \bibitem[Devlin \textit{et al.} 2019]{devlin2019bert}
 \abntrefinfo{Devlin \textit{et al.}}{Devlin \textit{et al.}}{2019}
 {DEVLIN, J. \textit{et al.} {BERT}: Pre-training of deep bidirectional
@@ -134,9 +156,9 @@ DOI: \url{https://doi.org/10.18653/v1/N19-1423}. Acesso em: 20 set. 2026.}
 {DHINGRA, B. \textit{et al.} Tweet2vec: Character-based distributed
   representations for social media. \textit{In}:  \textbf{Proceedings of the
   54th Annual Meeting of the Association for Computational Linguistics (Volume
-  2: Short Papers)}. Berlin, Alemanha: Association for Computational
-  Linguistics, 2016. p. 269--274.
-DOI: \url{https://doi.org/10.48550/arXiv.1605.03481}. Acesso em: 18 set. 2026.}
+  2: Short Papers)}. Berlin: Association for Computational Linguistics, 2016.
+  p. 269--274.
+DOI: \url{https://doi.org/10.18653/v1/P16-2044}. Acesso em: 18 set. 2026.}
 
 \bibitem[Efron 1979]{efron1979bootstrap}
 \abntrefinfo{Efron}{Efron}{1979}
@@ -165,9 +187,10 @@ DOI: \url{https://doi.org/10.5753/sbbd_estendido.2025.247676}. Acesso em: 18
 DOI: \url{https://doi.org/10.1109/eIT68936.2026.11670412}. Acesso em: 17 set.
   2026.}
 
-\bibitem[{GEMMA TEAM} 2026]{gemmateam2026gemma4}
-\abntrefinfo{{GEMMA TEAM}}{{GEMMA TEAM}}{2026}
-{{GEMMA TEAM}. \textbf{Gemma 4 Technical Report}. 2026. ArXiv:2607.02770.
+\bibitem[Gemma Team 2026]{gemmateam2026gemma4}
+\abntrefinfo{Gemma Team}{Gemma Team}{2026}
+{GEMMA TEAM. \textbf{Gemma 4 technical report}. 2026. ArXiv:2607.02770 [cs.CL],
+  versão 2 de 24 jul. 2026.
 DOI: \url{https://doi.org/10.48550/arXiv.2607.02770}. Acesso em: 13 set. 2026.}
 
 \bibitem[Gerhardt e Silveira 2009]{gerhardt2009metodos}
@@ -179,9 +202,7 @@ DOI: \url{https://doi.org/10.48550/arXiv.2607.02770}. Acesso em: 13 set. 2026.}
 \bibitem[Gil 2019]{gil2019metodos}
 \abntrefinfo{Gil}{Gil}{2019}
 {GIL, A.~C. \textbf{Métodos e técnicas de pesquisa social}. 7. ed. São
-  Paulo, SP: Atlas, 2019. Dispon{\'\i}vel em:
-  \url{https://www.grupogen.com.br/livro-metodos-e-tecnicas-de-pesquisa-social-antonio-carlos-gil-9786559778560}.
-  Acesso em: 18 set. 2026.}
+  Paulo, SP: Atlas, 2019.}
 
 \bibitem[Harel 1987]{harel1987statecharts}
 \abntrefinfo{Harel}{Harel}{1987}
@@ -218,13 +239,13 @@ DOI: \url{https://doi.org/10.1109/TPAMI.2010.57}. Acesso em: 10 set. 2026.}
   Hirschl}{2022}
 {KREUZBERGER, D.; K{\"U}HL, N.; HIRSCHL, S. Machine learning operations
   ({MLOps}): Overview, definition, and architecture.
-\textbf{IEEE Access}, IEEE, v.~10, p. 31866--31879, 2022.
+\textbf{IEEE Access}, v.~10, p. 31866--31879, 2022.
 DOI: \url{https://doi.org/10.1109/ACCESS.2022.3160450}. Acesso em: 12 set.
   2026.}
 
-\bibitem[{LANGCHAIN} 2024]{langchain2024langgraph}
-\abntrefinfo{{LANGCHAIN}}{{LANGCHAIN}}{2024}
-{{LANGCHAIN}. \textbf{LangGraph: Building resilient language agents as graphs}.
+\bibitem[LangChain 2024]{langchain2024langgraph}
+\abntrefinfo{LangChain}{LangChain}{2024}
+{LANGCHAIN. \textbf{LangGraph: Building resilient language agents as graphs}.
   2024. Documento eletrônico corporativo, blog institucional LangChain.
 Dispon{\'\i}vel em: \url{https://blog.langchain.dev/langgraph/}. Acesso em: 18
   set. 2026.}
@@ -243,7 +264,7 @@ Dispon{\'\i}vel em:
 {LEWIS, D.~D.; GALE, W.~A. A sequential algorithm for training text
   classifiers. \textit{In}:  \textbf{Proceedings of the 17th Annual
   International ACM SIGIR Conference on Research and Development in Information
-  Retrieval}. [\textit{S.l.: s.n.}]: Springer, 1994. p. 3--12.
+  Retrieval}. London: Springer, 1994. p. 3--12.
 DOI: \url{https://doi.org/10.1007/978-1-4471-2099-5_1}. Acesso em: 10 set.
   2026.}
 
@@ -252,8 +273,9 @@ DOI: \url{https://doi.org/10.1007/978-1-4471-2099-5_1}. Acesso em: 10 set.
 {LEWIS, P. \textit{et al.} Retrieval-augmented generation for
   knowledge-intensive {NLP} tasks. \textit{In}:  \textbf{Advances in Neural
   Information Processing Systems (NeurIPS 2020)}. Red Hook, NY: Curran
-  Associates, 2020. v.~33, p. 9459--9474.
-DOI: \url{https://doi.org/10.48550/arXiv.2005.11401}. Acesso em: 14 set. 2026.}
+  Associates, 2020. v.~33, p. 9459--9474. Dispon{\'\i}vel em:
+  \url{https://proceedings.neurips.cc/paper/2020/hash/6b493230205f780e1bc26945df7481e5-Abstract.html}.
+  Acesso em: 14 set. 2026.}
 
 \bibitem[Lu \textit{et al.} 2019]{Lu2019LearningConceptDriftReview}
 \abntrefinfo{Lu \textit{et al.}}{Lu \textit{et al.}}{2019}
@@ -261,6 +283,23 @@ DOI: \url{https://doi.org/10.48550/arXiv.2005.11401}. Acesso em: 14 set. 2026.}
 \textbf{IEEE Transactions on Knowledge and Data Engineering}, v.~31, n.~12, p.
   2346--2363, 2019.
 DOI: \url{https://doi.org/10.1109/TKDE.2018.2876857}. Acesso em: 15 set. 2026.}
+
+\bibitem[Luhn 1960]{luhn1960patent}
+\abntrefinfo{Luhn}{Luhn}{1960}
+{LUHN, H.~P. \textbf{Computer for verifying numbers}. Washington, DC:
+  [\textit{S.l.: s.n.}], 1960. Patente US 2.950.048, United States Patent
+  Office.
+Dispon{\'\i}vel em: \url{https://patents.google.com/patent/US2950048A/en}.
+  Acesso em: 21 set. 2026.}
+
+\bibitem[Malkov e Yashunin 2020]{malkov2020hnsw}
+\abntrefinfo{Malkov e Yashunin}{Malkov; Yashunin}{2020}
+{MALKOV, Y.~A.; YASHUNIN, D.~A. Efficient and robust approximate nearest
+  neighbor search using hierarchical navigable small world graphs.
+\textbf{IEEE Transactions on Pattern Analysis and Machine Intelligence}, v.~42,
+  n.~4, p. 824--836, 2020.
+DOI: \url{https://doi.org/10.1109/TPAMI.2018.2889473}. Acesso em: 21 set.
+  2026.}
 
 \bibitem[Matos, Ciferri e Pardo 2009]{matos2010pre}
 \abntrefinfo{Matos, Ciferri e Pardo}{Matos; Ciferri; Pardo}{2009}
@@ -293,9 +332,18 @@ DOI: \url{https://doi.org/10.1007/BF02295996}. Acesso em: 12 set. 2026.}
 \abntrefinfo{Mikolov \textit{et al.}}{Mikolov \textit{et al.}}{2013}
 {MIKOLOV, T. \textit{et al.} Efficient estimation of word representations in
   vector space. \textit{In}:  \textbf{Proceedings of the International
-  Conference on Learning Representations (ICLR), Workshop Track}.
-  [\textit{S.l.: s.n.}], 2013.
+  Conference on Learning Representations (ICLR), Workshop Track}. Scottsdale,
+  AZ: ICLR, 2013.
 DOI: \url{https://doi.org/10.48550/arXiv.1301.3781}. Acesso em: 09 set. 2026.}
+
+\bibitem[Nassar \textit{et al.} 2022]{nassar2022tableformer}
+\abntrefinfo{Nassar \textit{et al.}}{Nassar \textit{et al.}}{2022}
+{NASSAR, A. \textit{et al.} {TableFormer}: table structure understanding with
+  transformers. \textit{In}:  \textbf{Proceedings of the IEEE/CVF Conference on
+  Computer Vision and Pattern Recognition (CVPR 2022)}. New Orleans, LA: IEEE,
+  2022. p. 4614--4623.
+DOI: \url{https://doi.org/10.1109/CVPR52688.2022.00457}. Acesso em: 21 set.
+  2026.}
 
 \bibitem[Northcutt, Jiang e Chuang 2021]{northcutt2021aprendizagem}
 \abntrefinfo{Northcutt, Jiang e Chuang}{Northcutt; Jiang; Chuang}{2021}
@@ -305,17 +353,24 @@ DOI: \url{https://doi.org/10.48550/arXiv.1301.3781}. Acesso em: 09 set. 2026.}
   2021.
 DOI: \url{https://doi.org/10.1613/jair.1.12125}. Acesso em: 14 set. 2026.}
 
-\bibitem[{PODER360} 2025]{poder360_2025}
-\abntrefinfo{{PODER360}}{{PODER360}}{2025}
-{{PODER360}. \textbf{Gastos com cartão de crédito sobem 8\% no fim de 2024,
-  aponta Elo}. 2025. Portal de Notícias.
-Dispon{\'\i}vel em:
-  \url{https://www.poder360.com.br/economia/gastos-com-cartao-de-credito-sobem-8-no-fim-de-2024-aponta-elo/}.
-  Acesso em: 12 fev. 2026.}
+\bibitem[Pedregosa \textit{et al.} 2011]{pedregosa2011scikit}
+\abntrefinfo{Pedregosa \textit{et al.}}{Pedregosa \textit{et al.}}{2011}
+{PEDREGOSA, F. \textit{et al.} Scikit-learn: machine learning in {Python}.
+\textbf{Journal of Machine Learning Research}, v.~12, p. 2825--2830, 2011.
+Dispon{\'\i}vel em: \url{https://jmlr.org/papers/v12/pedregosa11a.html}. Acesso
+  em: 21 set. 2026.}
 
-\bibitem[{PYDANTIC} 2025]{pydantic2025docs}
-\abntrefinfo{{PYDANTIC}}{{PYDANTIC}}{2025}
-{{PYDANTIC}. \textbf{Pydantic: data validation using Python type hints --
+\bibitem[Poder360 2025]{poder360_2025}
+\abntrefinfo{Poder360}{Poder360}{2025}
+{PODER360. \textbf{Gastos com cartão de crédito no Brasil crescem 8\% no fim
+  de 2024}. 2025. Portal de Notícias.
+Dispon{\'\i}vel em:
+  \url{https://www.poder360.com.br/poder-economia/gastos-com-cartao-de-credito-no-brasil-crescem-8-no-final-de-2024/}.
+  Acesso em: 21 set. 2026.}
+
+\bibitem[Pydantic 2025]{pydantic2025docs}
+\abntrefinfo{Pydantic}{Pydantic}{2025}
+{PYDANTIC. \textbf{Pydantic: data validation using Python type hints --
   documentation, version 2}. 2025. Documentação eletrônica do projeto.
 Dispon{\'\i}vel em: \url{https://docs.pydantic.dev/latest/}. Acesso em: 20 set.
   2026.}
@@ -323,14 +378,14 @@ Dispon{\'\i}vel em: \url{https://docs.pydantic.dev/latest/}. Acesso em: 20 set.
 \bibitem[Qui{\~n}onero-Candela \textit{et al.} 2008]{quinonero2008dataset}
 \abntrefinfo{Qui{\~n}onero-Candela \textit{et al.}}{Qui{\~n}onero-Candela
   \textit{et al.}}{2008}
-{QUI{\~N}ONERO-CANDELA, J. \textit{et al.} \textbf{Dataset Shift in Machine
-  Learning}. Cambridge, MA: The MIT Press, 2008.
+{QUI{\~N}ONERO-CANDELA, J. \textit{et al.} \textbf{Dataset shift in machine
+  learning}. Cambridge, MA: The MIT Press, 2008.
 DOI: \url{https://doi.org/10.7551/mitpress/9780262170055.001.0001}. Acesso em:
   11 set. 2026.}
 
 \bibitem[Rajaraman e Ullman 2011]{rajaraman2011mining}
 \abntrefinfo{Rajaraman e Ullman}{Rajaraman; Ullman}{2011}
-{RAJARAMAN, A.; ULLMAN, J.~D. \textbf{Mining of Massive Datasets}. Cambridge,
+{RAJARAMAN, A.; ULLMAN, J.~D. \textbf{Mining of massive datasets}. Cambridge,
   UK: Cambridge University Press, 2011.
 DOI: \url{https://doi.org/10.1017/CBO9781139058452}. Acesso em: 17 set. 2026.}
 
@@ -339,9 +394,18 @@ DOI: \url{https://doi.org/10.1017/CBO9781139058452}. Acesso em: 17 set. 2026.}
 {REIMERS, N.; GUREVYCH, I. Sentence-{BERT}: Sentence embeddings using siamese
   {BERT}-networks. \textit{In}:  \textbf{Proceedings of the 2019 Conference on
   Empirical Methods in Natural Language Processing and the 9th International
-  Joint Conference on Natural Language Processing (EMNLP-IJCNLP)}. Hong Kong,
-  China: Association for Computational Linguistics, 2019. p. 3982--3992.
+  Joint Conference on Natural Language Processing (EMNLP-IJCNLP)}. Hong Kong:
+  Association for Computational Linguistics, 2019. p. 3982--3992.
 DOI: \url{https://doi.org/10.18653/v1/D19-1410}. Acesso em: 19 set. 2026.}
+
+\bibitem[Reimers e Gurevych 2020]{reimers2020multilingual}
+\abntrefinfo{Reimers e Gurevych}{Reimers; Gurevych}{2020}
+{REIMERS, N.; GUREVYCH, I. Making monolingual sentence embeddings multilingual
+  using knowledge distillation. \textit{In}:  \textbf{Proceedings of the 2020
+  Conference on Empirical Methods in Natural Language Processing (EMNLP)}.
+  Online: Association for Computational Linguistics, 2020. p. 4512--4525.
+DOI: \url{https://doi.org/10.18653/v1/2020.emnlp-main.365}. Acesso em: 21 set.
+  2026.}
 
 \bibitem[Ren \textit{et al.} 2021]{ren2021aprendizagem}
 \abntrefinfo{Ren \textit{et al.}}{Ren \textit{et al.}}{2021}
@@ -368,28 +432,58 @@ DOI: \url{https://doi.org/10.1016/0306-4573(88)90021-0}. Acesso em: 15 set.
 \bibitem[Santos 2022]{santos2023classificacao}
 \abntrefinfo{Santos}{Santos}{2022}
 {SANTOS, M. T.~M. dos.
-\textbf{Classificação de produtos em Notas Fiscais Eletrônicas usando
-  Descrições Textuais não estruturadas}.
-2022. 39~f. Monografia (Trabalho de Conclusão de Curso (Engenharia de
-  Computação)) --- Universidade Federal de Alagoas (UFAL), Instituto de
-  Computação, Maceió, AL, 2022.
+\textbf{Classificação de produtos em notas fiscais eletrônicas usando
+  descrições textuais não estruturadas}.
+2022. 39~f. Monografia (Trabalho de Conclusão de Curso (Graduação em
+  Engenharia de Computação)) --- Universidade Federal de Alagoas (UFAL),
+  Instituto de Computação, Maceió, AL, 2022.
 Dispon{\'\i}vel em:
   \url{https://www.repositorio.ufal.br/handle/123456789/11641}. Acesso em: 18
   set. 2026.}
 
-\bibitem[{SERASA EXPERIAN} 2024]{serasa2024inadimplencia}
-\abntrefinfo{{SERASA EXPERIAN}}{{SERASA EXPERIAN}}{2024}
-{{SERASA EXPERIAN}. \textbf{Mapa da Inadimplência e Renegociação de Dívidas
-  no Brasil}. São Paulo: Serasa Experian, 2024. Relatório estatístico.
+\bibitem[Schuster e Nakajima 2012]{schuster2012wordpiece}
+\abntrefinfo{Schuster e Nakajima}{Schuster; Nakajima}{2012}
+{SCHUSTER, M.; NAKAJIMA, K. Japanese and {Korean} voice search. \textit{In}:
+  \textbf{2012 IEEE International Conference on Acoustics, Speech and Signal
+  Processing (ICASSP)}. Kyoto: IEEE, 2012. p. 5149--5152.
+DOI: \url{https://doi.org/10.1109/ICASSP.2012.6289079}. Acesso em: 21 set.
+  2026.}
+
+\bibitem[Sennrich, Haddow e Birch 2016]{sennrich2016bpe}
+\abntrefinfo{Sennrich, Haddow e Birch}{Sennrich; Haddow; Birch}{2016}
+{SENNRICH, R.; HADDOW, B.; BIRCH, A. Neural machine translation of rare words
+  with subword units. \textit{In}:  \textbf{Proceedings of the 54th Annual
+  Meeting of the Association for Computational Linguistics (Volume 1: Long
+  Papers)}. Berlin: Association for Computational Linguistics, 2016. p.
+  1715--1725.
+DOI: \url{https://doi.org/10.18653/v1/P16-1162}. Acesso em: 21 set. 2026.}
+
+\bibitem[Serasa Experian 2026]{serasa2026mapa}
+\abntrefinfo{Serasa Experian}{Serasa Experian}{2026}
+{SERASA EXPERIAN. \textbf{Mapa da inadimplência e renegociação de dívidas
+  no Brasil}. São Paulo, 2026. Relatório estatístico.
 Dispon{\'\i}vel em:
-  \url{https://www.serasa.com.br/limpa-nome-online/estatisticas-inadimplencia/}.
-  Acesso em: 10 fev. 2026.}
+  \url{https://www.serasa.com.br/limpa-nome-online/blog/mapa-da-inadimplencia-e-renogociacao-de-dividas-no-brasil/}.
+  Acesso em: 21 set. 2026.}
+
+\bibitem[Servi{\c{c}}o de Prote{\c{c}}{\~a}o ao Cr{\'e}dito -- SPC Brasil
+  2018]{spcbrasil2018controle}
+\abntrefinfo{Servi{\c{c}}o de Prote{\c{c}}{\~a}o ao Cr{\'e}dito -- SPC
+  Brasil}{Servi{\c{c}}o de Prote{\c{c}}{\~a}o ao Cr{\'e}dito -- SPC
+  Brasil}{2018}
+{SERVI{\c{C}}O DE PROTE{\c{C}}{\~A}O AO CR{\'E}DITO -- SPC BRASIL. \textbf{45\%
+  dos brasileiros não controlam as próprias finanças, mostra pesquisa sobre
+  educação financeira do SPC Brasil e CNDL}. Brasília: Confederação
+  Nacional de Dirigentes Lojistas, 2018. Relatório de pesquisa.
+Dispon{\'\i}vel em:
+  \url{https://site.cndl.org.br/45-dos-brasileiros-nao-controlam-as-proprias-financas-mostra-pesquisa-sobre-educacao-financeira-do-spc-brasil-e-cndl}.
+  Acesso em: 21 set. 2026.}
 
 \bibitem[Smith 2007]{smith2007overview}
 \abntrefinfo{Smith}{Smith}{2007}
 {SMITH, R. An overview of the {Tesseract} {OCR} engine. \textit{In}:
   \textbf{Ninth International Conference on Document Analysis and Recognition
-  (ICDAR 2007)}. Curitiba, Brasil: IEEE, 2007. v.~2, p. 629--633.
+  (ICDAR 2007)}. Curitiba: IEEE, 2007. v.~2, p. 629--633.
 DOI: \url{https://doi.org/10.1109/ICDAR.2007.4378789}. Acesso em: 20 set.
   2026.}
 
@@ -416,14 +510,6 @@ DOI: \url{https://doi.org/10.47328/ufvbbt.2025.430}. Acesso em: 17 set. 2026.}
 \textbf{Journal of Documentation}, v.~28, n.~1, p. 11--21, 1972.
 DOI: \url{https://doi.org/10.1108/eb026526}. Acesso em: 14 set. 2026.}
 
-\bibitem[{SPC BRASIL} 2024]{spcbrasil2024controle}
-\abntrefinfo{{SPC BRASIL}}{{SPC BRASIL}}{2024}
-{{SPC BRASIL}. \textbf{Pesquisa de Educação Financeira e Gestão do
-  Orçamento Doméstico no Brasil}. Brasília: Serviço de Proteção ao
-  Crédito, 2024. Relatório de pesquisa.
-Dispon{\'\i}vel em: \url{https://www.spcbrasil.org.br}. Acesso em: 20 jan.
-  2026.}
-
 \bibitem[Ta, Saad e Oh 2023]{ta2023specialized}
 \abntrefinfo{Ta, Saad e Oh}{Ta; Saad; Oh}{2023}
 {TA, D.-T.; SAAD, W. B.; OH, J.-Y. Specialized text classification: An approach
@@ -433,10 +519,18 @@ Dispon{\'\i}vel em: \url{https://www.spcbrasil.org.br}. Acesso em: 20 jan.
 DOI: \url{https://doi.org/10.1109/CSIT61576.2023.10324203}. Acesso em: 16 set.
   2026.}
 
+\bibitem[Tesseract OCR 2024]{tesseract2024lstm}
+\abntrefinfo{Tesseract OCR}{Tesseract OCR}{2024}
+{TESSERACT OCR. \textbf{Tesseract documentation: neural nets in Tesseract
+  4.00}. 2024.
+Dispon{\'\i}vel em:
+  \url{https://tesseract-ocr.github.io/tessdoc/tess4/NeuralNetsInTesseract4.00.html}.
+  Acesso em: 21 set. 2026.}
+
 \bibitem[Treveil \textit{et al.} 2020]{treveil2020mlops}
 \abntrefinfo{Treveil \textit{et al.}}{Treveil \textit{et al.}}{2020}
-{TREVEIL, M. \textit{et al.} \textbf{Introducing MLOps: How to Scale Machine
-  Learning in the Enterprise}. Sebastopol, CA: O'Reilly Media, 2020.
+{TREVEIL, M. \textit{et al.} \textbf{Introducing MLOps: how to scale machine
+  learning in the enterprise}. Sebastopol, CA: O'Reilly Media, 2020.
   Dispon{\'\i}vel em:
   \url{https://www.oreilly.com/library/view/introducing-mlops/9781492083283/}.
   Acesso em: 18 set. 2026.}
@@ -445,16 +539,36 @@ DOI: \url{https://doi.org/10.1109/CSIT61576.2023.10324203}. Acesso em: 16 set.
 \abntrefinfo{Vaswani \textit{et al.}}{Vaswani \textit{et al.}}{2017}
 {VASWANI, A. \textit{et al.} Attention is all you need. \textit{In}:
   \textbf{Advances in Neural Information Processing Systems (NeurIPS 2017)}.
-  Red Hook, NY: Curran Associates, 2017. v.~30, p. 5998--6008.
-DOI: \url{https://doi.org/10.48550/arXiv.1706.03762}. Acesso em: 19 set. 2026.}
+  Red Hook, NY: Curran Associates, 2017. v.~30, p. 5998--6008. Dispon{\'\i}vel
+  em:
+  \url{https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html}.
+  Acesso em: 19 set. 2026.}
+
+\bibitem[Wang \textit{et al.} 2020]{wang2020minilm}
+\abntrefinfo{Wang \textit{et al.}}{Wang \textit{et al.}}{2020}
+{WANG, W. \textit{et al.} {MiniLM}: deep self-attention distillation for
+  task-agnostic compression of pre-trained transformers. \textit{In}:
+  \textbf{Advances in Neural Information Processing Systems (NeurIPS 2020)}.
+  Red Hook, NY: Curran Associates, 2020. v.~33, p. 5776--5788.
+DOI: \url{https://doi.org/10.48550/arXiv.2002.10957}. Acesso em: 21 set. 2026.}
 
 \bibitem[Wei \textit{et al.} 2022]{wei2022chain}
 \abntrefinfo{Wei \textit{et al.}}{Wei \textit{et al.}}{2022}
 {WEI, J. \textit{et al.} Chain-of-thought prompting elicits reasoning in large
   language models. \textit{In}:  \textbf{Advances in Neural Information
   Processing Systems (NeurIPS 2022)}. Red Hook, NY: Curran Associates, 2022.
-  v.~35, p. 24824--24837.
-DOI: \url{https://doi.org/10.48550/arXiv.2201.11903}. Acesso em: 08 set. 2026.}
+  v.~35, p. 24824--24837. Dispon{\'\i}vel em:
+  \url{https://proceedings.neurips.cc/paper/2022/hash/9d5609613524ecf4f15af0f7b31abca4-Abstract-Conference.html}.
+  Acesso em: 08 set. 2026.}
+
+\bibitem[Wilson 1927]{wilson1927probable}
+\abntrefinfo{Wilson}{Wilson}{1927}
+{WILSON, E.~B. Probable inference, the law of succession, and statistical
+  inference.
+\textbf{Journal of the American Statistical Association}, v.~22, n.~158, p.
+  209--212, 1927.
+DOI: \url{https://doi.org/10.1080/01621459.1927.10502953}. Acesso em: 21 set.
+  2026.}
 
 \bibitem[Wirth e Hipp 2000]{wirth2000crisp}
 \abntrefinfo{Wirth e Hipp}{Wirth; Hipp}{2000}
@@ -488,8 +602,8 @@ DOI: \url{https://doi.org/10.1162/tacl_a_00461}. Acesso em: 18 set. 2026.}
 {YAO, S. \textit{et al.} {ReAct}: Synergizing reasoning and acting in language
   models. \textit{In}:  \textbf{Proceedings of the 11th International
   Conference on Learning Representations (ICLR 2023)}. Kigali: OpenReview,
-  2023.
-DOI: \url{https://doi.org/10.48550/arXiv.2210.03629}. Acesso em: 09 set. 2026.}
+  2023. Dispon{\'\i}vel em: \url{https://openreview.net/forum?id=WE\_vluYUL-X}.
+  Acesso em: 09 set. 2026.}
 
 \bibitem[Zaharia \textit{et al.} 2018]{zaharia2018mlflow}
 \abntrefinfo{Zaharia \textit{et al.}}{Zaharia \textit{et al.}}{2018}
@@ -504,7 +618,8 @@ Dispon{\'\i}vel em: \url{http://sites.computer.org/debull/A18dec/p39.pdf}.
 {ZHANG, X.; ZHAO, J.; LECUN, Y. Character-level convolutional networks for text
   classification. \textit{In}:  \textbf{Advances in Neural Information
   Processing Systems (NeurIPS)}. Red Hook, NY: Curran Associates, 2015. v.~28,
-  p. 649--657.
-DOI: \url{https://doi.org/10.48550/arXiv.1509.01626}. Acesso em: 09 set. 2026.}
+  p. 649--657. Dispon{\'\i}vel em:
+  \url{https://proceedings.neurips.cc/paper/2015/hash/250cf8b51c773f3f8dc8b4be867a9a02-Abstract.html}.
+  Acesso em: 09 set. 2026.}
 
 \end{thebibliography}

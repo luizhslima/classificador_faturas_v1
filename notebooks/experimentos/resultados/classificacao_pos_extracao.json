@@ -1,0 +1,54 @@
+{
+  "parte_a_extracao_vs_classificacao": {
+    "n_transacoes_por_metodo": {
+      "Docling": 699,
+      "Tesseract": 699
+    },
+    "concordancia": {
+      "Docling": 96.6,
+      "Tesseract": 62.1
+    },
+    "concordancia_exatas": {
+      "Docling": 100.0,
+      "Tesseract": 100.0
+    },
+    "concordancia_nao_exatas": {
+      "Docling": 72.1,
+      "Tesseract": 61.0
+    },
+    "n_nao_exatas": {
+      "Docling": 86,
+      "Tesseract": 679
+    },
+    "fracao_descricoes_csv_vistas_no_treino": 69.5
+  },
+  "parte_b_mcnemar_adicional": {
+    "mcnemar_rf_vs_agente": {
+      "ambos_acertam": 179,
+      "ambos_erram": 25,
+      "so_A": 104,
+      "so_B": 26,
+      "chi2": 45.608,
+      "p": 0.0
+    },
+    "mcnemar_ragnorm_vs_agente": {
+      "ambos_acertam": 189,
+      "ambos_erram": 35,
+      "so_A": 94,
+      "so_B": 16,
+      "chi2": 53.9,
+      "p": 0.0
+    },
+    "mcnemar_nb_vs_agente": {
+      "ambos_acertam": 190,
+      "ambos_erram": 24,
+      "so_A": 105,
+      "so_B": 15,
+      "chi2": 66.008,
+      "p": 0.0
+    },
+    "binomial_nb_p": 0.0487,
+    "bonferroni_alpha_6_testes": 0.0083,
+    "nb_significativo_apos_bonferroni": false
+  }
+}

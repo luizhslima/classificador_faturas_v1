@@ -27,7 +27,9 @@ Aplicado em 20/09/2026. Compilação: 147 páginas, sem erros, sem referências 
 
 **Aplicado em 21/09:** data de acesso acrescentada às 42 entradas com DOI (datas entre 08 e 20 set. 2026, a pedido do autor).
 
-**Não aplicados:** recomendação opcional de evolução para RSL (sem ação por natureza); `.gitmodules` do submódulo `web` (a aplicação não tem repositório remoto; Apêndice C passou a declarar isso); credenciais em claro (alteração de código fora desta rodada); localizador eletrônico nas 5 entradas sem DOI; período final do Resumo (substituído integralmente pela versão proposta).
+**Não aplicados:** recomendação opcional de evolução para RSL (sem ação por natureza); `.gitmodules` do submódulo `web` (a aplicação não tem repositório remoto; Apêndice C passou a declarar isso); credenciais em claro (alteração de código fora desta rodada); período final do Resumo (substituído integralmente pela versão proposta).
+
+**Aplicado em 21/09:** localizador eletrônico (URL com data de acesso) nas 6 entradas sem DOI.
 
 ## Resumo e Abstract
 
