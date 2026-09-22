@@ -7,14 +7,14 @@
 \contentsline {table}{\numberline {5}{\ignorespaces Desempenho comparativo global entre Docling V2 e Tesseract OCR.}}{88}{table.caption.27}%
 \contentsline {table}{\numberline {6}{\ignorespaces Detalhamento de CER, WER, casamento exato e latência por fatura do C6 Bank.}}{89}{table.caption.28}%
 \contentsline {table}{\numberline {7}{\ignorespaces Comparativo global de desempenho preditivo e tempo médio de inferência (teste cego de 334 transações, descrições disjuntas das do treino).}}{93}{table.caption.33}%
-\contentsline {table}{\numberline {8}{\ignorespaces Intervalos de confiança de 95\% (\textit {bootstrap}, $B=2.000$) para o F1-Macro.}}{94}{table.caption.36}%
-\contentsline {table}{\numberline {9}{\ignorespaces Validação cruzada em 5 partições versus teste cego por descrição disjunta (F1-Macro).}}{97}{table.caption.37}%
-\contentsline {table}{\numberline {10}{\ignorespaces Acurácia e F1-Macro por arquitetura, discriminados por instituição emissora (teste cego).}}{98}{table.caption.38}%
-\contentsline {table}{\numberline {11}{\ignorespaces Matriz de confusão do subconjunto do Nubank no teste cego ($n=100$), comum às quatro arquiteturas com métricas idênticas na Tabela~\ref {tab:desempenho_emissor}.}}{99}{table.caption.39}%
+\contentsline {table}{\numberline {8}{\ignorespaces Intervalos de confiança de 95\% (\textit {bootstrap}, $B=2.000$) para o F1-Macro.}}{95}{table.caption.36}%
+\contentsline {table}{\numberline {9}{\ignorespaces Validação cruzada em 5 partições versus teste cego por descrição disjunta (F1-Macro).}}{98}{table.caption.37}%
+\contentsline {table}{\numberline {10}{\ignorespaces Acurácia e F1-Macro por arquitetura, discriminados por instituição emissora (teste cego).}}{99}{table.caption.38}%
+\contentsline {table}{\numberline {11}{\ignorespaces Matriz de confusão do subconjunto do Nubank no teste cego ($n=100$), comum às quatro arquiteturas com métricas idênticas na Tabela~\ref {tab:desempenho_emissor}.}}{100}{table.caption.39}%
 \contentsline {table}{\numberline {12}{\ignorespaces F1-Macro por arquitetura, segmentado pela proveniência do rótulo de referência.}}{101}{table.caption.40}%
-\contentsline {table}{\numberline {13}{\ignorespaces Desempenho do TF-IDF + Random Forest discriminado por categoria de despesa efetivamente avaliada.}}{102}{table.caption.41}%
-\contentsline {table}{\numberline {14}{\ignorespaces Ablação da normalização léxica sobre o teste cego (variação de F1-Macro) e desempenho por ramo do agente (acurácia condicional).}}{105}{table.caption.44}%
-\contentsline {table}{\numberline {15}{\ignorespaces Acurácia global por arquitetura no teste cego, com intervalo de confiança de 95\% (Wilson) e teste binomial exato unilateral contra o limiar de 85\%.}}{109}{table.caption.45}%
-\contentsline {table}{\numberline {16}{\ignorespaces Registros recuperados por busca direta, por expressão de busca e base (Scopus e IEEE Xplore).}}{132}{table.caption.51}%
-\contentsline {table}{\numberline {17}{\ignorespaces Dicionário léxico de rotulagem: grupos de padrões por categoria, na ordem de precedência em que são aplicados.}}{151}{table.F.17}%
-\contentsline {table}{\numberline {18}{\ignorespaces Mapeamento da categoria nativa do emissor C6 Bank (derivada do código MCC) para a taxonomia canônica.}}{154}{table.F.18}%
+\contentsline {table}{\numberline {13}{\ignorespaces Desempenho do TF-IDF + Random Forest discriminado por categoria de despesa efetivamente avaliada.}}{103}{table.caption.41}%
+\contentsline {table}{\numberline {14}{\ignorespaces Ablação da normalização léxica sobre o teste cego (variação de F1-Macro) e desempenho por ramo do agente (acurácia condicional).}}{106}{table.caption.44}%
+\contentsline {table}{\numberline {15}{\ignorespaces Acurácia global por arquitetura no teste cego, com intervalo de confiança de 95\% (Wilson) e teste binomial exato unilateral contra o limiar de 85\%.}}{110}{table.caption.45}%
+\contentsline {table}{\numberline {16}{\ignorespaces Registros recuperados por busca direta, por expressão de busca e base (Scopus e IEEE Xplore).}}{134}{table.caption.51}%
+\contentsline {table}{\numberline {17}{\ignorespaces Dicionário léxico de rotulagem: grupos de padrões por categoria, na ordem de precedência em que são aplicados.}}{153}{table.F.17}%
+\contentsline {table}{\numberline {18}{\ignorespaces Mapeamento da categoria nativa do emissor C6 Bank (derivada do código MCC) para a taxonomia canônica.}}{156}{table.F.18}%

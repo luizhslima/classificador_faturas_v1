@@ -5,7 +5,7 @@
 \contentsline {figure}{\numberline {3}{\ignorespaces Distribuição comparativa de CER e WER entre Docling V2 e Tesseract OCR.}}{90}{figure.caption.29}%
 \contentsline {figure}{\numberline {4}{\ignorespaces Taxa de erro de caracteres (CER, \%) por competência de fatura (C6 Bank, 2022--2026).}}{90}{figure.caption.30}%
 \contentsline {figure}{\numberline {5}{\ignorespaces Taxa de casamento exato (\%) e distância média de Levenshtein por competência de fatura (painéis superior e inferior, respectivamente).}}{91}{figure.caption.31}%
-\contentsline {figure}{\numberline {6}{\ignorespaces Acurácia e F1-Macro por arquitetura no teste cego (eixo vertical linear, em \%).}}{93}{figure.caption.34}%
+\contentsline {figure}{\numberline {6}{\ignorespaces Acurácia e F1-Macro por arquitetura no teste cego (eixo vertical linear, em \%).}}{94}{figure.caption.34}%
 \contentsline {figure}{\numberline {7}{\ignorespaces Latência média de inferência por transação e por arquitetura no teste cego (eixo vertical em escala logarítmica, em ms).}}{94}{figure.caption.35}%
-\contentsline {figure}{\numberline {8}{\ignorespaces F1 por categoria de despesa do TF-IDF + Random Forest, melhor modelo do teste cego.}}{103}{figure.caption.42}%
-\contentsline {figure}{\numberline {9}{\ignorespaces Matriz de confusão do Agente Híbrido no teste cego (334 transações).}}{104}{figure.caption.43}%
+\contentsline {figure}{\numberline {8}{\ignorespaces F1 por categoria de despesa do TF-IDF + Random Forest, melhor modelo do teste cego.}}{104}{figure.caption.42}%
+\contentsline {figure}{\numberline {9}{\ignorespaces Matriz de confusão do Agente Híbrido no teste cego (334 transações).}}{105}{figure.caption.43}%

@@ -1,6 +1,6 @@
-PWD G:\repository\statement-classifier\docs\TCC - Final
+PWD g:\repository\statement-classifier\docs\TCC - Final
 INPUT C:\Users\DEVELOPER\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
-INPUT USPSC-modelo-ICMC-PORTUGUES.tex
+INPUT g:\repository\statement-classifier\docs\TCC - Final\USPSC-modelo-ICMC-PORTUGUES.tex
 OUTPUT USPSC-modelo-ICMC-PORTUGUES.log
 INPUT D:\Program Files\MikTeX\tex\latex\url\url.sty
 INPUT .\USPSC-classe\USPSC.cls
@@ -459,54 +459,6 @@ INPUT D:\Program Files\MikTeX\tex\latex\units\nicefrac.sty
 INPUT .\USPSC-modelo-ICMC-PORTUGUES.aux
 INPUT .\USPSC-modelo-ICMC-PORTUGUES.aux
 INPUT USPSC-modelo-ICMC-PORTUGUES.aux
-INPUT .\USPSC-TA-PreTextual\USPSC-CapaICMC.aux
-INPUT .\USPSC-TA-PreTextual\USPSC-CapaICMC.aux
-INPUT USPSC-TA-PreTextual\USPSC-CapaICMC.aux
-INPUT .\USPSC-TA-PreTextual\USPSC-fichacatalografica.aux
-INPUT .\USPSC-TA-PreTextual\USPSC-fichacatalografica.aux
-INPUT USPSC-TA-PreTextual\USPSC-fichacatalografica.aux
-INPUT .\USPSC-TA-PreTextual\USPSC-Dedicatoria.aux
-INPUT .\USPSC-TA-PreTextual\USPSC-Dedicatoria.aux
-INPUT USPSC-TA-PreTextual\USPSC-Dedicatoria.aux
-INPUT .\USPSC-TA-PreTextual\USPSC-Agradecimentos.aux
-INPUT .\USPSC-TA-PreTextual\USPSC-Agradecimentos.aux
-INPUT USPSC-TA-PreTextual\USPSC-Agradecimentos.aux
-INPUT .\USPSC-TA-PreTextual\USPSC-Resumo.aux
-INPUT .\USPSC-TA-PreTextual\USPSC-Resumo.aux
-INPUT USPSC-TA-PreTextual\USPSC-Resumo.aux
-INPUT .\USPSC-TA-PreTextual\USPSC-Abstract.aux
-INPUT .\USPSC-TA-PreTextual\USPSC-Abstract.aux
-INPUT USPSC-TA-PreTextual\USPSC-Abstract.aux
-INPUT .\USPSC-TA-PreTextual\USPSC-AbreviaturasSiglas.aux
-INPUT .\USPSC-TA-PreTextual\USPSC-AbreviaturasSiglas.aux
-INPUT USPSC-TA-PreTextual\USPSC-AbreviaturasSiglas.aux
-INPUT .\USPSC-TA-Textual\USPSC-Cap1-Introducao.aux
-INPUT .\USPSC-TA-Textual\USPSC-Cap1-Introducao.aux
-INPUT USPSC-TA-Textual\USPSC-Cap1-Introducao.aux
-INPUT .\USPSC-TA-Textual\USPSC-Cap2-Fundamentacao_Teorica.aux
-INPUT .\USPSC-TA-Textual\USPSC-Cap2-Fundamentacao_Teorica.aux
-INPUT USPSC-TA-Textual\USPSC-Cap2-Fundamentacao_Teorica.aux
-INPUT .\USPSC-TA-Textual\USPSC-CAPX-Trabalhos_Relacionados.aux
-INPUT .\USPSC-TA-Textual\USPSC-CAPX-Trabalhos_Relacionados.aux
-INPUT USPSC-TA-Textual\USPSC-CAPX-Trabalhos_Relacionados.aux
-INPUT .\USPSC-TA-Textual\USPSC-Cap3-Metodologia.aux
-INPUT .\USPSC-TA-Textual\USPSC-Cap3-Metodologia.aux
-INPUT USPSC-TA-Textual\USPSC-Cap3-Metodologia.aux
-INPUT .\USPSC-TA-Textual\USPSC-Cap4-Avaliacao_Experimental.aux
-INPUT .\USPSC-TA-Textual\USPSC-Cap4-Avaliacao_Experimental.aux
-INPUT USPSC-TA-Textual\USPSC-Cap4-Avaliacao_Experimental.aux
-INPUT .\USPSC-TA-Textual\USPSC-Cap5-Conclusao.aux
-INPUT .\USPSC-TA-Textual\USPSC-Cap5-Conclusao.aux
-INPUT USPSC-TA-Textual\USPSC-Cap5-Conclusao.aux
-INPUT .\USPSC-TA-PosTextual\USPSC-Apendices.aux
-INPUT .\USPSC-TA-PosTextual\USPSC-Apendices.aux
-INPUT USPSC-TA-PosTextual\USPSC-Apendices.aux
-INPUT .\USPSC-TA-PosTextual\USPSC-DeclaracaoIA.aux
-INPUT .\USPSC-TA-PosTextual\USPSC-DeclaracaoIA.aux
-INPUT USPSC-TA-PosTextual\USPSC-DeclaracaoIA.aux
-INPUT .\USPSC-TA-PosTextual\USPSC-IndicesRemissivos.aux
-INPUT .\USPSC-TA-PosTextual\USPSC-IndicesRemissivos.aux
-INPUT USPSC-TA-PosTextual\USPSC-IndicesRemissivos.aux
 OUTPUT USPSC-modelo-ICMC-PORTUGUES.aux
 INPUT D:\Program Files\MikTeX\tex\context\base\mkii\supp-pdf.mkii
 INPUT D:\Program Files\MikTeX\tex\context\base\mkii\supp-pdf.mkii
@@ -674,6 +626,7 @@ INPUT D:\Program Files\MikTeX\fonts\tfm\public\amsfonts\symbols\msam10.tfm
 INPUT D:\Program Files\MikTeX\fonts\tfm\public\amsfonts\symbols\msam5.tfm
 INPUT D:\Program Files\MikTeX\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
 INPUT D:\Program Files\MikTeX\fonts\tfm\public\amsfonts\symbols\msbm5.tfm
+INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\ec-lmbx9.tfm
 INPUT .\USPSC-img\CapaICMC.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
@@ -800,13 +753,6 @@ INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
-INPUT .\USPSC-modelo-ICMC-PORTUGUES.lof
-INPUT .\USPSC-modelo-ICMC-PORTUGUES.lof
-INPUT USPSC-modelo-ICMC-PORTUGUES.lof
-INPUT D:\Program Files\MikTeX\tex\latex\lm\t1lmtt.fd
-INPUT D:\Program Files\MikTeX\tex\latex\lm\t1lmtt.fd
-INPUT D:\Program Files\MikTeX\tex\latex\lm\t1lmtt.fd
-INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\ec-lmtt12.tfm
 INPUT .\USPSC-img\CapaICMC.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
@@ -823,9 +769,6 @@ INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
-INPUT .\USPSC-modelo-ICMC-PORTUGUES.lot
-INPUT .\USPSC-modelo-ICMC-PORTUGUES.lot
-INPUT USPSC-modelo-ICMC-PORTUGUES.lot
 INPUT .\USPSC-img\CapaICMC.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
@@ -904,10 +847,6 @@ INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
-INPUT .\USPSC-modelo-ICMC-PORTUGUES.toc
-INPUT .\USPSC-modelo-ICMC-PORTUGUES.toc
-INPUT USPSC-modelo-ICMC-PORTUGUES.toc
-INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\ec-lmsso12.tfm
 INPUT .\USPSC-img\CapaICMC.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
@@ -916,49 +855,6 @@ INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
-INPUT .\USPSC-img\CapaICMC.jpg
-INPUT .\USPSC-img\CapaICMC.jpg
-INPUT .\USPSC-img\CapaICMC.jpg
-INPUT .\USPSC-img\CapaICMC.jpg
-INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
-INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
-INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
-INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
-INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\ec-lmss12.tfm
-INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\rm-lmr12.tfm
-INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\rm-lmr10.tfm
-INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\rm-lmr7.tfm
-INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\lmmi12.tfm
-INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\lmmi10.tfm
-INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\lmmi7.tfm
-INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\lmsy10.tfm
-INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\lmsy10.tfm
-INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\lmsy7.tfm
-INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\rm-lmbx12.tfm
-INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\rm-lmbx10.tfm
-INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\rm-lmbx7.tfm
-INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\lmmib10.tfm
-INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\lmmib10.tfm
-INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\lmmib7.tfm
-INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\lmbsy10.tfm
-INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\lmbsy10.tfm
-INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\lmbsy7.tfm
-INPUT D:\Program Files\MikTeX\fonts\tfm\public\amsfonts\symbols\msam10.tfm
-INPUT D:\Program Files\MikTeX\fonts\tfm\public\amsfonts\symbols\msam10.tfm
-INPUT D:\Program Files\MikTeX\fonts\tfm\public\amsfonts\symbols\msam7.tfm
-INPUT D:\Program Files\MikTeX\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
-INPUT D:\Program Files\MikTeX\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
-INPUT D:\Program Files\MikTeX\fonts\tfm\public\amsfonts\symbols\msbm7.tfm
-INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\ec-lmssbo10.tfm
-INPUT .\USPSC-img\CapaICMC.jpg
-INPUT .\USPSC-img\CapaICMC.jpg
-INPUT .\USPSC-img\CapaICMC.jpg
-INPUT .\USPSC-img\CapaICMC.jpg
-INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
-INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
-INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
-INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
-INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\ec-lmtk10.tfm
 INPUT .\USPSC-img\CapaICMC.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
@@ -973,6 +869,11 @@ OUTPUT USPSC-TA-Textual\USPSC-Cap1-Introducao.aux
 INPUT .\USPSC-TA-Textual\USPSC-Cap1-Introducao.tex
 INPUT .\USPSC-TA-Textual\USPSC-Cap1-Introducao.tex
 INPUT USPSC-TA-Textual\USPSC-Cap1-Introducao.tex
+INPUT D:\Program Files\MikTeX\tex\latex\lm\t1lmtt.fd
+INPUT D:\Program Files\MikTeX\tex\latex\lm\t1lmtt.fd
+INPUT D:\Program Files\MikTeX\tex\latex\lm\t1lmtt.fd
+INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\ec-lmtt12.tfm
+INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\ec-lmbx10.tfm
 INPUT .\USPSC-img\CapaICMC.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
@@ -1119,20 +1020,20 @@ INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
-INPUT .\USPSC-img\CapaICMC.jpg
-INPUT .\USPSC-img\CapaICMC.jpg
-INPUT .\USPSC-img\CapaICMC.jpg
-INPUT .\USPSC-img\CapaICMC.jpg
-INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
-INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
-INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
-INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-TA-Textual\USPSC-CAPX-Trabalhos_Relacionados.tex
 INPUT .\USPSC-TA-Textual\USPSC-CAPX-Trabalhos_Relacionados.tex
 OUTPUT USPSC-TA-Textual\USPSC-CAPX-Trabalhos_Relacionados.aux
 INPUT .\USPSC-TA-Textual\USPSC-CAPX-Trabalhos_Relacionados.tex
 INPUT .\USPSC-TA-Textual\USPSC-CAPX-Trabalhos_Relacionados.tex
 INPUT USPSC-TA-Textual\USPSC-CAPX-Trabalhos_Relacionados.tex
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
@@ -1221,15 +1122,15 @@ INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
-INPUT .\USPSC-img\CapaICMC.jpg
-INPUT .\USPSC-img\CapaICMC.jpg
-INPUT .\USPSC-img\CapaICMC.jpg
-INPUT .\USPSC-img\CapaICMC.jpg
-INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
-INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
-INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
-INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\ec-lmri10.tfm
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
@@ -1296,7 +1197,6 @@ INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\ec-lmss10.tfm
 INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\ec-lmss9.tfm
 INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\ec-lmsso9.tfm
 INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\ec-lmssbx10.tfm
-INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\ec-lmbx10.tfm
 INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\ec-lmtt10.tfm
 INPUT .\USPSC-img\CapaICMC.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
@@ -1331,6 +1231,7 @@ INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\ec-lmtt9.tfm
+INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\ec-lmtk10.tfm
 INPUT .\USPSC-img\CapaICMC.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
@@ -1723,12 +1624,28 @@ INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-TA-Textual\USPSC-Cap5-Conclusao.tex
 INPUT .\USPSC-TA-Textual\USPSC-Cap5-Conclusao.tex
 OUTPUT USPSC-TA-Textual\USPSC-Cap5-Conclusao.aux
 INPUT .\USPSC-TA-Textual\USPSC-Cap5-Conclusao.tex
 INPUT .\USPSC-TA-Textual\USPSC-Cap5-Conclusao.tex
 INPUT USPSC-TA-Textual\USPSC-Cap5-Conclusao.tex
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\CapaICMC.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
@@ -1944,6 +1861,7 @@ INPUT .\USPSC-img\CapaICMC.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
 INPUT .\USPSC-img\USPSC-PaginaEmBranco.jpg
+INPUT D:\Program Files\MikTeX\fonts\tfm\public\lm\ec-lmssbo10.tfm
 INPUT .\USPSC-img\CapaICMC.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
 INPUT .\USPSC-img\CapaICMC.jpg
@@ -2057,9 +1975,6 @@ OUTPUT USPSC-TA-PosTextual\USPSC-IndicesRemissivos.aux
 INPUT .\USPSC-TA-PosTextual\USPSC-IndicesRemissivos.tex
 INPUT .\USPSC-TA-PosTextual\USPSC-IndicesRemissivos.tex
 INPUT USPSC-TA-PosTextual\USPSC-IndicesRemissivos.tex
-INPUT .\USPSC-modelo-ICMC-PORTUGUES.ind
-INPUT .\USPSC-modelo-ICMC-PORTUGUES.ind
-INPUT USPSC-modelo-ICMC-PORTUGUES.ind
 OUTPUT USPSC-modelo-ICMC-PORTUGUES.lof
 OUTPUT USPSC-modelo-ICMC-PORTUGUES.lot
 OUTPUT USPSC-modelo-ICMC-PORTUGUES.loq
@@ -2119,6 +2034,8 @@ INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmbx12.pfb
 INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmbx12.pfb
 INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmbx8.pfb
 INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmbx8.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmbx9.pfb
+INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmbx9.pfb
 INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmbxi10.pfb
 INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmbxi10.pfb
 INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmex10.pfb
@@ -2147,16 +2064,12 @@ INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmri12.pfb
 INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmri12.pfb
 INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmss10.pfb
 INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmss10.pfb
-INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmss12.pfb
-INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmss12.pfb
 INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmss9.pfb
 INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmss9.pfb
 INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmssbo10.pfb
 INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmssbo10.pfb
 INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmssbx10.pfb
 INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmssbx10.pfb
-INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmsso12.pfb
-INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmsso12.pfb
 INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmsso9.pfb
 INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmsso9.pfb
 INPUT D:\Program Files\MikTeX\fonts\type1\public\lm\lmsy10.pfb
