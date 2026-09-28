@@ -57,14 +57,14 @@ x-airflow-common:
     &airflow-common-env
     AIRFLOW__CORE__EXECUTOR: SequentialExecutor
     AIRFLOW__CORE__AUTH_MANAGER: airflow.providers.fab.auth_manager.fab_auth_manager.FabAuthManager
-    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://n8n:n8n_dev_password@192.168.15.18/airflow
-    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql+psycopg2://n8n:n8n_dev_password@192.168.15.18/airflow
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://n8n:${POSTGRES_PASSWORD:?defina POSTGRES_PASSWORD em infra/.env}@192.168.15.18/airflow
+    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql+psycopg2://n8n:${POSTGRES_PASSWORD:?defina POSTGRES_PASSWORD em infra/.env}@192.168.15.18/airflow
     AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
     AIRFLOW__CORE__FERNET_KEY: ${FERNET_KEY}
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
     AIRFLOW__CORE__LOAD_EXAMPLES: 'true'
     AIRFLOW__CORE__EXECUTION_API_SERVER_URL: 'http://airflow-apiserver:8080/execution/'
-    AIRFLOW__API_AUTH__JWT_SECRET: ${AIRFLOW__API_AUTH__JWT_SECRET:-airflow_jwt_secret}
+    AIRFLOW__API_AUTH__JWT_SECRET: ${AIRFLOW__API_AUTH__JWT_SECRET:?defina AIRFLOW__API_AUTH__JWT_SECRET em infra/.env}
     AIRFLOW__API_AUTH__JWT_ISSUER: ${AIRFLOW__API_AUTH__JWT_ISSUER:-airflow}
     # yamllint disable rule:line-length
     # Use simple http server on scheduler for health checks

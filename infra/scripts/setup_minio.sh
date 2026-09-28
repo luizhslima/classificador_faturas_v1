@@ -10,7 +10,7 @@ sleep 5
 
 # 1. Autenticar o cliente (mc) no servidor MinIO local
 echo "A autenticar..."
-mc alias set meudatalake http://minio:9000 admin_tcc senha_super_segura
+mc alias set meudatalake http://minio:9000 "$MINIO_ROOT_USER" "$MINIO_ROOT_PASSWORD"
 
 # 2. Criar os buckets com a flag --ignore-existing (não falha se já existirem)
 echo "A criar buckets..."

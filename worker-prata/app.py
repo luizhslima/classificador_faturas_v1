@@ -1,5 +1,6 @@
 import json
 import logging
+import os
 from kafka import KafkaConsumer
 from kafka.errors import KafkaError
 from kafka.consumer.subscription_state import ConsumerRebalanceListener
@@ -21,7 +22,9 @@ log = logging.getLogger(__name__)
 BOOTSTRAP_SERVERS = "192.168.15.18:9092"
 TOPIC = "datalake-bronze-ingestao-topic"
 GROUP_ID = "datalake-worker-group"
-DATABASE_URL="postgresql+psycopg2://n8n:n8n_dev_password@192.168.15.18:5433/agent"
+DATABASE_URL = os.getenv("DATABASE_URL")
+if not DATABASE_URL:
+    raise RuntimeError("Variável de ambiente DATABASE_URL não definida (ver .env.example).")
 
 
 class RebalanceListener(ConsumerRebalanceListener):

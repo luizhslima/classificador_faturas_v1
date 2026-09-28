@@ -10,33 +10,11 @@
 		\imprimirtipotrabalhoabs~-~\imprimirinstituicao, \imprimirlocal, 	\imprimirdata.
  	\end{flushleft}
 	\OnehalfSpacing
-   Transaction descriptions in credit card statements are short, non-standardized and noisy: they contain
-   truncated abbreviations, payment intermediary prefixes and errors introduced during document reading. This
-   noise prevents the automatic categorization of expenses and, with it, personal budget planning. The objective
-   of this research was to design, implement and experimentally evaluate an end-to-end computational solution
-   for the extraction, sanitization and automatic classification of expenses in the Brazilian context, executable
-   on local infrastructure and compliant with the Brazilian General Data Protection Law. The solution combines
-   document extraction with tabular layout preservation, deterministic lexical normalization routines and an
-   agent orchestrated as a state graph, which articulates dense vector retrieval, reasoning with a local large
-   language model and human confirmation in low-confidence cases, on a layered data infrastructure with
-   experiment tracking. The evaluation used two sets of real data: 699 transactions audited against the issuing
-   institution's official files, to measure extraction quality, and 1,660 transactions labeled into 11 categories, to
-   compare five architectures under a merchant-disjoint blind test. Layout-preserving extraction reduced the
-   character error rate from 52.82\% to 5.72\% and raised the exact match rate from 3.3\% to 86.2\%. In
-   classification, the sparse representation based on character $n$-grams combined with Random Forest achieved
-   the best Macro-F1 (69.3\%), with no statistically significant difference from dense vector retrieval in its best
-   configuration (66.8\%; McNemar's test, $p = 0.86$), and ahead of the hybrid agent (60.0\%) and the fine-tuning
-   of a byte-level model (48.3\%). The central hypothesis, stated for the hybrid pipeline, was refuted in both of
-   its sub-hypotheses: no architecture reached the 85\% Macro-F1 threshold. The finding of widest
-   methodological reach is the gap of 23 to 25 percentage points between conventional cross-validation and the
-   merchant-disjoint blind test, which quantifies how much of the apparent performance of this class of
-   classifier stems from memorizing previously observed merchants. It is concluded that the proposed pipeline
-   is functionally viable and auditable under local hardware constraints, and that its predictive effectiveness
-   remains conditioned on the volume and coverage of the labeled corpus.
+   Transaction descriptions in credit card statements are short, non-standardized and noisy, containing truncated abbreviations, payment intermediary prefixes and informal merchant names, which hinders the automatic categorization of expenses for personal budget planning. This research aimed to design, implement and experimentally evaluate a computational solution for the extraction, normalization and automatic classification of transactions in Brazilian credit card statements, executable on local infrastructure and guided by the principles of the Brazilian General Data Protection Law. The solution integrates layout-preserving document extraction, deterministic lexical normalization and an agent orchestrated as a state graph that combines dense vector search, a local language model and a human confirmation mechanism, on a layered data infrastructure with experiment tracking. The evaluation used real data: 699 transactions from 14 born-digital PDF statements, audited against the issuer's official files, to measure extraction quality; and 1,660 semi-automatically labeled transactions in 11 categories, with a blind test set of 334 transactions whose merchant descriptions are disjoint from those used in training, to compare five classification architectures. Native layout-preserving extraction reduced the character error rate from 52.86\% to 5.69\% relative to rasterization followed by optical character recognition, and raised the exact match rate from 3.3\% to 86.2\%. In classification, TF-IDF with character $n$-grams combined with a random forest achieved the highest Macro-F1 (69.3\%), statistically equivalent to dense vector search with lexical normalization (66.8\%; McNemar's test, $p = 0.86$) and higher than the hybrid agent (60.0\%) and the fine-tuning of a byte-level model (48.3\%). Within the agent, the vector branch correctly classified 97.7\% of the transactions it resolved, whereas the language model branch, evaluated without examples in the prompt, without the web search tool and with simulated human confirmation, reached 21.4\%. The central hypothesis, of accuracy and Macro-F1 above 85\%, was refuted for this configuration. The gap of 23 to 25 percentage points between conventional cross-validation and the description-disjoint blind test indicates that a relevant share of the apparent performance stems from memorizing previously observed merchants, and is a lower bound on that effect. It is concluded that the solution is functionally viable and auditable on local hardware, that, with little labeled data, classical sparse classifiers match dense representations at a fraction of the cost, and that predictive effectiveness depends mainly on the volume, coverage and quality of the labeled corpus.
 
    \vspace{\onelineskip}
 
    \noindent
-   \textbf{Keywords}: Financial transaction classification. Natural language processing. Vector similarity search. Optical character recognition. Intelligent agents.
+   \textbf{Keywords}: Financial transaction classification. Natural language processing. Vector similarity search. Layout-preserving document extraction. Intelligent agents.
  \end{otherlanguage*}
 \end{resumo}

@@ -16,4 +16,6 @@ app:
 datalake:
   minio:
     endpoint: http://192.168.15.18:9000
+    access-key: ${MINIO_ACCESS_KEY}
+    secret-key: ${MINIO_SECRET_KEY}
     bucket-name: bronze-raw

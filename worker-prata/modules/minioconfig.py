@@ -16,22 +16,24 @@ class MinioConnection:
     
     Permite configuração via parâmetros ou variáveis de ambiente:
     - MINIO_ENDPOINT (padrão: "192.168.15.18:9000")
-    - MINIO_ACCESS_KEY (padrão: "admin_tcc")
-    - MINIO_SECRET_KEY (padrão: "senha_super_segura")
+    - MINIO_ACCESS_KEY (obrigatória, sem valor padrão)
+    - MINIO_SECRET_KEY (obrigatória, sem valor padrão)
     - MINIO_SECURE (padrão: False)
     """
 
     def __init__(
         self,
         endpoint: str = "192.168.15.18:9000",
-        access_key: str = "admin_tcc",
-        secret_key: str = "senha_super_segura",
+        access_key: Optional[str] = None,
+        secret_key: Optional[str] = None,
         secure: bool = False,
         auto_connect: bool = True,
     ):
         self.endpoint = os.getenv("MINIO_ENDPOINT", endpoint)
         self.access_key = os.getenv("MINIO_ACCESS_KEY", access_key)
         self.secret_key = os.getenv("MINIO_SECRET_KEY", secret_key)
+        if not self.access_key or not self.secret_key:
+            raise ValueError("Defina MINIO_ACCESS_KEY e MINIO_SECRET_KEY no ambiente (ver .env.example).")
         
         env_secure = os.getenv("MINIO_SECURE")
         if env_secure is not None:
@@ -166,8 +168,8 @@ class MinioConnection:
 
 def conectar_minio(
     endpoint: str = "192.168.15.18:9000",
-    access_key: str = "admin_tcc",
-    secret_key: str = "senha_super_segura",
+    access_key: Optional[str] = None,
+    secret_key: Optional[str] = None,
     secure: bool = False,
 ) -> Optional[Minio]:
     """
