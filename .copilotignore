@@ -1,0 +1,26 @@
+# build e artefatos
+**/dist/**
+**/build/**
+**/coverage/**
+**/.next/**
+**/target/**
+**/out/**
+
+# dependências e vendors
+**/node_modules/**
+**/.venv/**
+**/vendor/**
+
+# dados e logs
+**/*.log
+**/*.sqlite
+**/*.parquet
+**/tmp/**
+**/artifacts/**
+**/screenshots/**
+
+# segredos
+**/.env
+**/.env.*
+**/*secret*
+**/*credentials*

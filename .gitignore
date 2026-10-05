@@ -1,0 +1,49 @@
+# Segredos
+.env
+.env.*
+*.env
+env
+!.env.example
+!infra/.env.example
+
+# Dados e artefatos locais (nunca versionar)
+data/
+docs/
+web/
+notebooks/output/
+notebooks/experimentos/resultados/
+*.csv
+*.xlsx
+*.pdf
+*.jpg
+*.jpeg
+*.png
+*.html
+*.db
+*.dump
+*.zip
+*.parquet
+*.pptx
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Java/Gradle
+build/
+bin/
+.gradle/
+
+# LaTeX
+*.aux
+*.log
+*.synctex.gz
+
+# IDE
+.idea/
