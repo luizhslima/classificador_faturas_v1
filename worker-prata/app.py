@@ -19,7 +19,7 @@ logging.basicConfig(
 )
 log = logging.getLogger(__name__)
 
-BOOTSTRAP_SERVERS = "192.168.15.18:9092"
+BOOTSTRAP_SERVERS = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "localhost:9092")
 TOPIC = "datalake-bronze-ingestao-topic"
 GROUP_ID = "datalake-worker-group"
 DATABASE_URL = os.getenv("DATABASE_URL")

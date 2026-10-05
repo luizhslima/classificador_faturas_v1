@@ -15,7 +15,7 @@ class MinioConnection:
     Classe responsável por gerenciar a conexão e operações com o MinIO / S3.
     
     Permite configuração via parâmetros ou variáveis de ambiente:
-    - MINIO_ENDPOINT (padrão: "192.168.15.18:9000")
+    - MINIO_ENDPOINT (padrão: "localhost:9000")
     - MINIO_ACCESS_KEY (obrigatória, sem valor padrão)
     - MINIO_SECRET_KEY (obrigatória, sem valor padrão)
     - MINIO_SECURE (padrão: False)
@@ -23,7 +23,7 @@ class MinioConnection:
 
     def __init__(
         self,
-        endpoint: str = "192.168.15.18:9000",
+        endpoint: str = "localhost:9000",
         access_key: Optional[str] = None,
         secret_key: Optional[str] = None,
         secure: bool = False,
@@ -167,7 +167,7 @@ class MinioConnection:
 
 
 def conectar_minio(
-    endpoint: str = "192.168.15.18:9000",
+    endpoint: str = "localhost:9000",
     access_key: Optional[str] = None,
     secret_key: Optional[str] = None,
     secure: bool = False,

@@ -1,7 +1,7 @@
 # Resultados reais — Capítulo 4 (classificação)
 
 Pipeline reprodutível: `notebooks/experimentos/` (`common.py` + `01`–`08`).
-Rastreamento: MLflow `http://192.168.15.18:5000` — experimento `experimento_faturas`.
+Rastreamento: MLflow `http://localhost:5000` — experimento `experimento_faturas`.
 
 ## Base rotulada
 - **1.660 transações reais** de faturas C6 Bank + Nubank (74% rotuladas por dicionário léxico

@@ -361,7 +361,7 @@ def relatorio_por_categoria(y_true, y_pred) -> pd.DataFrame:
 # ---------------------------------------------------------------------------
 # MLflow
 # ---------------------------------------------------------------------------
-MLFLOW_URI = os.getenv("MLFLOW_TRACKING_URI", "http://192.168.15.18:5000")
+MLFLOW_URI = os.getenv("MLFLOW_TRACKING_URI", "http://localhost:5000")
 EXPERIMENT_NAME = "experimento_faturas"
 
 
@@ -378,7 +378,7 @@ def init_mlflow():
 
     exigir_env("AWS_ACCESS_KEY_ID")
     exigir_env("AWS_SECRET_ACCESS_KEY")
-    os.environ.setdefault("MLFLOW_S3_ENDPOINT_URL", "http://192.168.15.18:9000")
+    os.environ.setdefault("MLFLOW_S3_ENDPOINT_URL", "http://localhost:9000")
     os.environ.setdefault("AWS_DEFAULT_REGION", "us-east-1")
     mlflow.set_tracking_uri(MLFLOW_URI)
     mlflow.set_experiment(EXPERIMENT_NAME)

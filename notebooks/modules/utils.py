@@ -191,7 +191,7 @@ def normalizar_nome(nome: str) -> str:
     return texto
 
 def conectar_minio(
-    endpoint="192.168.15.18:9000",
+    endpoint="localhost:9000",
     access_key=None,
     secret_key=None,
     secure=False,

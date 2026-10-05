@@ -2,7 +2,7 @@ spring:
   application:
     name: service-ingestao
   kafka:
-    bootstrap-servers: 192.168.15.18:9092
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
@@ -15,7 +15,7 @@ app:
 
 datalake:
   minio:
-    endpoint: http://192.168.15.18:9000
+    endpoint: ${MINIO_ENDPOINT_URL:http://localhost:9000}
     access-key: ${MINIO_ACCESS_KEY}
     secret-key: ${MINIO_SECRET_KEY}
     bucket-name: bronze-raw
